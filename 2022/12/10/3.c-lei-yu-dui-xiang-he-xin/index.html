@@ -1,0 +1,3771 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>C++类与对象(核心) | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        C++类与对象(核心)
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2022-12-10 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E5%88%9D%E9%98%B6C/" class="post-detail-header_category">
+              初阶C++
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 6.1k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 27分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="C-类与对象-核心"><a href="#C-类与对象-核心" class="headerlink" title="C++类与对象(核心)"></a><strong>C++类与对象(核心)</strong></h1><h2 id="类的默认成员函数"><a href="#类的默认成员函数" class="headerlink" title="类的默认成员函数"></a><strong>类的默认成员函数</strong></h2><h3 id="六个默认成员函数"><a href="#六个默认成员函数" class="headerlink" title="六个默认成员函数"></a><strong>六个默认成员函数</strong></h3><p><strong>如果一个类中什么成员都没有，简称为空类。空类中什么都没有吗？并不是的，任何一个类在我们不写的情况下，都会自动生成下面6个默认成员函数，他们由编译器自动写成</strong></p>
+<img src="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623222943191.png" class="lazyload placeholder" data-srcset="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623222943191.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222943191">
+
+<blockquote>
+<p><strong>1.构造函数：初始化</strong></p>
+<p><strong>2.析构函数：清理</strong></p>
+<p><strong>3.拷贝构造：同类对象初始化</strong></p>
+<p><strong>4.赋值重载：对象赋值对象</strong></p>
+<p><strong>5.非const对象取地址：可读可写内容</strong></p>
+<p><strong>6.const对象取地址：可读不可写内容</strong></p>
+</blockquote>
+<hr>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a><strong>构造函数</strong></h2><h3 id="构造函数概念"><a href="#构造函数概念" class="headerlink" title="构造函数概念"></a><strong>构造函数概念</strong></h3><blockquote>
+<p><strong><font color=blue>构造函数是一个特殊的成员函数,<mark>名字与类名相同</mark>,创建类的类型对象时由<mark>编译器自动调用</mark>，<mark>保证</mark>每个数据成员都<mark>有</mark> 一个合适的<mark>初始值</mark>,并且在对象的<mark>生命周期内只调用一次</mark></font></strong></p>
+<p><strong>总结：</strong></p>
+<ol>
+<li><font color=red><strong>名字与类型相同</strong></font></li>
+<li><font color=red><strong>编译器自动调用</strong></font></li>
+<li><font color=red><strong>确保成员初始化</strong></font></li>
+<li><font color=red><strong>对象生命周期只调用一次</strong></font></li>
+</ol>
+<p><font color=red><strong>构造函数产生原因：对于Date类，可以通过SetDate公有的方法给对象设置内容，但是如果每次创建对象都调用该方法设置信息，太麻烦了，基于此就出现了构造函数用于初始化对象！</strong></font></p>
+</blockquote>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">class Date
+&#123; 
+public:
+ Date()&#123;&#125;&#x2F;&#x2F;默认构造函数，不写自动生成
+ void SetDate(int year, int month, int day)
+ &#123;
+ 	_year &#x3D; year;
+ 	_month &#x3D; month;
+ 	_day &#x3D; day;
+ &#125;
+ 
+ void Display()
+ &#123;
+ 	cout &lt;&lt;_year&lt;&lt; &quot;-&quot; &lt;&lt;_month &lt;&lt; &quot;-&quot;&lt;&lt; _day &lt;&lt;endl;
+ &#125;
+    
+private:
+ 		int _year;
+		int _month;
+ 		int _day;
+&#125;;
+
+int main()
+&#123;
+ 	Date d1;
+ 	d1.SetDate(2022,5,1);
+ 	d1.Display();
+   
+    Date d2;
+ 	d2.SetDate(2018,7,1);
+ 	d2.Display();
+ 	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="构造函数特性"><a href="#构造函数特性" class="headerlink" title="构造函数特性"></a><strong>构造函数特性</strong></h3><p><strong>构造函数是特殊的成员函数，需要注意的是，构造函数的虽然名称叫构造，但是需要注意的是构造函数的主要任务并不是开空间创建对象，而是初始化对象(不开空间)</strong></p>
+<p><strong>补充：</strong><font color=red><strong>C++中把类型分为了内置类型和自定义类型</strong></font></p>
+<ul>
+<li><p><font color=red><strong>内置类型：int&#x2F;char&#x2F;float&#x2F;double&#x2F;指针…</strong></font></p>
+</li>
+<li><p><font color=red><strong>自定义类型：class&#x2F;struct&#x2F;union&#x2F;enum&#x2F;数组 定义的类型</strong></font></p>
+</li>
+<li><p><strong><mark>默认生成的构造函数对于内置类型成员变量不处理，对于自定义类型成员变量才处理</mark></strong></p>
+</li>
+<li><p><font color=blue><strong><mark>内置类型</mark>的成员会完成值拷贝(即<mark>浅拷贝</mark>)</strong></font></p>
+</li>
+<li><p><font color=blue><strong><mark>自定义类型</mark>的成员会调用这个成员的<mark>拷贝构造</mark></strong></font></p>
+</li>
+</ul>
+<img src="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623222952223.png" class="lazyload placeholder" data-srcset="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623222952223.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222952223">
+
+
+
+<p><font color=blue><strong>也就是说内置类型不处理，值为随机值；自定义类型处理，值为调用默认构造函数的结果</strong></font></p>
+<ul>
+<li><strong>总结：</strong></li>
+<li><strong><mark>如果一个类的成员全是自定义类型，我们就可以用默认生成的函数</mark></strong></li>
+<li><strong><mark>如果有内置类型的成员，或者需要显示传参初始化，那么都要自己实现构造函数</mark></strong></li>
+</ul>
+<blockquote>
+<p><font color=red><strong>构造函数特性：</strong></font></p>
+<p><strong>1.函数名与类名相同</strong></p>
+<p><strong>2.无返回值</strong></p>
+<p><strong>3.对象实例化时编译器自动调用对应的构造函数</strong></p>
+<p><strong>4.构造函数可以重载</strong>	</p>
+<p><strong><font color=red>5.如果类中没有显式定义构造函数，则C++编译器会自动生成一个无参的默认构造函数(数值为随机值)，一旦用户显式定义编译器将不再生成</font></strong></p>
+<p><strong>6.<mark>无参的构造函数</mark>和<mark>全缺省的构造函数</mark>都<mark>称为默认构造函数</mark>，并且<mark>默认构造函数只能有一个</mark></strong></p>
+<p><strong>7.注意：<mark>无参构造函数</mark>、<mark>全缺省构造函数</mark>、我们没写编译器<mark>默认生成的构造函数</mark>，都可以认为<mark>是默认构造函数</mark></strong></p>
+</blockquote>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Date
+&#123; 
+public:
+ &#x2F;&#x2F;0.不写构造函数，编译器自动生成一个构造函数
+ Date()&#123;&#125;&#x2F;&#x2F;自动生成
+
+ &#x2F;&#x2F; 1.无参构造函数
+ Date ()&#123;&#125;
+ 
+ &#x2F;&#x2F; 2.带参构造函数
+ Date (int year,int month,int day )
+ &#123;
+	 _year &#x3D; year;
+ 	_month &#x3D; month;
+ 	_day &#x3D; day;
+ &#125;
+    
+private:
+ 		int _year;
+ 		int _month;
+ 		int _day;
+    
+    	&#x2F;&#x2F;以下代码为C++11补丁，针对编译器自己生成默认成员函数不初始化问题
+    	&#x2F;&#x2F;int _year&#x3D;0;
+    	&#x2F;&#x2F;int _month&#x3D;0;
+    	&#x2F;&#x2F;int _day&#x3D;0;
+&#125;;
+
+void TestDate()
+&#123;
+     &#x2F;&#x2F; 注意：如果通过无参构造函数创建对象时，对象后面不用跟括号，否则就成了函数声明
+     Date d1;&#x2F;&#x2F; 调用无参构造函数
+     Date d2 (2015, 1, 1);&#x2F;&#x2F; 调用带参的构造函数
+     Date d3();&#x2F;&#x2F;声明了d3函数，该函数无参，返回一个日期类型的对象
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a><strong>析构函数</strong></h2><h3 id="析构函数概念"><a href="#析构函数概念" class="headerlink" title="析构函数概念"></a><strong>析构函数概念</strong></h3><blockquote>
+<p><font color=red><strong>析构函数：与构造函数功能相反，析构函数不是完成对象的销毁，局部对象销毁工作是由编译器完成的。而对象在销毁时会自动调用析构函数，完成类的一些资源清理工作</strong></font></p>
+</blockquote>
+<hr>
+<h3 id="析构函数特性"><a href="#析构函数特性" class="headerlink" title="析构函数特性"></a><strong>析构函数特性</strong></h3><blockquote>
+<p><font color=red><strong>1.析构函数名是在类名前加上字符 ~</strong></font></p>
+<p><font color=red><strong>2.无参数</strong></font></p>
+<p><font color=red><strong>3.无返回值</strong></font></p>
+<p><font color=red><strong>4.一个类有且只有一个析构函数，若未显示定义，则系统自动生成默认的析构函数</strong></font></p>
+<p><font color=red><strong>5.对象生命周期结束时，C++编译系统自动调用析构函数</strong></font></p>
+</blockquote>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">typedef int DataType;
+class SeqList
+&#123; 
+public:
+ SeqList (int capacity &#x3D; 10)&#x2F;&#x2F;全缺省构造函数---初始化类的成员变量
+ &#123;
+ 	_Data &#x3D; (DataType*)malloc(capacity * sizeof(DataType));
+ 	assert(_Data);
+ 	_size &#x3D; 0;
+ 	_capacity &#x3D; capacity;
+ &#125;
+ 
+ ~SeqList()&#x2F;&#x2F;析构函数---销毁类的成员
+ &#123;
+ 	if(_Data)
+ 	&#123;
+ 		free(_Data); &#x2F;&#x2F; 释放堆上的空间
+ 		_pData &#x3D; NULL; &#x2F;&#x2F; 将指针置为空
+ 	    _capacity &#x3D; 0;
+ 		_size &#x3D; 0;
+ 	&#125;
+ &#125;
+ 
+private:
+ 		int* _Data ;
+ 		size_t _size;
+ 		size_t _capacity;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a><strong>拷贝构造函数</strong></h2><h3 id="拷贝构造函数概念"><a href="#拷贝构造函数概念" class="headerlink" title="拷贝构造函数概念"></a><strong>拷贝构造函数概念</strong></h3><p><font color=blue><strong>拷贝构造函数：<mark>只有单个形参</mark>，该形参是<mark>对本类类型对象的引用</mark>(一般常用const修饰)，在用已存在的类类型对象创建新对象时由编译器自动调用</strong></font></p>
+<blockquote>
+<p><strong><font color=red>使用拷贝构造函数三种情况：</font></strong></p>
+<p><strong><font color=red>1.对象初始化对象 </font></strong></p>
+<p><strong><font color=red>2.函数参数以对象传递 </font></strong></p>
+<p><strong><font color=red>3.函数的返回值以对象返回</font></strong></p>
+<p><strong>简言之：初始化对象、返回值对象、参数对象</strong></p>
+<ul>
+<li><strong><font color=green>内置类型成员：会完成值拷贝，即浅拷贝</font></strong></li>
+<li><strong><font color=green>自定义类型成员：调用这个成员的拷贝构造</font></strong></li>
+</ul>
+<p><font color=red><strong>使用拷贝构造函数的结论：一般的类，自己生成拷贝构造就够用了。只有像<mark>stack这样的类，自己直接管理资源，需要自己实现深拷贝</mark></strong></font></p>
+<p><strong>补充：在传值传参和传值返回的过程中，只要是在一个表达式调用的连续步骤(一般是return的时候)中，就可能产生优化</strong></p>
+</blockquote>
+<p><font color=blue><strong><mark>拷贝构造没有优化的编译器</mark>：返回值赋值给临时变量(中间对象)，临时变量(中间对象)在赋值给对象，经历两次拷贝构造</strong></font></p>
+<img src="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223001089.png" class="lazyload placeholder" data-srcset="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223001089.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223001089">
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Weight
+&#123;
+public:
+    Weight()
+    &#123;
+        cout&lt;&lt;&quot;Weight()&quot;&lt;&lt;endl;
+    &#125;
+    weight(const Weight&amp; w)
+    &#123;
+        cout&lt;&lt;&quot;Weight(const Weight&amp; w)&quot;&lt;&lt;endl;
+    &#125;
+    void f()
+    &#123;&#125;
+&#125;;
+
+Weight func1(Weight u)&#x2F;&#x2F;调用函数传参时会拷贝构造一次---函数参数以对象传递
+&#123;
+    Weight v(u);&#x2F;&#x2F;Weight v(u)和Weight v&#x3D;u 等价  拷贝构造一次---对象初始化
+    Weight w&#x3D;v;&#x2F;&#x2F;拷贝构造一次---对象初始化
+    return w;&#x2F;&#x2F;拷贝构造一(或二)次---函数返回值以对象返回   先拷贝构造一个临时变量，再拷贝给赋的值
+
+    &#x2F;&#x2F;一个表达式中，连续步骤的构造+拷贝构造或者拷贝构造+拷贝构造，编译器可能优化，合二为一
+&#125;
+&#x2F;&#x2F;func1调用4次拷贝构造
+
+Weight func2(Weight&amp; u)&#x2F;&#x2F;这里用的是别名，不会调用拷贝构造
+&#123;
+    Weight v(u);&#x2F;&#x2F;拷贝构造一次
+    Weight w&#x3D;v;&#x2F;&#x2F;拷贝构造一次
+    return w;&#x2F;&#x2F;拷贝构造一次
+&#125;
+&#x2F;&#x2F;func2调用3次拷贝构造
+
+Weight&amp; func3(Weight&amp; u)&#x2F;&#x2F;这里用的别名，不拷贝构造
+&#123;
+    Weight v(u);&#x2F;&#x2F;拷贝构造一次   直接构造
+    Weight w&#x3D;v;&#x2F;&#x2F;拷贝构造一次	   隐式类型转换
+    return w;&#x2F;&#x2F;返回值用的别名，不拷贝构造
+&#125;
+&#x2F;&#x2F;func3调用2次拷贝构造<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><font color=blue><strong><mark>拷贝构造优化的编译器</mark>：把中间对象优化掉，直接用第一个对象拷贝构造第三个对象</strong></font></p>
+<img src="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223011386.png" class="lazyload placeholder" data-srcset="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223011386.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223011386">
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;例题:这个函数调用了几次拷贝构造函数?    答案：7次
+Weight f(Weight u)
+&#123;
+	Weight v(u);
+	Weight w&#x3D;v;
+	return w;
+&#125;
+int main()
+&#123;
+	Weight x;
+	Weight y&#x3D;f(f(x));
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223024715.png" class="lazyload placeholder" data-srcset="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223024715.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223024715">
+
+<hr>
+<h3 id="拷贝构造函数特性"><a href="#拷贝构造函数特性" class="headerlink" title="拷贝构造函数特性"></a><strong>拷贝构造函数特性</strong></h3><blockquote>
+<p><font color=red><strong>1.<mark>拷贝构造函数是构造函数的一个重载形式</mark></strong></font></p>
+<p><font color=red><strong>2.拷贝构造函数的参数只有一个且必须使用引用传参，<mark>使用传值方式会引发无穷递归调用</mark></strong></font></p>
+<p><font color=red><strong>3.若未显示定义，系统生成默认的拷贝构造函数。<mark>默认的拷贝构造函数对象按“字节序”完成拷贝，这种拷贝我们叫做浅拷贝，或者值拷贝</mark></strong></font></p>
+<p><font color=red><strong>注：字节序是指多字节数据在计算机内存中存储或者网络传输时各字节的存储顺序</strong></font></p>
+</blockquote>
+<p><strong>举例：</strong></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Date
+&#123;
+public:
+ Date(int year &#x3D; 2022, int month &#x3D; 5, int day &#x3D; 1)&#x2F;&#x2F;全缺省构造函数
+ &#123;
+ 	_year &#x3D; year;
+ 	_month &#x3D; month;
+	_day &#x3D; day;
+ &#125;
+ 
+ Date(const Date&amp; d)&#x2F;&#x2F;拷贝构造函数
+ &#123;
+ 	_year &#x3D; d._year;
+ 	_month &#x3D; d._month;
+ 	_day &#x3D; d._day;
+ &#125;
+ 
+private:
+ 	int _year;
+ 	int _month;
+ 	int _day;
+&#125;;
+
+int main()
+&#123;
+ 	Date d1;
+ 	Date d2(d1);
+ 	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Date
+&#123;
+public:
+ Date(int year &#x3D; 2022, int month &#x3D; 5, int day &#x3D; 1)&#x2F;&#x2F;全缺省构造函数
+ &#123;
+	 _year &#x3D; year;
+ 	_month &#x3D; month;
+ 	_day &#x3D; day;
+ &#125;
+ &#x2F;&#x2F;生成默认拷贝构造函数
+    &#x2F;&#x2F;Date(const Date&amp; d)&#123;&#125;
+    
+private:
+ 	int _year;
+ 	int _month;
+ 	int _day;
+&#125;;
+
+int main()
+&#123;
+	Date d1;&#x2F;&#x2F;调用无参构造函数，使用全缺省构造函数
+ 	&#x2F;&#x2F; 这里d2调用的默认拷贝构造完成拷贝，d2和d1的值也是一样的。
+ 	Date d2(d1);
+ 	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="拷贝构造函数的浅拷贝问题"><a href="#拷贝构造函数的浅拷贝问题" class="headerlink" title="拷贝构造函数的浅拷贝问题"></a><strong>拷贝构造函数的浅拷贝问题</strong></h3><p><strong>一：传值引发的无穷递归调用</strong></p>
+<p><font color=red><strong>传值进去生成一个临时拷贝对象，临时拷贝对象又是值，又生成一个临时拷贝对象……循环往复</strong></font></p>
+<img src="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223035015.png" class="lazyload placeholder" data-srcset="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223035015.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223035015">
+
+<p><strong>二：const引发的浅拷贝崩溃</strong></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class String
+&#123;
+public:
+ String(const char* str &#x3D; &quot;jack&quot;)
+ &#123;
+ 	_str &#x3D; (char*)malloc(strlen(str) + 1);
+ 	strcpy(_str, str);
+ &#125;
+    
+ ~String()
+ &#123;
+ 	cout &lt;&lt; &quot;~String()&quot; &lt;&lt; endl;
+ 	free(_str);
+ &#125;
+    
+private:
+ 	char* _str;
+&#125;;
+
+int main()
+&#123;
+ 	String s1(&quot;hello&quot;);
+ 	String s2(s1);&#x2F;&#x2F;程序会崩掉 需要深拷贝才能解决问题
+    &#x2F;&#x2F;解析：
+    &#x2F;&#x2F;1.s1和s2指向同一块空间，修改数据会相互影响
+    &#x2F;&#x2F;2.这块空间析构时会释放两次，程序会崩溃
+    &#x2F;&#x2F;解决方案：自己实现拷贝构造，即深拷贝
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a><strong>运算符重载</strong></h2><h3 id="运算符重载概念"><a href="#运算符重载概念" class="headerlink" title="运算符重载概念"></a><strong>运算符重载概念</strong></h3><blockquote>
+<ul>
+<li><strong><font color=blue>内置类型：可以直接用各种运算符</font></strong></li>
+<li><strong><font color=blue>自定义类型：不能直接用各种运算符</font></strong></li>
+<li>为了让自定义类型可以使用各种运算符，提出了运算符重载的规则</li>
+</ul>
+<p><strong><mark>C++为了增强代码的可读性引入了运算符重载</mark>，运算符重载是具有特殊函数名的函数，也具有其返回值类型，函数名字以及参数列表，其返回值类型与参数列表与普通的函数类似</strong></p>
+</blockquote>
+<blockquote>
+<p><strong><font color=red>函数名字为：关键字operator后面接需要重载的运算符符号  operator &gt;</font></strong></p>
+<p><strong><font color=red>函数原型：返回值类型 operator操作符(参数列表) bool operator &gt;(const Date &amp;d1)</font></strong></p>
+</blockquote>
+<hr>
+<h3 id="运算符重载性质"><a href="#运算符重载性质" class="headerlink" title="运算符重载性质"></a><strong>运算符重载性质</strong></h3><blockquote>
+<p><strong>运算符重载规则：</strong></p>
+<p><strong>1.不能通过连接其他符号来创建新的操作符：比如operator@—operator^</strong></p>
+<p><strong>2.重载操作符必须有一个类类型或者枚举类型的操作数</strong></p>
+<p><strong>3.用于内置类型的操作符，其含义不能改变，例如：内置的整型+，不能改变其含义</strong></p>
+<p><strong>4.作为类成员的重载函数时，其形参看起来比操作数数目少1,<mark>operator成员函数的操作符有一个默认的形参this，限定为第一个形参</mark></strong></p>
+<p><strong>5. <mark>.*</mark> <mark>::</mark> <mark>sizeof</mark> <mark>?:</mark> <mark>.</mark>   注意以上5个运算符不能重载</strong></p>
+</blockquote>
+<blockquote>
+<p><font color=red><strong>总结：</strong></font></p>
+<ol>
+<li><font color=red><strong>内置类型，可以直接用各种运算符</strong></font></li>
+<li><font color=red><strong>自定义类型，不能直接使用各种运算符</strong></font></li>
+<li><strong>为了让自定义类型可以使用各种运算符，制定了运算符重载规则</strong></li>
+<li><strong>全局运算符重载：operator&#x3D;&#x3D;(d1,d2);</strong></li>
+<li><strong>成员运算符重载：d1.operator&#x3D;&#x3D;(d2);</strong></li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F; 全局的operator&#x3D;&#x3D;
+class Date
+&#123; 
+public:
+ Date(int year &#x3D; 2022, int month &#x3D; 5, int day &#x3D; 1)
+ &#123;
+ 	_year &#x3D; year;
+ 	_month &#x3D; month;
+	_day &#x3D; day;
+ &#125; 
+ bool operator&#x3D;&#x3D;(const Date&amp; d)&#x2F;&#x2F;局部operator
+ &#123;
+     return _year &#x3D;&#x3D; d.year
+         &amp;&amp; _month &#x3D;&#x3D; d.month
+         &amp;&amp; _day &#x3D;&#x3D; d.day;
+ &#125;
+ 
+&#x2F;&#x2F;private:
+ 	int _year;
+ 	int _month;
+ 	int _day;
+&#125;;    
+&#x2F;&#x2F; 这里会发现运算符重载成全局的就需要成员变量是共有的，那么问题来了，封装性如何保证？
+&#x2F;&#x2F; 这里其实可以用我们后面学习的友元解决，或者干脆重载成成员函数
+ bool operator&#x3D;&#x3D;(const Date&amp; d1, const Date&amp; d2)&#x2F;&#x2F;操作符重载的声明和定义，全局operator
+ &#123;
+ 	return d1._year &#x3D;&#x3D; d2._year
+	&amp;&amp; d1._month &#x3D;&#x3D; d2._month
+ 	&amp;&amp; d1._day &#x3D;&#x3D; d2._day;
+ &#125;
+
+&#x2F;&#x2F;这里编译不通过，因为上面的成员是私有的
+&#x2F;&#x2F;处理方法3种：成员改为共有、提供函数获取内容、友元函数(常用)
+
+&#x2F;&#x2F;运算符重载格式：
+&#x2F;&#x2F;1.
+if(operator&#x3D;&#x3D;(d1,d2))&#x2F;&#x2F;定义的：类外的operator，全局operator
+&#123;
+    cout&lt;&lt;&quot;&#x3D;&#x3D;&quot;&lt;&lt;endl;
+&#125;
+
+&#x2F;&#x2F;2.
+if(d1.operator&#x3D;&#x3D;(d2))&#x2F;&#x2F;定义的：类里面的operator，成员operator
+&#123;
+    cout&lt;&lt;&quot;&#x3D;&#x3D;&quot;&lt;&lt;endl;
+&#125;
+
+&#x2F;&#x2F;3.
+if(d1&#x3D;&#x3D;d2)&#x2F;&#x2F;编译器会处理成对应重载运算符调用if(operator&#x3D;&#x3D;(d1,d2))&#123;&#125;或if(d1.operator(d2))&#123;&#125;
+&#123;
+    cout&lt;&lt;&quot;&#x3D;&#x3D;&quot;&lt;&lt;endl;
+&#125;
+
+void Test ()
+&#123;
+ 	Date d1(2022, 5, 1);
+ 	Date d2(2022, 6, 1);
+ 	cout&lt;&lt;(d1 &#x3D;&#x3D; d2)&lt;&lt;endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Date
+&#123; 
+public:
+ Date(int year &#x3D; 2022, int month &#x3D; 5, int day &#x3D; 1)
+ &#123;
+ 	_year &#x3D; year;
+ 	_month &#x3D; month;
+ 	_day &#x3D; day;
+ &#125;
+ 
+ &#x2F;&#x2F; bool operator&#x3D;&#x3D;(Date* this, const Date&amp; d2)
+ &#x2F;&#x2F; 这里需要注意的是，左操作数是this指向的调用函数的对象
+    
+ bool operator&#x3D;&#x3D;(const Date&amp; d2)&#x2F;&#x2F;操作符重载 隐含Date* this指针
+ &#123;
+  	return _year &#x3D;&#x3D; d2._year;
+ 	&amp;&amp; _month &#x3D;&#x3D; d2._month;
+ 	&amp;&amp; _day &#x3D;&#x3D; d2._day;
+ &#125;
+private:
+ 	int _year;
+ 	int _month;
+	int _day;
+&#125;;
+
+void Test ()
+&#123;
+ 	Date d1(2022, 5, 1);
+ 	Date d2(2022, 6, 1);
+ 	cout&lt;&lt;(d1 &#x3D;&#x3D; d2)&lt;&lt;endl;&#x2F;&#x2F;d1&#x3D;&#x3D;d2 -&gt;d1.operator&#x3D;&#x3D;(const Date&amp; d2);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="赋值运算符重载特性"><a href="#赋值运算符重载特性" class="headerlink" title="赋值运算符重载特性"></a><strong>赋值运算符重载特性</strong></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Date
+&#123; 
+public:
+ Date(int year &#x3D; 2022, int month &#x3D; 5, int day &#x3D; 1)&#x2F;&#x2F;构造函数
+ &#123;
+ 	_year &#x3D; year;
+ 	_month &#x3D; month;
+	_day &#x3D; day;
+ &#125;
+
+ &#x2F;&#x2F;赋值重载
+ Date&amp; operator&#x3D;(const Date&amp; d)&#x2F;&#x2F;返回Date类的引用
+ &#123;
+ 	if(this !&#x3D; &amp;d)&#x2F;&#x2F;判断是否自己赋值自己
+ 	&#123;
+		_year &#x3D; d._year;
+ 		_month &#x3D; d._month;
+ 		_day &#x3D; d._day;
+     &#125;
+     return *this;
+ &#125;
+ 
+private:
+ 		int _year ;
+ 		int _month ;
+ 		int _day ;
+&#125;;
+void Test ()
+&#123;
+ 	Date d1(2022, 5, 1);
+    Date d2(2022, 10,1);
+ 	Date d3(d1);&#x2F;&#x2F;拷贝构造---一个存在的对象去初始化另一个要创建的对象
+    d2&#x3D;d1;&#x2F;&#x2F;赋值重载&#x2F;复制拷贝---两个已经存在的对象之间赋值
+    &#x2F;&#x2F;d3&#x3D;d2&#x3D;d1 zh
+    d1(d2);&#x2F;&#x2F;赋值重载---两个已经存在的对象赋值
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><strong>赋值运算符特性：</strong></p>
+<p><strong>1.注意参数至少有一个且用引用传参</strong></p>
+<p><strong>2.有返回值—为了支持连续赋值：i&#x3D;j&#x3D;k</strong></p>
+<p><strong>3.要检测是否自己给自己赋值</strong></p>
+<p><strong>4.返回值：返回*this</strong></p>
+<p><strong>5.一个类如果没有显式定义赋值运算符重载(operator&#x3D;)，编译器也会生成一个，完成对象按字节序的值拷贝</strong></p>
+</blockquote>
+<p><font color=red><strong>拷贝构造与赋值重载的区分：</strong></font></p>
+<ol>
+<li><font color=red><strong>拷贝构造：一个存在的对象去初始化另一个要创建的对象</strong></font></li>
+<li><font color=red><strong>赋值重载：两个已经存在的对象之间赋值</strong></font></li>
+</ol>
+<hr>
+<h2 id="const成员函数"><a href="#const成员函数" class="headerlink" title="const成员函数"></a><strong>const成员函数</strong></h2><h3 id="const修饰类的成员函数"><a href="#const修饰类的成员函数" class="headerlink" title="const修饰类的成员函数"></a><strong>const修饰类的成员函数</strong></h3><p><font color=blue><strong>将const修饰的类成员函数称之为const成员函数，<mark>const</mark>修饰类成员函数，实际<mark>修饰</mark>该成员函数隐含的<mark>this指针</mark>，表明在该成员函数中不能对类的任何成员进行修改</strong></font></p>
+<blockquote>
+<p><em><em>1.void Display(const Date</em> this)&#x2F;&#x2F;这里const修饰thiis指针</em>*</p>
+<p><em><em>2.void Display(const Date</em> this)const;&#x2F;&#x2F;<mark>内部的const修饰this指针</mark>，<mark>外部的const修饰Date</em> const this</mark>**</p>
+<p><font color=red><strong>3.由于this是隐含的，所以不能再参数里面加const，C++将const加在参数列表后面，实现给隐含的this加const</strong></font></p>
+</blockquote>
+<img src="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223046480.png" class="lazyload placeholder" data-srcset="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223046480.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223046480">
+
+
+
+<blockquote>
+<p><font color=red><strong>1.非const类型：可读可写</strong></font></p>
+<p><font color=red><strong>2.cosnt类型：可读不可写</strong></font></p>
+<p><strong>3.建议成员函数不修改成员变量的成员函数，都可以加上const，普通对象和const对象都可以调用</strong></p>
+</blockquote>
+<img src="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223106492.png" class="lazyload placeholder" data-srcset="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/image-20230623223106492.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223106492">
+
+<blockquote>
+<p><strong>由代码思考问题：</strong></p>
+<ol>
+<li><strong>const对象可以调用非const成员函数吗？—不能，权限放大</strong></li>
+<li><strong>非const对象可以调用const成员函数吗？—可以，权限缩小</strong></li>
+<li><strong>const成员函数内可以调用其它的非const成员函数吗？—不能，权限放大</strong></li>
+<li><strong>非const成员函数内可以调用其它的const成员函数吗？—可以，权限缩小</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="取地址及-const-取地址运算符重载"><a href="#取地址及-const-取地址运算符重载" class="headerlink" title="取地址及 const 取地址运算符重载"></a><strong>取地址及 const 取地址运算符重载</strong></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Date
+&#123; 
+public :
+ Date* operator&amp;()&#x2F;&#x2F;普通对象取地址
+ &#123;
+ 	return this;
+ &#125;
+ 
+ const Date* operator&amp;()const&#x2F;&#x2F;const取地址
+ &#123;
+ 	return this;
+ &#125;
+    
+private:
+ 		int _year ; &#x2F;&#x2F; 年
+ 		int _month ; &#x2F;&#x2F; 月
+ 		int _day ; &#x2F;&#x2F; 日
+&#125;;
+void func(Date&amp; d)
+&#123;
+    cout&lt;&lt;&amp;d&lt;&lt;endl;
+&#125;
+void func2(const Date&amp; d1)&#x2F;&#x2F;p
+&#123;
+    cout&lt;&lt;&amp;d1&lt;&lt;endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font color=red><strong>这<mark>const&amp;和&amp;</mark>两个运算符一般不需要重载，使用编译器生成的默认取地址的重载即可，只有特殊情况，才需要重载，比如想让别人获取到指定的内容！</strong></font></p>
+<hr>
+<h2 id="日期类的实现"><a href="#日期类的实现" class="headerlink" title="日期类的实现"></a><strong>日期类的实现</strong></h2><h3 id="日期类的代码"><a href="#日期类的代码" class="headerlink" title="日期类的代码"></a><strong>日期类的代码</strong></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;Date.h
+#pragma once
+#include &lt;iostream&gt;
+#include &lt;assert.h&gt;
+using std::cin;
+using std::cout;
+using std::endl;
+
+class Date
+&#123;
+public: 
+	bool isLeapYear(int year)&#x2F;&#x2F;是闰年     4年一润且百年不润，400年一润
+	&#123;
+		return (year % 4 &#x3D;&#x3D; 0 &amp;&amp; year % 100 !&#x3D; 0) || (year % 400 &#x3D;&#x3D; 0);
+	&#125;
+
+	int GetMonthDay(int year, int month);
+
+	&#x2F;&#x2F; 默认生成的析构函数，内置类型成员不做处理，自定义类型成员会去调用它的析构函数
+	Date(int year &#x3D; 1, int month &#x3D; 1, int day &#x3D; 1)		;
+
+	&#x2F;&#x2F;Date(const Date&amp; d)
+	&#x2F;&#x2F;&#123;
+	&#x2F;&#x2F;	_year &#x3D; d._year;
+	&#x2F;&#x2F;	_month &#x3D; d._month;
+	&#x2F;&#x2F;	_day &#x3D; d._day;
+	&#x2F;&#x2F;&#125;
+
+	&#x2F;&#x2F;Date&amp; operator&#x3D;(const Date&amp; d)
+	&#x2F;&#x2F;&#123;
+	&#x2F;&#x2F;	if (this !&#x3D; &amp;d)
+	&#x2F;&#x2F;	&#123;
+	&#x2F;&#x2F;		_year &#x3D; d._year;
+	&#x2F;&#x2F;		_month &#x3D; d._month;
+	&#x2F;&#x2F;		_day &#x3D; d._day;
+	&#x2F;&#x2F;	&#125;
+
+	&#x2F;&#x2F;	return *this;
+	&#x2F;&#x2F;&#125;
+
+	void Print() const
+	&#123;
+		cout &lt;&lt; _year &lt;&lt; &quot;-&quot; &lt;&lt; _month &lt;&lt; &quot;-&quot; &lt;&lt; _day &lt;&lt; endl;
+	&#125;
+
+	Date operator+(int day)  const;
+	Date&amp; operator+&#x3D;(int day);
+
+	Date operator-(int day)  const;
+	Date&amp; operator-&#x3D;(int day);
+
+    &#x2F;&#x2F;代码短的用inline
+	&#x2F;&#x2F; ++d1
+	Date&amp; operator++()      &#x2F;&#x2F; 前置
+	&#123;
+		*this +&#x3D; 1;
+		return *this;
+	&#125;
+
+	&#x2F;&#x2F; d1++
+	Date operator++(int) &#x2F;&#x2F; 后置 这里的int传的值大小无关，只是用于区分，一般写0或1
+	&#123;
+		Date tmp(*this);&#x2F;&#x2F;拷贝一份当前值
+		*this +&#x3D; 1;
+		return tmp;
+	&#125;
+
+	Date&amp; operator--()     &#x2F;&#x2F; 前置
+	&#123;
+		*this -&#x3D; 1;
+		return *this;
+	&#125;
+
+	Date operator--(int) &#x2F;&#x2F; 后置
+	&#123;
+		Date tmp(*this);
+		*this -&#x3D; 1;
+		return tmp;
+	&#125;
+
+	&#x2F;&#x2F; d1 - d2
+	int operator-(const Date&amp; d) const;
+
+	bool operator&#x3D;&#x3D;(const Date&amp; d)  const;
+	bool operator&lt;(const Date&amp; d)  const;
+
+	&#x2F;&#x2F; inline不支持声明和定义分别放到.h 和.cpp
+	&#x2F;&#x2F; 所以成员函数中要成为inline最好直接在类里面定义
+	&#x2F;&#x2F; 类里面定义默认就是inline
+	bool operator&gt;(const Date&amp; d)  const
+	&#123;
+		return !(*this &lt;&#x3D; d);
+	&#125;
+
+	bool operator&gt;&#x3D;(const Date&amp; d)  const
+	&#123;
+		return !(*this &lt; d);
+	&#125;
+
+	bool operator!&#x3D;(const Date&amp; d)  const
+	&#123;
+		return  !(*this &#x3D;&#x3D; d);
+	&#125;
+
+	&#x2F;&#x2F; d1 &lt;&#x3D; d2
+	bool operator&lt;&#x3D;(const Date&amp; d)  const
+	&#123;
+		return *this &lt; d || *this &#x3D;&#x3D; d;
+	&#125;
+
+private:
+	int _year;
+	int _month;
+	int _day;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;Date.cpp
+#include &quot;Date.h&quot;
+
+bool Date::operator&lt;(const Date&amp; d)const
+&#123;
+	if ((_year &lt; d._year)
+		|| (_year &#x3D;&#x3D; d._year &amp;&amp; _month &lt; d._month)
+		|| (_year &#x3D;&#x3D; d._year &amp;&amp; _month &#x3D;&#x3D; d._month &amp;&amp; _day &lt; d._day))
+	&#123;
+		return true;
+	&#125;
+	else
+	&#123;
+		return false;
+	&#125;
+&#125;
+
+&#x2F;&#x2F; d1 &#x3D;&#x3D; d2
+bool Date::operator&#x3D;&#x3D;(const Date&amp; d)const
+&#123;
+	return _year &#x3D;&#x3D; d._year
+		&amp;&amp; _month &#x3D;&#x3D; d._month
+		&amp;&amp; _day &#x3D;&#x3D; d._day;
+&#125;
+
+int Date::GetMonthDay(int year, int month)
+&#123;
+	assert(year &gt;&#x3D; 0 &amp;&amp; month &gt; 0 &amp;&amp; month &lt; 13);
+
+	const static int monthDayArray[13] &#x3D; &#123; 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 &#125;;
+	if (month &#x3D;&#x3D; 2 &amp;&amp; isLeapYear(year))
+	&#123;
+		return 29;
+	&#125;
+	else
+	&#123;
+		return monthDayArray[month];
+	&#125;
+&#125;
+
+Date::Date(int year, int month, int day)
+&#123;
+	if (year &gt;&#x3D; 1 &amp;&amp;
+		month &lt;&#x3D; 12 &amp;&amp; month &gt;&#x3D; 1 &amp;&amp;
+		day &gt;&#x3D; 1 &amp;&amp; day &lt;&#x3D; GetMonthDay(year, month))
+	&#123;
+		_year &#x3D; year;
+		_month &#x3D; month;
+		_day &#x3D; day;
+	&#125;
+	else
+	&#123;
+		cout &lt;&lt; &quot;日期错误&quot; &lt;&lt; endl;
+	&#125;
+&#125;
+
+&#x2F;&#x2F; d1 + 100 --&gt;d1.operator+(day);
+
+&#x2F;&#x2F; d1 +&#x3D; 100
+Date&amp; Date::operator+&#x3D;(int day)
+&#123;
+	*this &#x3D; *this + day;
+	return *this;
+&#125;
+
+
+Date Date::operator+(int day)
+&#123;
+	Date ret(*this);
+
+	ret._day +&#x3D; day;
+	while (ret._day &gt; GetMonthDay(ret._year, ret._month))
+	&#123;
+		ret._day -&#x3D; GetMonthDay(ret._year, ret._month);
+		ret._month++;
+		if (ret._month &#x3D;&#x3D; 13)
+		&#123;
+			++ret._year;
+			ret._month &#x3D; 1;
+		&#125;
+	&#125;
+
+	return ret;
+&#125;
+
+Date Date::operator+(int day)const
+&#123;
+	Date ret(*this);
+	ret +&#x3D; day;
+
+	return ret;
+&#125;
+
+&#x2F;&#x2F; d1 +&#x3D; 100
+Date&amp; Date::operator+&#x3D;(int day)
+&#123;
+	if (day &lt; 0)
+		return *this -&#x3D; -day;
+
+	_day +&#x3D; day;
+	while (_day &gt; GetMonthDay(_year, _month))
+	&#123;
+		_day -&#x3D; GetMonthDay(_year, _month);
+		_month++;
+		if (_month &#x3D;&#x3D; 13)
+		&#123;
+			++_year;
+			_month &#x3D; 1;
+		&#125;
+	&#125;
+
+	return *this;
+&#125;
+
+Date Date::operator-(int day)const
+&#123;
+	Date ret &#x3D; *this;
+	ret -&#x3D; day;
+	return ret;
+&#125;
+
+&#x2F;&#x2F; d1 -&#x3D; 100
+Date&amp; Date::operator-&#x3D;(int day)
+&#123;
+	if (day &lt; 0)
+		return *this +&#x3D; -day;
+
+	_day -&#x3D; day;
+	while (_day &lt;&#x3D; 0)
+	&#123;
+		--_month;
+		if (_month &#x3D;&#x3D; 0)
+		&#123;
+			_month &#x3D; 12;
+			--_year;
+		&#125;
+
+		_day +&#x3D; GetMonthDay(_year, _month);
+	&#125;
+
+	return *this;
+&#125;
+
+&#x2F;&#x2F; d1 - d2 --&gt;  d1.operator-(const Date&amp; d) const 
+
+&#x2F;&#x2F;最简日期类相减运算
+int Date::operator-(const Date&amp; d)const
+&#123;
+	int flag &#x3D; 1;&#x2F;&#x2F;设置标识：1为正数，-1为负数
+	Date max &#x3D; *this;
+	Date min &#x3D; d;
+	if (*this &lt; d)
+	&#123;
+		min &#x3D; *this;
+		max &#x3D; d;
+		flag &#x3D; -1;
+	&#125;
+
+	int n &#x3D; 0;&#x2F;&#x2F;天数标识
+    &#x2F;&#x2F;最大值和最小值不相等则让天数+1，用n标记数，最终由n*flag确定相差的天数
+	while (min !&#x3D; max)
+	&#123;
+		++n;
+		++min;
+	&#125;
+	return n * flag;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;Test.cpp
+#include &quot;Date.h&quot;
+
+void TestDate1()
+&#123;
+	Date d1(2022, 5, 18);
+	Date d2(2023, 3, 20);
+	Date d3(2023, 3, 20);
+
+	cout &lt;&lt; (d1 &lt; d2) &lt;&lt; endl;
+	cout &lt;&lt; (d1 &gt; d2) &lt;&lt; endl;
+	cout &lt;&lt; (d1 &#x3D;&#x3D; d3) &lt;&lt; endl;
+	cout &lt;&lt; (d2 &lt;&#x3D; d3) &lt;&lt; endl;
+	cout &lt;&lt; (d2 &#x3D;&#x3D; d3) &lt;&lt; endl;
+&#125;
+
+void TestDate2()
+&#123;
+	Date d1(2022, 5, 18);
+	Date d2 &#x3D; d1 + 15;
+	Date d3;
+	d3 &#x3D; d1 + 15;&#x2F;&#x2F;dia
+
+	&#x2F;&#x2F;Date d3 &#x3D; d1; &#x2F;&#x2F;调用拷贝构造 Date d3(d1);
+	&#x2F;&#x2F;d1 &#x3D; d2;	&#x2F;&#x2F;调用赋值  
+
+	d2.Print();
+	d1.Print();
+
+	d1 +&#x3D; 15;
+	d1.Print();
+&#125;
+
+void TestDate3()
+&#123;
+	Date d1(2022, 5, 18);
+	Date d2 &#x3D; d1 - 30;
+	d2.Print();
+	d1 -&#x3D; 30;
+	d1.Print();
+
+	Date d3(2022, 5, 18);
+	d3 +&#x3D; 10000;
+	d3.Print();
+
+	d3 -&#x3D; 10000;
+	d3.Print();
+&#125;
+
+
+void TestDate4()
+&#123;
+	Date d1(2022, 5, 18);
+	d1 -&#x3D; -100;
+	d1.Print();
+
+	d1 +&#x3D; -100;
+	d1.Print();
+
+	Date d2(2022, 5, 18);
+	Date ret1 &#x3D; ++d2; &#x2F;&#x2F; d2.operator++()
+	ret1.Print();
+	d2.Print();
+
+	Date ret2 &#x3D; d2++; &#x2F;&#x2F; d2.operator++(0)
+	ret2.Print();
+	d2.Print();
+&#125;
+
+void TestDate5()
+&#123;
+	Date d1(2022, 5, 18);
+	Date d2(2020, 2, 4);
+	cout &lt;&lt; (d1 - d2) &lt;&lt; endl;
+	cout &lt;&lt; (d2 - d1) &lt;&lt; endl;
+&#125;
+
+&#x2F;&#x2F;void Print(Date* const this)
+&#x2F;&#x2F;&#123;
+&#x2F;&#x2F;	cout &lt;&lt; _year &lt;&lt; &quot;-&quot; &lt;&lt; _month &lt;&lt; &quot;-&quot; &lt;&lt; _day &lt;&lt; endl;
+&#x2F;&#x2F;&#125;
+
+
+&#x2F;&#x2F;void Print() const
+&#x2F;&#x2F;void Print(const Date* const this)
+&#x2F;&#x2F;&#123;
+&#x2F;&#x2F;	cout &lt;&lt; _year &lt;&lt; &quot;-&quot; &lt;&lt; _month &lt;&lt; &quot;-&quot; &lt;&lt; _day &lt;&lt; endl;
+&#x2F;&#x2F;&#125;
+
+void Func(const Date&amp; d)
+&#123;
+	d.Print(); &#x2F;&#x2F; d1.Print(&amp;d); -&gt; const Date*
+&#125;
+
+void TestDate6()
+&#123;
+	Date d1(2022, 5, 18);
+	d1.Print(); &#x2F;&#x2F; d1.Print(&amp;d1); -&gt; Date* 
+	Func(d1);
+&#125;
+
+int main()
+&#123;
+	TestDate1();
+
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/C-%EF%BC%8C%E5%88%9D%E9%98%B6/" class="">
+              C++，初阶
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/" target="_blank" title="C++类与对象(核心)">https://Not-Go.github.io/2022/12/10/3.c-lei-yu-dui-xiang-he-xin/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2022/12/10/2.c-lei-yu-dui-xiang-ji-chu/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">C++类与对象(基础)</div>
+      </div>
+      
+      <!-- <div class="content">
+        C++类与对象(基础)理解面向过程与面向对象我们说C语言是面向过程的，C++是面向对象的，从而分割出了面向过程编程和面向
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2022/12/10/4.c-lei-yu-dui-xiang-kuo-zhan/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">C++类与对象(扩展)</div>
+      </div>
+      <!-- <div class="content">
+        C++类与对象(扩展)剖析构造函数构造函数体赋值在创建对象时，编译器通过调用构造函数，给对象中各个成员变量一个合适的初始
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1-%E6%A0%B8%E5%BF%83"><span class="toc-text">C++类与对象(核心)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E9%BB%98%E8%AE%A4%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">类的默认成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E4%B8%AA%E9%BB%98%E8%AE%A4%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">六个默认成员函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5"><span class="toc-text">构造函数概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%89%B9%E6%80%A7"><span class="toc-text">构造函数特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-text">析构函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5"><span class="toc-text">析构函数概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E7%89%B9%E6%80%A7"><span class="toc-text">析构函数特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">拷贝构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5"><span class="toc-text">拷贝构造函数概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%89%B9%E6%80%A7"><span class="toc-text">拷贝构造函数特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9A%84%E6%B5%85%E6%8B%B7%E8%B4%9D%E9%97%AE%E9%A2%98"><span class="toc-text">拷贝构造函数的浅拷贝问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-text">运算符重载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E6%A6%82%E5%BF%B5"><span class="toc-text">运算符重载概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E6%80%A7%E8%B4%A8"><span class="toc-text">运算符重载性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E7%89%B9%E6%80%A7"><span class="toc-text">赋值运算符重载特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#const%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">const成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#const%E4%BF%AE%E9%A5%B0%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">const修饰类的成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E5%9C%B0%E5%9D%80%E5%8F%8A-const-%E5%8F%96%E5%9C%B0%E5%9D%80%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-text">取地址及 const 取地址运算符重载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E7%B1%BB%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">日期类的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E6%9C%9F%E7%B1%BB%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">日期类的代码</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

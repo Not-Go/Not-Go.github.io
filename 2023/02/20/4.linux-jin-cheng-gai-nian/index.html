@@ -1,0 +1,3257 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>Linux进程概念 | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        Linux进程概念
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-02-20 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/Linux%E7%BC%96%E7%A8%8B/" class="post-detail-header_category">
+              Linux编程
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 5.2k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 19分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="Linux进程概念"><a href="#Linux进程概念" class="headerlink" title="Linux进程概念"></a>Linux进程概念</h1><h2 id="进程的理解"><a href="#进程的理解" class="headerlink" title="进程的理解"></a><strong>进程的理解</strong></h2><h3 id="进程的概念"><a href="#进程的概念" class="headerlink" title="进程的概念"></a><strong>进程的概念</strong></h3><p><strong><mark>基本概念：</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong><code>操作系统理论概念：程序的一个执行实例，正在执行的程序等</code></strong> </li>
+<li><strong><code>Linux内核观点：担当分配系统资源（CPU时间，内存）的实体</code></strong></li>
+<li><font color=red><strong>核心理解：进程&#x3D;可执行程序+该进程对应的内核数据结构</strong></font></li>
+</ul>
+</blockquote>
+<p><strong><mark>进程控制块(PCB)的理解：</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong><font color=red>进程信息被放在一个叫做进程控制块的数据结构中，可以理解为进程属性的集合</font></strong></li>
+<li><strong><mark>操作系统理论上</mark>称之为<code>PCB（process control block）</code>，<mark>Linux操作系统下</mark>的PCB是: <code>task_struct</code></strong></li>
+<li><strong>凡是提到进程，必须首先想到进程task_struct(PCB)</strong></li>
+<li><strong><mark>PCB是操作系统描述进程的一个统称</mark>。当可执行程序加载到内存，是运行了一个进程。实际的大小要比文件本身要大。操做系统管理进程要先对进程进行描述，会添加一些属性(所以比本身文件大)，属性包括描述信息+内容代码数据等</strong></li>
+<li><strong>操作系统允许多个进程同时允许，为了方便管理，操作系统还会将进程组织起来，一般是组织成一个<mark>双向链表的数据结构</mark>，如下图：</strong></li>
+</ul>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121221804073.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121221804073.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221121221804073">
+</blockquote>
+<hr>
+<h3 id="task-struct与PCB的区别"><a href="#task-struct与PCB的区别" class="headerlink" title="task_struct与PCB的区别"></a><strong>task_struct与PCB的区别</strong></h3><ul>
+<li><strong><mark>PCB是操作系统描述进程的一个统称</mark></strong></li>
+<li><strong><mark>task_struct是</mark>Linux下<mark>描述进程的结构体</mark>，<mark>是Linux内核的一种数据结构</mark>，它会被装载到内存里并且包含进程的信息</strong></li>
+</ul>
+<hr>
+<h3 id="task-struct的内容分类-了解"><a href="#task-struct的内容分类-了解" class="headerlink" title="task_struct的内容分类(了解)"></a><strong>task_struct的内容分类(了解)</strong></h3><p><strong><font color=red>task_ struct内容分类：</font></strong></p>
+<blockquote>
+<p><strong><mark>标示符: 描述本进程的唯一标示符，用来区别其他进程</mark></strong></p>
+<p><strong><mark>状态: 任务状态，退出代码，退出信号等</mark></strong></p>
+<p><strong><mark>优先级: 相对于其他进程的优先级</mark></strong></p>
+<p><strong><mark>程序计数器: 程序中即将被执行的下一条指令的地址</mark></strong></p>
+<p><strong><mark>内存指针: 包括程序代码和进程相关数据的指针，还有和其他进程共享的内存块的指针</mark></strong></p>
+<p><strong><mark>上下文数据: 进程执行时处理器的寄存器中的数据[休学例子，要加图CPU，寄存器]</mark></strong> </p>
+<p><strong><mark>I／O状态信息: 包括显示的I&#x2F;O请求,分配给进程的I／O设备和被进程使用的文件列表</mark></strong></p>
+<p><strong><mark>记账信息: 可能包括处理器时间总和，使用的时钟数总和，时间限制，记账号等</mark></strong></p>
+<p><strong><mark>其他信息</mark></strong></p>
+</blockquote>
+<hr>
+<h3 id="组织进程和查看进程的方法"><a href="#组织进程和查看进程的方法" class="headerlink" title="组织进程和查看进程的方法"></a><strong>组织进程和查看进程的方法</strong></h3><p><strong><mark>查看进程：进程的信息可以通过 <code>/proc 系统文件夹</code>查看</mark></strong></p>
+<p><strong><mark>如果要获取PID为1的进程信息，你需要查看 &#x2F;proc&#x2F;1 这个文件夹</mark></strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121223146465.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121223146465.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221121223146465">
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121223307031.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121223307031.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221121223307031">
+
+<p><strong><mark>大多数进程信息也可以使用top和ps这些用户级工具获取</mark></strong></p>
+<blockquote>
+<p><strong><font color=red>单独使用ps命令，会显示所有进程信息：</font></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">ps aux<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong><font color=red>ps命令与grep命令搭配使用，即可只显示某一进程的信息：</font></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">ps aux <span class="token operator">|</span> head <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span> ps aux <span class="token operator">|</span> grep proc <span class="token operator">|</span> grep <span class="token operator">-</span>v grep<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121224532840.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121224532840.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221121224532840">
+</blockquote>
+<blockquote>
+<ol>
+<li><strong>可以使用命令 <code>kill -9 pid</code>  <mark>杀死进程</mark></strong></li>
+<li><strong>proc文件：内存文件系统—当前系统实时的进程信息</strong></li>
+<li><strong><mark>每一个进程</mark>在系统中，存在一个<mark>唯一的标识符PID</mark></strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="进程标识符的获取方法"><a href="#进程标识符的获取方法" class="headerlink" title="进程标识符的获取方法"></a><strong>进程标识符的获取方法</strong></h3><p><strong><code>方法一：通过getpid()、getppid()函数获取</code></strong></p>
+<blockquote>
+<p><strong>通过系统调用获取进程标示符：</strong></p>
+<ol>
+<li><strong><font color=red><code>子进程</code>标识符(<code>PID</code>)：getpid()</font></strong></li>
+<li><strong><font color=red><code>父进程</code>标识符(<code>PPID</code>)：getppid()</font></strong></li>
+</ol>
+</blockquote>
+<p><strong><mark>举例代码：</mark></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"ppid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121225809663.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121225809663.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221121225809663">
+
+<hr>
+<p><code>方法二：通过fork()函数获取</code></p>
+<blockquote>
+<p><strong><font color=red>前提知识：</font></strong></p>
+<ol>
+<li><strong><mark>fork是一个系统调用级别的函数，其功能就是创建一个子进程</mark></strong></li>
+<li><strong><font color=red>fork执行一次，有两个返回值</font>，<code>父进程返回子进程PID</code>，<code>子进程返回0</code></strong> </li>
+<li><strong><mark>父子进程代码共享，数据各自开辟空间，私有一份（采用写时拷贝）</mark></strong></li>
+</ol>
+</blockquote>
+<p><font color=red><strong>举例代码：打印父子进程pid：</strong></font></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"> <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+ <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;sys/types.h></span></span>
+ <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;unistd.h></span></span>
+  
+ <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token punctuation">&#123;</span>
+     <span class="token class-name">pid_t</span> id<span class="token operator">=</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment">//理论上：id:0 子进程  id>0 父进程</span>
+     <span class="token comment">//实际上：子进程、父进程各自得到一个id进行条件判断</span>
+     <span class="token comment">//父进程得到的变量id是子进程pid，子进程得到的id是0</span>
+     <span class="token keyword">if</span><span class="token punctuation">(</span>id<span class="token operator">&lt;</span>mark<span class="token operator">></span><span class="token number">0</span><span class="token punctuation">)</span>
+     <span class="token punctuation">&#123;</span>
+       <span class="token comment">//child</span>
+       <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+       <span class="token punctuation">&#123;</span>
+          <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"我是子进程,我的pid:%d,我的父进程是:%d\n"</span><span class="token punctuation">,</span><span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                       
+          <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+      <span class="token keyword">else</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token comment">//parent</span>
+       	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"我是父进程，我的pid:%d,我的父进程是:%d\n"</span><span class="token punctuation">,</span><span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       	<span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722002.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722002.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220815131722002">
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722001.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722001.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220815131722001">
+
+<blockquote>
+<p><strong><font color=green>奇怪的现象：</font></strong></p>
+<ul>
+<li><strong><mark>这里遇到了一个奇怪的问题：这里的if和else同时执行了，进行了两次printf打印，并没有受到条件的约束，为什么呢？</mark></strong></li>
+<li><strong><font color=red>首先我们思考，C语言上if 和else if可以同时执行嘛？当然不可以。有没有可能两个以上死循环？当然不可以</font></strong></li>
+<li><strong><font color=red>但是这里却发现Linux下可以！</font></strong></li>
+</ul>
+</blockquote>
+<p><font color=red><strong>出现这个现象的原因：</strong></font></p>
+<blockquote>
+<p><strong><code>fork之后，父进程和子进程会共享代码，也就是写时拷贝了代码</code>（<mark>这就解释了为什么printf会打印两次的原因</mark>）</strong></p>
+<p><strong><code>fork之后，父进程和子进程返回值不同，可以通过不同的返回值，进行判断让父子执行不同的代码块</code>（<mark>这就解释了为什么条件约束失效</mark>）</strong></p>
+</blockquote>
+<hr>
+<h3 id="fork-函数有两个返回值的原因剖析"><a href="#fork-函数有两个返回值的原因剖析" class="headerlink" title="fork()函数有两个返回值的原因剖析"></a><strong>fork()函数有两个返回值的原因剖析</strong></h3><p><font color=red><strong>重点剖析：fork()为什么给父进程返回子进程pid，给子进程返回0？</strong></font></p>
+<blockquote>
+<p><strong>父子关系：父亲—儿子：1：n(n&gt;&#x3D;1)</strong></p>
+<p><strong><font color=red>原因：</font></strong></p>
+<ol>
+<li><strong><mark>父进程必须要有标识子进程的方法：fork()之后，给父进程返回子进程的pid！</mark></strong></li>
+<li><strong><mark>子进程最重要的是要知道自己被创建成功了，因为子进程找父进程成本非常低—使用getppid()</mark></strong></li>
+</ol>
+</blockquote>
+<p><strong><font color=red>重点剖析：fork()之后父子进程谁先执行</font></strong></p>
+<blockquote>
+<ol>
+<li><strong>通常情况下，我们总是用 sleep 等操作来保证另一个进程先执行，但父子进程谁先执行并不是不可预测的</strong></li>
+<li><strong>从linux内核2.6.32开始，在默认情况下，父进程将成为fork之后优先调度的对象</strong></li>
+<li><strong>采取这种策略的原因很简单：fork是父进程发起的调用，因此fork之后，父进程在CPU中处于活跃的状态，并且其内存管理信息也被置于硬件内存单元的转译后备缓冲器(TLB)，所以先调度父进程无论从减少上下文切换、CPU让出等方面都可以提高性能</strong></li>
+<li><strong>linux内核从2.6.24开始，内核采用完全公平调度（CFS），用户创建的普通进程，都采用CFS调度策略。对于CFS调度策略，内核提供的控制选项默认是0，表示父进程优先获得调度，如果该值被改为1，子进程会优先获得调度。但POSIX标准和linux都没有保证会优先调度父进程，因此在应用中，我们不能对父子进程的执行顺序做任何假设</strong></li>
+<li><strong>如果确实需要父子进程的某一特定执行顺序，那么还是得需要进程间的同步手段</strong></li>
+<li><strong><code>所以：从理论上，优先调度父进程。从使用上，不可预测。</code></strong></li>
+</ol>
+<p><strong><font color=red>结论：进程调度顺序由<mark>操作系统内核</mark>和<mark>调度算法</mark>共同决定</font></strong></p>
+</blockquote>
+<p><font color=red><strong>重点剖析：为什么fork()会返回两次？</strong></font></p>
+<blockquote>
+<p><strong><font color=red>前提分析：</font></strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121235936383.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221121235936383.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221121235936383">
+
+<p><strong><font color=red>原因分析：</font></strong></p>
+<ol>
+<li><strong><font color=green>当程序执行到下面的语句： <code>pid=fork(); 由于在复制时复制了父进程的堆栈段，所以两个进程都停留在fork函数中，等待返回</code>。 因此fork函数会返回两次，<mark>一次是在父进程中返回，另一次是在子进程中返回，这两次的返回值是不一样的</mark>。 fork调用的一个奇妙之处就是它仅仅被调用一次，却能够返回两次，它可能有三种不同的返回值：</font></strong><ul>
+<li><strong><mark>在父进程中，fork返回新创建子进程的进程PID</mark></strong></li>
+<li><strong><mark>在子进程中，fork返回0</mark></strong></li>
+<li><strong><mark>如果出现错误，fork返回一个负值</mark></strong></li>
+</ul>
+</li>
+<li><strong>我们可以通过fork返回的值来判断当前进程是子进程还是父进程，其实就相当于链表，进程形成了链表，父进程的fork函数返回的值指向子进程的进程PID, 因为子进程没有子进程，所以其fork函数返回的值为0</strong></li>
+<li><strong><font color=red>调用fork之后，数据、堆、栈有两份，代码仍然为一份但是这个代码段成为两个进程的共享代码段都从fork函数中返回。当父子进程有一个想要修改数据或者堆栈时，两个进程真正分裂</font></strong></li>
+<li><strong><font color=green>子进程代码是从fork处开始执行的， 为什么不是从#include处开始复制代码的？这是因为fork是把进程当前的情况拷贝一份，执行fork时，进程已经执行完了当前情况; fork只拷贝下一个要执行的代码到新的进程</font></strong></li>
+</ol>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122133604563.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122133604563.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122133604563">
+</blockquote>
+<hr>
+<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a><strong>进程状态</strong></h2><h3 id="Linux的进程状态"><a href="#Linux的进程状态" class="headerlink" title="Linux的进程状态"></a><strong>Linux的进程状态</strong></h3><blockquote>
+<p><strong><font color=red>Linux系统的进制状态分类：</font></strong></p>
+<ol>
+<li><p><strong><code>运行状态(R，running)</code>：<mark>并不意味着进程一定在运行中，它表明进程要么是在运行中要么在运行队列里</mark></strong></p>
+</li>
+<li><p><strong><code>睡眠状态(S，sleeping)</code>： <mark>意味着进程在等待事件完成，这里的睡眠有时候也叫做</mark><code>可中断睡眠 interruptible sleep</code></strong></p>
+</li>
+<li><p><strong><code>磁盘休眠状态(D，Disk sleep)</code>：<mark>有时候也叫</mark><code>不可中断睡眠状态（uninterruptible sleep）</code>，<mark>在这个状态的进程通常会等待IO的结束</mark></strong></p>
+</li>
+<li><p><strong><code>暂停状态(T，stopped)</code>：<mark>可以通过发送 SIGSTOP 信号给进程来停止（T）进程。这个被暂停的进程可 以通过发送 SIGCONT 信号让进程继续运行</mark></strong></p>
+</li>
+<li><p><strong><code>死亡状态(X，dead)</code>：<mark>这个状态只是一个返回状态，你不会在任务列表里看到这个状态</mark></strong></p>
+</li>
+<li><p><strong><code>僵尸状态(Z，zombie)</code>：<mark>是一个比较特殊的状态。当进程退出并且父进程，没有读取到子进程退出的返回代码时就会产生僵死(尸)进程</mark></strong></p>
+</li>
+<li><p><strong><code>杀死进程的方法：kill -9 进程PID</code>。<mark>ctrl+c只能杀前台进程，kill命令可以杀后台进程</mark></strong></p>
+</li>
+<li><p><strong><code>Linux内核进程状态源代码：</code></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">static</span> <span class="token keyword">const</span> <span class="token keyword">char</span> <span class="token operator">*</span> <span class="token keyword">const</span> task_state_array<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"R (running)"</span><span class="token punctuation">,</span> 		<span class="token comment">/* 0 */</span><span class="token operator">--</span><span class="token operator">-</span>运行
+    <span class="token string">"S (sleeping)"</span><span class="token punctuation">,</span> 	<span class="token comment">/* 1 */</span><span class="token operator">--</span><span class="token operator">-</span>浅度睡眠，随时被唤醒，被杀掉
+    <span class="token string">"D (disk sleep)"</span><span class="token punctuation">,</span>	<span class="token comment">/* 2 */</span><span class="token operator">--</span><span class="token operator">-</span>深度睡眠，不会被杀掉，只有自己主动唤醒才能恢复
+    <span class="token string">"T (stopped)"</span><span class="token punctuation">,</span> 		<span class="token comment">/* 4 */</span><span class="token operator">--</span><span class="token operator">-</span>暂停
+    <span class="token string">"t (tracing stop)"</span><span class="token punctuation">,</span> <span class="token comment">/* 8 */</span><span class="token operator">--</span><span class="token operator">-</span>进程被调试的时候，遇到断点所处的状态
+    <span class="token string">"X (dead)"</span><span class="token punctuation">,</span> 		<span class="token comment">/* 16 */</span><span class="token operator">--</span><span class="token operator">-</span>死亡
+    <span class="token string">"Z (zombie)"</span><span class="token punctuation">,</span> 		<span class="token comment">/* 32 */</span><span class="token operator">--</span><span class="token operator">-</span>僵尸
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<p><strong><font color=red>进程状态间的切换，如下图：</font></strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722012.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722012.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220815131722012">
+
+
+</blockquote>
+<hr>
+<h3 id="进程阻塞与进程挂起的理解"><a href="#进程阻塞与进程挂起的理解" class="headerlink" title="进程阻塞与进程挂起的理解"></a><strong>进程阻塞与进程挂起的理解</strong></h3><blockquote>
+<p><strong>进程阻塞：</strong></p>
+<p><strong>1.一个进程使用资源的时候，可不仅仅是在申请CPU资源</strong></p>
+<p><strong>2.进程可能申请更多的其他资源：磁盘，网卡，显卡等</strong></p>
+<p><strong>3.如果我们申请CPU资源，暂时无法得到满足，是需要排队的，即进入运行队列</strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722010.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722010.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220815131722010">
+</blockquote>
+<blockquote>
+<p><strong>进程挂起：</strong></p>
+<p><strong>1.挂起进程在操作系统中可以定义为暂时被淘汰出内存的进程，机器的资源是有限的，在资源不足的情况下，操作系统对在内存中的程序进行合理的安排，其中有的进程被暂时调离出内存，当条件允许的时候，会被操作系统再次调回内存，重新进入等待被执行的状态，表现为系统在一定的时间没有任何动作</strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/202208151317220111.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/202208151317220111.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="202208151317220111">
+</blockquote>
+<hr>
+<h3 id="进程状态查看方法"><a href="#进程状态查看方法" class="headerlink" title="进程状态查看方法"></a><strong>进程状态查看方法</strong></h3><p><strong><mark>进程状态的查看：</mark><code>ps aux</code> &#x2F; <code>ps axj</code></strong>  </p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//常用的进程状态查看方法</span>
+ps aux<span class="token operator">|</span>head <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span> ps aux<span class="token operator">|</span>grep 进程PID
+ps ajx<span class="token operator">|</span>head <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span> ps ajx<span class="token operator">|</span>grep 进程PID<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122155815623.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122155815623.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122155815623">
+
+
+
+<ol>
+<li><strong><mark>系统原生的用法不好用，如下图：</mark></strong></li>
+<li><strong><font color=red>ps aux：显示所有进程 有效用户ID或名字</font></strong></li>
+<li><strong><font color=red>ps ajx：显示所有进程 PPID、PID、PGID、SID、COMMAND等</font></strong></li>
+</ol>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122145831606.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122145831606.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122145831606">
+
+<blockquote>
+<p><strong>ps a 	&#x2F;&#x2F;显示现行终端机下的所有程序，包括其他用户的程序</strong></p>
+<p><strong>ps u 　 &#x2F;&#x2F;以用户为主的格式来显示程序状况。</strong></p>
+<p><strong>ps x 　 &#x2F;&#x2F;显示所有程序，不以终端机来区分</strong></p>
+<p><strong>ps aux &#x2F;&#x2F;显示有效用户ID或名字</strong></p>
+<p><strong>ps ajx  &#x2F;&#x2F;显示PPID，PID，PGID，SID，UID，COMMAND等</strong></p>
+<p><strong>ps awx &#x2F;&#x2F;显示完全程序参数</strong></p>
+</blockquote>
+<hr>
+<h3 id="进程状态：运行状态R"><a href="#进程状态：运行状态R" class="headerlink" title="进程状态：运行状态R"></a><strong>进程状态：运行状态R</strong></h3><p><strong><mark>测试方法：使用命令top,查看进程状态</mark></strong></p>
+<p><strong>效果：</strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122153826349.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122153826349.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122153826349">
+
+<p><strong><font color=red>这里我们可以看到一些进程状态时R，这些标识为R的进程就是正在运行或者进入运行队列的进程</font></strong></p>
+<hr>
+<h3 id="进程状态：睡眠状态S"><a href="#进程状态：睡眠状态S" class="headerlink" title="进程状态：睡眠状态S"></a><strong>进程状态：睡眠状态S</strong></h3><p><strong>测试代码：</strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Process is running...\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Process PID:%d\n"</span><span class="token punctuation">,</span><span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>效果：</strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122155001083.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122155001083.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122155001083">
+
+<blockquote>
+<ol>
+<li><strong>这里我们看到子进程8130的运行状态就是S状态</strong></li>
+<li><strong>一个进程处于浅度睡眠状态（sleeping），意味着该进程正在等待某件事情的完成，处于浅度睡眠状态的进程随时可以被唤醒，也可以被杀掉（这里的睡眠有时候也可叫做可中断睡眠（interruptible sleep））</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="进程状态：深度睡眠状态D"><a href="#进程状态：深度睡眠状态D" class="headerlink" title="进程状态：深度睡眠状态D"></a><strong>进程状态：深度睡眠状态D</strong></h3><blockquote>
+<ol>
+<li><strong>一个进程处于深度睡眠状态（disk sleep），表示该进程不会被杀掉，即便是操作系统也不行，只有该进程自动唤醒才可以恢复。该状态有时候也叫不可中断睡眠状态（uninterruptible sleep），处于这个状态的进程通常会等待IO的结束</strong></li>
+<li><strong>例如，某一进程要求对磁盘进行写入操作，那么在磁盘进行写入期间，该进程就处于深度睡眠状态，是不会被杀掉的，因为该进程需要等待磁盘的回复（是否写入成功）以做出相应的应答。（磁盘休眠状态）</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="进程状态：暂停状态T"><a href="#进程状态：暂停状态T" class="headerlink" title="进程状态：暂停状态T"></a><strong>进程状态：暂停状态T</strong></h3><p><strong><mark>在Linux当中，我们可以通过发送<code>SIGSTOP信号</code>使进程进入暂停状态（stopped），发送SIGCONT信号可以让处于暂停状态的进程继续运行</mark></strong></p>
+<p><strong>例如：</strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122160557869.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122160557869.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122160557869">
+
+<p><strong>我们再对该进程发送SIGCONT信号，该进程就继续运行了：</strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122160623252.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122160623252.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122160623252">
+
+<hr>
+<h3 id="进程状态：死亡状态X"><a href="#进程状态：死亡状态X" class="headerlink" title="进程状态：死亡状态X"></a><strong>进程状态：死亡状态X</strong></h3><blockquote>
+<ol>
+<li><strong>死亡状态只是一个返回状态，当一个进程的退出信息被读取后，该进程所申请的资源就会立即被释放，该进程也就不存在了，所以你不会在任务列表当中看到死亡状态（dead）</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="进程状态：僵尸状态Z"><a href="#进程状态：僵尸状态Z" class="headerlink" title="进程状态：僵尸状态Z"></a><strong>进程状态：僵尸状态Z</strong></h3><blockquote>
+<ol>
+<li><strong>僵死状态（Zombies）是一个比较特殊的状态。当进程退出并且父进程（使用wait()系统调用，后面讲）没有读取到子进程退出的返回代码时就会产生僵死(尸)进程</strong></li>
+<li><strong>僵死进程会以终止状态保持在进程表中，并且会一直在等待父进程读取退出状态代码</strong></li>
+<li><strong>所以，只要子进程退出，父进程还在运行，但父进程没有读取子进程状态，子进程进入Z状态</strong></li>
+</ol>
+</blockquote>
+<p><strong><mark>举例代码：</mark></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdlib.h></span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I am running...\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">pid_t</span> id<span class="token operator">=</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>id<span class="token operator">&lt;</span>mark<span class="token operator">></span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token comment">//child</span>
+        <span class="token keyword">int</span> count<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I am chile，pid：%d，ppid：%d，count：%d\n"</span><span class="token punctuation">,</span><span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token operator">--</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    
+        <span class="token punctuation">&#125;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"child quit...\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>id<span class="token operator">></span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token comment">//father</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I am father，pid：%d，ppid：%d\n"</span><span class="token punctuation">,</span><span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">getppid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122161740786.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122161740786.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122161740786">
+
+<p><strong><font color=red>从上图我们就看到了子进程24337的状态由S+变成了Z+，进入僵尸状态的进程我们称它为僵尸进程！</font></strong></p>
+<p><strong><font color=green>僵尸进程对于我们的操作系统来说是有极大危害的！</font></strong></p>
+<p><strong><mark>僵尸进程危害：</mark></strong></p>
+<blockquote>
+<p>1.<strong>进程的退出状态必须被维持下去，因为他要告诉关心它的进程（父进程），你交给我的任务，我办的怎么样了。可父进程如果一直不读取，那子进程就一直处于Z状态</strong></p>
+<p>2.<strong>维护退出状态本身要用数据维护，也属于进程基本信息，所以保存在task_struct(PCB)中，换句话说，<code>Z状态一直不退出，PCB一直都要维护</code></strong></p>
+<p>3.<strong>那一个父进程创建了很多子进程，就是<code>不回收</code>，就会<code>造成内存资源的浪费</code>，因为数据结构对象本身就要占用内存，想想C中定义一个结构体变量（对象），是要在内存的某个位置进行开辟空间！</strong></p>
+<p>4.<strong><code>导致内存泄漏</code>【常见问题：<mark>1.频繁GC(垃圾回收机制)，发生GC的时候，所有进程都必须等待，GC频率越高，就感觉系统越卡顿</mark>。<mark>2.内存不足引发的程序运行崩溃</mark>】</strong></p>
+</blockquote>
+<hr>
+<h3 id="特殊的进程状态：孤儿状态"><a href="#特殊的进程状态：孤儿状态" class="headerlink" title="特殊的进程状态：孤儿状态"></a><strong>特殊的进程状态：孤儿状态</strong></h3><blockquote>
+<ol>
+<li><strong><mark>若子进程先退出而父进程没有对子进程的退出信息进行读取，那么我们称该进程为僵尸进程</mark></strong></li>
+<li><strong><mark>但若是父进程先退出，那么将来子进程进入僵尸状态时就没有父进程对其进行处理，此时该子进程就称之为”孤儿进程”</mark></strong></li>
+<li><strong><font color=red>孤儿进程被1号init进程领养，当然要有init进程回收，1号init就是操作系统</font></strong></li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+     <span class="token class-name">pid_t</span> id <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">if</span><span class="token punctuation">(</span>id <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+     <span class="token punctuation">&#123;</span>
+         <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"fork"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span>
+     <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>id <span class="token operator">&lt;</span>mark<span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+     <span class="token punctuation">&#123;</span><span class="token comment">//child</span>
+         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I am child, pid : %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span><span class="token keyword">else</span>
+     <span class="token punctuation">&#123;</span><span class="token comment">//parent</span>
+         <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"I am parent, pid: %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">&#125;</span>
+     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122163230583.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122163230583.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122163230583">
+
+<hr>
+<h2 id="进程优先级"><a href="#进程优先级" class="headerlink" title="进程优先级"></a><strong>进程优先级</strong></h2><h3 id="进程优先级基本概念"><a href="#进程优先级基本概念" class="headerlink" title="进程优先级基本概念"></a><strong>进程优先级基本概念</strong></h3><blockquote>
+<p><strong><mark>cpu资源分配的先后顺序，就是指进程的优先权（priority）</mark></strong></p>
+<p><strong>优先权高的进程有优先执行权利。配置进程优先权对多任务环境的linux很有用，可以改善系统性能</strong> </p>
+<p><strong>还可以把进程运行到指定的CPU上，这样一来，把不重要的进程安排到某个CPU，可以大大改善系统整体性能</strong></p>
+</blockquote>
+<p><strong>核心问题：</strong></p>
+<p><font color=red><strong>1.什么是优先级？什么是权限？</strong></font></p>
+<blockquote>
+<p><strong><code>优先级是进程获取资源的先后顺序</code></strong></p>
+<p><strong><code>权限是能还是不能获取资源</code></strong></p>
+</blockquote>
+<p><font color=red><strong>2.为什么存在优先级？</strong></font></p>
+<blockquote>
+<p><strong>排队的本质叫做确定优先级，资源总是不够的，需要优先分配给重要的进程</strong></p>
+</blockquote>
+<p><strong><font color=red>3.查看进程优先级方法？</font></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//Linux Unix系统下，用ps -l命令监控运行的进程的详细信息</span>
+ps <span class="token operator">-</span>l<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722015.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/20220815131722015.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220815131722015">
+
+<blockquote>
+<p><strong>UID : 代表执行者的身份</strong> </p>
+<p><strong>PID : 代表这个进程的代号</strong> </p>
+<p><strong>PPID ：代表这个进程是由哪个进程发展衍生而来的，亦即父进程的代号</strong></p>
+<p><strong><mark>PRI ：代表这个进程可被执行的优先级，其值越小越早被执行</mark></strong> </p>
+<p><strong><mark>NI ：代表这个进程的nice值</mark></strong></p>
+</blockquote>
+<hr>
+<h3 id="对于PRI和NI的理解"><a href="#对于PRI和NI的理解" class="headerlink" title="对于PRI和NI的理解"></a><strong>对于PRI和NI的理解</strong></h3><blockquote>
+<ul>
+<li><strong><mark>PRI代表进程的优先级（priority）</mark>，通俗点说就是进程被CPU执行的先后顺序，该<mark>值越小进程的优先级别越高，默认是80</mark></strong></li>
+<li><strong><mark>NI代表的是nice值</mark>，其表示<mark>进程可被执行的优先级的修正数值</mark></strong></li>
+<li><strong><mark>PRI值越小越快被执行</mark>，当加入nice值后，将会使得PRI变为：<mark>PRI(new) &#x3D; PRI(old) + NI</mark></strong></li>
+<li><strong>若NI值为负值，那么该进程的PRI将变小，即其优先级会变高</strong> </li>
+<li><strong><mark>调整进程优先级，在Linux下，就是调整进程的nice值</mark></strong></li>
+<li><strong><code>NI的取值范围：-20~19，40个级别</code></strong></li>
+<li><strong><code>PRI的取值范围：60~99，每次设置优先级都会被恢复为默认的80</code></strong></li>
+<li><strong>Linux不允许进程无节制的设置优先级</strong></li>
+</ul>
+<p><strong>注：<font color=red>需要强调一点的是，进程的nice值不是进程的优先级，，他们不是一个概念，但是进程nice值会影响到进程的优先级变化。 可以理解nice值是进程优先级的修正数据</font></strong></p>
+</blockquote>
+<hr>
+<h3 id="查看和修改进程优先级命令"><a href="#查看和修改进程优先级命令" class="headerlink" title="** 查看和修改进程优先级命令**"></a>** 查看和修改进程优先级命令**</h3><blockquote>
+<ol>
+<li><strong><mark>查看进程优先级的命令</mark>：<code>top</code></strong></li>
+<li><strong><mark>top命令用于显示系统运行的进程信息，作用类似于windows中的任务管理器，只不过top不是图形化的，而是显示实时文本信息</mark></strong></li>
+<li><strong><mark>修改进程优先级的命令</mark>：<code>修改进入top后按“r”–&gt;输入进程PID–&gt;输入nice值</code></strong> </li>
+<li><font color=red><strong>注：每次设置优先级，这个PRI(old)优先级都会恢复为80</strong></font></li>
+</ol>
+</blockquote>
+<p><strong>修改步骤：</strong></p>
+<ol>
+<li><p><strong><mark>输入top，查看进程优先级</mark></strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122165420825.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122165420825.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122165420825">
+</li>
+<li><p><strong><mark>输入r，进入修改功能</mark></strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122165604781.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122165604781.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122165604781">
+</li>
+<li><p><strong><mark>输入要修改的PID并输入nice值，这里以PID 3155举例，我们改nice为19</mark></strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122170325565.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122170325565.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122170325565">
+</li>
+<li><p><strong><mark>最后我们来看看3155进程的NI就变成了19</mark></strong></p>
+<img src="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122170237571.png" class="lazyload placeholder" data-srcset="/2023/02/20/4.linux-jin-cheng-gai-nian/image-20221122170237571.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221122170237571">
+
+<p><strong><font color=red>这里就可以很清晰的看到了，我们原来的3155进程PR是20，NI修改为19后，PR就变成了39&#x3D;20+19</font></strong></p>
+</li>
+</ol>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/Linux%E7%BC%96%E7%A8%8B/" class="">
+              Linux编程
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/02/20/4.linux-jin-cheng-gai-nian/" target="_blank" title="Linux进程概念">https://Not-Go.github.io/2023/02/20/4.linux-jin-cheng-gai-nian/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pica.zhimg.com/80/v2-61f99f8dcf899f54cad2a1aa28b21e44_1440w.webp" class="lazyload placeholder" data-srcset="https://pica.zhimg.com/80/v2-61f99f8dcf899f54cad2a1aa28b21e44_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/02/20/1.linux-xiang-mu-zi-dong-hua-gou-zao-gong-ju/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">Linux项目自动化工具工具-make/Makefile</div>
+      </div>
+      
+      <!-- <div class="content">
+        Linux项目自动化构建工具-make&#x2F;Makefilemake&#x2F;Makefile背景
+
+会不会写m
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-e5c15010b8ba4608a1974403a02a2da0_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-e5c15010b8ba4608a1974403a02a2da0_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/02/20/1.linux-huan-jing-bian-liang-yu-cheng-xu-di-zhi-kong-jian/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">Linux环境变量与程序地址空间</div>
+      </div>
+      <!-- <div class="content">
+        Linux环境变量与程序地址空间环境变量环境变量概念与深入理解
+
+**环境变量(environment variable
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E8%BF%9B%E7%A8%8B%E6%A6%82%E5%BF%B5"><span class="toc-text">Linux进程概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">进程的理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">进程的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#task-struct%E4%B8%8EPCB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">task_struct与PCB的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#task-struct%E7%9A%84%E5%86%85%E5%AE%B9%E5%88%86%E7%B1%BB-%E4%BA%86%E8%A7%A3"><span class="toc-text">task_struct的内容分类(了解)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E7%BB%87%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">组织进程和查看进程的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%A0%87%E8%AF%86%E7%AC%A6%E7%9A%84%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-text">进程标识符的获取方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fork-%E5%87%BD%E6%95%B0%E6%9C%89%E4%B8%A4%E4%B8%AA%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%89%96%E6%9E%90"><span class="toc-text">fork()函数有两个返回值的原因剖析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="toc-text">进程状态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="toc-text">Linux的进程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%98%BB%E5%A1%9E%E4%B8%8E%E8%BF%9B%E7%A8%8B%E6%8C%82%E8%B5%B7%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">进程阻塞与进程挂起的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B%E6%96%B9%E6%B3%95"><span class="toc-text">进程状态查看方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%9A%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81R"><span class="toc-text">进程状态：运行状态R</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%9A%E7%9D%A1%E7%9C%A0%E7%8A%B6%E6%80%81S"><span class="toc-text">进程状态：睡眠状态S</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%9A%E6%B7%B1%E5%BA%A6%E7%9D%A1%E7%9C%A0%E7%8A%B6%E6%80%81D"><span class="toc-text">进程状态：深度睡眠状态D</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%9A%E6%9A%82%E5%81%9C%E7%8A%B6%E6%80%81T"><span class="toc-text">进程状态：暂停状态T</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%9A%E6%AD%BB%E4%BA%A1%E7%8A%B6%E6%80%81X"><span class="toc-text">进程状态：死亡状态X</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%9A%E5%83%B5%E5%B0%B8%E7%8A%B6%E6%80%81Z"><span class="toc-text">进程状态：僵尸状态Z</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81%EF%BC%9A%E5%AD%A4%E5%84%BF%E7%8A%B6%E6%80%81"><span class="toc-text">特殊的进程状态：孤儿状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">进程优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88%E7%BA%A7%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">进程优先级基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8EPRI%E5%92%8CNI%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">对于PRI和NI的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%92%8C%E4%BF%AE%E6%94%B9%E8%BF%9B%E7%A8%8B%E4%BC%98%E5%85%88%E7%BA%A7%E5%91%BD%E4%BB%A4"><span class="toc-text">** 查看和修改进程优先级命令**</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

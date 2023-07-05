@@ -1,0 +1,3618 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>STL库：list | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        STL库：list
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2022-12-10 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E5%88%9D%E9%98%B6C/" class="post-detail-header_category">
+              初阶C++
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 6.4k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 27分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="STL库：list"><a href="#STL库：list" class="headerlink" title="STL库：list"></a><strong>STL库：list</strong></h1><h2 id="STL库对list的官方介绍"><a href="#STL库对list的官方介绍" class="headerlink" title="STL库对list的官方介绍"></a><strong>STL库对list的官方介绍</strong></h2><blockquote>
+<ol>
+<li><strong>list 是序列式容器，可以在序列中的任意位置进行常数时间 O(1) 的插入和删除操作，以及双向迭代</strong></li>
+<li><strong>list 的底层是「带头双向循环链表」结构，双向链表中每个元素存储在不同且不相关的独立节点中，在节点中通过指针指向其前一个元素和后一个元素</strong></li>
+<li><strong>list 与 forward_list 非常相似：主要区别在于 forward_list 是单链表，因此只能向前迭代，让其更简单高效</strong></li>
+<li><strong>与其他的序列式容器相比 (array，vector，deque)，list 在容器内任意位置进行插入、删除、移动元素方面的执行效率通常表现更好</strong></li>
+<li><strong>与其他序列式容器相比，list 和 forward_list 「最大的缺陷是不支持任意位置的随机访问」。比如：要访问 list 中的第 6 个元素，必须从已知的位置（比如头部或者尾部）迭代到该位置，在它们之间的距离上迭代需要线性的时间开销；list 还需要一些额外的空间，以保存每个元素相关联的链接信息（对于存储类型较小元素的大型列表来说这可能是一个重要的因素）</strong></li>
+</ol>
+</blockquote>
+<img src="/2022/12/10/10.stl-ku-list/image-20230623223838207.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223838207.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223838207">
+
+<hr>
+<h2 id="list的常用接口"><a href="#list的常用接口" class="headerlink" title="list的常用接口"></a><strong>list的常用接口</strong></h2><h3 id="list的构造函数"><a href="#list的构造函数" class="headerlink" title="list的构造函数"></a><strong>list的构造函数</strong></h3><blockquote>
+<ol>
+<li><strong>list()：构造一个没有元素的空容器，size &#x3D; 0</strong></li>
+<li><strong>list (size_type n, const value_type&amp; val &#x3D; value_type())：构造一个包含 n 个元素的容器。每个元素都是 val</strong></li>
+<li><strong>list (const list&amp; x)：拷贝构造</strong></li>
+<li><strong><code>template &lt;class InputIterator&gt; list (InputIterator first, InputIterator last)</code>:用迭代器区间 [first, last) 中的元素构造 list</strong></li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;list的构造
+#include &lt;iostream&gt;
+#include &lt;list&gt;
+
+int main ()
+&#123;
+  
+  std::list&lt;int&gt; first;                                
+  std::list&lt;int&gt; second (4,100);                       
+  std::list&lt;int&gt; third (second.begin(),second.end());  
+  std::list&lt;int&gt; fourth (third);                       
+
+  int myints[] &#x3D; &#123;16,2,77,29&#125;;
+  std::list&lt;int&gt; fifth (myints, myints + sizeof(myints) &#x2F; sizeof(int) );
+
+  return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="list的迭代器与遍历操作"><a href="#list的迭代器与遍历操作" class="headerlink" title="list的迭代器与遍历操作"></a><strong>list的迭代器与遍历操作</strong></h3><blockquote>
+<ol>
+<li><strong>begin(iterator &#x2F; const_iterator)：返回指向容器中第一个元素的迭代器</strong></li>
+<li><strong>rbegin(reverse_iterator &#x2F; const_reverse_iterator)：反向迭代器</strong></li>
+<li><strong>end():返回指向容器中的最后一个元素下一个位置的迭代器（即头节点）</strong></li>
+<li><strong>rend()：反向迭代器</strong></li>
+<li><strong>范围for：C++11 支持更简介的范围 for 的新遍历方式（底层其实是被替换成迭代器，所以支持迭代器就支持范围 for）</strong></li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void test1()
+&#123;
+	list&lt;int&gt; lt;
+	lt.push_back(1);
+	lt.push_back(2);
+	lt.push_back(3);
+	
+	for (auto it &#x3D; lt.begin(); it !&#x3D; lt.end(); it++)
+		cout &lt;&lt; *it &lt;&lt; &quot; &quot;;
+	cout &lt;&lt; endl;
+
+	for (auto&amp; e : lt)
+		cout &lt;&lt; e &lt;&lt; &quot; &quot;;
+	cout &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="list的容量操作"><a href="#list的容量操作" class="headerlink" title="list的容量操作"></a><strong>list的容量操作</strong></h3><blockquote>
+<ol>
+<li><strong>empty()：判断容器是否为空</strong></li>
+<li><strong>size()：返回容器中有效元素的个数（需要遍历完链表，时间代价为O(n)）</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;size()
+size_t size() &#x2F;&#x2F; 这是一个O(n)的接口，尽量少用
+&#123;
+    size_t n &#x3D; 0; &#x2F;&#x2F; 遍历整个链表，统计有效元素个数
+
+    iterator it &#x3D; begin();
+    while (it !&#x3D; end())
+    &#123;
+        n++;
+        it++;
+    &#125;
+    return n;
+&#125;
+
+&#x2F;&#x2F;empty()
+bool empty()
+&#123;
+    return begin() &#x3D;&#x3D; end();
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+</blockquote>
+<hr>
+<h3 id="list的访问操作"><a href="#list的访问操作" class="headerlink" title="list的访问操作"></a><strong>list的访问操作</strong></h3><blockquote>
+<ol>
+<li><strong>list 不支持 <code>[]</code> 运算符，因为 list 容器物理地址不是连续的</strong></li>
+<li><strong>front()：返回容器中第一个元素的引用</strong></li>
+<li><strong>back()：返回容器中最后一个元素的引用</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="list的修改操作"><a href="#list的修改操作" class="headerlink" title="list的修改操作"></a><strong>list的修改操作</strong></h3><blockquote>
+<ol>
+<li><strong>push_front()：头插，在 list 的第一个元素之前插入一个新元素</strong></li>
+<li><strong>pop_front()：头删，删除 list 中第一个元素</strong></li>
+<li><strong>push_back()：尾插，在容器的最后一个元素之后添加一个新元素</strong></li>
+<li><strong>pop_back()：尾删，删除容器中的最后一个元素</strong></li>
+<li><strong>insert()：在指定迭代器位置的元素之前插入新元素来扩展容器，插入单个元素：iterator insert (iterator position, const value_type&amp; val);</strong></li>
+<li><strong>erase()：从列表容器中删除单个元素（迭代器位置）或一系列元素（[first,last)）删除单个元素：iterator erase (iterator position);</strong></li>
+<li><strong>swap()：交换两个容器的内容</strong></li>
+<li><strong>resize()：调整有效元素个数（size），多出的位置用缺省值填充</strong></li>
+<li><strong>clear()：清空容器中的有效元素，size &#x3D; 0，并没有清除头节点</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;insert()
+iterator insert(iterator pos, const T&amp; data)
+&#123;
+    Node* cur &#x3D; pos._node;   &#x2F;&#x2F; 当前节点（pos中封装了节点的指针）
+    Node* prev &#x3D; cur-&gt;_prev; &#x2F;&#x2F; 前驱节点
+    Node* newnode &#x3D; new Node(data); &#x2F;&#x2F; 新节点
+
+    &#x2F;&#x2F; 建立前驱节点和新节点的链接
+    prev-&gt;_next &#x3D; newnode;
+    newnode-&gt;_prev &#x3D; prev;
+
+    &#x2F;&#x2F; 建立新节点与当前节点的链接
+    newnode-&gt;_next &#x3D; cur;
+    cur-&gt;_prev &#x3D; newnode;
+
+    &#x2F;&#x2F; 返回指向第一个新插入元素的迭代器
+    return iterator(newnode); &#x2F;&#x2F; 注意：此处调用iterator的构造函数构造出一个匿名对象
+
+    &#x2F;&#x2F; return newnode; &#x2F;&#x2F; 也可以这样写，因为单参数的构造函数支持隐式类型的转换
+&#125;
+
+&#x2F;&#x2F;erase()
+iterator erase(iterator pos)
+&#123;
+    assert(pos !&#x3D; end()); &#x2F;&#x2F; 不能删除头节点
+
+    Node* cur &#x3D; pos._node;   &#x2F;&#x2F; 当前节点
+
+    Node* prev &#x3D; cur-&gt;_prev; &#x2F;&#x2F; 前驱节点
+    Node* next &#x3D; cur-&gt;_next; &#x2F;&#x2F; 后继节点
+
+    &#x2F;&#x2F; 建立前驱节点与后继节点的链接
+    prev-&gt;_next &#x3D; next;
+    next-&gt;_prev &#x3D; prev;
+
+    &#x2F;&#x2F; 删除当前节点
+    delete cur;
+
+    &#x2F;&#x2F; 返回指向被删除节点的下一个节点的迭代器
+    return iterator(next); &#x2F;&#x2F; 注意：此处调用iterator的构造函数构造出一个匿名对象
+&#125;
+
+&#x2F;&#x2F;push_back() push_front()
+void push_back(const T&amp; data) &#x2F;&#x2F; 尾插
+&#123;
+	&#x2F;*
+    Node* newNode &#x3D; new Node(data); &#x2F;&#x2F; 构造新节点
+
+    Node* tail &#x3D; _head-&gt;_prev; &#x2F;&#x2F; 尾节点
+
+    &#x2F;&#x2F; 建立尾节点和新节点的链接
+    tail-&gt;_next &#x3D; newNode;
+    newNode-&gt;_prev &#x3D; tail;
+
+    &#x2F;&#x2F; 建立新节点和头节点的链接
+    newNode-&gt;_next &#x3D; _head;
+    _head-&gt;_prev &#x3D; newNode;
+	*&#x2F;
+
+    &#x2F;* 复用 insert 函数的代码 *&#x2F;
+    
+    insert(end(), data); &#x2F;&#x2F; 在头节点的前面插入，相当于是尾插
+&#125;
+
+void push_front(const T&amp; data) &#x2F;&#x2F; 头插
+&#123;
+    insert(begin(), data); &#x2F;&#x2F; 在第一个有效节点前面插入，相当于是头插
+&#125;
+
+&#x2F;&#x2F;pop_back() pop_front()
+void pop_back() &#x2F;&#x2F; 尾删
+&#123;
+    erase(--end()); 
+&#125;
+
+void pop_front() &#x2F;&#x2F; 头删
+&#123;
+    erase(begin()); 
+&#125;
+
+&#x2F;&#x2F;clear()
+void clear()
+&#123;
+	&#x2F;*
+    iterator it &#x3D; begin();
+    while (it !&#x3D; end())
+    &#123;
+        Node* cur &#x3D; it._node; &#x2F;&#x2F; 记录当前节点
+        it++;                 &#x2F;&#x2F; 遍历下一个节点
+        delete cur;           &#x2F;&#x2F; 删除当前节点
+    &#125;
+
+    &#x2F;&#x2F; 建立头节点自身的链接
+    _head-&gt;_next &#x3D; _head;
+    _head-&gt;_prev &#x3D; _head;
+	*&#x2F;
+
+    iterator it &#x3D; begin();
+    while (it !&#x3D; end())
+    &#123;
+        it &#x3D; erase(it); &#x2F;&#x2F; 删除当前节点，返回指向下一个节点的迭代器
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<p><strong><mark>特别：list可以在任意位置进行O(1)级别的插入和删除操作</mark></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;insert
+&#x2F;&#x2F; 返回指向第一个新插入元素的迭代器
+iterator insert (iterator position, const value_type&amp; val); &#x2F;&#x2F; 传值传参
+
+&#x2F;&#x2F;erase
+&#x2F;&#x2F; 返回指向被删除元素的下一个元素的迭代器，如果操作擦除了序列中的最后一个元素，则这是容器端
+iterator erase (iterator position); &#x2F;&#x2F; 传值传参<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="list的特别容器操作"><a href="#list的特别容器操作" class="headerlink" title="list的特别容器操作"></a><strong>list的特别容器操作</strong></h3><blockquote>
+<ol>
+<li><strong>sort()：对 list 容器中的元素进行排序（注意：这是 list 的成员函数哦），效率很低，链表排序也没有太大的作用和价值</strong></li>
+<li><strong>unique()：去重（删除重复值），必须要先排序，才能去完重复值</strong></li>
+<li><strong>remove()：从容器中移除所有值等于 val 的元素（<code>void remove (const value_type&amp; val);</code>)</strong></li>
+<li><strong>reverse()：反转容器中元素的顺序</strong></li>
+<li><strong>merge()：合并排序序列（合并前两个 list 容器都要排好序）</strong></li>
+</ol>
+</blockquote>
+<p><strong><font color=red>1.sort()</font></strong></p>
+<ul>
+<li><strong>等价元素的结果顺序是稳定的：即等价元素保留它们在调用之前的相对顺序</strong></li>
+<li><strong>整个操作不涉及任何元素对象的构造、销毁或复制。元素在容器内移动</strong></li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void sort();&#x2F;&#x2F;函数原型
+
+template &lt;class Compare&gt;&#x2F;&#x2F;sort模板
+void sort (Compare comp);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>函数默认是排升序（&lt;），如果想要排降序（&gt;），需要传仿函数，比如：</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void test3()
+&#123;
+    int arr[] &#x3D; &#123; 10,2,5 &#125;;
+	list&lt;int&gt; lt(arr, arr + sizeof(arr) &#x2F; sizeof(int));
+	&#x2F;&#x2F; &gt; 排降序
+    &#x2F;&#x2F; 写法一：
+	greater&lt;int&gt; g; &#x2F;&#x2F; 类模板，在&lt;functional&gt;头文件中
+	lt.sort(g);
+    &#x2F;&#x2F; 写法二：
+	lt.sort(greater&lt;int&gt;()); &#x2F;&#x2F; 匿名对象 
+	&#x2F;&#x2F; lt: 10 5 2    
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>2.unique()</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void test4()
+&#123;
+    int arr[] &#x3D; &#123; 2,4,3,2,4 &#125;;
+	list&lt;int&gt; lt(arr, arr + sizeof(arr) &#x2F; sizeof(int));
+	lt.sort();   &#x2F;&#x2F; 去重前，必须要先排序
+	lt.unique(); &#x2F;&#x2F; 去除重复值
+    &#x2F;&#x2F; lt: 2 3 4
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>3.remove()</font></strong></p>
+<pre class="line-numbers language-c+" data-language="c+"><code class="language-c+">void test5()
+&#123;
+	int arr[] &#x3D; &#123; 1,2,3,3,4 &#125;;
+	list&lt;int&gt; lt(arr, arr + sizeof(arr) &#x2F; sizeof(int));
+	lt.remove(3); &#x2F;&#x2F; lt: 1 2 4
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>4.reverse()</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void test6()
+&#123;
+	int arr[] &#x3D; &#123; 1,2,3,4,5 &#125;;
+	list&lt;int&gt; lt(arr, arr + sizeof(arr) &#x2F; sizeof(int));
+    lt.reverse(); &#x2F;&#x2F; rlt: 5 4 3 2 1
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="list的底层源码"><a href="#list的底层源码" class="headerlink" title="list的底层源码"></a><strong>list的底层源码</strong></h2><img src="/2022/12/10/10.stl-ku-list/image-20230623223849948.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223849948.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223849948">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 链表节点结构
+template &lt;class T&gt;
+struct __list_node &#123;
+  typedef void* void_pointer;
+  void_pointer next;
+  void_pointer prev;
+  T data;
+&#125;;
+
+&#x2F;&#x2F; 迭代器 -- 一个类封装了节点指针
+template&lt;class T, class Ref, class Ptr&gt;
+struct __list_iterator &#123;
+  typedef __list_iterator&lt;T, T&amp;, T*&gt;             iterator;
+  typedef __list_iterator&lt;T, const T&amp;, const T*&gt; const_iterator;
+  typedef __list_iterator&lt;T, Ref, Ptr&gt;           self;
+  &#x2F;&#x2F; ...
+  typedef Ptr pointer;
+  typedef Ref reference;
+  &#x2F;&#x2F; ...
+  typedef __list_node&lt;T&gt;* link_type;
+  link_type node;                     &#x2F;&#x2F; 节点指针
+  &#x2F;&#x2F; ...
+&#125;;
+
+&#x2F;&#x2F; 带头双向循环链表结构
+template &lt;class T, class Alloc &#x3D; alloc&gt;
+class list &#123;
+protected:
+  typedef __list_node&lt;T&gt; list_node;   &#x2F;&#x2F; 节点
+  &#x2F;&#x2F; ...
+public:      
+  typedef T value_type;
+  typedef list_node* link_type;       &#x2F;&#x2F; 节点指针
+  &#x2F;&#x2F; ...
+public:
+  &#x2F;&#x2F; 迭代器（这里的iterator和const_iterator是定义在list类域中的内嵌类型）
+  typedef __list_iterator&lt;T, T&amp;, T*&gt;             iterator; &#x2F;&#x2F; 传了T,T&amp;,T*模板参数
+  typedef __list_iterator&lt;T, const T&amp;, const T*&gt; const_iterator; &#x2F;&#x2F; 传了T,const T&amp;,const T*模板参数
+  &#x2F;&#x2F; ...
+protected:
+  link_type node;                     &#x2F;&#x2F; 成员变量，节点指针
+  &#x2F;&#x2F; ...
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="list的模拟实现"><a href="#list的模拟实现" class="headerlink" title="list的模拟实现"></a><strong>list的模拟实现</strong></h2><h3 id="list的结点结构"><a href="#list的结点结构" class="headerlink" title="list的结点结构"></a><strong>list的结点结构</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;双向循环链表节点结构：一个数据域，两个指针
+namespace winter
+&#123;
+	&#x2F;&#x2F; 节点结构
+	&#x2F;&#x2F; T: 节点中数据的类型
+	template&lt;class T&gt;
+	struct __list_node
+	&#123;
+		T _data;               &#x2F;&#x2F; 数据域
+		__list_node&lt;T&gt;* _prev; &#x2F;&#x2F; 前驱指针
+		__list_node&lt;T&gt;* _next; &#x2F;&#x2F; 后继指针
+
+		&#x2F;&#x2F; 默认构造函数，T()是缺省值（T类型的默认构造函数）
+		__list_node(const T&amp; data &#x3D; T())
+			:_data(data)
+			,_prev(nullptr)
+			,_next(nullptr)
+		&#123;&#125;
+	&#125;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="list的底层结构"><a href="#list的底层结构" class="headerlink" title="list的底层结构"></a><strong>list的底层结构</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">namespace winter
+&#123;
+	&#x2F;&#x2F; 带头双向循环链表结构
+	&#x2F;&#x2F; T: 节点中数据的类型
+	template&lt;class T&gt;
+	class list
+	&#123;
+	public:
+		typedef __list_node&lt;T&gt; Node; &#x2F;&#x2F; 节点
+
+	public:
+		&#x2F;*******************************************************&#x2F;
+		&#x2F;&#x2F; 迭代器
+		&#x2F;&#x2F; iterator是内嵌类型，在list类域里面定义的类型（类中类）
+		&#x2F;&#x2F; 为啥要typedef呢？为了统一规范名称，所有容器迭代器都叫iterator，用起来更方便
+
+        &#x2F;&#x2F; 普通迭代器，指明模板参数为 T, T&amp;, T*
+        typedef __list_iterator&lt;T, T&amp;, T*&gt; iterator;
+        
+        &#x2F;&#x2F; const迭代器，指明模板参数为 T, const T&amp;, const T*
+        typedef __list_iterator&lt;T, const T&amp;, const T*&gt; const_iterator;
+
+		iterator begin(); &#x2F;&#x2F; 返回指向第一个有效节点的迭代器
+		iterator end();   &#x2F;&#x2F; 返回指向头节点的迭代器
+		const_iterator begin() const;
+		const_iterator end() const;
+
+	private:
+		Node* _head; &#x2F;&#x2F; 头节点指针
+
+	public:
+		&#x2F;*******************************************************&#x2F;
+		&#x2F;&#x2F; 默认成员函数
+
+		list(); &#x2F;&#x2F; 默认构造函数
+		template&lt;class InputIterator&gt;
+		list(InputIterator first, InputIterator last); &#x2F;&#x2F; 带参构造函数
+		list(const list&lt;T&gt;&amp; lt); &#x2F;&#x2F; 拷贝构造函数（深拷贝）
+		list&lt;T&gt;&amp; operator&#x3D;(list&lt;T&gt; lt) &#x2F;&#x2F; 赋值运算符重载函数（深拷贝）
+		~list(); &#x2F;&#x2F; 析构函数
+
+		&#x2F;*******************************************************&#x2F;
+		&#x2F;&#x2F; 容量操作
+
+		size_t size(); &#x2F;&#x2F; 有效元素个数
+		bool empty(); &#x2F;&#x2F; 判空
+
+		&#x2F;*******************************************************&#x2F;
+		&#x2F;&#x2F; 修改操作
+
+		iterator insert(iterator pos, const T&amp; data); &#x2F;&#x2F; 指定迭代器位置之前插入元素
+		iterator erase(iterator pos); &#x2F;&#x2F; 删除指定迭代器位置的元素
+		void push_back(const T&amp; data);  &#x2F;&#x2F; 尾插
+		void push_front(const T&amp; data); &#x2F;&#x2F; 头插
+		void pop_back();  &#x2F;&#x2F; 尾删
+		void pop_front(); &#x2F;&#x2F; 头删
+		void clear(); &#x2F;&#x2F; 清空有效元素
+	&#125;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<ol>
+<li><strong>list类域中的<code>__list_iterator&lt;T, T&amp;, T*&gt;</code> 和 <code>__list_iterator&lt;T, const T&amp;, const T*&gt;</code>是定义在类内部的类（嵌套类型）</strong></li>
+<li><strong>用 typedef 重命名为 <code>iterator</code> 和 <code>const_iterator</code> ，目的是为了统一规范迭代器的名称，所有容器的迭代器都叫 <code>iterator</code> 等，用起来更方便。要不然，每个容器都定义迭代器，如果每个容器迭代器的名字都不一样，那用户使用起来成本太高了</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 普通迭代器，指明模板参数为 T, T&amp;, T*
+typedef __list_iterator&lt;T, T&amp;, T*&gt; iterator;
+
+&#x2F;&#x2F; const迭代器，指明模板参数为 T, const T&amp;, const T*
+typedef __list_iterator&lt;T, const T&amp;, const T*&gt; const_iterator;
+
+&#x2F;&#x2F;其中 T 、 T&amp; 、 T* 都是类型参数，当 list 的类型确定了，T 、 T&amp; 、 T* 的类型自动确定，那么 iterator 的类型同时也自动确定了，这看起来就像 iterator和list是共生的一样<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<hr>
+<h3 id="list的迭代器"><a href="#list的迭代器" class="headerlink" title="list的迭代器"></a><strong>list的迭代器</strong></h3><p><strong><font color=red>1.迭代器的结构</font></strong></p>
+<img src="/2022/12/10/10.stl-ku-list/image-20230623223858386.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223858386.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223858386">
+
+<blockquote>
+<p>*<em>前面学习的 string 和 vector 容器的正向迭代器其实就是原生指针，++ 可以直接走到下一个元素，而 list 的正向迭代器是用一个类，把节点指针封装起来，然后通过实现运算符重载函数，让迭代器具有像指针一样的行为，比如：重载了 * 运算符，实现了 <em>it 解引用返回节点中的存储的数据的引用，重载了 ++ 运算符，实现了 it++ 直接走到下一个元素</em></em></p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">namespace winter
+&#123;
+	&#x2F;* 
+	* 迭代器 -- 用一个类去封装了节点的指针
+	* T: 节点中数据的类型
+	* Ref: 节点中数据的引用
+	* Ptr: 节点中数据的指针（地址）
+	*&#x2F;
+	template&lt;class T, class Ref, class Ptr&gt;
+	struct __list_iterator
+	&#123;
+		typedef __list_iterator&lt;T, Ref, Ptr&gt; self; &#x2F;&#x2F; 自己这个类型
+		typedef __list_node&lt;T&gt; Node; &#x2F;&#x2F; 节点
+
+		Node* _node; &#x2F;&#x2F; 节点指针
+
+		&#x2F;&#x2F; 构造函数
+		__list_iterator(Node* node)  &#x2F;&#x2F; 用节点指针来构造
+			:_node(node)
+		&#123;&#125;
+		
+		&#x2F;*******************************************************&#x2F;
+		&#x2F;&#x2F; 运算符重载
+
+		&#x2F;&#x2F; 让迭代器具有像指针一样的行为
+		Ref operator*() const;
+		Ptr operator-&gt;() const;
+
+		&#x2F;&#x2F; 让迭代器可以移动（双向）
+		self&amp; operator++();
+		self operator++(int); &#x2F;&#x2F; 不能用引用返回
+		self&amp; operator--();
+		self operator--(int); &#x2F;&#x2F; 不能用引用返回
+
+		&#x2F;&#x2F; 让两个迭代器可以进行比较
+		&#x2F;&#x2F; 判断两个迭代器是否相等，其实判断的是节点指针是否相等
+		bool operator&#x3D;&#x3D;(const self&amp; it);
+		bool operator!&#x3D;(const self&amp; it);
+	&#125;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>2.迭代器中的运算符重载函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">1.让迭代器具有像指针一样的行为，重载 * 和 -&gt; 运算符函数：这两个运算符重载函数也是实现 普通迭代器 和 const 迭代器 的关键
+&#x2F;&#x2F; *it 本质是：it.operator*()
+Ref operator*() const
+&#123;
+    &#x2F;&#x2F; 返回节点中数据(对象)的引用 &#x2F; const常引用，具体返回什么取决于在list类域中定义迭代器时传给 Ref 的参数是什么
+    return _node-&gt;_data;
+
+    &#x2F;&#x2F; 我们想要得到的是节点中存储的数据（对象），而不是整个节点（节点中包含数据和2个指针）
+&#125;
+
+&#x2F;&#x2F; it-&gt; 本质是：it.operator-&gt;()
+Ptr operator-&gt;() const
+&#123; 
+    &#x2F;&#x2F; 返回节点中数据(对象)的指针 &#x2F; const常指针，具体返回什么取决于在list类域中定义迭代器时传给 Ptr 的参数是什么
+    return &amp;(_node-&gt;_data);
+&#125;
+
+&#x2F;&#x2F;-------------------------------------------------------------------------------------------------
+
+2.让迭代器可以移动（双向），重载 ++ 和 – 运算符函数
+&#x2F;&#x2F; 这些函数返回的是自己这个类型 __list_iterator&lt;T, Ref, Ptr&gt; 的对象
+
+&#x2F;&#x2F; ++it 本质是：it.operator++()
+self&amp; operator++()
+&#123;
+    _node &#x3D; _node-&gt;_next;
+
+    return *this; &#x2F;&#x2F; 返回++后的迭代器
+&#125;
+
+&#x2F;&#x2F; it++ 本质是：it.operator++(0)
+self operator++(int) &#x2F;&#x2F; 不能用引用返回
+&#123;
+    self tmp(*this);
+    _node &#x3D; _node-&gt;_next;
+
+    return tmp; &#x2F;&#x2F; 返回++前的迭代器
+&#125;
+
+&#x2F;&#x2F; --it 本质是：it.operator--()
+self&amp; operator--()
+&#123;
+    _node &#x3D; _node-&gt;_prev;
+
+    return *this; &#x2F;&#x2F; 返回--后的迭代器
+&#125;
+
+&#x2F;&#x2F; it-- 本质是：it.operator--(0)
+self operator--(int) &#x2F;&#x2F; 不能用引用返回
+&#123;
+    self tmp(*this);
+    _node &#x3D; _node-&gt;_prev;
+
+    return tmp; &#x2F;&#x2F; 返回--前的迭代器
+&#125;
+
+&#x2F;&#x2F;------------------------------------------------------------------------------------------------
+
+3.让两个迭代器可以进行比较，重载 &#x3D;&#x3D; 和 !&#x3D; 运算符函数
+&#x2F;&#x2F; 判断两个迭代器是否相等，其实判断的是节点指针是否相等
+bool operator&#x3D;&#x3D;(const self&amp; it)
+&#123;
+    return _node &#x3D;&#x3D; it._node;
+&#125;
+
+bool operator!&#x3D;(const self&amp; it)
+&#123;
+    return _node !&#x3D; it._node;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="list的成员函数"><a href="#list的成员函数" class="headerlink" title="list的成员函数"></a><strong>list的成员函数</strong></h2><p><strong><font color=red>1.list的构造函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 默认构造函数
+list()
+&#123;
+    &#x2F;&#x2F; 构造头节点，自己指向自己
+    _head &#x3D; new Node;
+    _head-&gt;_prev &#x3D; _head;
+    _head-&gt;_next &#x3D; _head;
+&#125;
+
+&#x2F;&#x2F; 用迭代器区间初始化[first,last)
+template&lt;class InputIterator&gt;
+list(InputIterator first, InputIterator last)
+    :_head(new Node) &#x2F;&#x2F; 当前对象是一个正在构造的对象，成员变量是随机值，需要进行初始化
+&#123;
+	&#x2F;&#x2F; 建立头节点自身的链接
+	_head-&gt;_prev &#x3D; _head;
+	_head-&gt;_next &#x3D; _head;
+        
+    &#x2F;&#x2F; 用迭代器遍历元素，尾插到新容器中
+	while (first !&#x3D; last)
+	&#123;
+		push_back(*first);
+		first++;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>2.list的拷贝构造函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;拷贝构造函数（深拷贝），传统写法
+&#x2F;&#x2F; lt2(lt1)
+list(const list&lt;T&gt;&amp; lt)
+    :_head(new Node) &#x2F;&#x2F; 当前对象是一个正在构造的对象，成员变量是随机值，需要进行初始化
+&#123;
+    &#x2F;&#x2F; 建立头节点自身的链接
+    _head-&gt;_prev &#x3D; _head;
+    _head-&gt;_next &#x3D; _head;
+
+    &#x2F;&#x2F; 把lt中所有节点拷贝插入到新容器中
+    for (const auto&amp; e : lt)
+    &#123;
+    	push_back(e);
+    &#125;
+&#125;
+
+&#x2F;&#x2F; 拷贝构造函数（深拷贝），现代写法
+&#x2F;&#x2F; lt2(lt1)
+list(const list&lt;T&gt;&amp; lt)
+    :_head(new Node) &#x2F;&#x2F; 当前对象是一个正在构造的对象，成员变量是随机值，需要进行初始化
+&#123;
+    &#x2F;&#x2F; 建立头节点自身的链接
+    _head-&gt;_prev &#x3D; _head;
+    _head-&gt;_next &#x3D; _head;
+
+	list&lt;T&gt; tmp(lt.begin(), lt.end());
+	std::swap(_head, tmp._head); &#x2F;&#x2F; 交换两个容器的内容
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>3.list的赋值运算符重载函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;深拷贝
+&#x2F;&#x2F;传统写法
+list&lt;T&gt;&amp; operator&#x3D;(const list&lt;T&gt;&amp; lt)
+&#123;
+    if (this !&#x3D; &amp;lt) &#x2F;&#x2F; 防止自己给自己赋值
+    &#123;
+        &#x2F;&#x2F; 清除当前容器所有有效元素
+        clear();
+
+        &#x2F;&#x2F; 把lt中所有节点拷贝插入到当前容器中
+        for (const auto&amp; e : lt)
+        &#123;
+            push_back(e);
+        &#125;
+    &#125;
+
+    return *this; &#x2F;&#x2F; 返回当前容器
+&#125;
+
+&#x2F;&#x2F;现代写法
+list&lt;T&gt;&amp; operator&#x3D;(list&lt;T&gt; lt) &#x2F;&#x2F; 传值传参，拷贝构造出临时对象
+&#123;
+    std::swap(_head, lt._head); &#x2F;&#x2F; 交换两个容器的内容
+
+    return *this; &#x2F;&#x2F; 返回当前容器
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>4.list的析构函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">~list()
+&#123;
+	&#x2F;&#x2F;方法一
+    Node* cur &#x3D; _head-&gt;_next; &#x2F;&#x2F; 从第一个有效节点开始删除
+
+    while (cur !&#x3D; _head) 
+    &#123;
+        Node* next &#x3D; cur-&gt;_next; &#x2F;&#x2F; 先记录下一个节点
+
+        delete cur; &#x2F;&#x2F; 释放当前节点
+
+        cur &#x3D; next; &#x2F;&#x2F; 遍历下一个节点
+    &#125;
+
+    delete _head; &#x2F;&#x2F; 释放头节点
+    _head &#x3D; nullptr;
+	
+
+    &#x2F;&#x2F;方法二：复用 clear 函数的代码
+
+    clear();
+    delete _head;
+    _head &#x3D; nullptr;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="list与vector的对比"><a href="#list与vector的对比" class="headerlink" title="list与vector的对比"></a><strong>list与vector的对比</strong></h2><p><strong>list 与 vector 都是 STL 中非常重要的序列式容器，由于两个容器的底层结构不同，导致其特性以及应用场景不同，其主要不同如下：</strong></p>
+<img src="/2022/12/10/10.stl-ku-list/image-20230623223907288.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223907288.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223907288">
+
+<hr>
+<h2 id="扩展：容器迭代器的了解"><a href="#扩展：容器迭代器的了解" class="headerlink" title="扩展：容器迭代器的了解"></a><strong>扩展：容器迭代器的了解</strong></h2><h3 id="1-容器迭代器分类"><a href="#1-容器迭代器分类" class="headerlink" title="1.容器迭代器分类"></a><strong>1.容器迭代器分类</strong></h3><blockquote>
+<ol>
+<li><strong>从使用功能角度：正向 &#x2F; 反向 + const</strong></li>
+<li><strong>从容器底层结构角度：单向迭代器、双向迭代器、随机访问迭代器</strong><ul>
+<li><strong>单向（Unidirectional Iterator）：单链表 forward_list、哈希表 unordered_set&#x2F;map 迭代器，可以 ++</strong></li>
+<li><strong>双向（Bidirectional Iterator）：双向链表 list、红黑树 set&#x2F;map 迭代器，可以 ++ &#x2F; –</strong></li>
+<li><strong>随机（Random Access Iterator）：string、vector、deque 迭代器，一般容器的底层都是连续的数组，可以 ++ &#x2F; – &#x2F; + &#x2F; -</strong></li>
+<li><strong>单向 &lt;– 双向 &lt;– 随机</strong></li>
+</ul>
+</li>
+</ol>
+<p><strong>迭代器的本质是：在不暴露容器底层实现细节的情况下，提供了一种统一的方式来访问 &#x2F; 修改容器中存储的数据</strong></p>
+</blockquote>
+<hr>
+<h3 id="容器、迭代器、算法的关系"><a href="#容器、迭代器、算法的关系" class="headerlink" title="容器、迭代器、算法的关系"></a><strong>容器、迭代器、算法的关系</strong></h3><img src="/2022/12/10/10.stl-ku-list/image-20230623223912840.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223912840.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223912840">
+
+
+
+<p><strong><font color=red>我们来看看 stl_iterator源码中对于迭代器的分类：</font></strong></p>
+<img src="/2022/12/10/10.stl-ku-list/image-20230623223925577.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223925577.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223925577">
+
+<hr>
+<h3 id="迭代器的实现方式分析"><a href="#迭代器的实现方式分析" class="headerlink" title="迭代器的实现方式分析"></a><strong>迭代器的实现方式分析</strong></h3><p><strong><mark>迭代器有两种实现方式，具体应根据「容器底层数据结构的实现」来确定，因为每个特定的容器，都有特定的内部内存结构，也就意味着遍历&#x2F;迭代过程的细节是不一样的</mark></strong></p>
+<p><strong><font color=red>方法一：原生指针指向的空间物理地址是连续的，比如 string、vector</font></strong></p>
+<img src="/2022/12/10/10.stl-ku-list/image-20230623223931417.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223931417.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223931417">
+
+
+
+<p><strong><font color=red>方法二：原生指针指向的空间物理地址不连续，比如：list、map&#x2F;set</font></strong></p>
+<img src="/2022/12/10/10.stl-ku-list/image-20230623223941611.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223941611.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223941611">
+
+<hr>
+<h2 id="扩展：对于const迭代器的思考"><a href="#扩展：对于const迭代器的思考" class="headerlink" title="扩展：对于const迭代器的思考"></a><strong>扩展：对于const迭代器的思考</strong></h2><h3 id="思考一：如何实现const迭代器"><a href="#思考一：如何实现const迭代器" class="headerlink" title="思考一：如何实现const迭代器"></a><strong>思考一：如何实现const迭代器</strong></h3><blockquote>
+<p>string 和 vector 的迭代器就是一个原生指针，我们给原生指针加上 const 就可以变成 const 迭代器，比如：****</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; T: 容器中存储的数据的类型
+typedef T* iterator;
+typedef const T* const_iterator;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>list 的迭代器不是一个原生指针，而是一个类里面封装了原生指针，那如何实现 list 的 const 迭代器呢？</font></strong></p>
+<p><em><em>const 迭代器，顾名思义，就是不能改变的迭代器。是不能通过 * 和 -&gt; 修改指向成员的,所以我们把「operator</em>()」和「operator-&gt;()」函数的返回值改成常引用即可</em>*</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">const T&amp; operator*() ; &#x2F;&#x2F; 返回节点中数据（对象）的 const 常引用<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p><strong>这样实现也有问题，比如：那我们需要实现一个 __list_const_iterator 的类吗？</strong></p>
+<p><em><em>处理方法：在类中重载一个返回值为常引用的 operator</em>() 函数</em>*</p>
+<p><strong>普通写法需要这样，因为 <code>T&amp; operator*();</code> 和 <code>const T&amp; operator*();</code> 这两个函数只是返回值不同，无法放在一个类里面构成重载</strong></p>
+<p><strong>让我们来看看 SGI 版本 stl_list 源码中是怎么样实现的：</strong></p>
+<img src="/2022/12/10/10.stl-ku-list/image-20230623223948152.png" class="lazyload placeholder" data-srcset="/2022/12/10/10.stl-ku-list/image-20230623223948152.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223948152">
+</blockquote>
+<hr>
+<h3 id="思考二：迭代器遍历list中结点的方式"><a href="#思考二：迭代器遍历list中结点的方式" class="headerlink" title="思考二：迭代器遍历list中结点的方式"></a><strong>思考二：迭代器遍历list中结点的方式</strong></h3><p><strong><font color=red>如果迭代器管理的结点中的数据是<code>内置类型</code>：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void test1()
+&#123;
+    int arr[] &#x3D; &#123; 1,2,3,4,5 &#125;;
+    list&lt;int&gt; lt(arr, arr + sizeof(arr) &#x2F; sizeof(int));
+
+    list&lt;int&gt;::iterator it &#x3D; lt.begin();
+    while (it !&#x3D; lt.end())
+    &#123;
+        &#x2F;&#x2F; 对指向当前节点的迭代器解引用 *it 可以得到当前节点中存储的数据
+        cout &lt;&lt; *it &lt;&lt; &quot; &quot;; &#x2F;&#x2F; it.operator*()
+        ++it;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>如果迭代器管理的节点中的数据是<code>自定义类型 / 结构体</code>：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">struct TreeNode
+&#123;
+    int _val;
+    struct TreeNode* _left;
+    struct TreeNode* _right;
+
+    TreeNode(int val &#x3D; -1)
+		:_val(val)
+		,_left(nullptr)
+		,_right(nullptr)
+	&#123;&#125;
+&#125;;
+
+void test2()
+&#123;
+    list&lt;TreeNode&gt; lt;
+    lt.push_back(TreeNode(1));
+    lt.push_back(TreeNode(2));
+    lt.push_back(TreeNode(3));
+
+    list&lt;TreeNode&gt;::iterator it &#x3D; lt.begin();
+    while (it !&#x3D; lt.end())
+    &#123;
+        &#x2F;* 
+        * 错误写法：
+		* 对指向当前节点的迭代器解引用 *it 可以得到当前节点中存储的 TreeNode 结构体
+		* TreeNode结构体中存储的数据 _val 是不能直接输出出来的
+		* 除非重载了专门针对输出 TreeNode 结构体中数据的流插入运算符，比如：
+		* ostream&amp; operator&lt;&lt;(ostream&amp; out, const TreeNode node);
+		*&#x2F;
+        &#x2F;&#x2F; cout &lt;&lt; *it &lt;&lt; &quot; &quot;; &#x2F;&#x2F; error!!!
+
+        &#x2F;* 正确写法1：
+		* 对指向当前节点的迭代器解引用 *it 得到当前节点中存储的 TreeNode 结构体
+		* 然后用&#39;.&#39;再去访问 TreeNode 结构体中存储的数据 _val
+		*&#x2F;
+        cout &lt;&lt; (*it)._val &lt;&lt; &quot; &quot;;
+
+        &#x2F;* 正确写法2：
+		* 调用 operator-&gt;() 函数
+		* 迭代器-&gt;，返回迭代器指向节点中存储的 TreeNode 结构体的地址（指针）：TreeNode*
+		* 然后该指针再使用&#39;-&gt;&#39;访问结构体中存储的数据 _val
+		* 代码为：it-&gt;-&gt;_val，但可读性太差，编译器进行了特殊处理，省略掉了一个箭头
+		* 保持了程序的可读性
+		*&#x2F;
+        &#x2F;&#x2F; 注意：一般结构体的指针才会使用&#39;-&gt;&#39;来访问成员
+        &#x2F;&#x2F; 当迭代器管理的节点中的数据是结构体的时候，就可以用&#39;-&gt;&#39;
+        cout &lt;&lt; it-&gt;_val &lt;&lt; &quot; &quot;; &#x2F;&#x2F; 这种写法常用
+
+        it++;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="思考三：迭代器（-list-iterator-类）中需要写拷贝构造、赋值重载、析构函数吗？"><a href="#思考三：迭代器（-list-iterator-类）中需要写拷贝构造、赋值重载、析构函数吗？" class="headerlink" title="思考三：迭代器（ __list_iterator 类）中需要写拷贝构造、赋值重载、析构函数吗？"></a><strong>思考三：迭代器（ __list_iterator 类）中需要写拷贝构造、赋值重载、析构函数吗？</strong></h3><p><strong>不需要，默认生成的就可以，而且也不需要我们去实现，虽然迭代器中封装了节点指针，但节点是归链表管理的，链表 list 中的节点也不需要迭代器去释放，list 自己会去释放</strong></p>
+<hr>
+<h3 id="思考四：vector-和-list-的迭代器哪个更复杂呢？有什么区别呢？"><a href="#思考四：vector-和-list-的迭代器哪个更复杂呢？有什么区别呢？" class="headerlink" title="思考四：vector 和 list 的迭代器哪个更复杂呢？有什么区别呢？"></a><strong>思考四：vector 和 list 的迭代器哪个更复杂呢？有什么区别呢？</strong></h3><blockquote>
+<ol>
+<li><strong>它们的大小都是一样的（32位下），vector 的迭代器是一个原生指针，大小为 4 字节；list 的迭代器是一个类封装了一个节点指针，大小也是 4 字节，物理上没啥区别</strong></li>
+<li><strong>list 的迭代器之所以要定义成自定义类型，是因为原生指针无法直接做到像指针一样的行为，所以需要用自定义的类把原生指针封装起来，然后在类中定义一些运算符重载函数，使得这个自定义类型的对象通过调用这些函数，从而可以做到像指针一样的行为</strong></li>
+<li><strong>我们在物理上可以看到，都是存了一个指针，但在运行逻辑上完全不同</strong></li>
+<li><strong>vector 迭代器 ++，是一个指针直接 ++ 到下一个位置；而 list 迭代器 ++，是一个自定义类型的对象调用了 operator++() 函数，在函数内算出下一个位置</strong></li>
+</ol>
+</blockquote>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/C-%EF%BC%8C%E5%88%9D%E9%98%B6/" class="">
+              C++，初阶
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2022/12/10/10.stl-ku-list/" target="_blank" title="STL库：list">https://Not-Go.github.io/2022/12/10/10.stl-ku-list/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2022/12/10/9.stl-ku-vector/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">STL库：vector</div>
+      </div>
+      
+      <!-- <div class="content">
+        STL库：vectorSTL库对vector的官方介绍
+
+vector 是表示可变大小数组的序列容器
+就像数组一样，ve
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2022/12/10/11.stl-ku-stack-he-queue/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">STL库：stack和queue</div>
+      </div>
+      <!-- <div class="content">
+        STL库：stack和queueSTL库中stack的官方介绍
+
+stack 是一种「容器适配器」（container 
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#STL%E5%BA%93%EF%BC%9Alist"><span class="toc-text">STL库：list</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#STL%E5%BA%93%E5%AF%B9list%E7%9A%84%E5%AE%98%E6%96%B9%E4%BB%8B%E7%BB%8D"><span class="toc-text">STL库对list的官方介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="toc-text">list的常用接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">list的构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%81%8D%E5%8E%86%E6%93%8D%E4%BD%9C"><span class="toc-text">list的迭代器与遍历操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E5%AE%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-text">list的容量操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C"><span class="toc-text">list的访问操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E4%BF%AE%E6%94%B9%E6%93%8D%E4%BD%9C"><span class="toc-text">list的修改操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E7%89%B9%E5%88%AB%E5%AE%B9%E5%99%A8%E6%93%8D%E4%BD%9C"><span class="toc-text">list的特别容器操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list%E7%9A%84%E5%BA%95%E5%B1%82%E6%BA%90%E7%A0%81"><span class="toc-text">list的底层源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">list的模拟实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E7%BB%93%E7%82%B9%E7%BB%93%E6%9E%84"><span class="toc-text">list的结点结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="toc-text">list的底层结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#list%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">list的迭代器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">list的成员函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#list%E4%B8%8Evector%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-text">list与vector的对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%EF%BC%9A%E5%AE%B9%E5%99%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">扩展：容器迭代器的了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%B9%E5%99%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%88%86%E7%B1%BB"><span class="toc-text">1.容器迭代器分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8%E3%80%81%E7%AE%97%E6%B3%95%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">容器、迭代器、算法的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E5%88%86%E6%9E%90"><span class="toc-text">迭代器的实现方式分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%EF%BC%9A%E5%AF%B9%E4%BA%8Econst%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%80%9D%E8%80%83"><span class="toc-text">扩展：对于const迭代器的思考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E4%B8%80%EF%BC%9A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0const%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">思考一：如何实现const迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E4%BA%8C%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%81%8D%E5%8E%86list%E4%B8%AD%E7%BB%93%E7%82%B9%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-text">思考二：迭代器遍历list中结点的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E4%B8%89%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88-list-iterator-%E7%B1%BB%EF%BC%89%E4%B8%AD%E9%9C%80%E8%A6%81%E5%86%99%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E3%80%81%E8%B5%8B%E5%80%BC%E9%87%8D%E8%BD%BD%E3%80%81%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E5%90%97%EF%BC%9F"><span class="toc-text">思考三：迭代器（ __list_iterator 类）中需要写拷贝构造、赋值重载、析构函数吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E5%9B%9B%EF%BC%9Avector-%E5%92%8C-list-%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%93%AA%E4%B8%AA%E6%9B%B4%E5%A4%8D%E6%9D%82%E5%91%A2%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E5%91%A2%EF%BC%9F"><span class="toc-text">思考四：vector 和 list 的迭代器哪个更复杂呢？有什么区别呢？</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

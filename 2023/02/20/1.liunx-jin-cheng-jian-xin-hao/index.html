@@ -1,0 +1,3516 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>Linux进程间信号 | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        Linux进程间信号
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-02-20 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/Linux%E7%BC%96%E7%A8%8B/" class="post-detail-header_category">
+              Linux编程
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 8k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 28分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="Linux进程间信号"><a href="#Linux进程间信号" class="headerlink" title="Linux进程间信号"></a>Linux进程间信号</h1><h2 id="信号的理解"><a href="#信号的理解" class="headerlink" title="信号的理解"></a>信号的理解</h2><h3 id="对信号的认识"><a href="#对信号的认识" class="headerlink" title="对信号的认识"></a>对信号的认识</h3><p><strong><font color=red>比如生活的一个例子：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>你在网上买了件东西，之后只需要等待快递的到来，在这期间你会去干自己的其它事情，但是你知道你有一个快递</mark></strong></li>
+<li><strong><mark>在网上你买了一个东西就是信号的注册，快递员该你打电话要你拿一下快递，就是给你发送了一个信号。你收到信号之后，你知道怎么去处理这个信号，在这里就是去拿快递。但是你也不一定立马去拿，你可能会等你忙完现在的事在去处理</mark></strong></li>
+<li><strong><mark>在这期间你也不知道快递员什么时候会打电话给你，但是你也不是一直在等它，而是在做自己的事情，所以这就是异步的</mark></strong></li>
+<li><strong><mark>在这里你就是进程，操作系统就是快递员，信号就是快递</mark></strong></li>
+<li><strong><mark>操作系统给进程发生一个信号，进程收到信号后，知道怎么去处理这个信号</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>我们从技术方面来看：</font></strong></p>
+<blockquote>
+<p><strong><mark>当我们运行一个前台进程，按下<code>ctrl + c</code>组合键时，进程会退出</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204034202936.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204034202936.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204034202936">
+
+<ul>
+<li><strong><font color=red>这是因为当我们按下ctrl + c 时，产生了一个硬件中断，被操作系统获取到，然后系统发送了一个信号给前台进程。前台进程收到信号后，退出了进程</font></strong></li>
+<li><strong><font color=red>为什么我们知道这里是一个信号？</font></strong></li>
+<li><strong><mark>首先介绍一个系统调用接口 signal：</mark></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204034350052.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204034350052.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204034350052">
+
+<p><strong><font color=red>比如：</font></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204034415531.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204034415531.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204034415531">
+</blockquote>
+<p><strong><font color=red>关于前台进程与后台进程：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><code>前台进程：是当前正在使用的程序</code></strong></li>
+<li><strong><code>后台进程：是在当前没有使用的但是也在运行的进程，包括那些系统隐藏或者没有打印的程序。后台进程运行时，可以其它运行前台进程</code></strong></li>
+<li><strong><mark>一个bash终端只能运行一个前台进程</mark></strong></li>
+<li><strong><font color=red>ctrl + c 产生的信号只能发送给前台进程，一个进程如果在后台运行，该进程收不到该信号。运行程序时最后加一个&amp;，让进程在后台运行，如下图：</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204035229542.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204035229542.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204035229542">
+
+<ul>
+<li><strong><font color=red>shell可以同时运行一个前台进程和多个后台进程，也就是说一个bash终端只能运行一个前台进程，但是后台可能会有多个后台进程在运行</font></strong></li>
+<li><strong><mark>为什么说信号堆进程控制是异步的？因为一个进程在做自己的事情，信号不知道什么时候来，进程可能在任何时候收到信号而终止，所以是异步的。异步的意思是，不知道什么时候会发送信号</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="为什么要有信号"><a href="#为什么要有信号" class="headerlink" title="为什么要有信号"></a>为什么要有信号</h3><ul>
+<li><strong><font color=red>因为计算机大多是为了解决人的问题，所以大多部分计算机的处理逻辑也是从人的生活中来的，而且大家也可以发现我们人在生活中处理事件的时候，我们无外乎在处理两种事件：一种是常规事件(按部就班的)，第二种是突发事件。那么人就要有能够处理突发事件的能力，因为我们必须要处理，因为事情永远是推着人走的</font></strong></li>
+<li><strong><mark>同样的，当一个进程正在运行时，它也可能会遇到突发状况，比方说突然收到了 CTRL+C，导致程序出现错误了</mark></strong></li>
+<li><strong><mark>所以为什么要有信号，本质是要让程序具备处理突发事件的能力，人如此，进程也如此</mark></strong></li>
+</ul>
+<hr>
+<h3 id="信号概念"><a href="#信号概念" class="headerlink" title="信号概念"></a>信号概念</h3><ul>
+<li><strong><code>信号是进程之间事件异步通知的一种方式，属于软中断</code></strong></li>
+<li><strong><mark>信号就是一个消息，告诉进程一个事件，进程受到信号之后会知道怎么处理这个信号</mark></strong></li>
+</ul>
+<hr>
+<h3 id="查看系统定义的信号的方法"><a href="#查看系统定义的信号的方法" class="headerlink" title="查看系统定义的信号的方法"></a>查看系统定义的信号的方法</h3><ul>
+<li><strong><font color=red>每个信号都有一个编号和一个宏定义名称,这些宏定义可以在signal.h中找到，例如其中有定义 #define SIGINT 2</font></strong></li>
+<li><strong><font color=red>编号34以上的是实时信号，我这里只讨论1~31的信号，不讨论实时信号。这些信号各自在什么条件下产生，默认的处理动作是什么，在signal(7)中都有详细说明: man 7 signal，如下图：</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204040630743.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204040630743.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204040630743">
+
+<ul>
+<li><strong><mark>Term 是 terminal(终端)，Ign 是 ignore(忽略)</mark></strong></li>
+<li><strong><mark>1~ 31为普通信号，34~64为实时信号</mark></strong></li>
+</ul>
+<blockquote>
+<p><strong><font color=red>我们通常使用 <code>kill -l</code> 来查看系统定义的信号</font></strong></p>
+</blockquote>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204040046808.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204040046808.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204040046808">
+
+<hr>
+<h3 id="信号的处理方式"><a href="#信号的处理方式" class="headerlink" title="信号的处理方式"></a>信号的处理方式</h3><p><strong><font color=red>可选的处理动作有以下三种：</font></strong></p>
+<blockquote>
+<ol>
+<li><strong><mark>忽略此信号</mark></strong></li>
+<li><strong><mark>执行该信号的默认处理动作</mark></strong></li>
+<li><strong><mark>利用signal系统调用，提供一个信号处理函数，要求在内核处理该信号时切换到用户态执行这个函数，这种方式称为捕捉一个信号。就像上面的代码，将2号信号捕捉为一个handler函数</mark></strong></li>
+</ol>
+<p><strong><font color=red>signal是修改了当前进程对信号的处理方式，等收到改变的信号时，直接实行自定义的函数</font></strong></p>
+</blockquote>
+<p> <strong><mark>【重要】系统为了安全，9号进程不能被捕捉，如下图：</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204041220409.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204041220409.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204041220409">
+
+<hr>
+<h2 id="产生信号的方法"><a href="#产生信号的方法" class="headerlink" title="产生信号的方法"></a>产生信号的方法</h2><h3 id="通过终端按键发送信号"><a href="#通过终端按键发送信号" class="headerlink" title="通过终端按键发送信号"></a>通过终端按键发送信号</h3><blockquote>
+<ul>
+<li><strong><font color=red>比如上面的ctrl + c 就给进程发送了2号信号SIGINT。而ctrl + \可以给进程发送3号信号SIGQUIT</font></strong></li>
+<li><strong><mark>所以我们通过按键组合的方式可以给进程发送信号</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>SIGINT的默认处理动作是终止进程，SIGQUIT的默认处理动作是终止进程并且<code>Core Dump(核心转储)</code>，现在我们来验证一下：</font></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204042149173.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204042149173.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204042149173">
+
+<blockquote>
+<ul>
+<li><strong><mark>我们可以看到，我们用 CTRL+ \ 是对应的 3号 信号：SIGQUIT。我们通过上面给的图可以看到 3号 信号默认的动作是 Core ，表示的是在结束的时候它有一个动作叫做核心转储</mark></strong></li>
+<li><strong>因为我用的是云服务器，但是云服务器的核心转储是不明显的，默认是关掉的，我们需要自己改</strong></li>
+<li><strong>接下来我们看一下：</strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204042354375.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204042354375.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204042354375">
+
+<ul>
+<li><p><strong><font color=red>我们要注意的是黄色围起来的这一项，我们可以看它的大小是 0</font></strong> </p>
+</li>
+<li><p><strong>那么我们接下来设置一下：</strong></p>
+</li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204042646977.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204042646977.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204042646977">
+
+<ul>
+<li><strong><font color=red>当我们设置完我们就可以看到 core file size 的大小就变成个了 10240，此时叫做将它的核心转储直接打开(默认是0的话就意味着它是关闭状态)</font></strong></li>
+<li><strong>那么继续看：</strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204042753230.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204042753230.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204042753230">
+
+<ul>
+<li><strong><font color=red>我们可以看到，当我们再进行 CTRL+ \ 的时候也退出了，而且后面有一个 (core dumped) ，而且当我们查看当前目录下多了一个 core.31923 这个临时文件，这个 31923 数字叫做发生这次核心转储的进程的 id</font></strong> </li>
+<li><strong><font color=green>解释一下：一个进程在终止的时候有很多种终止方式，其中 Terminal 一般是直接退出，也可以理解成是我们手动的让它退出了，但不做任何转储文件的 dump(转储) ，而如果我们自己打开了核心转储，并且我们收到了信号(不同的信号有不同的作用，不同的信号是一种不同的错误类别)，而有些信号是需要进行核心转储的</font></strong></li>
+<li><strong><font color=red>比方说，代码运行的时候出错了，我们关心的是代码因为什么出错了，我们之前讲的代码退出的三个方式：1. 代码跑完结果对，2. 代码跑完结果不对，3. 代码运行中的时候出错。前两个最起码是跑完了，最后根据退出码就能判断哪里有问题，那么当第三种：代码运行中的时候出错了，我们也要有办法判定是什么原因出错了</font></strong></li>
+<li><strong><font color=red>我们在平时出现第三种情况的时候，我们一般是通过调试来判断哪里出现了问题，但其实还有 Linux 中还有一种方法就是通过核心转储功能：把进程在内存中的核心数据转储到磁盘上，core.pid -&gt; 核心转储文件。目的是为了调试、定位问题。一般云服务器是属于线上生产环境，默认是关闭的(有的小伙伴可能用的虚拟机，虚拟机是默认打开的)</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>通过上面的验证，我们有了一个问题：为什么在云服务器上核心转储功能默认是关闭的？</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>比方说我们在服务器上写了一个网络服务或者定期执行的一个服务，这个服务可能因为某种异常而挂掉，如果你打开了核心转储，那么挂掉之后会在本地的磁盘文件中生成 corn 文件，这个无可厚非，但是一般大的互联网公司在服务挂掉的时候，最重要的事情不是在乎是因为什么原因挂掉的，重要的是想尽快的让它恢复正常。因为出 BUG 不是经常事件，而是偶尔的事情。所以重要的是先让服务跑起来，不要让公司受到太大的影响。当服务恢复之后再进行对故障的排除工作</mark></strong></li>
+<li><strong><mark>如果是小问题的话那么就先让服务恢复出来，然后再进行检查，但是如果出现了大问题，而且有一个一崩就重启的功能，那么一重启起来就崩，崩了就重启，如此往复。就会出现大量的 core file 文件，如下图：</mark></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204043525401.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204043525401.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204043525401">
+
+<ul>
+<li><strong><mark>而且我们可以看到，这种文件一个都要 1MB 多，每个都不小，要说重启很长事件，那么当我们去排查的时候会发现 core 文件将某个分区或者磁盘文件都沾满了，最终导致服务想重启都没法重启，甚至操作系统都挂了，所以默认是关闭的</mark></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204043724755.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204043724755.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204043724755">
+</blockquote>
+<hr>
+<h3 id="通过系统函数发送信号"><a href="#通过系统函数发送信号" class="headerlink" title="通过系统函数发送信号"></a>通过系统函数发送信号</h3><blockquote>
+<p><strong><code>系统函数一：kill</code></strong></p>
+<ul>
+<li><strong><font color=red>kill 系统调用，作用：给当进程为pid的进程发送信号</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204043953705.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204043953705.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204043953705">
+
+<ul>
+<li><strong><font color=red>kill命令是通过系统调用kill实现的</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044102639.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044102639.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204044102639">
+
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044133695.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044133695.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204044133695">
+
+<hr>
+<p><strong><code>系统函数二：raise</code></strong></p>
+<ul>
+<li><strong><font color=red>raise函数：作用：给当前进程发送信号</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044729652.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044729652.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204044729652">
+
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044826030.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044826030.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204044826030">
+
+<hr>
+<p><strong><code>系统函数三：abort</code></strong></p>
+<ul>
+<li><strong><font color=red>abort函数，作用：使当前进程收到6号信号，后异常终止</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044947114.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204044947114.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204044947114">
+
+<p><strong><mark>注意：abort函数一定会成功终止进程。不管有没有重新捕捉信号</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204045042321.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204045042321.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204045042321">
+</blockquote>
+<hr>
+<h3 id="通过软件条件发送信号"><a href="#通过软件条件发送信号" class="headerlink" title="通过软件条件发送信号"></a>通过软件条件发送信号</h3><blockquote>
+<ul>
+<li><strong><font color=red>在匿名管道中，当读进程关闭时，写进程会收到系统发来的13号信号，终止写进程。系统发给写进程的13号信号就是软件条件生成的信号</font></strong></li>
+<li><strong><mark>这里也有一个函数alarm，相当于设置一个闹钟，告诉内核多少秒后，发送一个SIGALRM信号给当前进程</mark></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204045446020.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204045446020.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204045446020">
+
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204045544990.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204045544990.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204045544990">
+
+
+
+<p><font color=red> <strong>这里有一个现象：</strong></font></p>
+<ul>
+<li><strong><mark>同样将count++，1秒后发送SIGALARM信号给进程，同样时间：上面count才加到21095，下面加到了491153364，差了1000倍</mark></strong></li>
+<li><strong><mark>这是因为上面的代码要不断往屏幕打印，屏幕是外设，在不断进行I&#x2F;O，时间消耗多</mark></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204045650145.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204045650145.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204045650145">
+
+<ul>
+<li><strong><font color=red>进程有很多，可能alarm闹钟也会有很多，OS需要管理闹钟(才能知道哪个alarm是哪个进程，什么时候去发送信号等)</font></strong></li>
+<li><strong><font color=red>OS管理闹钟需要先描述后组织，所以会有对应的数据结构来描述和组织闹钟</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="通过硬件异常发送信号"><a href="#通过硬件异常发送信号" class="headerlink" title="通过硬件异常发送信号"></a>通过硬件异常发送信号</h3><blockquote>
+<ul>
+<li><p><strong><font color=red>硬件异常产生信号就是硬件发现进程的某种异常，而硬件是被操作系统管理。硬件会将异常通知给系统，系统就会向当前进程发送适当的信号</font></strong></p>
+</li>
+<li><p><strong>例如：野指针的情况</strong></p>
+</li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204050223912.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204050223912.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204050223912">
+
+<ul>
+<li><strong><mark>原因：由于p是野指针，p指针变量里保存的是随机值，进程执行到野指针这一行。进程在页表中找映射的物理内存时，硬件mmu会发现该虚拟地址是一个野指针，会产生异常，由于操作系统管理硬件，硬件会将异常发送给系统。系统会发送适当的信号给当前进程</mark></strong></li>
+<li><strong><font color=red>这里有个现象：</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204050423359.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204050423359.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204050423359">
+
+<ul>
+<li><strong><font color=red>上面代码有野指针，系统会发送11号信号给进程。但是在循环里面并没有野指针，但是发现一直在打印，说明系统一直在往进程发送11号信号，这是因为硬件异常并没有消除只能向进程发送终止信号，终止进程才能结束</font></strong></li>
+<li><strong><font color=red>所以在语言层面，出现的异常，大多数都是硬件异常，导致OS发送信号，来终止进程</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="对于Core-Dump的理解"><a href="#对于Core-Dump的理解" class="headerlink" title="对于Core Dump的理解"></a>对于Core Dump的理解</h3><blockquote>
+<ul>
+<li><strong><font color=red>首先解释什么是Core Dump。当一个进程要异常终止时,可以选择把进程的用户空间内存数据全部保存到磁盘上，文件名通常是core，这叫做Core Dump</font></strong></li>
+<li><strong><mark>进程异常终止通常是因为有Bug，比如非法内存访问导致段错误,，事后可以用调试器检查core文件以查清错误原因，这叫做Post-mortem Debug（事后调试）。一个进程允许产生多大的core文件取决于进程的Resource Limit(这个信息保存在PCB中)。默认是不允许产生core文件的，因为core文件中可能包含用户密码等敏感信息，不安全。在开发调试阶段可以用ulimit命令改变这个限制，允许产生core文件。 首先用ulimit命令改变Shell进程的Resource Limit，允许core文件最大为1024K：<code>$ ulimit -c 1024</code></mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=green>那么我们就来使用一下 Core Dumped 级别的调试：</font></strong></p>
+<blockquote>
+<p><strong><font color=red>注意我们在编译的时候一定要加上 -g 选项，因为core dumped 文件需要使用 gdb</font></strong></p>
+</blockquote>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204103833373.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204103833373.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204103833373">
+
+<p> <strong><mark>我们可以看到虽然有警告，但是没有事情，因为就是故意写错的，我们会看到，1 秒之后，会看到有一个浮点型异常，而且出现了一个 core.8881 这个 core dumped 文件，如下图：</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204103914746.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204103914746.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204103914746">
+
+<p> <strong><font color=red>当我们打开的时候会发现里面都是乱码，什么都看不到，因为它是直接把内存中的有效核心数据 dumped(丢到) 到磁盘上(转储到磁盘上)，这个是帮我们定位问题</font></strong></p>
+<p><strong><mark>接下来我们来gdb调试一下：</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204104101248.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204104101248.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204104101248">
+
+<p><strong><font color=red>我们通过 gdb 和 core.8881 文件找到了问题在 16 行，这样我们就快速的定位到了刚刚的代码是因为什么原因出错的，这个调试方法叫做事后调试，也就是当我们的程序崩溃了再进行调试</font></strong></p>
+<p><strong><font color=red>而且我们刚才看到的错误是 <code>FLOATING POINT EXCEPTION</code> ：</font></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204104152836.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204104152836.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204104152836">
+
+<p><strong><mark>其中将 FLOATING POINT EXCEPTION 的首字母提出来就是 FPE，也就是 8号 信号</mark></strong></p>
+<p><strong><mark>我们发现 除0 错误是代码错误，然后我们进程终止了</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong><code>所以，这也解释了：为什么C/C++进程会崩溃？</code></strong></li>
+<li><strong><font color=red>本质就是因为收到了信号！</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="阻塞信号的方法"><a href="#阻塞信号的方法" class="headerlink" title="阻塞信号的方法"></a>阻塞信号的方法</h2><h3 id="信号阻塞的一些概念"><a href="#信号阻塞的一些概念" class="headerlink" title="信号阻塞的一些概念"></a>信号阻塞的一些概念</h3><blockquote>
+<ul>
+<li><strong><mark>实际执行信号的处理动作称为信号递达(Delivery)</mark></strong></li>
+<li><strong><mark>信号从产生到递达之间的状态，称为信号未决(Pending)</mark></strong></li>
+<li><strong><mark>进程可以选择阻塞 (Block )某个信号</mark></strong></li>
+<li><strong><mark>被阻塞的信号产生时将保持在未决状态，直到进程解除对此信号的阻塞，才执行递达的动作</mark></strong></li>
+<li><strong><mark>注意，阻塞和忽略是不同的，只要信号被阻塞就不会递达，而忽略是在递达之后可选的一种处理动作</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="信号在内存中的表示形式"><a href="#信号在内存中的表示形式" class="headerlink" title="信号在内存中的表示形式"></a>信号在内存中的表示形式</h3><img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204110627768.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204110627768.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204110627768">
+
+<p><strong><mark>内核下，信号在内存中的表示源代码：</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204110824735.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204110824735.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204110824735">
+
+<hr>
+<h2 id="信号的记录、处理、捕捉"><a href="#信号的记录、处理、捕捉" class="headerlink" title="信号的记录、处理、捕捉"></a>信号的记录、处理、捕捉</h2><h3 id="信号的记录"><a href="#信号的记录" class="headerlink" title="信号的记录"></a>信号的记录</h3><blockquote>
+<ul>
+<li><strong><font color=red>信号记录就是将进程收到的信号，在位图(阻塞位图和未决位图)对应的位置进行置1</font></strong></li>
+<li><strong><font color=red>由于进程PCB中有对应数据结构，保证了记录操作的实施</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="信号的处理"><a href="#信号的处理" class="headerlink" title="信号的处理"></a>信号的处理</h3><blockquote>
+<ul>
+<li><strong><font color=red>处理信号，就是进程收到信号，当进程对该信号不阻塞时，会在handle函数指针数组中找到对应的递达方法，来处理当前信号</font></strong></li>
+<li><strong><mark>注意：当进程收到某信号，并不是立马进行处理的，而是等到合适的时机才进行处理</mark></strong></li>
+</ul>
+</blockquote>
+<p>  <strong><font color=green>处理信号有三种方法：</font></strong></p>
+<blockquote>
+<ol>
+<li><strong><mark>使用默认方法</mark></strong></li>
+<li><strong><mark>忽略此信号</mark></strong></li>
+<li><strong><mark>自定义捕捉</mark></strong></li>
+</ol>
+<ul>
+<li><p><strong><font color=red>默认方法和忽略信号，就是在handle数组对应信号数组中填入SIG_DEL和SIG_IGN</font></strong></p>
+</li>
+<li><p><strong>自定义捕捉需要使用信号的捕捉函数</strong></p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="信号的捕捉"><a href="#信号的捕捉" class="headerlink" title="信号的捕捉"></a>信号的捕捉</h3><blockquote>
+<ul>
+<li><strong><font color=red>如果信号处理动作是用户自定义的函数，在信号递达时，就是调用的这个函数，这被称作捕捉信号</font></strong></li>
+<li><strong><font color=red>进程收到信号不是立马处理信号，是在合适的时候处理信号的，合适的时候是当计算机从内核态切换成用户态时，检测并处理信号</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=green>这里我们来理解下用户态与内核态：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><code>计算机在运行程序时，会有两种状态，用户态和内核态</code></strong></li>
+<li><strong><code>当程序运行的是用户自己编写的代码，并没有涉及中断，异常会在系统调用时，计算机会处于用户态</code></strong></li>
+<li><strong><code>当程序运行到中断，异常或者系统调用时，计算机会处于内核态。内核态就相当于是操作系统</code></strong></li>
+<li><strong><code>但一个程序在运行时，可能在不断进行内核态和用户态的切换</code></strong></li>
+<li><strong><code>内核态的权限比用户态高</code></strong></li>
+</ul>
+<hr>
+<ul>
+<li><p><strong><font color=red>计算机中怎么实现用户态和内核态的相互切换？</font></strong></p>
+</li>
+<li><p><strong><mark>因为在虚拟地址空间有两个区域，一个是用户区，一个是内核区。其中，用户区映射的是当计算机处于用户态时，要执行的代码和数据。内核区映射的是计算机处于内核态时，要执行的代码和数据</mark></strong></p>
+</li>
+<li><p><strong><code>当计算机处于用户态时，在虚拟地址空间的用户区，通过用户级页表，找到代码和数据执行</code></strong></p>
+</li>
+<li><p><strong><code>当计算机处于内核态时，在虚拟地址空间的内核区，通过内核级页表，找到代码和数据执行</code></strong></p>
+</li>
+<li><p><strong><mark>注意：内核级页表每个进程是相同的，因为只有一个操作系统，每个进程虚拟地址空间内核区页表映射在物理内存同一位置，如下图：</mark></strong></p>
+</li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204112420966.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204112420966.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204112420966">
+
+<hr>
+<ul>
+<li><strong><font color=red>怎么知道计算机现在处于用户态还行内核态？</font></strong></li>
+<li><strong><mark>在CPU中有一个寄存器CR0，里面有标志位记录了计算机处于内核态还是用户态</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>有了上面的基础，我们来看看信号捕捉：</font></strong></p>
+<blockquote>
+<p><strong><code>信号捕捉示意图：</code></strong></p>
+<ul>
+<li><strong><font color=red>我们发现当我们自定义信号处理函数，会发生4次内核态和用户态相互转化的过程。如果没有自定义信号处理函数，只有2次用户态相互转化</font></strong></li>
+<li><strong><font color=green>进程收到信号不是立马处理信号，而是在当计算机从内核态切换成用户态时，检测并处理信号</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204112735980.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204112735980.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204112735980">
+
+<ul>
+<li><strong><mark>内核态权限比用户态高，为什么执行自定义信号处理函数还需要从内核态切换到用户态？</mark></strong></li>
+<li><strong><font color=red>就是因为内核态权限高，如果自定义信号处理函数中有非法动作，比如修改操作系统，在内核态能处理，但是用户态不能处理，这样会导致安全隐患。毕竟自定义信号处理函数是用户写的</font></strong></li>
+<li><strong><mark>如果不断受到一个信号，该信号处理动作为自定义的，而自定义函数中有系统调用，执行系统调用，会要从用户态切换到内核态，当从内核态切换到用户态时，又受到同样等信号，需要处理吗？在处理信号时，有内核态到用户态的情况，在这过程中有收到相同信号，需要处理吗？</mark></strong></li>
+<li><strong><font color=red>不会执行，操作系统在执行该信号时，会将进程block位图中信号位置设为1，阻塞该信号。一种信号只能同时处理一个，但是可以同时处理多种信号</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204112821013.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204112821013.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204112821013">
+</blockquote>
+<hr>
+<h2 id="信号集操作函数"><a href="#信号集操作函数" class="headerlink" title="信号集操作函数"></a>信号集操作函数</h2><h3 id="sigset-t类型"><a href="#sigset-t类型" class="headerlink" title="sigset_t类型"></a>sigset_t类型</h3><p><strong><font color=red>进程PCB中有两个位图，分别是<code>block(阻塞位图)</code> 和 <code>pending(未决位图)</code>。每个位置只有0和1两种状态，可以通过<mark>sigset_t类型定义的变量来存储阻塞位图和未决位图的位的信息</mark>，再通过其它系统调用来向阻塞位图或者未决位图赋值</font></strong></p>
+<blockquote>
+<p><strong><font color=red>简言之：sigset_t 就是信号集</font></strong></p>
+</blockquote>
+<p><strong><font color=red>虽然sigset_t定义的变量的存储位图的位信息，但是我们不能使用位运算来修改sigset_t定义的变量。要通过函数，因为在不同平台下，sigset_t定义的变量并不是一个整数</font></strong></p>
+<blockquote>
+<p><strong><font color=green>让我们来看看 <code>sigset_t</code> 的源码：</font></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204114237751.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204114237751.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204114237751"> 
+</blockquote>
+<hr>
+<h3 id="常用信号集操作函数"><a href="#常用信号集操作函数" class="headerlink" title="常用信号集操作函数"></a>常用信号集操作函数</h3><img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204114605043.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204114605043.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204114605043">
+
+<blockquote>
+<p><strong><mark>sigset_t类型对于每种信号用一个bit表示“有效”或“无效”状态，至于这个类型内部如何存储这些bit则依赖于系统实现，从使用者的角度是不必关心的，使用者只能调用以下函数来操作sigset_ t变量，而不应该对它的内部数据做任何解释，比如用printf直接打印sigset_t变量是没有意义的</mark></strong></p>
+<ul>
+<li><strong><font color=red>再使用sigset_t变量前，由先调用sigemptyset或者 sigfillset函数，初始化变量</font></strong></li>
+<li><strong><font color=red>上面4个的返回值都是成功返回1，失败返回0，sigismumber存在返回1，不存在返回0，失败返回-1</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="修改进程阻塞位图"><a href="#修改进程阻塞位图" class="headerlink" title="修改进程阻塞位图"></a>修改进程阻塞位图</h3><p><font color=red><strong>sigprocmask函数</strong></font></p>
+<blockquote>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204115652422.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204115652422.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204115652422">
+
+<ul>
+<li><strong><font color=red>作用： 调用函数sigprocmask可以读取或更改进程的信号屏蔽字(阻塞信号集)</font></strong></li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">sigprocmask</span><span class="token punctuation">(</span><span class="token keyword">int</span> how<span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token class-name">sigset_t</span> <span class="token operator">*</span>set<span class="token punctuation">,</span> <span class="token class-name">sigset_t</span> <span class="token operator">*</span>oset<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><strong><font color=red>返回值：若成功则为0，若出错则为-1</font></strong></li>
+<li><strong><mark>如果oset是非空指针，则读取进程的当前信号屏蔽字通过oset参数传出。如果set是非空指针，则更改进程的信号屏蔽字，参数how指示如何更改。如果oset和set都是非空指针，则先将原来的信号屏蔽字备份到oset里，然后根据set和how参数更改信号屏蔽字。假设当前的信号屏蔽字为mask，下表说明了how参数的可选值</mark></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204115652422-1687543190121-183.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204115652422-1687543190121-183.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204115652422">
+</blockquote>
+<hr>
+<h3 id="获取进程未决位图"><a href="#获取进程未决位图" class="headerlink" title="获取进程未决位图"></a>获取进程未决位图</h3><p><strong><font color=red>sigpending函数</font></strong></p>
+<blockquote>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204121340722.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204121340722.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204121340722">
+
+<p><strong><font color=red>作用：读取当前进程的未决信号集，通过set参数传出</font></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">sigpengding</span><span class="token punctuation">(</span><span class="token class-name">sigset_t</span> <span class="token operator">*</span> set<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong><font color=red>返回值：调用成功则返回0，出错则返回-1</font></strong></p>
+<ul>
+<li><strong><mark>这个函数主要是来获取当前进程的 pending 信号集，所以这个函数是一个输出型参数</mark></strong></li>
+<li><strong><mark>我们来做个小实验，如下图流程：</mark></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204120054165.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204120054165.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204120054165">
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;signal.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;unistd.h></span></span>
+
+<span class="token keyword">void</span> <span class="token function">printfPending</span><span class="token punctuation">(</span><span class="token class-name">sigset_t</span> <span class="token operator">*</span>pending<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+   <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">31</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+   <span class="token punctuation">&#123;</span>
+     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">sigismember</span><span class="token punctuation">(</span>pending<span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">&#123;</span>
+      <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"1 "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   	 <span class="token punctuation">&#125;</span>
+     <span class="token keyword">else</span>
+     <span class="token punctuation">&#123;</span>
+       <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"0 "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   	 <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+ 	<span class="token comment">//设置block信号集</span>
+    <span class="token class-name">sigset_t</span> set<span class="token punctuation">,</span> oset<span class="token punctuation">;</span><span class="token comment">//用户空间定义的变量</span>
+ 	<span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>set<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+	<span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>oset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ 	<span class="token function">sigaddset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>set<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//SIGINT</span>
+
+ 	<span class="token function">sigprocmask</span><span class="token punctuation">(</span>SIG_SETMASK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>set<span class="token punctuation">,</span> <span class="token operator">&amp;</span>oset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  	<span class="token comment">//获取pending信号集</span>
+  	<span class="token class-name">sigset_t</span> pending<span class="token punctuation">;</span>
+	<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+    	<span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    	<span class="token function">sigpending</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    	<span class="token function">printfPending</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     	<span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><mark>实验效果：</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204120422922.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204120422922.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204120422922">
+
+<p><strong><font color=red>我们可以看到，没发送 2号 信号前为全 0 ，但是发送完 2号 信号后，第二个位置由 0 制 1 了</font></strong></p>
+<ul>
+<li><strong><mark>这说明操作系统向进程发送了信号，但是当前这个信号无法被立即递达，那么这个信号就处于 pending 状态。处于 pending 状态我们就可以通过打印获取到了</mark></strong></li>
+</ul>
+<p> <strong><font color=red>当然我们也可以通过某种方式恢复：</font></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;signal.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;unistd.h></span></span>
+   
+<span class="token keyword">void</span> <span class="token function">printfPending</span><span class="token punctuation">(</span><span class="token class-name">sigset_t</span> <span class="token operator">*</span>pending<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">31</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">sigismember</span><span class="token punctuation">(</span>pending<span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"1 "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+      <span class="token keyword">else</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"0 "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+  
+<span class="token keyword">void</span> <span class="token function">handler</span><span class="token punctuation">(</span><span class="token keyword">int</span> signo<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"get signo: %d\n"</span><span class="token punctuation">,</span>signo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">signal</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+    <span class="token comment">//设置block信号集</span>
+    <span class="token class-name">sigset_t</span> set<span class="token punctuation">,</span> oset<span class="token punctuation">;</span><span class="token comment">//用户空间定义的变量</span>
+    <span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>set<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>oset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token function">sigaddset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>set<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//SIGINT</span>
+ 
+    <span class="token function">sigprocmask</span><span class="token punctuation">(</span>SIG_SETMASK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>set<span class="token punctuation">,</span> <span class="token operator">&amp;</span>oset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token comment">//获取pending信号集</span>
+    <span class="token class-name">sigset_t</span> pending<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">sigpending</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+      <span class="token function">printfPending</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      count<span class="token operator">++</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>count <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">)</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token function">sigprocmask</span><span class="token punctuation">(</span>SIG_SETMASK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>oset<span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//恢复曾经的信号屏蔽字</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"恢复信号屏蔽字\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204120900194.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204120900194.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204120900194">
+
+<p><strong><font color=red>我们可以看到，开始没收到 2号 信号的时候，处于全 0 的状态，收到之后 第二位由 0 制 1 了，然后隔几秒后又恢复曾经的信号屏蔽字，也就是全 0 状态</font></strong></p>
+<p><strong><mark>所以我们看到的结果流程就是下图这样子：</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204120955191.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204120955191.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204120955191">
+</blockquote>
+<hr>
+<h3 id="自定义捕捉函数"><a href="#自定义捕捉函数" class="headerlink" title="自定义捕捉函数"></a>自定义捕捉函数</h3><p><strong><font color=red>常用信号集操作函数里介绍了一个：</font></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204121943653.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204121943653.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204121943653">
+
+
+
+<p><strong><font color=red>这里再介绍一个：功能一样，只是参数不同：</font></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204122136545.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204122136545.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204122136545">
+
+<blockquote>
+<ul>
+<li><strong><mark>sa_mask，之前有说到过当在处理一个信号的自定义函数时，这个信号会被系统阻塞，直到处理完。如果还想阻塞其它的信号，可以设置sa_mask</mark></strong></li>
+<li><strong><mark>sigaction多用于实时信号</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>使用实例：</font></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span> </span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;signal.h></span></span>
+<span class="token comment">//打印未决信号</span>
+<span class="token keyword">void</span> <span class="token function">ShowBlock</span><span class="token punctuation">(</span><span class="token class-name">sigset_t</span> pending<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+     <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+     <span class="token keyword">for</span><span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span><span class="token number">31</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+     <span class="token punctuation">&#123;</span>
+      	<span class="token comment">//信号存在打印1</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">sigismember</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+        	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      	<span class="token punctuation">&#125;</span>
+      	<span class="token comment">//不存在打印0</span>
+      	<span class="token keyword">else</span>
+        <span class="token punctuation">&#123;</span>
+        	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"0"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    	<span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">void</span> <span class="token function">handle</span><span class="token punctuation">(</span><span class="token keyword">int</span> signo<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"i am signal %d\n"</span><span class="token punctuation">,</span>signo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+  
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">sigaction</span> act<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> <span class="token class-name">sigaction</span> oact<span class="token punctuation">;</span>
+    act<span class="token punctuation">.</span>sa_flags<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>act<span class="token punctuation">.</span>sa_mask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//自定义处理函数</span>
+    act<span class="token punctuation">.</span>sa_handler<span class="token operator">=</span>handle<span class="token punctuation">;</span>
+    <span class="token comment">//替换2号信号的处理函数</span>
+    <span class="token function">sigaction</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token operator">&amp;</span>act<span class="token punctuation">,</span><span class="token operator">&amp;</span>oact<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+    <span class="token class-name">sigset_t</span> pending<span class="token punctuation">;</span>
+  	<span class="token class-name">sigset_t</span> block<span class="token punctuation">;</span>
+   	<span class="token class-name">sigset_t</span> oblock<span class="token punctuation">;</span><span class="token comment">//旧阻塞位图</span>
+    <span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>block<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>oblock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sigaddset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>block<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   	<span class="token function">sigprocmask</span><span class="token punctuation">(</span>SIG_SETMASK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>block<span class="token punctuation">,</span> <span class="token operator">&amp;</span>oblock<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//将2号信号阻塞</span>
+    <span class="token keyword">int</span> count<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+      	<span class="token comment">//必须将信号阻塞才能看到未决，不然就递达了。</span>
+      	<span class="token function">sigemptyset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      	<span class="token function">sigpending</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//获取未决信号</span>
+      	<span class="token function">ShowBlock</span><span class="token punctuation">(</span>pending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     	count<span class="token operator">++</span><span class="token punctuation">;</span>
+      	<span class="token comment">//10秒后还原阻塞位图</span>
+      	<span class="token keyword">if</span><span class="token punctuation">(</span>count<span class="token operator">==</span><span class="token number">10</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+        	<span class="token comment">//将阻塞信号还原</span>
+        	<span class="token function">sigprocmask</span><span class="token punctuation">(</span>SIG_SETMASK<span class="token punctuation">,</span> <span class="token operator">&amp;</span>oblock<span class="token punctuation">,</span> <span class="token operator">&amp;</span>block<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      	<span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>                           <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204122723498.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204122723498.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204122723498">
+
+<hr>
+<h2 id="可重入函数"><a href="#可重入函数" class="headerlink" title="可重入函数"></a>可重入函数</h2><blockquote>
+<ul>
+<li><strong><code>可重入函数：是指一个可以被多个任务调用的函数(过程)，任务在调用时不必担心数据是否会出错</code></strong></li>
+<li><strong><code>不可重入函数：是指一个可以被多个任务调用的函数(过程)，任务在调用时数据会出错</code></strong></li>
+</ul>
+<p><strong><font color=red>比如：链表的插入函数，当执行头插入函数时，需要将新节点连接当前头节点，再将新节点地址保存到头节点里</font></strong></p>
+</blockquote>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204123401473.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204123401473.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204123401473">
+
+<p><strong><font color=red>如果符合以下条件之一则是不可重入的：</font></strong></p>
+<ul>
+<li><strong><mark>调用了malloc和free，因为malloc也是用全局链表管理堆的</mark></strong></li>
+<li><strong><mark>调用标志I&#x2F;O库函数，标志I&#x2F;O库函数很多实现都以不可重入的方式使用全局数据结构</mark></strong></li>
+</ul>
+<hr>
+<h2 id="SIGCHLD信号"><a href="#SIGCHLD信号" class="headerlink" title="SIGCHLD信号"></a>SIGCHLD信号</h2><blockquote>
+<ul>
+<li><strong><font color=red>我们用wait和waitpid函数清理僵尸进程，父进程可以阻塞等待子进程结束，也可以非阻塞地查询是否有子进程结束等待清理(也就是轮询的方式)。采用第一种方式，父进程阻塞了就不能处理自己的工作了;采用第二种方式，父进程在处理自己的工作的同时还要记得时不时地轮询一 下，程序实现复杂</font></strong></li>
+<li><strong><mark>其实，子进程在终止时会给父进程发SIGCHLD信号，该信号的默认处理动作是忽略，父进程可以自定义SIGCHLD信号的处理函数，这样父进程只需专心处理自己的工作，不必关心子进程了，子进程终止时会通知父进程，父进程在信号处理函数中调用wait清理子进程即可</mark></strong></li>
+<li><strong><font color=green>事实上，由于UNIX 的历史原因，要想不产生僵尸进程还有另外一种办法：父进程调用sigaction将SIGCHLD的处理动作置为SIG_IGN，这样fork出来的子进程在终止时会自动清理掉，不会产生僵尸进程，也不会通知父进程。系统默认的忽略动作和用户用sigaction函数自定义的忽略通常是没有区别的，但这是一个特例。此方法对于Linux可用，但不保证在其它UNIX系统上都可用</font></strong></li>
+<li><strong><mark>案例，请编写一个程序完成以下功能：父进程fork出子进程，子进程调用exit(2)终止，父进程自定义SIGCHLD信号的处理函数, 在其中调用wait获得子进程的退出状态并打印</mark></strong></li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;signal.h></span></span>
+<span class="token keyword">void</span> <span class="token function">handler</span><span class="token punctuation">(</span><span class="token keyword">int</span> sig<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token class-name">pid_t</span> id<span class="token punctuation">;</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span> <span class="token punctuation">(</span>id <span class="token operator">=</span> <span class="token function">waitpid</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token constant">NULL</span><span class="token punctuation">,</span> WNOHANG<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"wait child success: %d\n"</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"child is quit! %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token function">signal</span><span class="token punctuation">(</span>SIGCHLD<span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">pid_t</span> cid<span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>cid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token comment">//child</span>
+  	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"child : %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  	<span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"father proc is doing some thing!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204124249012.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204124249012.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204124249012">
+
+<ul>
+<li><p><strong><font color=red>我们可以看到，确实会给父进程发送 17号 信号，而且确定是回收的子进程</font></strong></p>
+</li>
+<li><p><strong><font color=red>接下来我们就来试试通过调用 <code>SIG_IGN</code> 去自动清理子进程，如下图：</font></strong></p>
+</li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204124305803.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204124305803.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204124305803">
+
+<p> <strong><mark>我们可以看到在前三秒内有两个进程，三秒后子进程退出，而且没有看到僵尸(Z状态)进程，这个只在Linux下是可以的，其他的好像不可以</mark></strong></p>
+</blockquote>
+<hr>
+<h2 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h2><p><strong><font color=red>volatile关键字：是一个特征修饰符（type specifier），volatile的作用是作为指令关键字，确保本条指令不会因编译器的优化而省略，且要求每次直接读值</font></strong></p>
+<ul>
+<li><strong><mark>让我们来看个例子体验一下：</mark></strong></li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;signal.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;string.h></span></span>
+   
+<span class="token keyword">int</span> flag <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">handler</span><span class="token punctuation">(</span><span class="token keyword">int</span> signo<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"get a signo: %d\n"</span><span class="token punctuation">,</span>signo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    flag <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+  
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">signal</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token operator">!</span>flag<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Proc Normal Quit!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>                          <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204125021789.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204125021789.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204125021789">
+
+<p><strong><mark>我们可以看到，当我们运行起来的时候是不会停止的，然后我们通过键盘发送 2号 信号后，才会正常退出。没有问题</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong><font color=red>通过我们上面的学习，我们知道信号捕捉和 main 函数是两种执行流，有可能我们这个进程跑起来永远都不会收到二号信号，只有我们 CTRL+C 发送它才能收到二号信号</font></strong></li>
+<li><strong><font color=red>也就是说 main 执行流永远执行，而信号捕捉函数不一定会执行</font></strong></li>
+<li><strong><font color=red>但是 while 循环是在 main 函数中的，main 函数编译器在编译的时候，只能检测到 main 函数对 flag 的使用，flag 是全局变量，在运行时，编译器只能检测到 main 函数对 flag 没有任何更改操作(虽然在信号捕捉函数有，但是编译器识别不到，因为它们是两个执行流)</font></strong></li>
+<li><strong><font color=red>如果没有人改 flag ，如果编译器优化级别较高的时候，那么编译器会将 flag 优化成寄存器变量，或者将 flag 设置到寄存器里</font></strong></li>
+</ul>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204125143555.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204125143555.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204125143555">
+
+<p><strong><font color=red>所以如果编译器优化级别较高的时候，发送了二号信号，即使被捕捉了，也一直死循环不会退出</font></strong></p>
+<p><strong><mark>接下来就来优化一下：</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204125216864.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204125216864.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204125216864">
+
+<p> <strong><mark>我们可以看到，我们只要在编译的时候加上 -O3 ，就会发生我们上面说到的那种情况</mark></strong></p>
+<img src="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204125249065.png" class="lazyload placeholder" data-srcset="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/image-20221204125249065.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221204125249065">
+
+<p><strong><mark>我们可以看到，即使现在还是 -O3 的优化，我们还是可以通过发送 2号 信号来结束进程</mark></strong></p>
+</blockquote>
+<p><strong><code>所以，我们得出 volatile 的作用是：</code></strong></p>
+<blockquote>
+<ol>
+<li><strong><font color=green>编译器编译时不要把变量放到寄存器里</font></strong></li>
+<li><strong><font color=green>检测的时候一定不能只对 flag 的寄存器级别的检测，而是先从内存里读到 flag 的值到寄存器里再进行检测</font></strong></li>
+</ol>
+</blockquote>
+<p><strong><font color=red>所以 volatile 是保持了内存的可见性，告知编译器，被该关键字修饰的变量，不允许被优化，对该变量的任何操作，都必须在真实的内存中进行操作！</font></strong></p>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/Linux%E7%BC%96%E7%A8%8B/" class="">
+              Linux编程
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/" target="_blank" title="Linux进程间信号">https://Not-Go.github.io/2023/02/20/1.liunx-jin-cheng-jian-xin-hao/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" class="lazyload placeholder" data-srcset="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/02/20/1.linux-jin-cheng-jian-tong-xun-ji-zhu/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">Linux进程间通讯</div>
+      </div>
+      
+      <!-- <div class="content">
+        Linux进程间通讯进程通讯基本认知进程通讯的概念进程间通信简称IPC（Interprocess communicati
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/02/20/1.linux-duo-xian-cheng/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">Linux多线程</div>
+      </div>
+      <!-- <div class="content">
+        Linux多线程Linux线程概念什么是线程
+
+站在内核角度来理解进程：承担分配系统资源的基本实体，叫做进程
+在一个程序
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E8%BF%9B%E7%A8%8B%E9%97%B4%E4%BF%A1%E5%8F%B7"><span class="toc-text">Linux进程间信号</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">信号的理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BF%A1%E5%8F%B7%E7%9A%84%E8%AE%A4%E8%AF%86"><span class="toc-text">对信号的认识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E4%BF%A1%E5%8F%B7"><span class="toc-text">为什么要有信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E6%A6%82%E5%BF%B5"><span class="toc-text">信号概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E5%AE%9A%E4%B9%89%E7%9A%84%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">查看系统定义的信号的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-text">信号的处理方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A7%E7%94%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">产生信号的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%BB%88%E7%AB%AF%E6%8C%89%E9%94%AE%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7"><span class="toc-text">通过终端按键发送信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%B3%BB%E7%BB%9F%E5%87%BD%E6%95%B0%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7"><span class="toc-text">通过系统函数发送信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E8%BD%AF%E4%BB%B6%E6%9D%A1%E4%BB%B6%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7"><span class="toc-text">通过软件条件发送信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%A1%AC%E4%BB%B6%E5%BC%82%E5%B8%B8%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7"><span class="toc-text">通过硬件异常发送信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8ECore-Dump%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">对于Core Dump的理解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">阻塞信号的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%98%BB%E5%A1%9E%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="toc-text">信号阻塞的一些概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%BD%A2%E5%BC%8F"><span class="toc-text">信号在内存中的表示形式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E8%AE%B0%E5%BD%95%E3%80%81%E5%A4%84%E7%90%86%E3%80%81%E6%8D%95%E6%8D%89"><span class="toc-text">信号的记录、处理、捕捉</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E8%AE%B0%E5%BD%95"><span class="toc-text">信号的记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-text">信号的处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%8D%95%E6%8D%89"><span class="toc-text">信号的捕捉</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%9B%86%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-text">信号集操作函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sigset-t%E7%B1%BB%E5%9E%8B"><span class="toc-text">sigset_t类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E4%BF%A1%E5%8F%B7%E9%9B%86%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0"><span class="toc-text">常用信号集操作函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%BF%9B%E7%A8%8B%E9%98%BB%E5%A1%9E%E4%BD%8D%E5%9B%BE"><span class="toc-text">修改进程阻塞位图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%86%B3%E4%BD%8D%E5%9B%BE"><span class="toc-text">获取进程未决位图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8D%95%E6%8D%89%E5%87%BD%E6%95%B0"><span class="toc-text">自定义捕捉函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E9%87%8D%E5%85%A5%E5%87%BD%E6%95%B0"><span class="toc-text">可重入函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SIGCHLD%E4%BF%A1%E5%8F%B7"><span class="toc-text">SIGCHLD信号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#volatile%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">volatile关键字</span></a></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

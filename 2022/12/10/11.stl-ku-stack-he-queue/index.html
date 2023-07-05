@@ -1,0 +1,3545 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>STL库：stack和queue | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        STL库：stack和queue
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2022-12-10 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E5%88%9D%E9%98%B6C/" class="post-detail-header_category">
+              初阶C++
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 6.2k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 26分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="STL库：stack和queue"><a href="#STL库：stack和queue" class="headerlink" title="STL库：stack和queue"></a><strong>STL库：stack和queue</strong></h1><h2 id="STL库中stack的官方介绍"><a href="#STL库中stack的官方介绍" class="headerlink" title="STL库中stack的官方介绍"></a><strong>STL库中stack的官方介绍</strong></h2><blockquote>
+<ol>
+<li><strong>stack 是一种「容器适配器」（container adapter），专门用在具有 LIFO (后进先出) 操作的上下文环境中，其中元素仅从容器的一端插入和提取</strong></li>
+<li><strong>stack 是作为容器适配器被实现的，「容器适配器」即是「对特定容器类封装」作为其底层的容器，并提供一组特定的成员函数来访问其元素，元素从特定容器的尾部(即栈顶)被压入和弹出，这被称为堆栈的顶部</strong></li>
+<li><strong>stack 的底层容器可以是任何标准容器类模板或者一些其他特定的容器类，这些容器类应该支持以下操作：empty、size、back、push_back、pop_back</strong></li>
+<li><strong>标准容器类 vector、deque、list 均符合这些要求，默认情况下，如果没有为 stack 指定特定的底层容器类，则使用标准容器双端队列 deque</strong></li>
+<li><strong>容器适配器&#x2F;配接器：不是直接实现的，封装其他容器，包装转换实现出来的</strong></li>
+<li><strong>stack 没有迭代器，有了迭代器就可以随意访问元素了，不能保证「后进先出」的性质了</strong></li>
+</ol>
+</blockquote>
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623223959762.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623223959762.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223959762">
+
+<hr>
+<h2 id="stack的常用接口"><a href="#stack的常用接口" class="headerlink" title="stack的常用接口"></a><strong>stack的常用接口</strong></h2><blockquote>
+<ol>
+<li><strong>stack()：构造一个堆栈容器适配器对象，构造空的栈</strong></li>
+<li><strong>empty()：检查 stack 是否为空</strong></li>
+<li><strong>size()：返回 stack 中有有效元素的个数</strong></li>
+<li><strong>top()：返回栈顶元素的引用</strong></li>
+<li><strong>push()：压栈，将一个元素压入 stack 中</strong></li>
+<li><strong>pop()：出栈，将 stack 尾部元素弹出</strong></li>
+<li><strong>swap()：交换两个容器的内容（该成员函数调用非成员函数 std::swap 来交换底层容器）</strong></li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void test_stack1()
+&#123;
+	stack&lt;int&gt; st;
+	st.push(1);
+	st.push(2);
+	st.push(3);
+
+	&#x2F;&#x2F; 遍历堆栈中的元素
+	while (!st.empty())
+	&#123;
+		cout &lt;&lt; st.top() &lt;&lt; &quot; &quot;;
+		st.pop();
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="stack的模拟实现"><a href="#stack的模拟实现" class="headerlink" title="stack的模拟实现"></a><strong>stack的模拟实现</strong></h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">namespace winter
+&#123;
+	&#x2F;*
+	* T: 堆栈中存储的数据的类型
+	* Container: 适配堆栈的容器类型，默认为deque
+	*&#x2F;
+	template&lt;class T, class Container &#x3D; std::deque&lt;T&gt;&gt;
+	class stack
+	&#123;
+		&#x2F;&#x2F; stack 是一个 Container 适配（封装转换）出来的
+		&#x2F;&#x2F; 把 Contariner 的尾部认为是栈顶
+
+	public:
+        &#x2F;&#x2F;不需要写构造函数，因为在默认构造函数的初始化列表阶段，自定义类型成员 _con 会自动调用它的默认构造函数
+        
+		bool empty() &#x2F;&#x2F; 判空
+		&#123;
+			return _con.empty();
+		&#125;
+
+		size_t size() const &#x2F;&#x2F; 获取有效元素的个数
+		&#123;
+			return _con.size();
+		&#125;
+
+		const T&amp; top() const &#x2F;&#x2F; 返回栈顶元素的引用
+		&#123;
+			return _con.back();
+		&#125;
+
+		void push(const T&amp; val) &#x2F;&#x2F; 压栈，尾插
+		&#123;
+			_con.push_back(val);
+
+			&#x2F;&#x2F; 大家可能会有疑问，如果 _con 没有 push_back 接口怎么办呢？
+			&#x2F;&#x2F; 没有就报错呗，说明你不能适配我
+		&#125;
+
+		void pop() &#x2F;&#x2F; 出栈，尾删
+		&#123;
+			_con.pop_back();
+		&#125;
+
+		&#x2F;&#x2F; C++11
+		void swap(stack&lt;T, Container&gt;&amp; st) &#x2F;&#x2F; 交换两个容器的内容
+		&#123;
+			&#x2F;&#x2F; 注意：底层调用的是非成员函数 std::swap 来交换底层容器
+			std::swap(_con, st._con);
+		&#125;
+
+	private:
+		Container _con; &#x2F;&#x2F; 适配的容器
+	&#125;;
+    
+    &#x2F;&#x2F; 测试
+    void test1()
+	&#123;
+		&#x2F;&#x2F;stack&lt;int, std::vector&lt;int&gt;&gt; st; &#x2F;&#x2F; 用vector适配
+		&#x2F;&#x2F;stack&lt;int, std::list&lt;int&gt;&gt; st;   &#x2F;&#x2F; 用list适配
+		stack&lt;int&gt; st; &#x2F;&#x2F; 默认用deque适配
+		st.push(1);
+		st.push(2);
+		st.push(3);
+
+		&#x2F;&#x2F; 遍历堆栈中的元素
+		while (!st.empty())
+		&#123;
+			cout &lt;&lt; st.top() &lt;&lt; &quot; &quot;;
+			st.pop();
+		&#125;
+		cout &lt;&lt; endl;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="STL库中queue的官方介绍"><a href="#STL库中queue的官方介绍" class="headerlink" title="STL库中queue的官方介绍"></a><strong>STL库中queue的官方介绍</strong></h2><blockquote>
+<ol>
+<li><strong>队列是一种「容器适配器」（container adapter），专门用于在 FIFO (先进先出) 操作的上下文环境中，其中从容器一端插入元素，另一端提取元素</strong></li>
+<li><strong>队列作为容器适配器实现，「容器适配器」即「对特定容器类封装」作为其底层容器类，queue 提供一组特定的成员函数来访问其元素。元素从队尾入队列，从队头出队列</strong></li>
+<li><strong>底层容器可以是标准容器类模板之一，也可以是其他专门设计的容器类。该底层容器应至少支持以下操作：empty、size、front、back、push_back、pop_front</strong></li>
+<li><strong>标准容器类双端队列 deque 和带头双向循环链表 list 满足了这些要求。默认情况下，如果没有为 queue 实例化指定容器类，则使用标准容器双端队列 deque</strong></li>
+</ol>
+</blockquote>
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224008884.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224008884.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224008884">
+
+<hr>
+<h2 id="queue的常用接口"><a href="#queue的常用接口" class="headerlink" title="queue的常用接口"></a><strong>queue的常用接口</strong></h2><blockquote>
+<ol>
+<li><strong>queue()：构造一个队列容器适配器对象。构造空的队列</strong></li>
+<li><strong>empty()：检测队列是否为空</strong></li>
+<li><strong>size()：返回队列中有效元素的个数</strong></li>
+<li><strong>front():返回队头元素的引用</strong></li>
+<li><strong>back()：返回队尾元素的引用</strong></li>
+<li><strong>push()：入队，将一个元素从队尾入队列</strong></li>
+<li><strong>pop()：出队，将队头元素出队列</strong></li>
+<li><strong>swap()：交换两个容器的内容（该成员函数调用非成员函数 std::swap 来交换底层容器）</strong></li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void test_queue1()
+&#123;
+	queue&lt;int&gt; q;
+	q.push(1);
+	q.push(2);
+	q.push(3);
+
+	&#x2F;&#x2F; 遍历队列中的元素
+	while (!q.empty())
+	&#123;
+		cout &lt;&lt; q.front() &lt;&lt; &quot; &quot;;
+		q.pop();
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="queue的模拟实现"><a href="#queue的模拟实现" class="headerlink" title="queue的模拟实现"></a><strong>queue的模拟实现</strong></h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">namespace winter
+&#123;
+	&#x2F;*
+	* T: 队列中存储的数据的类型
+	* Container: 适配队列的容器类型，默认为deque
+	*&#x2F;
+	template&lt;class T, class Container &#x3D; std::deque&lt;T&gt;&gt;
+	class queue
+	&#123;
+	public:
+        &#x2F;&#x2F;不需要写构造函数，因为在默认构造函数的初始化列表阶段，自定义类型成员 _con 会自动调用它的默认构造函数
+            
+		bool empty() &#x2F;&#x2F; 判空
+		&#123;
+			return _con.empty();
+		&#125;
+
+		size_t size() const &#x2F;&#x2F; 获取有效元素的个数
+		&#123;
+			return _con.size();
+		&#125;
+
+		const T&amp; front() const &#x2F;&#x2F; 返回队头元素的引用
+		&#123;
+			return _con.front();
+		&#125;
+
+		const T&amp; back() const &#x2F;&#x2F; 返回队尾元素的引用
+		&#123;
+			return _con.back();
+		&#125;
+
+		void push(const T&amp; val) &#x2F;&#x2F; 入队，尾插
+		&#123;
+			_con.push_back(val);
+		&#125;
+
+		void pop() &#x2F;&#x2F; 出队，头删
+		&#123;
+			_con.pop_front();
+		&#125;
+
+	private:
+		Container _con; &#x2F;&#x2F; 适配的容器
+	&#125;;
+
+    &#x2F;&#x2F; 测试
+	void test11()
+	&#123;
+		&#x2F;&#x2F;queue&lt;int, std::list&lt;int&gt;&gt; q; &#x2F;&#x2F; 用list适配
+		queue&lt;int&gt; q; &#x2F;&#x2F; 默认用deque适配
+		q.push(1);
+		q.push(2);
+		q.push(3);
+
+        &#x2F;&#x2F; 遍历队列中的元素
+		while (!q.empty())
+		&#123;
+			cout &lt;&lt; q.front() &lt;&lt; &quot; &quot;;
+			q.pop();
+		&#125;
+		cout &lt;&lt; endl;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="STL库中priority-queue的官方介绍"><a href="#STL库中priority-queue的官方介绍" class="headerlink" title="STL库中priority_queue的官方介绍"></a><strong>STL库中priority_queue的官方介绍</strong></h2><blockquote>
+<ol>
+<li><strong>优先队列是一种「容器适配器」（container adapter），根据严格的弱排序标准，它的第一个元素总是它所包含的元素中最大的（默认为大堆）</strong></li>
+<li><strong>类似于堆，在堆中可以随时插入元素，并且只能检索最大堆元素(优先队列中位于顶部的元素)</strong></li>
+<li><strong>优先队列被实现为容器适配器，容器适配器即将特定容器类封装作为其底层容器类，queue 提供一组特定的成员函数来访问其元素。元素从特定容器的 “ 尾部 ” 弹出，其称为优先队列的顶部</strong></li>
+<li><strong>底层容器可以是任何标准容器类模板，也可以是其他特定设计的容器类。容器应该可以通过随机访问迭代器访问，并支持以下操作：empty、size、front、push_back、pop_back</strong></li>
+<li><strong>标准容器类 vector 和 deque 满足这些需求。默认情况下，如果没有为特定的 priority_queue 类实例化指定容器类，则使用 vector</strong></li>
+<li><strong>需要支持随机访问迭代器，以便始终在内部保持堆结构。容器适配器通过在需要时自动调用算法函数 make_heap、push_heap 和 pop_heap 来自动完成此操作</strong></li>
+<li><strong>需要包含头文件</strong></li>
+</ol>
+</blockquote>
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224022775.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224022775.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224022775">
+
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224029445.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224029445.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224029445">
+
+<hr>
+<h2 id="priority-queue的常用接口"><a href="#priority-queue的常用接口" class="headerlink" title="priority_queue的常用接口"></a><strong>priority_queue的常用接口</strong></h2><blockquote>
+<ol>
+<li><strong>priority_queue():构造一个 priority_queue 容器适配器对象</strong></li>
+<li><strong>priority_queue(first, last):构造一个空的优先级队列 &#x2F; 或者用一段迭代器区间 [first, last) 来初始化</strong></li>
+<li><strong>empty()：检测优先级队列是否为空</strong></li>
+<li><strong>size()：返回有效元素个数</strong></li>
+<li><strong>top()：返回优先级队列中最大(最小元素)，即堆顶元素</strong></li>
+<li><strong>push()：向优先级队列中插入一个元素</strong></li>
+<li><strong>pop()：删除优先级队列中最大(最小)元素，即堆顶元素</strong></li>
+<li><strong>swap()：交换两个容器的内容（该成员函数调用非成员函数 std::swap 来交换底层容器）</strong></li>
+</ol>
+</blockquote>
+<p><strong><font color=red>1.默认情况下，priority_queue 是大堆。元素在底层按照小于符号 (&lt;) 进行比较，比如：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;vector&gt;
+#include&lt;queue&gt;
+#include&lt;functional&gt;
+
+void test_priority_queue1() &#123;
+	priority_queue&lt;int&gt; pq; &#x2F;&#x2F; 默认是大堆 -- 大的元素优先级高
+	pq.push(4);
+	pq.push(1);
+	pq.push(7);
+	pq.push(6);
+	pq.push(2);
+	pq.push(5);
+
+	&#x2F;&#x2F; 遍历优先级队列中的元素
+	while (!pq.empty()) &#123;
+		cout &lt;&lt; pq.top() &lt;&lt; &quot; &quot;; &#x2F;&#x2F; 堆顶元素
+		pq.pop();
+	&#125;
+    &#x2F;&#x2F; result: 7 6 5 4 2 1
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>2.如果要构造小堆，需要仿函数。元素在底层按照小于符号(&gt;)进行比较，比如：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;vector&gt;
+#include&lt;queue&gt;
+#include&lt;functional&gt;
+
+void test_priority_queue2()
+&#123;
+	&#x2F;&#x2F; 构造小堆，需要给第三个模板参数传仿函数类greater，包含头文件&lt;functional&gt;
+	priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pq; &#x2F;&#x2F; 小堆 -- 小的元素优先级高
+	pq.push(4);
+	pq.push(1);
+	pq.push(7);
+	pq.push(6);
+	pq.push(2);
+	pq.push(5);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>3.如果在 priority_queue 中存放自定义类型的元素：</font></strong></p>
+<ul>
+<li><strong>需要用户在自定义类型中提供 &gt; 或者 &lt; 运算符的重载</strong></li>
+<li><strong>或者通过用户提供的针对比较自定义类型对象大小的仿函数类，控制比较方式</strong></li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Date
+&#123;
+public:
+	Date(int year &#x3D; 2020, int month &#x3D; 1, int day &#x3D; 1)
+		:_year(year)
+		,_month(month)
+		,_day(day)
+	&#123;&#125;
+
+	bool operator&lt;(const Date&amp; d) const &#x2F;&#x2F; &lt; 运算符重载
+	&#123;
+		return (_year &lt; d._year) ||
+			(_year &#x3D;&#x3D; d._year &amp;&amp; _month &lt; d._month) ||
+			(_year &#x3D;&#x3D; d._year &amp;&amp; _month &#x3D;&#x3D; d._month &amp;&amp; _day &lt; d._day);
+	&#125;
+
+	bool operator&gt;(const Date&amp; d) const &#x2F;&#x2F; &gt; 运算符重载
+	&#123;
+		return (_year &gt; d._year) ||
+			(_year &#x3D;&#x3D; d._year &amp;&amp; _month &gt; d._month) ||
+			(_year &#x3D;&#x3D; d._year &amp;&amp; _month &#x3D;&#x3D; d._month &amp;&amp; _day &gt; d._day);
+	&#125;
+
+	friend ostream&amp; operator&lt;&lt;(ostream&amp; _cout, const Date&amp; d) &#x2F;&#x2F; &lt;&lt; 运算符重载
+	&#123;
+		_cout &lt;&lt; d._year &lt;&lt; &quot;-&quot; &lt;&lt; d._month &lt;&lt; &quot;-&quot; &lt;&lt; d._day;
+		return _cout;
+	&#125;
+
+    friend struct DateLess; &#x2F;&#x2F; 仿函数类声明为友元
+    
+private:
+	int _year;
+	int _month;
+	int _day;
+&#125;;
+
+void test_priority_queue1()
+&#123;
+	&#x2F;&#x2F; 大堆，需要用户在自定义类型Date中提供 &lt; 的重载
+	priority_queue&lt;Date&gt; q1;
+	q1.push(Date(2017, 2, 28));
+	q1.push(Date(2019, 10, 28));
+	q1.push(Date(2019, 3, 3));
+	cout &lt;&lt; q1.top() &lt;&lt; endl; &#x2F;&#x2F; 输出堆顶元素（最大日期）
+
+	&#x2F;&#x2F; 小堆，需要用户在自定义类型Date中提供 &gt; 的重载
+	priority_queue&lt;Date, vector&lt;Date&gt;, greater&lt;Date&gt;&gt; q2;
+	q2.push(Date(2017, 2, 28));
+	q2.push(Date(2019, 10, 28));
+	q2.push(Date(2019, 3, 3));
+	cout &lt;&lt; q2.top() &lt;&lt; endl; &#x2F;&#x2F; 输出堆顶元素（最小日期）
+&#125;
+
+&#x2F;&#x2F; 定义按小于(&lt;)比较自定义类型对象大小的仿函数类
+struct DateLess
+&#123;
+	bool operator()(const Date&amp; d1, const Date&amp; d2)
+	&#123;
+		return (d1._year &lt; d2._year) ||
+			(d1._year &#x3D;&#x3D; d2._year &amp;&amp; d1._month &lt; d2._month) ||
+			(d1._year &#x3D;&#x3D; d2._year &amp;&amp; d1._month &#x3D;&#x3D; d2._month &amp;&amp; d1._day &lt; d2._day);
+	&#125;
+&#125;;
+
+void test_priority_queue2()
+&#123;
+    &#x2F;&#x2F; 大堆，第3个模板参数传针对比较自定义类型对象大小的仿函数类DateLess
+    priority_queue&lt;Date, vector&lt;Date&gt;, DateLess&gt; q1;
+	q1.push(Date(2017, 2, 28));
+	q1.push(Date(2019, 10, 28));
+	q1.push(Date(2019, 3, 3));
+	cout &lt;&lt; q1.top() &lt;&lt; endl; &#x2F;&#x2F; 输出堆顶元素（最大日期）
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="priority-queue的模拟实现"><a href="#priority-queue的模拟实现" class="headerlink" title="priority_queue的模拟实现"></a><strong>priority_queue的模拟实现</strong></h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;functional&gt;
+using namespace std;
+
+namespace winter
+&#123;
+	&#x2F;&#x2F; 仿函数类 Less，按小于(&lt;)进行比较，建大堆
+	template&lt;class T&gt;
+	struct Less
+	&#123;
+		bool operator()(const T&amp; x, const T&amp; y)
+		&#123;
+			return x &lt; y;
+		&#125;
+	&#125;;
+
+	&#x2F;&#x2F; 仿函数类 Greater，按大于(&gt;)进行比较，建小堆
+	template&lt;class T&gt;
+	struct Greater
+	&#123;
+		bool operator()(const T&amp; x, const T&amp; y)
+		&#123;
+			return x &gt; y;
+		&#125;
+	&#125;;
+
+	&#x2F;* 模板参数
+	* T: 优先级队列中存储的数据的类型
+	* Container: 适配优先级队列的容器类型，默认为vector
+	* Compare: 仿函数类型，默认是Less(&lt;)，建大堆（也可以用库中的greater和less类模板）
+	*&#x2F;
+	template&lt;class T, class Container &#x3D; vector&lt;T&gt;, class Compare &#x3D; Less&lt;T&gt;&gt;
+	class priority_queue
+	&#123;
+	public:
+		&#x2F;&#x2F; 默认构造函数
+		priority_queue() &#123;&#125;
+
+		&#x2F;&#x2F; 用迭代器区间[first,last)构造初始化
+		template&lt;class InputIterator&gt;
+		priority_queue(InputIterator first, InputIterator last);
+
+		&#x2F;&#x2F; 向上调整，建大堆（小堆）
+		void AdjustUp(size_t child);
+
+		&#x2F;&#x2F; 向下调整，建大堆（小堆）
+		&#x2F;&#x2F; 前提条件：左右子树都是大(小)堆
+		void AdjustDown(size_t parent);
+
+		&#x2F;&#x2F; 向堆中插入一个元素
+		void push(const T&amp; val)
+		&#123;
+			_con.push_back(val); &#x2F;&#x2F; 尾插
+
+			AdjustUp(_con.size() - 1); &#x2F;&#x2F; 从最后一个元素开始，向上调整
+		&#125;
+
+		&#x2F;&#x2F; 删除堆顶元素
+		void pop()
+		&#123;
+			std::swap(_con[0], _con[_con.size() - 1]); &#x2F;&#x2F; 堆顶元素交换到尾部
+
+			_con.pop_back(); &#x2F;&#x2F; 尾删
+
+			AdjustDown(0);   &#x2F;&#x2F; 从堆顶开始，向下调整
+		&#125;
+		
+        &#x2F;&#x2F; 判空
+		bool empty() &#123; return _con.empty(); &#125;
+		
+        &#x2F;&#x2F; 返回有效元素个数
+		size_t size() const &#123; return _con.size(); &#125;
+		
+        &#x2F;&#x2F; 返回堆顶元素
+		const T&amp; top() const &#123; return _con[0]; &#125;
+
+	private:
+		Container _con; &#x2F;&#x2F; 成员变量，基础容器
+	&#125;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="priority-queue的构造函数与增删函数"><a href="#priority-queue的构造函数与增删函数" class="headerlink" title="priority_queue的构造函数与增删函数"></a><strong>priority_queue的构造函数与增删函数</strong></h2><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;*
+实现了一个默认构造和构造函数模板，这样可以用一段迭代器区间 [first,last) 来初始化优先级队列，
+其它默认成员函数编译器会自动生成，在函数内会自动调用适配优先级队列的基础容器的对应函数
+*&#x2F;
+
+&#x2F;&#x2F; 默认构造函数
+priority_queue()
+&#123;&#125;
+
+&#x2F;&#x2F; 用迭代器区间[first,last)构造初始化
+template&lt;class InputIterator&gt;
+priority_queue(InputIterator first, InputIterator last)
+&#123;
+    while (first !&#x3D; last)
+    &#123;
+        &#x2F;&#x2F; 插入数据
+        _con.push_back(*first);
+        first++;
+
+        &#x2F;&#x2F; 建堆，从倒数第一个非叶子节点开始向下调整
+        int child &#x3D; _con.size() - 1;
+        int parent &#x3D; (child - 1) &#x2F; 2;
+        for (int i &#x3D; parent; i &gt;&#x3D; 0; i--)
+        &#123;
+            AdjustDown(i);
+        &#125;
+    &#125;
+&#125;
+
+&#x2F;&#x2F;push 和 pop 函数
+&#x2F;&#x2F;实现这两个函数，需要先实现向上调整和向下调整函数，为了让向上和向下调整函数，既可以调整成大堆也可以调整成小堆，还需要传仿函数
+&#x2F;&#x2F; 向上调整，建大堆（小堆）
+void AdjustUp(size_t child)
+&#123;
+    Compare com; &#x2F;&#x2F; 仿函数对象
+
+    size_t parent &#x3D; (child - 1) &#x2F; 2; &#x2F;&#x2F; 计算出父亲下标
+
+    while (child) &#x2F;&#x2F; 当孩子下标等于0时结束
+    &#123;
+        if (com(_con[parent], _con[child])) &#x2F;&#x2F; 如果父亲小于(大于)孩子，需要把孩子往上调
+        &#123;
+            &#x2F;&#x2F; 交换孩子与父亲
+            std::swap(_con[child], _con[parent]);
+
+            &#x2F;&#x2F; 更新孩子和父亲的下标
+            child &#x3D; parent;
+            parent &#x3D; (child - 1) &#x2F; 2;
+        &#125;
+        else &#x2F;&#x2F; 如果父亲大于(小于)孩子，说明已经是大(小)堆，不需要调整了
+        &#123;
+            break;
+        &#125;
+    &#125;
+&#125;
+
+&#x2F;&#x2F; 向下调整，建大堆（小堆）
+&#x2F;&#x2F; 前提条件：左右子树都是大(小)堆
+void AdjustDown(size_t parent)
+&#123;
+    Compare com; &#x2F;&#x2F; 仿函数对象
+
+    size_t child &#x3D; 2 * parent + 1; &#x2F;&#x2F; 计算出左孩子下标，默认左孩子最大
+
+    while (child &lt; _con.size()) &#x2F;&#x2F; 孩子下标超过数组范围时结束
+    &#123;
+        &#x2F;&#x2F; 1.选出左右孩子最小的那个，先判断右孩子是否存在
+        if (child + 1 &lt; _con.size() &amp;&amp; com(_con[child], _con[child + 1])) &#x2F;&#x2F; 左孩子小于(大于)右孩子
+        &#123;
+            child++; &#x2F;&#x2F; 右孩子最大
+        &#125;
+
+        &#x2F;&#x2F; 2. 最大的孩子与父亲比较
+        if (com(_con[parent], _con[child])) &#x2F;&#x2F; 父亲小于(大于)最大的孩子，需要把父亲往下调
+        &#123;
+            &#x2F;&#x2F; 交换父亲与孩子
+            std::swap(_con[parent], _con[child]);
+
+            &#x2F;&#x2F; 更新父亲和孩子的下标
+            parent &#x3D; (child - 1) &#x2F; 2;
+            child &#x3D; 2 * parent + 1;
+        &#125;
+        else &#x2F;&#x2F; 父亲大于(小于)最大的孩子，说明已经是大(小)堆，不需要调整了
+        &#123;
+            break;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="仿函数的了解"><a href="#仿函数的了解" class="headerlink" title="仿函数的了解"></a><strong>仿函数的了解</strong></h2><h3 id="仿函数概念"><a href="#仿函数概念" class="headerlink" title="仿函数概念"></a><strong>仿函数概念</strong></h3><ol>
+<li><strong>仿函数又称为函数对象，使一个类的使用看上去像一个函数，其实就是在类中重载了operator() 运算符，这个类就有了类似函数的行为，就是一个仿函数类了</strong></li>
+<li><strong>仿函数的语法几乎和我们普通的函数调用一样，调用仿函数时，实际上就是通过仿函数类对象调用重载后的operator() 运算符，这种行为类似函数调用</strong></li>
+<li><strong>less和greater是常见的仿函数类，在头文件<functional>中也有定义</strong></li>
+</ol>
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224045981.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224045981.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224045981">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 仿函数less和greater是继承的binary_function，可以看作是对于一类函数的总体声明，这是函数做不到的
+
+template &lt;class T&gt; struct greater : binary_function &lt;T,T,bool&gt;
+&#123;
+    bool operator() (const T&amp; x, const T&amp; y) const &#123;return x&gt;y;&#125;
+&#125;;
+
+template &lt;class T&gt; struct less : binary_function &lt;T,T,bool&gt; 
+&#123;
+    bool operator() (const T&amp; x, const T&amp; y) const &#123;return x&lt;y;&#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>使用举例：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 仿函数（函数对象） -- 自定义类型
+&#x2F;&#x2F; 该类型的对象，可以像函数一样去使用
+&#x2F;&#x2F;仿函数举例：比较大小
+struct Less
+&#123;
+	bool operator()(const int&amp; x, const int&amp; y) &#x2F;&#x2F; 重载()运算符
+	&#123;
+		return x &lt; y;
+	&#125;
+&#125;;
+
+void test_functor()
+&#123;
+	&#x2F;&#x2F; 仿函数的两种使用方式：
+
+	&#x2F;&#x2F; 方式1：
+	Less less; &#x2F;&#x2F; 构造函数对象
+	cout &lt;&lt; less(1, 2) &lt;&lt; endl;  &#x2F;&#x2F; 编译器会解释成: less.operator()(1, 2);
+
+	&#x2F;&#x2F; 方式2：
+	cout &lt;&lt; Less()(1, 2) &lt;&lt; endl; &#x2F;&#x2F; 构造一个匿名函数对象
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;仿函数类还可以写成类模板，适应更多的类型
+template&lt;class T&gt; &#x2F;&#x2F; 用于小于（&lt;）不等式比较的函数对象类
+struct Less
+&#123;
+	bool operator()(const T&amp; x, const T&amp; y)
+	&#123;
+		return x &lt; y;
+	&#125;
+&#125;;
+
+template&lt;class T&gt; &#x2F;&#x2F; 用于大于（&gt;）不等式比较的函数对象类
+struct Greater
+&#123;
+	bool operator()(const T&amp; x, const T&amp; y)
+	&#123;
+		return x &gt; y;
+	&#125;
+&#125;;
+
+void test_functor()
+&#123;
+	Less&lt;int&gt; less;
+	cout &lt;&lt; less(1, 2) &lt;&lt; endl; &#x2F;&#x2F; true
+	
+    Greater&lt;int&gt; greater;
+	cout &lt;&lt; greater(1, 2) &lt;&lt; endl; &#x2F;&#x2F; false
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="模板实例化中的仿函数"><a href="#模板实例化中的仿函数" class="headerlink" title="模板实例化中的仿函数"></a><strong>模板实例化中的仿函数</strong></h3><p><strong><font color=red>类模板一般是显式实例化的，在 &lt;&gt; 中指定模板参数的实际类型，所以类模板是传类型。比如：priority_queue</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 第1个模板参数是：存储数据的类型
+&#x2F;&#x2F; 第2个模板参数是：基础容器的类型
+&#x2F;&#x2F; 第3个模板参数是：仿函数的类型
+template &lt;class T, class Container &#x3D; vector&lt;T&gt;,
+  class Compare &#x3D; less&lt;typename Container::value_type&gt; &gt; class priority_queue;
+
+void test()
+&#123;
+    &#x2F;&#x2F; 建小堆
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; pq; &#x2F;&#x2F; 传仿函数greater&lt;int&gt;类型
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>而函数模板一般是隐式实例化，让编译器根据实参推演模板参数的实际类型，所以函数模板是传对象。比如：sort</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 第1个模板参数：迭代器的类型
+&#x2F;&#x2F; 第2个模板参数是：仿函数的类型
+template &lt;class RandomAccessIterator, class Compare&gt;
+  void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
+&#x2F;&#x2F; 函数的第1和第2个参数是：迭代器对象
+&#x2F;&#x2F; 函数的第3个参数是：仿函数类的对象
+
+void test()
+&#123;
+    vector&lt;int&gt; v &#123; 5,3,2,4,1 &#125;;
+    &#x2F;&#x2F; 排降序(&gt;)
+    sort (v.begin(), b.end(), greater&lt;int&gt;()); &#x2F;&#x2F; 传仿函数类greater&lt;int&gt;的匿名对象
+    for (const auto&amp; x : v)
+        cout &lt;&lt; x &lt;&lt; &quot; &quot;;
+    cout &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="容器适配器的了解"><a href="#容器适配器的了解" class="headerlink" title="容器适配器的了解"></a><strong>容器适配器的了解</strong></h2><h3 id="容器适配器概念"><a href="#容器适配器概念" class="headerlink" title="容器适配器概念"></a><strong>容器适配器概念</strong></h3><img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224100066.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224100066.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224100066">
+
+<blockquote>
+<ol>
+<li><strong>stack 和 queue 和 priority_queue 往往不被认为是一个容器，而是一个容器适配器（Container adapter）</strong></li>
+<li><strong>adapter 原意是插座、适配器、接合器的意思</strong></li>
+<li><strong>适配器是一种设计模式（设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结），该种模式是将一个类的接口转换成客户希望的另外一个接口</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="容器适配器的种类"><a href="#容器适配器的种类" class="headerlink" title="容器适配器的种类"></a><strong>容器适配器的种类</strong></h3><img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224110835.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224110835.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224110835">
+
+<hr>
+<h2 id="STL库中deque的官方介绍"><a href="#STL库中deque的官方介绍" class="headerlink" title="STL库中deque的官方介绍"></a><strong>STL库中deque的官方介绍</strong></h2><blockquote>
+<ol>
+<li><strong>deque（双端队列）：是一种双开口的 “ 连续 “ 空间的数据结构，双开口的含义是：可以在头尾两端进行插入和删除操作，且时间复杂度为 O(1)，与 vector 比较，头插效率高，不需要搬移元素；与 list 比较，空间利用率比较高</strong></li>
+<li><strong>deque 支持很多操作，比如 vector 不支持头插头删（因为效率太低），deque 支持；list 不支持随机访问，deque 支持；看起来就像完美融合了 vector 和 list 的操作</strong></li>
+</ol>
+</blockquote>
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224116691.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224116691.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224116691">
+
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224122269.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224122269.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224122269">
+
+<p><strong>这样看来，deque 是一个很完美很优秀的容器，但在实际中 deque 并没有崭露头角，也没有取代 vector 和 list ，说明它还是有缺陷的</strong></p>
+<hr>
+<h2 id="deque的底层结构"><a href="#deque的底层结构" class="headerlink" title="deque的底层结构"></a><strong>deque的底层结构</strong></h2><p><strong>首先看一下 vector 和 list 的优缺点对比，可以看到，它们的优缺点基本是反着来的：</strong></p>
+<blockquote>
+<p><strong>1.vector 是一段连续的物理空间</strong></p>
+<p><strong><mark>其优点是：</mark></strong></p>
+<ul>
+<li><strong>支持随机访问</strong></li>
+<li><strong>空间利用率高，底层是连续空间，不容易造成内存碎片</strong></li>
+<li><strong>CPU 高速缓存命中率很高</strong></li>
+</ul>
+<p><strong><mark>其缺点也非常明显：</mark></strong></p>
+<ul>
+<li><p><strong>空间不够时需要增容，增容代价很大（需要经过重新配置空间、元素搬移、释放原空间等），同时还存在一定的空间浪费</strong></p>
+</li>
+<li><p><strong>头部和中间插入删除，效率很低 O(n)</strong></p>
+</li>
+</ul>
+<p><strong>2.list 不是连续的物理空间，而是由一个个节点 “ 链接 ” 起来的。</strong></p>
+<p><strong><mark>其优点是：</mark></strong></p>
+<ul>
+<li><p><strong>按需申请释放空间，不会浪费空间</strong></p>
+</li>
+<li><p><strong>任意位置插入和删除数据都是 O(1)，因为不需要移动数据，插入删除效率高</strong></p>
+</li>
+</ul>
+<p><strong><mark>其缺点也很明显：</mark></strong></p>
+<ul>
+<li><strong>不支持随机访问</strong></li>
+<li><strong>空间利用率低，底层不是连续的空间，小节点容易造成内存碎片</strong></li>
+<li><strong>CPU 高速缓存命中率很低</strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>让我们来看看deque的底层结构</font></strong></p>
+<p><strong>deque 并不是真正连续的空间</strong>，而是由一段段 <strong>固定大小</strong> 的连续小空间 <strong>拼接</strong> 而成的，实际 deque 类似于一个动态的二维数组，其底层结构如下图所示：</p>
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224153295.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224153295.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224153295">
+
+<hr>
+<h2 id="deque的迭代器"><a href="#deque的迭代器" class="headerlink" title="deque的迭代器"></a><strong>deque的迭代器</strong></h2><p><strong>deque底层是一段假象的连续空间，实际是分段连续的，为了维护其 “ 整体连续 ” 以及随机访问的假象，落在了deque 的迭代器身上，因此deque的迭代器设计是比较复杂的（包含4个指针），如下图所示：</strong></p>
+<img src="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224202138.png" class="lazyload placeholder" data-srcset="/2022/12/10/11.stl-ku-stack-he-queue/image-20230623224202138.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623224202138">
+
+<hr>
+<h2 id="deque的优缺点"><a href="#deque的优缺点" class="headerlink" title="deque的优缺点"></a><strong>deque的优缺点</strong></h2><blockquote>
+<p><strong>1.与 vector 比较，deque 的优势是：</strong></p>
+<ul>
+<li><strong>头部插入和删除时，不需要搬移元素，效率特别高</strong></li>
+<li><strong>在扩容时，也不需要搬移大量的元素，因此其效率是必比 vector 高的</strong></li>
+</ul>
+<p><strong>2.但与 list 比较，其底层是连续空间，空间利用率比较高，不需要存储额外字段</strong></p>
+</blockquote>
+<p><strong><mark>但是 deque 有一个致命缺陷：</mark></strong></p>
+<ol>
+<li><strong>不适合遍历，因为在遍历时，deque 的迭代器要频繁的去检测其是否移动到某段小空间的边界，导致效率低下，而序列式场景中，可能需要经常遍历，因此在实际中，需要线性结构时，大多数情况下优先考虑 vector 和 list，deque 的应用并不多，而目前能看到的一个应用就是，STL 用其作为 stack 和 queue 的底层数据结构</strong></li>
+<li><strong>同时 deque 在中间插入删除数据，非常麻烦，效率很低</strong></li>
+<li><strong>deque 是一种折中方案的（妥协）设计，不够极致，随机访问效率不及 vector，任意位置插入删除不及 list，所以它能替代 vector 和 list 吗？答案是：不能的</strong></li>
+</ol>
+<hr>
+<h2 id="扩展：为什么选择-deque-作为-stack-和-queue-的底层默认容器"><a href="#扩展：为什么选择-deque-作为-stack-和-queue-的底层默认容器" class="headerlink" title="扩展：为什么选择 deque 作为 stack 和 queue 的底层默认容器"></a><strong>扩展：为什么选择 deque 作为 stack 和 queue 的底层默认容器</strong></h2><blockquote>
+<ol>
+<li><strong>stack是一种后进先出的特殊线性数据结构，因此只要具有push_back()和pop_back()操作的线性结构，都可以作为stack的底层容器，比如vector和list 都可以</strong></li>
+<li><strong>queue 是先进先出的特殊线性数据结构，只要具有 push_back() 和 pop_front() 操作的线性结构，都可以作为 queue 的底层容器，比如 list</strong></li>
+</ol>
+<p><strong><font color=red>但是 STL 中对 stack 和 queue 默认选择 deque 作为其底层容器，主要是因为：</font></strong></p>
+<ol>
+<li><strong><font color=red>stack 和 queue 不需要遍历 (因此 stack 和 queue 没有迭代器)，只需要在固定的一端或者两端进行操作</font></strong></li>
+<li><strong><font color=red>当 stack 中元素增长时，用 deque 比 vector 的效率高 (扩容时不需要搬移大量数据)</font></strong></li>
+<li><strong><font color=red>当 queue 中的元素增长时，用 deque 不仅效率高，而且内存使用率高。刚好结合了 deque 的优点，而完美的避开了其缺陷</font></strong></li>
+</ol>
+</blockquote>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/C-%EF%BC%8C%E5%88%9D%E9%98%B6/" class="">
+              C++，初阶
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2022/12/10/11.stl-ku-stack-he-queue/" target="_blank" title="STL库：stack和queue">https://Not-Go.github.io/2022/12/10/11.stl-ku-stack-he-queue/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2022/12/10/10.stl-ku-list/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">STL库：list</div>
+      </div>
+      
+      <!-- <div class="content">
+        STL库：listSTL库对list的官方介绍
+
+list 是序列式容器，可以在序列中的任意位置进行常数时间 O(1) 
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2022/12/10/1.stl-ku-map-he-set/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">STL库：map和set</div>
+      </div>
+      <!-- <div class="content">
+        STL库：map和setSTL库中set的官方介绍
+
+
+
+T：set(集合)中存放元素的类型，实际在底层存储的是 &lt
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#STL%E5%BA%93%EF%BC%9Astack%E5%92%8Cqueue"><span class="toc-text">STL库：stack和queue</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#STL%E5%BA%93%E4%B8%ADstack%E7%9A%84%E5%AE%98%E6%96%B9%E4%BB%8B%E7%BB%8D"><span class="toc-text">STL库中stack的官方介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stack%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="toc-text">stack的常用接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stack%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">stack的模拟实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STL%E5%BA%93%E4%B8%ADqueue%E7%9A%84%E5%AE%98%E6%96%B9%E4%BB%8B%E7%BB%8D"><span class="toc-text">STL库中queue的官方介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#queue%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="toc-text">queue的常用接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#queue%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">queue的模拟实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STL%E5%BA%93%E4%B8%ADpriority-queue%E7%9A%84%E5%AE%98%E6%96%B9%E4%BB%8B%E7%BB%8D"><span class="toc-text">STL库中priority_queue的官方介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#priority-queue%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="toc-text">priority_queue的常用接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#priority-queue%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">priority_queue的模拟实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#priority-queue%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%A2%9E%E5%88%A0%E5%87%BD%E6%95%B0"><span class="toc-text">priority_queue的构造函数与增删函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BF%E5%87%BD%E6%95%B0%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">仿函数的了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BF%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5"><span class="toc-text">仿函数概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%AE%9E%E4%BE%8B%E5%8C%96%E4%B8%AD%E7%9A%84%E4%BB%BF%E5%87%BD%E6%95%B0"><span class="toc-text">模板实例化中的仿函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">容器适配器的了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8%E6%A6%82%E5%BF%B5"><span class="toc-text">容器适配器概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-text">容器适配器的种类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STL%E5%BA%93%E4%B8%ADdeque%E7%9A%84%E5%AE%98%E6%96%B9%E4%BB%8B%E7%BB%8D"><span class="toc-text">STL库中deque的官方介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deque%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="toc-text">deque的底层结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deque%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">deque的迭代器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deque%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">deque的优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-deque-%E4%BD%9C%E4%B8%BA-stack-%E5%92%8C-queue-%E7%9A%84%E5%BA%95%E5%B1%82%E9%BB%98%E8%AE%A4%E5%AE%B9%E5%99%A8"><span class="toc-text">扩展：为什么选择 deque 作为 stack 和 queue 的底层默认容器</span></a></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

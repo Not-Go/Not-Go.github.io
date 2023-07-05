@@ -1,0 +1,3585 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>Linux网络协议之TCP协议(传输层) | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        Linux网络协议之TCP协议(传输层)
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-03-20 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="post-detail-header_category">
+              Linux网络编程
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 17.7k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 60分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="Linux网络协议之TCP协议-传输层"><a href="#Linux网络协议之TCP协议-传输层" class="headerlink" title="Linux网络协议之TCP协议(传输层)"></a>Linux网络协议之TCP协议(传输层)</h1><h2 id="理解TCP协议"><a href="#理解TCP协议" class="headerlink" title="理解TCP协议"></a>理解TCP协议</h2><p><strong><font color=red>TCP全称为“传输控制协议（Transmission Control Protocol）”，TCP协议是当今互联网当中使用最为广泛的传输层协议，没有之一</font></strong></p>
+<p><strong><font color=red>TCP协议被广泛应用，其根本原因就是提供了详尽的可靠性保证，基于TCP的上层应用非常多，比如HTTP、HTTPS、FTP、SSH等，甚至MySQL底层使用的也是TCP</font></strong></p>
+<hr>
+<h2 id="谈谈可靠性问题"><a href="#谈谈可靠性问题" class="headerlink" title="谈谈可靠性问题"></a>谈谈可靠性问题</h2><blockquote>
+<p><strong><font color=red>我们需要思考一个问题：为什么网络中会存在不可靠？</font></strong></p>
+<ul>
+<li><strong><mark>现代的计算机大部分都是基于冯诺依曼体系结构的</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218211648810.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218211648810.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218211648810">
+
+<ul>
+<li><strong><font color=red>虽然这里的输入设备、输出设备、内存、CPU都在一台机器上，但这几个硬件设备是彼此独立的。如果它们之间要进行数据交互，就必须要想办法进行通信，因此这几个设备实际是用“线”连接起来的，其中连接内存和外设之间的“线”叫做IO总线，而连接内存和CPU之间的“线”叫做系统总线。由于这几个硬件设备都是在一台机器上的，因此这里传输数据的“线”是很短的，传输数据时出现错误的概率也非常低</font></strong></li>
+<li><strong><font color=blue>但如果要进行通信的各个设备相隔千里，那么连接各个设备的“线”就会变得非常长，传输数据时出现错误的概率也会大大增高，此时要保证传输到对端的数据无误，就必须引入可靠性</font></strong></li>
+<li><strong><font color=green>总之，网络中存在不可靠的根本原因就是，长距离数据传输所用的“线”太长了，数据在长距离传输过程中就可能会出现各种各样的问题，而TCP就是在此背景下诞生的，TCP就是一种保证可靠性的协议</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><mark>我们之前提到过UDP是一种不可靠的传输协议，那么让我们来思考下为什么还会存在UDP这种传输协议呢？</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong><font color=red>TCP协议是可靠的协议，也就意味着TCP协议需要做更多的工作来保证传输数据的可靠，并且引起不可靠的因素越多，保证可靠的成本（时间+空间）就越高</font></strong></li>
+<li><strong><font color=red>比如数据在传输过程中出现了丢包、乱序、检验和失败等，这些都是不可靠的情况</font></strong></li>
+<li><strong><font color=red>由于TCP要想办法解决数据传输不可靠的问题，因此TCP使用起来一定比UDP复杂，并且维护成本特别高</font></strong></li>
+<li><strong><font color=red>UDP协议是不可靠的协议，也就意味着UDP协议不需要考虑数据传输时可能出现的问题，因此UDP无论是使用还是维护都足够简单</font></strong></li>
+<li><strong><font color=red>需要注意的是，虽然TCP复杂，但TCP的效率不一定比UDP低，TCP当中不仅有保证可靠性的机制，还有保证传输效率的各种机制</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><mark>UDP和TCP没有谁最好，只有谁最合适，网络通信时具体采用TCP还是UDP完全取决于上层的应用场景。如果应用场景严格要求数据在传输过程中的可靠性，那么就必须采用TCP协议，如果应用场景允许数据传输出现少量丢包，那么肯定优先选择UDP协议，因为UDP协议足够简单</mark></strong></p>
+<hr>
+<h2 id="TCP协议格式"><a href="#TCP协议格式" class="headerlink" title="TCP协议格式"></a>TCP协议格式</h2><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218212940999.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218212940999.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218212940999">
+
+<p><strong><font color=red>TCP报头当中各个字段的含义如下：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>源&#x2F;目的端口号：表示数据是从哪个进程来，到发送到对端主机上的哪个进程</mark></strong></li>
+<li><strong><mark>32位序号&#x2F;32位确认序号：分别代表TCP报文当中每个字节数据的编号以及对对方的确认，是TCP保证可靠性的重要字段</mark></strong></li>
+<li><strong><mark>4位TCP报头长度：表示该TCP报头的长度，以4字节为单位</mark></strong></li>
+<li><strong><mark>6位保留字段：TCP报头中暂时未使用的6个比特位</mark></strong></li>
+<li><strong><mark>16位窗口大小：保证TCP可靠性机制和效率提升机制的重要字段</mark></strong></li>
+<li><strong><mark>16位检验和：由发送端填充，采用CRC校验。接收端校验不通过，则认为接收到的数据有问题。（检验和包含TCP首部+TCP数据部分）</mark></strong></li>
+<li><strong><mark>16位紧急指针：标识紧急数据在报文中的偏移量，需要配合标志字段当中的URG字段统一使用</mark></strong></li>
+<li><strong><mark>选项字段：TCP报头当中允许携带额外的选项字段，最多40字节</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>TCP报头当中的6位标志位：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>URG：紧急指针是否有效</mark></strong></li>
+<li><strong><mark>ACK：确认序号是否有效</mark></strong></li>
+<li><strong><mark>PSH：提示接收端应用程序立刻将TCP接收缓冲区当中的数据读走</mark></strong></li>
+<li><strong><mark>RST：表示要求对方重新建立连接。我们把携带RST标识的报文称为复位报文段</mark></strong></li>
+<li><strong><mark>SYN：表示请求与对方建立连接。我们把携带SYN标识的报文称为同步报文段</mark></strong></li>
+<li><strong><mark>FIN：通知对方，本端要关闭了。我们把携带FIN标识的报文称为结束报文段</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>TCP报头在内核当中本质就是一个位段类型，给数据封装TCP报头时，实际上就是用该位段类型定义一个变量，然后填充TCP报头当中的各个属性字段，最后将这个TCP报头拷贝到数据的首部，至此便完成了TCP报头的封装</font></strong></p>
+<hr>
+<h2 id="关于TCP的两个问题"><a href="#关于TCP的两个问题" class="headerlink" title="关于TCP的两个问题"></a>关于TCP的两个问题</h2><p><strong><font color=red>第一个问题：TCP如何将报头与有效载荷进行分离？</font></strong></p>
+<blockquote>
+<ul>
+<li><strong>当TCP从底层获取到一个报文后，虽然TCP不知道报头的具体长度，但报文的前20个字节是TCP的基本报头，并且这20字节当中涵盖了4位的首部长度</strong></li>
+</ul>
+<p><strong><mark>因此TCP是这样分离报头与有效载荷的：</mark></strong></p>
+<ul>
+<li><strong>当TCP获取到一个报文后，首先读取报文的前20个字节，并从中提取出4位的首部长度，此时便获得了TCP报头的大小size</strong></li>
+<li><strong>如果size的值大于20字节，则需要继续从报文当中读取size-20字节的数据，这部分数据就是TCP报头当中的选项字段</strong></li>
+<li><strong>读取完TCP的基本报头和选项字段后，剩下的就是有效载荷了</strong></li>
+</ul>
+<p><strong><mark>需要注意的是，TCP报头当中的4位首部长度描述的基本单位是4字节，这也恰好是报文的宽度。4位首部长度的取值范围是0000 ~ 1111，因此TCP报头最大长度为15 × 4 &#x3D; 60字节，因为基本报头的长度是20字节，所以报头中选项字段的长度最多是40字节</mark></strong></p>
+<p><strong><mark>如果TCP报头当中不携带选项字段，那么TCP报头的长度就是20字节，此时报头当中的4位首部长度的值就为20 ÷ 4 &#x3D; 5，也就是0101</mark></strong></p>
+</blockquote>
+<p><strong><font color=red>第二个问题：TCP如何决定将有效载荷交付给上层的哪一个协议？</font></strong></p>
+<blockquote>
+<p><strong><font color=red>应用层的每一个网络进程都必须绑定一个端口号</font></strong></p>
+<ul>
+<li><strong>服务端进程必须显示绑定一个端口号</strong></li>
+<li><strong>客户端进程由系统动态绑定一个端口号</strong></li>
+</ul>
+<p><strong><mark>而TCP的报头中涵盖了目的端口号，因此TCP可以提取出报头中的目的端口号，找到对应的应用层进程，进而将有效载荷交给对应的应用层进程进行处理</mark></strong></p>
+<p><strong><font color=red>说明一下： 内核中用哈希的方式维护了端口号与进程ID之间的映射关系，因此传输层可以通过端口号快速找到其对应的进程ID，进而找到对应的应用层进程</font></strong></p>
+</blockquote>
+<hr>
+<h2 id="TCP序号与确认序号"><a href="#TCP序号与确认序号" class="headerlink" title="TCP序号与确认序号"></a>TCP序号与确认序号</h2><blockquote>
+<p><strong><font color=red>我们来思考一个问题：什么是真正的可靠？</font></strong></p>
+</blockquote>
+<p><strong><font color=red>在进行网络通信时，一方发出的数据后，它不能保证该数据能够成功被对端收到，因为数据在传输过程中可能会出现各种各样的错误，只有当收到对端主机发来的响应消息后，该主机才能保证上一次发送的数据被对端可靠的收到了，这就叫做真正的可靠</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218220641322.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218220641322.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218220641322">
+
+<p><strong><mark>注：实线表示该数据能够被对方可靠的收到，虚线则不能保证</mark></strong></p>
+<p><strong><font color=red>但TCP要保证的是双方通信的可靠性，虽然此时主机A能够保证自己上一次发送的数据被主机B可靠的收到了，但主机B也需要保证自己发送给主机A的响应数据被主机A可靠的收到了。因此主机A在收到了主机B的响应消息后，还需要对该响应数据进行响应，但此时又需要保证主机A发送的响应数据的可靠性…，这样就陷入了一个死循环</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218220757447.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218220757447.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218220757447">
+
+<p><strong><mark>因为只有当一端收到对方的响应消息后，才能保证自己上一次发送的数据被对端可靠的收到了，但双方通信时总会有最新的一条消息，因此无法百分之百保证可靠性</mark></strong></p>
+<p><strong><font color=red>所以严格意义上来说，互联网通信当中是不存在百分之百的可靠性的，因为双方通信时总有最新的一条消息得不到响应。但实际没有必要保证所有消息的可靠性，我们只要保证双方通信时发送的每一个核心数据都有对应的响应就可以了。而对于一些无关紧要的数据（比如响应数据），我们没有必要保证它的可靠性。因为对端如果没有收到这个响应数据，会判定上一次发送的报文丢失了，此时对端可以将上一次发送的数据进行重传</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218220925360.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218220925360.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218220925360">
+
+<p><strong><font color=red>这种策略在TCP当中就叫做确认应答机制。需要注意的是，确认应答机制不是保证双方通信的全部消息的可靠性，而是只要一方收到了另一方的应答消息，就说明它上一次发送的数据被另一方可靠的收到了</font></strong></p>
+<p><strong><font color=red>下面我们来理解下序号与确认序号：</font></strong></p>
+<blockquote>
+<p><strong><mark>首先我们来理解下，32位序号：</mark></strong></p>
+<ul>
+<li><strong>如果双方在进行数据通信时，只有收到了上一次发送数据的响应才能发下一个数据，那么此时双方的通信过程就是串行的，效率可想而知</strong></li>
+<li><strong>因此双方在进行网络通信时，允许一方 向另一方连续发送多个报文数据，只要保证发送的每个报文都有对应的响应消息就行了，此时也就能保证这些报文被对方收到了</strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218221555663.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218221555663.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218221555663">
+
+<ul>
+<li><strong>但在连续发送多个报文时，由于各个报文在进行网络传输时选择的路径可能是不一样的，因此这些报文到达对端主机的先后顺序也就可能和发送报文的顺序是不同的。但报文有序也是可靠性的一种，<mark>因此TCP报头中的32位序号的作用之一实际就是用来保证报文的有序性的</mark></strong></li>
+</ul>
+<p><strong><font color=red>TCP将发送出去的每个字节数据都进行了编号，这个编号叫做序列号</font></strong></p>
+<ul>
+<li><strong><font color=red>比如现在发送端要发送3000字节的数据，如果发送端每次发送1000字节，那么就需要用三个TCP报文来发送这3000字节的数据</font></strong></li>
+<li><strong><font color=red>此时这三个TCP报文当中的32位序号填的就是发送数据中首个字节的序列号，因此分别填的是1、1001和2001</font></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218221916456.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218221916456.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218221916456">
+
+<p><strong><font color=red>此时接收端收到了这三个TCP报文后，就可以根据TCP报头当中的32位序列号对这三个报文进行顺序重排（该动作在传输层进行），重排后将其放到TCP的接收缓冲区当中，此时接收端这里报文的顺序就和发送端发送报文的顺序是一样的了</font></strong></p>
+<ul>
+<li><strong>接收端在进行报文重排时，可以根据当前报文的32位序号与其有效载荷的字节数，进而确定下一个报文对应的序号</strong></li>
+</ul>
+<hr>
+<p><strong><mark>让我们再来看一下，32位确认序号：</mark></strong></p>
+<p><strong>TCP报头当中的32位确认序号是告诉对端，我当前已经收到了哪些数据，你的数据下一次应该从哪里开始发</strong></p>
+<p><strong>以刚才的例子为例，当主机B收到主机A发送过来的32位序号为1的报文时，由于该报文当中包含1000字节的数据，因此主机B已经收到序列号为1-1000的字节数据，于是主机B发给主机A的响应数据的报头当中的32位确认序号的值就会填成1001</strong></p>
+<ul>
+<li><strong>一方面是告诉主机A，序列号在1001之前的字节数据我已经收到了</strong></li>
+<li><strong>另一方面是告诉主机A，下次向我发送数据时应该从序列号为1001的字节数据开始进行发送</strong></li>
+</ul>
+<p><strong>之后主机B对主机A发来的其他报文进行响应时，发给主机A的响应当中的32为确认序号的填法也是类似的道理</strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218222140898.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218222140898.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218222140898">
+
+<p><strong>注意：响应数据与其他数据一样，也是一个完整的TCP报文，尽管该报文可能不携带有效载荷，但至少是一个TCP报头</strong></p>
+<hr>
+<p><strong><mark>一点小思考：报文丢失怎么办？</mark></strong></p>
+<p><strong>还是以刚才的例子为例，主机A发送了三个报文给主机B，其中每个报文的有效载荷都是1000字节，这三个报文的32位序号分别是1、1001、2001</strong></p>
+<p><strong>如果这三个报文在网络传输过程中出现了丢包，最终只有序号为1和2001的报文被主机B收到了，那么当主机B在对报文进行顺序重排的时候，就会发现只收到了1-1000和2001-3000的字节数据。此时主机B在对主机A进行响应时，其响应报头当中的32位确认序号填的就是1001，告诉主机A下次向我发送数据时应该从序列号为1001的字节数据开始进行发送</strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218222235779.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218222235779.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218222235779">
+
+<p><strong>注意：</strong></p>
+<ul>
+<li><strong>此时主机B在给主机A响应时，其32位确认序号不能填3001，因为1001-2000是在3001之前的，如果直接给主机A响应3001，就说明序列号在3001之前的字节数据全都收到了</strong></li>
+<li><strong>因此主机B只能给主机A响应1001，当主机A收到该确认序号后就会判定序号为1001的报文丢包了，此时主机A就可以选择进行数据重传</strong></li>
+</ul>
+<p><strong>因此发送端可以根据对端发来的确认序号，来判断是否某个报文可能在传输过程中丢失了</strong></p>
+<hr>
+<p><strong><mark>一点小思考：为什么要用两套序号机制？</mark></strong></p>
+<p><strong>如果通信双方只是一端发送数据，另一端接收数据，那么只用一套序号就可以了</strong></p>
+<ul>
+<li><strong>发送端在发送数据时，将该序号看作是32位序号</strong></li>
+<li><strong>接收端在对发送端发来的数据进行响应时，将该序号看作是32位确认序号</strong></li>
+</ul>
+<p><strong>但实际TCP却没有这么做，根本原因就是因为TCP是全双工的，双方可能同时想给对方发送消息</strong></p>
+<ul>
+<li><strong>双方发出的报文当中，不仅需要填充32位序号来表明自己当前发送数据的序号</strong></li>
+<li><strong>还需要填充32位确认序号，对对方上一次发送的数据进行确认，告诉对方下一次应该从哪一字节序号开始进行发送</strong></li>
+</ul>
+<p><strong>因此在进行TCP通信时，双方都需要有确认应答机制，此时一套序号就无法满足需求了，因此需要TCP报头当中出现了两套序号</strong></p>
+</blockquote>
+<p><strong><font color=red>最后我们总结一下：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>32位序号的作用是，保证数据的按序到达，同时这个序号也是作为对端发送报文时填充32位确认序号的根据</mark></strong></li>
+<li><strong><mark>32位确认序号的作用是，告诉对端当前已经收到的字节数据有哪些，对端下一次发送数据时应该从哪一字节序号开始进行发送</mark></strong></li>
+<li><strong><mark>序号和确认序号是确认应答机制的数据化表示，确认应答机制就是由序号和确认序号来保证的</mark></strong></li>
+<li><strong><mark>此外，通过序号和确认序号还可以判断某个报文是否丢失</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="TCP缓冲区"><a href="#TCP缓冲区" class="headerlink" title="TCP缓冲区"></a>TCP缓冲区</h2><blockquote>
+<p><strong><font color=red>TCP的缓冲区分为：接收缓冲区和发送缓冲区</font></strong></p>
+</blockquote>
+<p><strong><mark>TCP本身是具有接收缓冲区和发送缓冲区的：</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong><code>接收缓冲区用来暂时保存接收到的数据</code></strong></li>
+<li><strong><code>发送缓冲区用来暂时保存还未发送的数据</code></strong></li>
+<li><strong><code>这两个缓冲区都是在TCP传输层内部实现的</code></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218224636634.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218224636634.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218224636634">
+</blockquote>
+<blockquote>
+<ul>
+<li><strong><mark>TCP发送缓冲区当中的数据由上层应用应用层进行写入。当上层调用write&#x2F;send这样的系统调用接口时，实际不是将数据直接发送到了网络当中，而是将数据从应用层拷贝到了TCP的发送缓冲区当中</mark></strong></li>
+<li><strong><mark>TCP接收缓冲区当中的数据最终也是由应用层来读取的。当上层调用read&#x2F;recv这样的系统调用接口时，实际也不是直接从网络当中读取数据，而是将数据从TCP的接收缓冲区拷贝到了应用层而已</mark></strong></li>
+<li><strong><mark>就好比调用read和write进行文件读写时，并不是直接从磁盘读取数据，也不是直接将数据写入到磁盘上，而对文件缓冲区进行的读写操作</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218224702644.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218224702644.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218224702644">
+</blockquote>
+<blockquote>
+<ul>
+<li><strong><mark>当数据写入到TCP的发送缓冲区后，对应的write&#x2F;send函数就可以返回了，至于发送缓冲区当中的数据具体什么时候发，怎么发等问题实际都是由TCP决定的</mark></strong></li>
+<li><strong><mark>我们之所以称TCP为传输层控制协议，就是因为最终数据的发送和接收方式，以及传输数据时遇到的各种问题应该如何解决，都是由TCP自己决定的，用户只需要将数据拷贝到TCP的发送缓冲区，以及从TCP的接收缓冲区当中读取数据即可</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218224941263.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218224941263.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218224941263">
+
+<ul>
+<li><strong><mark>需要注意的是，通信双方的TCP层都是一样的，因此通信双方的TCP层都是既有发送缓冲区又有接收缓冲区</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>最后让我们来思考一个问题：TCP的发送缓冲区和接收缓冲区存在的意义</font></strong></p>
+<blockquote>
+<p><strong>发送缓冲区和接收缓冲区的作用：</strong></p>
+<ul>
+<li><strong>数据在网络中传输时可能会出现某些错误，此时就可能要求发送端进行数据重传，因此TCP必须提供一个发送缓冲区来暂时保存发送出去的数据，以免需要进行数据重传。只有当发出去的数据被对端可靠的收到后，发送缓冲区中的这部分数据才可以被覆盖掉</strong></li>
+<li><strong>接收端处理数据的速度是有限的，为了保证没来得及处理的数据不会被迫丢弃，因此TCP必须提供一个接收缓冲区来暂时保存未被处理的数据，因为数据传输是需要耗费资源的，我们不能随意丢弃正确的报文。此外，TCP的数据重排也是在接收缓冲区当中进行的</strong></li>
+</ul>
+<hr>
+<p><strong>经典的生产者消费者模型：</strong></p>
+<ul>
+<li><strong>对于发送缓冲区来说，上层应用不断往发送缓冲区当中放入数据，下层网络层不断从发送缓冲区当中拿出数据准备进一步封装。此时上层应用扮演的就是生产者的角色，下层网络层扮演的就是消费者的角色，而发送缓冲区对应的就是“交易场所”</strong></li>
+<li><strong>对于接收缓冲区来说，上层应用不断从接收缓冲区当中拿出数据进行处理，下层网络层不断往接收缓冲区当中放入数据。此时上层应用扮演的就是消费者的角色，下层网络层扮演的就是生产者的角色，而接收缓冲区对应的就是“交易场所”</strong></li>
+<li><strong>因此引入发送缓冲区和接收缓冲区相当于引入了两个生产者消费者模型，该生产者消费者模型将上层应用与底层通信细节进行了解耦，此外，生产者消费者模型的引入同时也支持了并发和忙闲不均</strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="TCP窗口大小"><a href="#TCP窗口大小" class="headerlink" title="TCP窗口大小"></a>TCP窗口大小</h2><blockquote>
+<p><strong><mark>当发送端要将数据发送给对端时，本质是把自己发送缓冲区当中的数据发送到对端的接收缓冲区当中。但缓冲区是有大小的，如果接收端处理数据的速度小于发送端发送数据的速度，那么总有一个时刻接收端的接收缓冲区会被打满，这时发送端再发送数据过来就会造成数据丢包，进而引起丢包重传等一系列的连锁反应</mark></strong></p>
+<ul>
+<li><strong><code>因此TCP报头当中就有了16位的窗口大小，这个16位窗口大小当中填的是自身接收缓冲区中剩余空间的大小，也就是当前主机接收数据的能力</code></strong></li>
+</ul>
+<p><strong><font color=red>接收端在对发送端发来的数据进行响应时，就可以通过16位窗口大小告知发送端自己当前接收缓冲区剩余空间的大小，此时发送端就可以根据这个窗口大小字段来调整自己发送数据的速度</font></strong></p>
+<ul>
+<li><strong>窗口大小字段越大，说明接收端接收数据的能力越强，此时发送端可以提高发送数据的速度</strong></li>
+<li><strong>窗口大小字段越小，说明接收端接收数据的能力越弱，此时发送端可以减小发送数据的速度</strong></li>
+<li><strong>如果窗口大小的值为0，说明接收端接收缓冲区已经被打满了，此时发送端就不应该再发送数据了</strong></li>
+</ul>
+<p><strong>让我们来理解一些现象：</strong></p>
+<ul>
+<li><strong>在编写TCP套接字时，我们调用read&#x2F;recv函数从套接字当中读取数据时，可能会因为套接字当中没有数据而被阻塞住，本质是因为TCP的接收缓冲区当中没有数据了，我们实际是阻塞在接收缓冲区当中了</strong></li>
+<li><strong>而我们调用write&#x2F;send函数往套接字中写入数据时，可能会因为套接字已经写满而被阻塞住，本质是因为TCP的发送缓冲区已经被写满了，我们实际是阻塞在发送缓冲区当中了</strong></li>
+<li><strong>在生产者消费者模型当中，如果生产者生产数据时被阻塞，或消费者消费数据时被阻塞，那么一定是因为某些条件不就绪而被阻塞</strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="TCP的六个标志位"><a href="#TCP的六个标志位" class="headerlink" title="TCP的六个标志位"></a>TCP的六个标志位</h2><blockquote>
+<p><strong><font color=red>为什么会存在标志位？</font></strong></p>
+<ul>
+<li><strong><code>TCP报文的种类多种多样，除了正常通信时发送的普通报文，还有建立连接时发送的请求建立连接的报文，以及断开连接时发送的断开连接的报文等等</code></strong></li>
+<li><strong><code>收到不同种类的报文时完美需要对应执行动作，比如正常通信的报文需要放到接收缓冲区当中等待上层应用进行读取，而建立和断开连接的报文本质不是交给用户处理的，而是需要让操作系统在TCP层执行对应的握手和挥手动作</code></strong></li>
+<li><strong><code>也就是说不同种类的报文对应的是不同的处理逻辑，所以我们要能够区分报文的种类。而TCP就是使用报头当中的六个标志字段来进行区分的，这六个标志位都只占用一个比特位，为0表示假，为1表示真</code></strong></li>
+</ul>
+</blockquote>
+<p><strong><mark>TCP中的六个标志位分别是：SYN、ACK、FIN、URG、PSH、RST</mark></strong></p>
+<blockquote>
+<p><strong><code>对于SYN：</code></strong></p>
+<ul>
+<li><strong>报文当中的SYN被设置为1，表明该报文是一个连接建立的请求报文</strong></li>
+<li><strong>只有在连接建立阶段，SYN才被设置，正常通信时SYN不会被设置</strong></li>
+</ul>
+<hr>
+<p><strong><code>对于ACK：</code></strong></p>
+<ul>
+<li><strong>报文当中的ACK被设置为1，表明该报文可以对收到的报文进行确认</strong></li>
+<li><strong>一般除了第一个请求报文没有设置ACK以外，其余报文基本都会设置ACK，因为发送出去的数据本身就对对方发送过来的数据具有一定的确认能力，因此双方在进行数据通信时，可以顺便对对方上一次发送的数据进行响应</strong></li>
+</ul>
+<hr>
+<p><strong><code>对于FIN：</code></strong></p>
+<ul>
+<li><strong>报文当中的FIN被设置为1，表明该报文是一个连接断开的请求报文</strong></li>
+<li><strong>只有在断开连接阶段，FIN才被设置，正常通信时FIN不会被设置</strong></li>
+</ul>
+<hr>
+<p><strong><code>对于URG：</code></strong></p>
+<ul>
+<li><strong>双方在进行网络通信的时候，由于TCP是保证数据按序到达的，即便发送端将要发送的数据分成了若干个TCP报文进行发送，最终到达接收端时这些数据也都是有序的，因为TCP可以通过序号来对这些TCP报文进行顺序重排，最终就能保证数据到达对端接收缓冲区中时是有序的</strong></li>
+<li><strong>TCP按序到达本身也是我们的目的，此时对端上层在从接收缓冲区读取数据时也必须是按顺序读取的。但是有时候发送端可能发送了一些“紧急数据”，这些数据需要让对方上层提取进行读取，此时应该怎么办呢？</strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218230223495.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218230223495.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218230223495">
+
+<p><strong>此时就需要用到URG标志位，以及TCP报头当中的16位紧急指针</strong></p>
+<ul>
+<li><strong>当URG标志位被设置为１时，需要通过TCP报头当中的16位紧急指针来找到紧急数据，否则一般情况下不需要关注TCP报头当中的16位紧急指针</strong></li>
+<li><strong>16位紧急指针代表的就是紧急数据在报文中的偏移量</strong></li>
+<li><strong>因为紧急指针只有一个，它只能标识数据段中的一个位置，因此紧急数据只能发送一个字节，而至于这一个字节的具体含义这里就不展开讨论了</strong></li>
+</ul>
+<p><strong>recv函数的第四个参数flags有一个叫做MSG_OOB的选项可供设置，其中OOB是带外数据（out-of-band）的简称，带外数据就是一些比较重要的数据，因此上层如果想读取紧急数据，就可以在使用recv函数进行读取，并设置MSG_OOB选项</strong></p>
+<p><img src="/image-20221218230350725.png" class="lazyload placeholder" data-srcset="/image-20221218230350725.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20221218230350725"></p>
+<p><strong>与之对应的send函数的第四个参数flags也提供了一个叫做MSG_OOB的选项，上层如果想发送紧急数据，就可以使用send函数进行写入，并设置MSG_OOB选项</strong></p>
+<p><img src="/image-20221218230433763.png" class="lazyload placeholder" data-srcset="/image-20221218230433763.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20221218230433763"></p>
+<hr>
+<p><strong><code>对于PSH：</code></strong></p>
+<ul>
+<li><strong>报文当中的PSH被设置为1，是在告诉对方尽快将你的接收缓冲区当中的数据交付给上层</strong></li>
+<li><strong>我们一般认为：当使用read&#x2F;recv从缓冲区当中读取数据时，如果缓冲区当中有数据read&#x2F;recv函数就能够读到数据进行返回，而如果缓冲区当中没有数据，那么此时read&#x2F;recv函数就会阻塞住，直到当缓冲区当中有数据时才会读取到数据进行返回</strong></li>
+<li><strong>实际这种说法是不太准确的，其实接收缓冲区和发送缓冲区都有一个水位线的概念</strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218230542025.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221218230542025.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221218230542025">
+
+<ul>
+<li><strong>比如我们假设TCP接收缓冲区的水位线是100字节，那么只有当接收缓冲区当中有100字节时才让read&#x2F;recv函数读取这100字节的数据进行返回</strong></li>
+<li><strong>如果接收缓冲区当中有一点数据就让read&#x2F;recv函数读取返回了，此时read&#x2F;recv就会频繁的进行读取和返回，进而影响读取数据的效率（在内核态和用户态之间切换也是有成本的）</strong></li>
+<li><strong>因此不是说接收缓冲区当中只要有数据，调用read&#x2F;recv函数时就能读取到数据进行返回，而是当缓冲区当中的数据量达到一定量时才能进行读取</strong></li>
+</ul>
+<p><strong>当报文当中的PSH被设置为1时，实际就是在告知对方操作系统，尽快将接收缓冲区当中的数据交付给上层，尽管接收缓冲区当中的数据还没到达所指定的水位线。这也就是为什么我们使用read&#x2F;recv函数读取数据时，期望读取的字节数和实际读取的字节数是不一定吻合的</strong></p>
+<hr>
+<p><strong><code>对于RST：</code></strong></p>
+<ul>
+<li><strong>报文当中的RST被设置为1，表示需要让对方重新建立连接。</strong></li>
+<li><strong>在通信双方在连接未建立好的情况下，一方向另一方发数据，此时另一方发送的响应报文当中的RST标志位就会被置1，表示要求对方重新建立连接。</strong></li>
+<li><strong>在双方建立好连接进行正常通信时，如果通信中途发现之前建立好的连接出现了异常也会要求重新建立连接</strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="确认应答机制-ACK"><a href="#确认应答机制-ACK" class="headerlink" title="确认应答机制(ACK)"></a>确认应答机制(ACK)</h2><blockquote>
+<p><strong><font color=red>TCP保证可靠性的机制之一就是确认应答机制</font></strong></p>
+</blockquote>
+<p><strong><mark>确认应答机制就是由TCP报头当中的，32位序号和32位确认序号来保证的。需要再次强调的是，确认应答机制不是保证双方通信的全部消息的可靠性，而是通过收到对方的应答消息，来保证自己曾经发送给对方的某一条消息被对方可靠的收到了</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219202903645.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219202903645.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221219202903645">
+
+<blockquote>
+<p><strong><font color=red>如何理解TCP将每个字节的数据都进行了编号？</font></strong></p>
+</blockquote>
+<p><strong><mark>TCP是面向字节流的，我们可以将TCP的发送缓冲区和接收缓冲区都想象成一个字符数组</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219203123143.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219203123143.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221219203123143">
+
+<blockquote>
+<ul>
+<li><strong><font color=red>此时上层应用拷贝到TCP发送缓冲区当中的每一个字节数据天然有了一个序号，这个序号就是字符数组的下标，只不过这个下标不是从0开始的，而是从1开始往后递增的</font></strong></li>
+<li><strong><font color=red>而双方在通信时，本质就是将自己发送缓冲区当中的数据拷贝到对方的接收缓冲区当中</font></strong></li>
+<li><strong><font color=red>发送方发送数据时报头当中所填的序号，实际就是发送的若干字节数据当中，首个字节数据在发送缓冲区当中对应的下标</font></strong></li>
+<li><strong><font color=red>接收方接收到数据进行响应时，响应报头当中的确认序号实际就是，接收缓冲区中接收到的最后一个有效数据的下一个位置所对应的下标</font></strong></li>
+<li><strong><font color=red>当发送方收到接收方的响应后，就可以从下标为确认序号的位置继续进行发送了</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="超时重传机制"><a href="#超时重传机制" class="headerlink" title="超时重传机制"></a>超时重传机制</h2><p><strong><font color=red>超时重传机制概念：当发送端发送数据，如果在一段时间内没有收到应答(ACK)，会直接重发数据</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219205713202.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219205713202.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221219205713202">
+
+<blockquote>
+<p><strong><font color=red>但是在我们在传输的时候可能会发生丢包问题</font></strong></p>
+<ul>
+<li><strong><code>丢包分为两种情况：</code></strong></li>
+</ul>
+<ol>
+<li><p><strong><font color=red>第一种情况：发送的数据报文丢失了，此时发送端在一定时间内收不到对应的响应报文，就会进行超时重传</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219210403247.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219210403247.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221219210403247">
+</li>
+<li><p><strong><font color=red>第二种情况：其实不是发送端发送的数据丢包了，而是对方发来的响应报文丢包了，此时发送端也会因为收不到对应的响应报文，而进行超时重传</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219210418929.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219210418929.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221219210418929"></li>
+</ol>
+<ul>
+<li><strong><mark>当出现丢包时，发送方是无法辨别是发送的数据报文丢失了，还是对方发来的响应报文丢失了，因为这两种情况下发送方都收不到对方发来的响应报文，此时发送方就只能进行超时重传</mark></strong></li>
+<li><strong><mark>如果是对方的响应报文丢失而导致发送方进行超时重传，此时接收方就会再次收到一个重复的报文数据，但此时也不用担心，接收方可以根据报头当中的32位序号来判断曾经是否收到过这个报文，从而达到报文去重的目的</mark></strong></li>
+<li><strong><mark>需要注意的是，当发送缓冲区当中的数据被发送出去后，操作系统不会立即将该数据从发送缓冲区当中删除或覆盖，而会让其保留在发送缓冲区当中，以免需要进行超时重传，直到收到该数据的响应报文后，发送缓冲区中的这部分数据才可以被删除或覆盖</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="连接管理机制"><a href="#连接管理机制" class="headerlink" title="连接管理机制"></a>连接管理机制</h2><p><strong><font color=red>首先我们来理解一下连接：一台主机可能收到很多的连接，操作系统需要对连接进行管理，先描述后组织。所以连接在内核层会有对应数据结构。所以建立连接是有时间和空间的成本</font></strong></p>
+<h3 id="三次握手和四次挥手图解"><a href="#三次握手和四次挥手图解" class="headerlink" title="三次握手和四次挥手图解"></a>三次握手和四次挥手图解</h3><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219212417735.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219212417735.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221219212417735">
+
+<hr>
+<h3 id="详解三次握手过程"><a href="#详解三次握手过程" class="headerlink" title="详解三次握手过程"></a>详解三次握手过程</h3><blockquote>
+<p><strong><font color=red>详解三次握手过程：</font></strong></p>
+<p><strong><mark>双方在进行TCP通信之前需要先建立连接，建立连接的这个过程我们称之为三次握手</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219212720149.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219212720149.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221219212720149">
+
+<p><strong><mark>以服务器和客户端为例，当客户端想要与服务器进行通信时，需要先与服务器建立连接，此时客户端作为主动方会先向服务器发送连接建立请求，然后双方TCP在底层会自动进行三次握手</mark></strong></p>
+<ul>
+<li><strong><font color=red>第一次握手：客户端向服务器发送的报文当中的SYN位被设置为1，表示请求与服务器建立连接</font></strong></li>
+<li><strong><font color=red>第二次握手：服务器收到客户端发来的连接请求报文后，紧接着向客户端发起连接建立请求并对客户端发来的连接请求进行响应，此时服务器向客户端发送的报文当中的SYN位和ACK位均被设置为1</font></strong></li>
+<li><strong><font color=red>第三次握手：客户端收到服务器发来的报文后，得知服务器收到了自己发送的连接建立请求，并请求和自己建立连接，最后客户端再向服务器发来的报文进行响应</font></strong></li>
+</ul>
+<p><strong><mark>需要注意的是，客户端向服务器发起的连接建立请求，是请求建立从客户端到服务器方向的通信连接，而TCP是全双工通信，因此服务器在收到客户端发来的连接建立请求后，服务器也需要向客户端发起连接建立请求，请求建立从服务器到客户端方法的通信连接</mark></strong></p>
+<hr>
+<p><strong><code>思考一个问题：为什么是三次握手呢？</code></strong></p>
+<p><strong><font color=red>首先我们需要知道，连接建立不是百分之百能成功的，通信双方在进行三次握手时，其中前两次握手能够保证被对方收到，因为前两次握手都有对应的下一次握手对其进行响应，但第三次握手是没有对应的响应报文的，如果第三次握手时客户端发送的ACK报文丢失了，那么连接建立就会失败</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219213319865.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221219213319865.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221219213319865">
+
+<p><strong><mark>虽然客户端发起第三次握手后就完成了三次握手，但服务器却没有收到客户端发来的第三次握手，此时服务器端就不会建立对应的连接。所以建立连接时不管采用几次握手，最后一次握手的可靠性都是不能保证的</mark></strong></p>
+<p><strong><mark>既然连接的建立都不是百分之百成功的，因此建立连接时具体采用几次握手的依据，实际是看几次握手时的优点更多，如下：</mark></strong></p>
+<p><strong><font color=red>三次握手是验证双方通信信道的最小次数：</font></strong></p>
+<ul>
+<li><strong><font color=green>因为TCP是全双工通信的，因此连接建立的核心要务实际是，验证双方的通信信道是否是连通的</font></strong></li>
+<li><strong><font color=green>而三次握手恰好是验证双方通信信道的最小次数，通过三次握手后双方就都能知道自己和对方是否都能够正常发送和接收数据</font></strong></li>
+<li><strong><font color=green>在客户端看来，当它收到服务器发来第二次握手时，说明自己发出的第一次握手被对方可靠的收到了，证明自己能发以及服务器能收，同时当自己收到服务器发来的第二次握手时，也就证明服务器能发以及自己能收，此时就证明自己和服务器都是能发能收的</font></strong></li>
+<li><strong><font color=green>在服务器看来，当它收到客户端发来第一次握手时，证明客户端能发以及自己能收，而当它收到客户端发来的第三次握手时，说明自己发出的第二次握手被对方可靠的收到了，也就证明自己能发以及客户端能收，此时就证明自己和客户端都是能发能收的</font></strong></li>
+<li><strong><font color=green>既然三次握手已经能够验证双方通信信道是否正常了，那么三次以上的握手当然也是可以验证的，但既然三次已经能验证了就没有必要再进行更多次的握手了</font></strong></li>
+</ul>
+<p><strong><font color=red>三次握手能够保证连接建立时的异常连接挂在客户端：</font></strong></p>
+<ul>
+<li><strong><font color=green>当客户端收到服务器发来的第二次握手时，客户端就已经证明双方通信信道是连通的了，因此当客户端发出第三次握手后，这个连接就已经在客户端建立了</font></strong></li>
+<li><strong><font color=green>而只有当服务器收到客户端发来的第三次握手后，服务器才知道双方通信信道是连通的，此时在服务器端才会建立对应的连接</font></strong></li>
+<li><strong><font color=green>因此双方在进行三次握手建立连接时，双方建立连接的时间点是不一样的。如果客户端最后发出的第三次握手丢包了，此时在服务器端就不会建立对应的连接，而在客户端就需要短暂的维护一个异常的连接</font></strong></li>
+<li><strong><font color=green>而维护连接是需要时间成本和空间成本的，因此三次握手还有一个好处就是能够保证连接建立异常时，这个异常连接是挂在客户端的，而不会影响到服务器</font></strong></li>
+<li><strong><font color=green>虽然此时客户端也需要短暂维护这个异常，但客户端的异常连接不会特别多，不像服务器，一旦多个客户端建立连接时都建立失败了，此时服务器端就需要耗费大量资源来维护这些异常连接</font></strong></li>
+<li><strong><font color=green>此外，建立连接失败时的异常连接不会一直维护下去。如果服务器端长时间收不到客户端发来的第三次握手，就会将第二次握手进行超时重传，此时客户端就有机会重新发出第三次握手。或者当客户端认为连接建立好后向服务器发送数据时，此时服务器会发现没有和该客户端建立连接而要求客户端重新建立连接</font></strong></li>
+</ul>
+<p><strong><font color=red>因此，这里给出两个建立连接时采用三次握手的理由：</font></strong></p>
+<ul>
+<li><strong><font color=green>三次握手是验证双方通信信道的最小次数，能够让能建立的连接尽快建立起来</font></strong></li>
+<li><strong><font color=green>三次握手能够保证连接建立时的异常连接挂在客户端（风险转移）</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>三次握手时的状态变化：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221124640255.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221124640255.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221124640255">
+
+<p><strong><mark>三次握手时的状态变化如下：</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong><font color=red>最开始时客户端和服务器都处于CLOSED状态</font></strong></li>
+<li><strong><font color=red>服务器为了能够接收客户端发来的连接请求，需要由CLOSED状态变为LISTEN状态</font></strong></li>
+<li><strong><font color=red>此时客户端就可以向服务器发起三次握手了，当客户端发起第一次握手后，状态变为SYN_SENT状态</font></strong></li>
+<li><strong><font color=red>处于LISTEN状态的服务器收到客户端的连接请求后，将该连接放入内核等待队列中，并向客户端发起第二次握手，此时服务器的状态变为SYN_RCVD</font></strong></li>
+<li><strong><font color=red>当客户端收到服务器发来的第二次握手后，紧接着向服务器发送最后一次握手，此时客户端的连接已经建立，状态变为ESTABLISHED</font></strong></li>
+<li><strong><font color=red>而服务器收到客户端发来的最后一次握手后，连接也建立成功，此时服务器的状态也变成ESTABLISHED</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=green>至此三次握手结束，通信双方可以开始进行数据交互了</font></strong></p>
+<blockquote>
+<p><strong><font color=red>套接字和三次握手之间的关系</font></strong></p>
+<ul>
+<li><strong><mark>在客户端发起连接建立请求之前，服务器需要先进入LISTEN状态，此时就需要服务器调用对应listen函数</mark></strong></li>
+<li><strong><mark>当服务器进入LISTEN状态后，客户端就可以向服务器发起三次握手了，此时客户端对应调用的就是connect函数</mark></strong></li>
+<li><strong><mark>需要注意的是，connect函数不参与底层的三次握手，connect函数的作用只是发起三次握手。当connect函数返回时，要么是底层已经成功完成了三次握手连接建立成功，要么是底层三次握手失败</mark></strong></li>
+<li><strong><mark>如果服务器端与客户端成功完成了三次握手，此时在服务器端就会建立一个连接，但这个连接在内核的等待队列当中，服务器端需要通过调用accept函数将这个建立好的连接获取上来</mark></strong></li>
+<li><strong><mark>当服务器端将建立好的连接获取上来后，双方就可以通过调用read&#x2F;recv函数和write&#x2F;send函数进行数据交互了</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="详解四次挥手过程"><a href="#详解四次挥手过程" class="headerlink" title="详解四次挥手过程"></a>详解四次挥手过程</h3><blockquote>
+<p><strong><font color=red>详解四次挥手过程：</font></strong></p>
+<p><strong><mark>由于双方维护连接都是需要成本的，因此当双方TCP通信结束之后就需要断开连接，断开连接的这个过程我们称之为四次挥手</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221125402640.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221125402640.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221125402640">
+
+<p><strong><font color=red>还是以服务器和客户端为例，当客户端与服务器通信结束后，需要与服务器断开连接，此时就需要进行四次挥手</font></strong></p>
+<ul>
+<li><strong><mark>第一次挥手：客户端向服务器发送的报文当中的FIN位被设置为1，表示请求与服务器断开连接</mark></strong></li>
+<li><strong><mark>第二次挥手：服务器收到客户端发来的断开连接请求后对其进行响应</mark></strong></li>
+<li><strong><mark>第三次挥手：服务器收到客户端断开连接的请求，且已经没有数据需要发送给客户端的时候，服务器就会向客户端发起断开连接请求</mark></strong></li>
+<li><strong><mark>第四次挥手：客户端收到服务器发来的断开连接请求后对其进行响应</mark></strong></li>
+<li><strong><font color=red>四次挥手结束后双方的连接才算真正断开</font></strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong><font color=red>为什么是四次挥手？</font></strong></p>
+<ul>
+<li><strong><font color=green>由于TCP是全双工的，建立连接的时候需要建立双方的连接，断开连接时也同样如此。在断开连接时不仅要断开从客户端到服务器方向的通信信道，也要断开从服务器到客户端的通信信道，其中每两次挥手对应就是关闭一个方向的通信信道，因此断开连接时需要进行四次挥手</font></strong></li>
+<li><strong><font color=green>需要注意的是，四次挥手当中的第二次和第三次挥手不能合并在一起，因为第三次握手是服务器端想要与客户端断开连接时发给客户端的请求，而当服务器收到客户端断开连接的请求并响应后，服务器不一定会马上发起第三次挥手，因为服务器可能还有某些数据要发送给客户端，只有当服务器端将这些数据发送完后才会向客户端发起第三次挥手</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>四次挥手时的状态变化：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221125833983.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221125833983.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221125833983">
+
+<p><strong><font color=red>四次挥手时的状态变化如下：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>在挥手前客户端和服务器都处于连接建立后的ESTABLISHED状态</mark></strong></li>
+<li><strong><mark>客户端为了与服务器断开连接主动向服务器发起连接断开请求，此时客户端的状态变为FIN_WAIT_1</mark></strong></li>
+<li><strong><mark>服务器收到客户端发来的连接断开请求后对其进行响应，此时服务器的状态变为CLOSE_WAIT</mark></strong></li>
+<li><strong><mark>当服务器没有数据需要发送给客户端的时，服务器会向客户端发起断开连接请求，等待最后一个ACK到来，此时服务器的状态变为LASE_ACK</mark></strong></li>
+<li><strong><mark>客户端收到服务器发来的第三次挥手后，会向服务器发送最后一个响应报文，此时客户端进入TIME_WAIT状态</mark></strong></li>
+<li><strong><mark>当服务器收到客户端发来的最后一个响应报文时，服务器会彻底关闭连接，变为CLOSED状态</mark></strong></li>
+<li><strong><mark>而客户端则会等待一个2MSL（Maximum Segment Lifetime，报文最大生存时间）才会进入CLOSED状态</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>至此四次挥手结束，通信双方成功断开连接</font></strong></p>
+<blockquote>
+<p><strong><font color=red>套接字和四次挥手之间的关系</font></strong></p>
+<ul>
+<li><strong><mark>客户端发起断开连接请求，对应就是客户端主动调用close函数</mark></strong></li>
+<li><strong><mark>服务器发起断开连接请求，对应就是服务器主动调用close函数</mark></strong></li>
+<li><strong><mark>一个close对应的就是两次挥手，双方都要调用close，因此就是四次挥手</mark></strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong><font color=red>对于CLOSE_WAIT的详解：</font></strong></p>
+<ul>
+<li><strong><mark>双方在进行四次挥手时，如果只有客户端调用了close函数，而服务器不调用close函数，此时服务器就会进入CLOSE_WAIT状态，而客户端则会进入到FIN_WAIT_2状态</mark></strong></li>
+<li><strong><mark>但只有完成四次挥手后连接才算真正断开，此时双方才会释放对应的连接资源。如果服务器没有主动关闭不需要的文件描述符，此时在服务器端就会存在大量处于CLOSE_WAIT状态的连接，而每个连接都会占用服务器的资源，最终就会导致服务器可用资源越来越少</mark></strong></li>
+<li><strong><mark>因此如果不及时关闭不用的文件描述符，除了会造成文件描述符泄漏以外，可能也会导致连接资源没有完全释放，这其实也是一种内存泄漏的问题</mark></strong></li>
+<li><strong><mark>因此在编写网络套接字代码时，如果发现服务器端存在大量处于CLOSE_WAIT状态的连接，此时就可以检查一下是不是服务器没有及时调用close函数关闭对应的文件描述符</mark></strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong><font color=red>对于TIME_WAIT的详解：</font></strong></p>
+<p><strong><mark>四次挥手中前三次挥手丢包时的解决方法：</mark></strong></p>
+<ul>
+<li><strong><font color=red>第一次挥手丢包：客户端收不到服务器的应答，进而进行超时重传</font></strong></li>
+<li><strong><font color=red>第二次挥手丢包：客户端收不到服务器的应答，进而进行超时重传</font></strong></li>
+<li><strong><font color=red>第三次挥手丢包：服务器收不到客户端的应答，进而进行超时重传</font></strong></li>
+<li><strong><font color=red>第四次挥手丢包：服务器收不到客户端的应答，进而进行超时重传</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><mark>如果客户端在发出第四次挥手后立即进入CLOSED状态，此时服务器虽然进行了超时重传，但已经得不到客户端的响应了，因为客户端已经将连接关闭了</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221131031486.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221131031486.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221131031486">
+
+<p><strong><mark>服务器在经过若干次超时重发后得不到响应，最终也一定会将对应的连接关闭，但在服务器不断进行超时重传期间还需要维护这条废弃的连接，这样对服务器是非常不友好的</mark></strong></p>
+<p><strong><mark>为了避免这种情况，因此客户端在四次挥手后没有立即进入CLOSED状态，而是进入到了TIME_WAIT状态进行等待，此时要是第四次挥手的报文丢包了，客户端也能收到服务器重发的报文然后进行响应</mark></strong></p>
+<blockquote>
+<p><strong><font color=red>TIME_WAIT状态存在的必要性：</font></strong></p>
+<ul>
+<li><strong><mark>客户端在进行四次挥手后进入TIME_WAIT状态，如果第四次挥手的报文丢包了，客户端在一段时间内仍然能够接收服务器重发的FIN报文并对其进行响应，能够较大概率保证最后一个ACK被服务器收到</mark></strong></li>
+<li><strong><mark>客户端发出最后一次挥手时，双方历史通信的数据可能还没有发送到对方。因此客户端四次挥手后进入TIME_WAIT状态，还可以保证双方通信信道上的数据在网络中尽可能的消散</mark></strong></li>
+</ul>
+<p><strong><font color=red>实际第四次挥手丢包后，可能双方网络状态出现了问题，尽管客户端还没有关闭连接，也收不到服务器重发的连接断开请求，此时客户端TIME_WAIT等若干时间最终会关闭连接，而服务器经过多次超时重传后也会关闭连接。这种情况虽然也让服务器维持了闲置的连接，但毕竟是少数，引入TIME_WAIT状态就是争取让主动发起四次挥手的客户端维护这个成本</font></strong></p>
+<ul>
+<li><strong><mark>因此TCP并不能完全保证建立连接和断开连接的可靠性，TCP保证的是建立连接之后，以及断开连接之前双方通信数据的可靠性</mark></strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong><font color=red>TIME_WAIT的等待时长是多少？</font></strong></p>
+<ul>
+<li><p><strong><mark>TIME_WAIT的等待时长既不能太长也不能太短</mark></strong></p>
+</li>
+<li><p><strong><mark>太长会让等待方维持一个较长的时间的TIME_WAIT状态，在这个时间内等待方也需要花费成本来维护这个连接，这也是一种浪费资源的现象</mark></strong></p>
+</li>
+<li><p><strong><mark>太短可能没有达到我们最初目的，没有保证ACK被对方较大概率收到，也没有保证数据在网络中消散，此时TIME_WAIT的意义也就没有了</mark></strong></p>
+</li>
+</ul>
+<p><strong><font color=red>TCP协议规定，主动关闭连接的一方在四次挥手后要处于TIME_WAIT状态，等待两个MSL（Maximum Segment Lifetime，报文最大生存时间）的时间才能进入CLOSED状态</font></strong></p>
+<p><strong><font color=green>MSL在RFC1122中规定为两分钟，但是各个操作系统的实现不同，比如在Centos7上默认配置的值是60s。我们可以通过下面命令查看MSL：</font></strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">cat <span class="token operator">/</span>proc<span class="token operator">/</span>sys<span class="token operator">/</span>net<span class="token operator">/</span>ipv4<span class="token operator">/</span>tcp_fin_timeout #查看MSL的值<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong><font color=green>TIME_WAIT的等待时长设置为两个MSL的原因：</font></strong></p>
+<ul>
+<li><strong><mark>MSL是TCP报文的最大生存时间，因此TIME_WAIT状态持续存在2MSL的话，就能保证在两个传输方向上的尚未被接收或迟到的报文段都已经消失</mark></strong></li>
+<li><strong><mark>同时也是在理论上保证最后一个报文可靠到达的时间</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="TCP的滑动窗口"><a href="#TCP的滑动窗口" class="headerlink" title="TCP的滑动窗口"></a>TCP的滑动窗口</h2><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221133324206.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221133324206.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221133324206">
+
+<p><strong><font color=red>滑动窗口存在的最大意义就是可以提高发送数据的效率：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>滑动窗口的大小等于对方窗口大小与自身拥塞窗口大小的较小值，因为发送数据时不仅要考虑对方的接收能力，还要考虑当前网络的状况</mark></strong></li>
+<li><strong><mark>我们这里先不考虑拥塞窗口，并且假设对方的窗口大小一直固定为4000，此时发送方不用等待ACK一次所能发送的数据就是4000字节，因此滑动窗口的大小就是4000字节（四个段）</mark></strong></li>
+<li><strong><mark>现在连续发送1001-2000、2001-3000、3001-4000、4001-5000这四个段的时候，不需要等待任何ACK，可以直接进行发送</mark></strong></li>
+<li><strong><mark>当收到对方响应的确认序号为2001时，说明1001-2000这个数据段已经被对方收到了，此时该数据段应该被纳入发送缓冲区当中的第一部分，而由于我们假设对方的窗口大小一直是4000，因此滑动窗口现在可以向右移动，继续发送5001-6000的数据段，以此类推</mark></strong></li>
+<li><strong><mark>滑动窗口越大，则网络的吞吐率越高，同时也说明对方的接收能力很强</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="滑动窗口的由来"><a href="#滑动窗口的由来" class="headerlink" title="滑动窗口的由来"></a>滑动窗口的由来</h3><p><strong><font color=red>TCP以1个段为单位，每发一个段进行一次确认应答的处理。这样的传输方式有一个缺点：包的往返时间越长通信性能就越低</font></strong></p>
+<blockquote>
+<p><strong><mark>刚才我们讨论了确认应答策略, 对每一个发送的数据段, 都要给一个ACK确认应答，收到ACK后再发送下一个数据段。这样做有一个比较大的缺点, 就是性能较差。尤其是数据往返的时间较长的时候</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221134356041.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221134356041.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221134356041">
+</blockquote>
+<p><strong><font color=red>既然这样一发一收的方式性能较低, 那么我们一次发送多条数据, 就可以大大的提高性能(其实是将多个段的等待时间重叠在一起了）为解决这个问题，TCP引入了窗口这个概念。即使在往返时间较长的情况下，它也能控制网络性能的下降。如图所示，确认应答不再是以每个分段，而是以更大的单位进行确认时，转发时间将会被大幅度的缩短。也就是说，发送端主机，在发送了一个段以后不必要一直等待确认应答，而是继续发送</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221134923990.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221134923990.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221134923990">
+
+<blockquote>
+<ul>
+<li><strong><font color=red>窗口大小就是指无需等待确认应答而可以继续发送数据的最大值。图中，窗口大小为4个段，也就是4000个字节</font></strong></li>
+<li><strong><font color=red>发送前四个段的时候, 不需要等待任何ACK, 直接发送</font></strong></li>
+<li><strong><font color=red>收到第一个ACK后, 滑动窗口向后移动, 继续发送第五个段的数据; 依次类推</font></strong></li>
+<li><strong><font color=red>操作系统内核为了维护这个滑动窗口, 需要开辟 发送缓冲区 来记录当前还有哪些数据没有应答; 只有确认应答过的数据, 才能从缓冲区删掉</font></strong></li>
+<li><strong><font color=red>窗口越大, 则网络的吞吐率就越高</font></strong></li>
+</ul>
+</blockquote>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221135539734.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221135539734.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221135539734">
+
+<p><strong><mark>这种机制就被称为滑动窗口机制</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221141845039.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221141845039.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221141845039">
+
+<p><strong><font color=red>再具体一点就是：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221142024227.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221142024227.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221142024227">
+
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221150150119.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221150150119.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221150150119">
+
+<hr>
+<h3 id="滑动窗口存在的问题"><a href="#滑动窗口存在的问题" class="headerlink" title="滑动窗口存在的问题"></a>滑动窗口存在的问题</h3><p><strong><font color=red>滑动窗口的大小：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221142535966.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221142535966.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221142535966">
+
+
+
+<p><strong><font color=red>数据包已经传输给对方，但是对方返回的ACK数据包丢失：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221142818898.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221142818898.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221142818898">
+
+<blockquote>
+<p><strong><font color=red>数据包已经抵达, ACK被丢了</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221143206703.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221143206703.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221143206703">
+
+<p><strong><font color=red>这种情况下, 部分ACK丢了并不要紧, 因为可以通过后续的ACK进行确认</font></strong></p>
+</blockquote>
+<blockquote>
+<p><strong><font color=red>传输的数据包直接丢失，或者说是某个报文段丢失的情况</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221143723884.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221143723884.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221143723884">
+
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221143735665.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221143735665.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221143735665">
+
+<ul>
+<li><strong><mark>当某一段报文段丢失之后, 发送端会一直收到 1001 这样的ACK, 就像是在提醒发送端 “我想要的是 1001开始的数据”一样</mark></strong></li>
+<li><strong><mark>如果发送端主机连续三次收到了同样一个 “1001” 这样的应答, 就会将对应的数据 1001 - 2000 重新发送</mark></strong></li>
+<li><strong><mark>这个时候接收端收到了 1001 之后, 再次返回的ACK就是7001了(因为2001 - 7000)接收端其实之前就已经收到了, 被放到了接收端操作系统内核的接收缓冲区中</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221143910478.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221143910478.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221143910478">
+</blockquote>
+<hr>
+<h2 id="TCP的流量控制"><a href="#TCP的流量控制" class="headerlink" title="TCP的流量控制"></a>TCP的流量控制</h2><blockquote>
+<p><strong><font color=red>接收端处理数据的速度是有限的。 如果发送端发的太快, 导致接收端的缓冲区被打满, 这个时候如果发送端继续发送,就会造成丢包, 继而引起丢包重传等等一系列连锁反应。因此TCP支持根据接收端的处理能力, 来决定发送端的发送速度。这个机制就叫做流量控制(Flow Control)</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221144245508.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221144245508.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221144245508">
+
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221144508032.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221144508032.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221144508032">
+
+<ul>
+<li><strong><font color=red>接收端将自己可以接收的缓冲区大小放入 TCP 首部中的 “窗口大小” 字段, 通过ACK端通知发送端</font></strong></li>
+<li><strong><font color=red>窗口大小字段越大, 说明网络的吞吐量越高</font></strong></li>
+<li><strong><font color=red>接收端一旦发现自己的缓冲区快满了, 就会将窗口大小设置成一个更小的值通知给发送端</font></strong></li>
+</ul>
+<p><strong><font color=green>让我们来思考下，什么时候回复 发送方给接收方发送的数据？两种回复方式！</font></strong></p>
+<ol>
+<li><strong><font color=green>发送方主动给接收方发送窗口探测包，询问接收方的接收能力。注意：窗口探测包的数据的大小为固定的1字节</font></strong></li>
+<li><strong><font color=green>接收方主动给发送方发送窗口更新通知</font></strong></li>
+</ol>
+<ul>
+<li><strong><font color=red>发送端接受到这个窗口之后, 就会减慢自己的发送速度</font></strong></li>
+<li><strong><font color=red>如果接收端缓冲区满了, 就会将窗口置为0; 这时发送方不再发送数据, 但是需要定期发送一个窗口探测数据段, 使接收端把窗口大小告诉发送端</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=green>接收端如何把窗口大小告诉发送端呢? 回忆我们的TCP首部中, 有一个16位窗口字段, 就是存放了窗口大小信息;那么问题来了, 16位数字最大表示65535, 那么TCP窗口最大就是65535字节么?</font></strong></p>
+<p><strong><font color=red>实际上, TCP首部40字节选项中还包含了一个窗口扩大因子M, 实际窗口大小是 窗口字段的值左移 M 位</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221145545330.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221145545330.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221145545330">
+
+<hr>
+<h2 id="TCP的拥塞控制"><a href="#TCP的拥塞控制" class="headerlink" title="TCP的拥塞控制"></a>TCP的拥塞控制</h2><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221150646732.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221150646732.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221150646732">
+
+<ul>
+<li><strong><font color=red>虽然TCP有了滑动窗口这个大杀器, 能够高效可靠的发送大量的数据. 但是如果在刚开始阶段就发送大量的数据, 仍然可能引发问题</font></strong></li>
+<li><strong><font color=red>因为网络上有很多的计算机, 可能当前的网络状态就已经比较拥堵. 在不清楚当前网络状态下, 贸然发送大量的数据,是很有可能引起雪上加霜的</font></strong></li>
+<li><strong><font color=red>TCP引入 慢启动机制, 先发少量的数据, 探探路, 摸清当前的网络拥堵状态, 再决定按照多大的速度传输数据</font></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151314315.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151314315.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221151314315">
+
+<blockquote>
+<p><strong><font color=red>此处引入一个概念称为<code>拥塞窗口</code>，详解如下：</font></strong></p>
+<ul>
+<li><strong><mark>发送开始的时候, 定义拥塞窗口大小为1个数据段（1MSS）</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151437841.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151437841.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221151437841">
+
+<ul>
+<li><strong><mark>每次收到一个ACK应答, 拥塞窗口加1</mark></strong></li>
+<li><strong><mark>每次发送数据包的时候, 将拥塞窗口和接收端主机反馈的滑动窗口大小做比较, 取较小的值作为实际发送的窗口</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151507666.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151507666.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221151507666">
+</blockquote>
+<p><strong><font color=red>像上面这样的拥塞窗口增长速度, 是指数级别的。“慢启动” 只是指初使时慢, 但是增长速度非常快</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>为了不增长的那么快, 因此不能使拥塞窗口单纯的加倍</mark></strong></li>
+<li><strong><mark>此处引入一个叫做<code>慢启动的阈值</code></mark></strong></li>
+<li><strong><mark>当拥塞窗口超过这个阈值的时候, 不再按照指数方式增长, 而是按照线性方式增长</mark></strong></li>
+<li><strong><mark>当TCP开始启动的时候, 慢启动阈值等于窗口最大值</mark></strong></li>
+<li><strong><mark>在每次超时重发的时候, 慢启动阈值会变成原来的一半, 同时拥塞窗口置回1</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151845767.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151845767.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221151845767">
+</blockquote>
+<blockquote>
+<p><strong><font color=red>少量的丢包, 我们仅仅是触发超时重传; 大量的丢包, 我们就认为网络拥塞，当TCP通信开始后, 网络吞吐量会逐渐上升，随着网络发生拥堵, 吞吐量会立刻下降</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151942843.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221151942843.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221151942843">
+
+<p><strong><font color=red>但是这种拥塞窗口的大小一旦到达网络拥塞的情况时，拥塞窗口的大小会直接一下子变为慢启动时的阈值，即1个MSS，但是这种情况其实是不科学的，因为我一次丢包有可能是正常的，这种正常的情况的发生有可能是网络闪断了，当网络闪断的时候，拥塞串口的大小就会被置为1，然后再慢启动，再进行拥塞控制，针对这种情况，我们就需要一种快恢复的机制</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221152023505.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221152023505.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221152023505">
+</blockquote>
+<p><strong><code>总结一下：TCP为了实现拥塞控制，总共采用了慢启动机制、拥塞避免机制、快重传机制和快恢复机制</code></strong></p>
+<blockquote>
+<p><strong><font color=red>图示说明：</font></strong></p>
+<ul>
+<li><strong><mark>指数增长。刚开始进行TCP通信时拥塞窗口的值为1，并不断按指数的方式进行增长</mark></strong></li>
+<li><strong><mark>加法增大。慢启动的阈值初始时为对方窗口大小的最大值，图中慢启动阈值的初始值为16，因此当拥塞窗口的值增大到16时就不再按指数形式增长了，而变成了的线性增长</mark></strong></li>
+<li><strong><mark>乘法减小。拥塞窗口在线性增长的过程中，在增大到24时如果发生了网络拥塞，此时慢启动的阈值将变为当前拥塞窗口的一半，也就是12，并且拥塞窗口的值被重新设置为1，所以下一次拥塞窗口由指数增长变为线性增长时拥塞窗口的值应该是12</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>主机在进行网络通信时，实际就是在不断进行指数增长、加法增大和乘法减小</font></strong></p>
+<p><strong><font color=red>需要注意的是，不是所有的主机都是同时在进行指数增长、加法增大和乘法减小的。每台主机认为拥塞窗口的大小不一定是一样的，即便是同区域的两台主机在同一时刻认为拥塞窗口的大小也不一定是完全相同的。因此在同一时刻，可能一部分主机正在进行正常通信，而另一部分主机可能已经发生网络拥塞了</font></strong></p>
+<hr>
+<h2 id="TCP的延迟应答"><a href="#TCP的延迟应答" class="headerlink" title="TCP的延迟应答"></a>TCP的延迟应答</h2><p><strong><font color=red>接收数据的主机如果每次都立刻回复确认应答的话，可能会返回一个较小的窗口。那是因为刚接收完数据，缓冲区已满</font></strong></p>
+<p><strong><font color=green>当某个接收端收到这个小窗口的通知以后，会以它为上限发送数据，从而又降低了网络的利用率（这其实是窗口控制特有的问题，专门术语叫做糊涂窗口综合征）。为此，引入了一个方法，那就是收到数据以后并不立即返回确认应答，而是延迟一段时间的机制</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><font color=red>假设对方接收端缓冲区剩余空间大小为1M，对方一次收到500K的数据后，如果立即进行ACK应答，此时返回的窗口就是500K</font></strong></li>
+<li><strong><font color=red>但实际接收端处理数据的速度很快，10ms之内就将接收缓冲区中500K的数据消费掉了</font></strong></li>
+<li><strong><font color=red>在这种情况下，接收端处理还远没有达到自己的极限，即使窗口再放大一些，也能处理过来</font></strong></li>
+<li><strong><font color=red>如果接收端稍微等一会再进行ACK应答，比如等待200ms再应答，那么这时返回的窗口大小就是1M</font></strong></li>
+</ul>
+</blockquote>
+<p><strong>需要注意的是，<mark>延迟应答的目的不是为了保证可靠性，而是留出一点时间让接收缓冲区中的数据尽可能被上层应用层消费掉</mark>，此时在进行ACK响应的时候报告的窗口大小就可以更大，从而增大网络吞吐量，进而提高数据的传输效率</strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221153446651.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221153446651.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221153446651">
+
+<p><strong>此外，不是所有的数据包都可以延迟应答</strong></p>
+<ul>
+<li><strong>数量限制：每个N个包就应答一次</strong></li>
+<li><strong>时间限制：超过最大延迟时间就应答一次（这个时间不会导致误超时重传）</strong></li>
+</ul>
+<p><strong>延迟应答具体的数量和超时时间，依操作系统不同也有差异，一般N取2，超时时间取200ms</strong></p>
+<hr>
+<h2 id="TCP的捎带应答"><a href="#TCP的捎带应答" class="headerlink" title="TCP的捎带应答"></a>TCP的捎带应答</h2><p><strong><font color=red>捎带应答，其实是TCP通信时最常规的一种方式，就好比主机A给主机B发送了一条消息，当主机B收到这条消息后需要对其进行ACK应答，但如果主机B此时正好也要给主机A发送消息，此时这个ACK就可以搭顺风车，而不用单独发送一个ACK应答，此时主机B发送的这个报文既发送了数据，又完成了对收到数据的响应，这就叫做捎带应答</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221153616247.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221153616247.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221153616247">
+
+<blockquote>
+<ul>
+<li><strong><mark>捎带应答最直观的角度实际也是发送数据的效率，此时双方通信时就可以不用再发送单纯的确认报文了</mark></strong></li>
+<li><strong><mark>此外，由于捎带应答的报文携带了有效数据，因此对方收到该报文后会对其进行响应，当收到这个响应报文时不仅能够确保发送的数据被对方可靠的收到了，同时也能确保捎带的ACK应答也被对方可靠的收到了</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="TCP中的粘包问题"><a href="#TCP中的粘包问题" class="headerlink" title="TCP中的粘包问题"></a>TCP中的粘包问题</h2><p><strong><font color=red>什么是粘包：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><font color=red>首先要明确，粘包问题中的“包”，是指的应用层的数据包</font></strong></li>
+<li><strong><font color=red>在TCP的协议头中，没有如同UDP一样的“报文长度”这样的字段</font></strong></li>
+<li><strong><font color=red>站在传输层的角度，TCP是一个一个报文过来的，按照序号排好序放在缓冲区中</font></strong></li>
+<li><strong><font color=red>但站在应用层的角度，看到的只是一串连续的字节数据</font></strong></li>
+<li><strong><font color=red>那么应用程序看到了这么一连串的字节数据，就不知道从哪个部分开始到哪个部分，是一个完整的应用层数据包</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>如何解决粘包问题：</font></strong></p>
+<blockquote>
+<p><strong><font color=green>要解决粘包问题，本质就是要明确报文和报文之间的边界</font></strong></p>
+<ul>
+<li><strong><mark>对于定长的包，保证每次都按固定大小读取即可</mark></strong></li>
+<li><strong><mark>对于变长的包，可以在报头的位置，约定一个包总长度的字段，从而就知道了包的结束位置。比如HTTP报头当中就包含Content-Length属性，表示正文的长度</mark></strong></li>
+<li><strong><mark>对于变长的包，还可以在包和包之间使用明确的分隔符。因为应用层协议是程序员自己来定的，只要保证分隔符不和正文冲突即可</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>UDP是否存在粘包问题？</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>对于UDP，如果还没有上层交付数据，UDP的报文长度仍然在，同时，UDP是一个一个把数据交付给应用层的，有很明确的数据边界</mark></strong></li>
+<li><strong><mark>站在应用层的角度，使用UDP的时候，要么收到完整的UDP报文，要么不收，不会出现“半个”的情况</mark></strong></li>
+<li><strong><font color=red>因此UDP是不存在粘包问题的，根本原因就是UDP报头当中的16位UDP长度记录的UDP报文的长度，因此UDP在底层的时候就把报文和报文之间的边界明确了，而TCP存在粘包问题就是因为TCP是面向字节流的，TCP报文之间没有明确的边界</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="TCP的异常情况"><a href="#TCP的异常情况" class="headerlink" title="TCP的异常情况"></a>TCP的异常情况</h2><p><strong><font color=red>TCP的异常情况分为三种：进程终止、机器重启、机器掉线(网线断开)</font></strong></p>
+<blockquote>
+<p><strong><mark>进程终止：</mark></strong></p>
+<ul>
+<li><strong>当客户端正常访问服务器时，如果客户端进程突然崩溃了，此时建立好的连接会怎么样？</strong></li>
+<li><strong>当一个进程退出时，该进程曾经打开的文件描述符都会自动关闭，因此当客户端进程退出时，相当于自动调用了close函数关闭了对应的文件描述符，此时双方操作系统在底层会正常完成四次挥手，然后释放对应的连接资源。也就是说，进程终止时会释放文件描述符，TCP底层仍然可以发送FIN，和进程正常退出没有区别</strong></li>
+</ul>
+<hr>
+<p><strong><mark>机器重启：</mark></strong></p>
+<ul>
+<li><strong>当客户端正常访问服务器时，如果将客户端主机重启，此时建立好的连接会怎么样？</strong></li>
+<li><strong>当我们选择重启主机时，操作系统会先杀掉所有进程然后再进行关机重启，因此机器重启和进程终止的情况是一样的，此时双方操作系统也会正常完成四次挥手，然后释放对应的连接资源</strong></li>
+</ul>
+<hr>
+<p><strong><mark>机器掉线：</mark></strong></p>
+<p><strong>当客户端正常访问服务器时，如果将客户端突然掉线了，此时建立好的连接会怎么样？</strong></p>
+<p><strong>当客户端掉线后，服务器端在短时间内无法知道客户端掉线了，因此在服务器端会维持与客户端建立的连接，但这个连接也不会一直维持，因为TCP是有保活策略的，如下：</strong></p>
+<ul>
+<li><strong>服务器会定期客户端客户端的存在状况，检查对方是否在线，如果连续多次都没有收到ACK应答，此时服务器就会关闭这条连接</strong></li>
+<li><strong>此外，客户端也可能会定期向服务器“报平安”，如果服务器长时间没有收到客户端的消息，此时服务器也会将对应的连接关闭</strong></li>
+</ul>
+<p><strong>其中服务器定期询问客户端的存在状态的做法，叫做基于保活定时器的一种心跳机制，是由TCP实现的。此外，应用层的某些协议，也有一些类似的检测机制，例如基于长连接的HTTP，也会定期检测对方的存在状态</strong></p>
+</blockquote>
+<hr>
+<h2 id="TCP的保活机制"><a href="#TCP的保活机制" class="headerlink" title="TCP的保活机制"></a>TCP的保活机制</h2><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221161540676.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/image-20221221161540676.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221221161540676">
+
+<hr>
+<h2 id="对于TCP协议机制的总结"><a href="#对于TCP协议机制的总结" class="headerlink" title="对于TCP协议机制的总结"></a>对于TCP协议机制的总结</h2><p><strong><font color=red>TCP协议这么复杂就是因为TCP既要保证可靠性，同时又尽可能的提高性能</font></strong></p>
+<blockquote>
+<p><strong><font color=red>在可靠性上的机制：</font></strong></p>
+<ol>
+<li><strong><code>检验和</code></strong></li>
+<li><strong><code>序列号</code></strong></li>
+<li><strong><code>确认应答</code></strong></li>
+<li><strong><code>超时重传</code></strong></li>
+<li><strong><code>连接管理</code></strong></li>
+<li><strong><code>流量控制</code></strong></li>
+<li><strong><code>拥塞控制</code></strong></li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong><font color=red>在提高性能上的机制：</font></strong></p>
+<ul>
+<li><strong><code>滑动窗口</code></strong></li>
+<li><strong><code>快速重传</code></strong></li>
+<li><strong><code>延迟应答</code></strong></li>
+<li><strong><code>捎带应答</code></strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong><font color=red>在定时器上的机制：</font></strong></p>
+<ul>
+<li><strong><code>重传定时器：为了控制丢失的报文段或丢弃的报文段，也就是对报文段确认的等待时间</code></strong></li>
+<li><strong><code>坚持定时器：专门为对方零窗口通知而设立的，也就是向对方发送窗口探测的时间间隔</code></strong></li>
+<li><strong><code>保活定时器：为了检查空闲连接的存在状态，也就是向对方发送探查报文的时间间隔</code></strong></li>
+<li><strong><code>TIME_WAIT定时器：双方在四次挥手后，主动断开连接的一方需要等待的时长</code></strong></li>
+</ul>
+</blockquote>
+<p><strong><mark>需要注意的是，TCP的这些机制有些能够通过TCP报头体现出来的，但还有一些是通过代码逻辑体现出来的</mark></strong></p>
+<hr>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="">
+              Linux网络编程
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/" target="_blank" title="Linux网络协议之TCP协议(传输层)">https://Not-Go.github.io/2023/03/20/1.linux-wang-luo-xie-yi-zhi-tcp-xie-yi-chuan-shu-ceng/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" class="lazyload placeholder" data-srcset="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-udp-xie-yi-chuan-shu-ceng/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">Linux网络协议之UDP协议(传输层)</div>
+      </div>
+      
+      <!-- <div class="content">
+        Linux网络协议之UDP协议(传输层)深入理解传输层对于端口号的理解
+传输层是负责端对端之间的传输，端指的是端口(po
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" class="lazyload placeholder" data-srcset="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-ip-xie-yi-wang-luo-ceng/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">Linux网络协议之IP协议(网络层)</div>
+      </div>
+      <!-- <div class="content">
+        Linux网络协议之IP协议(网络层)IP协议基本概念IP协议全称为“网际互连协议（Internet Protocol）
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E4%B9%8BTCP%E5%8D%8F%E8%AE%AE-%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="toc-text">Linux网络协议之TCP协议(传输层)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%A7%A3TCP%E5%8D%8F%E8%AE%AE"><span class="toc-text">理解TCP协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%88%E8%B0%88%E5%8F%AF%E9%9D%A0%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">谈谈可靠性问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F"><span class="toc-text">TCP协议格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8ETCP%E7%9A%84%E4%B8%A4%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="toc-text">关于TCP的两个问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E5%BA%8F%E5%8F%B7%E4%B8%8E%E7%A1%AE%E8%AE%A4%E5%BA%8F%E5%8F%B7"><span class="toc-text">TCP序号与确认序号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-text">TCP缓冲区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F"><span class="toc-text">TCP窗口大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E5%85%AD%E4%B8%AA%E6%A0%87%E5%BF%97%E4%BD%8D"><span class="toc-text">TCP的六个标志位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AE%E8%AE%A4%E5%BA%94%E7%AD%94%E6%9C%BA%E5%88%B6-ACK"><span class="toc-text">确认应答机制(ACK)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6"><span class="toc-text">超时重传机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-text">连接管理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%92%8C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E5%9B%BE%E8%A7%A3"><span class="toc-text">三次握手和四次挥手图解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%A6%E8%A7%A3%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-text">详解三次握手过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%A6%E8%A7%A3%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-text">详解四次挥手过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="toc-text">TCP的滑动窗口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="toc-text">滑动窗口的由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">滑动窗口存在的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-text">TCP的流量控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-text">TCP的拥塞控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E5%BB%B6%E8%BF%9F%E5%BA%94%E7%AD%94"><span class="toc-text">TCP的延迟应答</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E6%8D%8E%E5%B8%A6%E5%BA%94%E7%AD%94"><span class="toc-text">TCP的捎带应答</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E4%B8%AD%E7%9A%84%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98"><span class="toc-text">TCP中的粘包问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E5%BC%82%E5%B8%B8%E6%83%85%E5%86%B5"><span class="toc-text">TCP的异常情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E7%9A%84%E4%BF%9D%E6%B4%BB%E6%9C%BA%E5%88%B6"><span class="toc-text">TCP的保活机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8ETCP%E5%8D%8F%E8%AE%AE%E6%9C%BA%E5%88%B6%E7%9A%84%E6%80%BB%E7%BB%93"><span class="toc-text">对于TCP协议机制的总结</span></a></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

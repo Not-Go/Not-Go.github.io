@@ -1,0 +1,3740 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>哈希表 | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        哈希表
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2022-11-11 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E9%AB%98%E9%98%B6%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-detail-header_category">
+              高阶数据结构
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 9.2k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 36分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a><strong>哈希表</strong></h1><h2 id="关联式容器与序列式容器的了解"><a href="#关联式容器与序列式容器的了解" class="headerlink" title="关联式容器与序列式容器的了解"></a><strong>关联式容器与序列式容器的了解</strong></h2><img src="/2022/11/11/1.ha-xi-biao/image-20230623220731727.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220731727.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220731727">
+
+<p><strong>序列式容器：以线性风格存储给定类型对象的容器，可以作为动态数组或者列表，元素根据它们在容器中的位置来检索</strong></p>
+<p><strong>关联式容器：为每个要存储对象的键存储对象，这些键用来定位容器内的对象</strong></p>
+<hr>
+<h2 id="unordered系列关联式容器概念"><a href="#unordered系列关联式容器概念" class="headerlink" title="unordered系列关联式容器概念"></a><strong>unordered系列关联式容器概念</strong></h2><blockquote>
+<ol>
+<li><strong>在C++98中，STL提供了底层为红黑树结构的一系列关联式容器，在查询时效率可达到 O(log2N)，即最差情况下需要比较红黑树的高度次，当树中的节点非常多时，查询效率也不理想</strong></li>
+<li><strong>最好的查询是，进行很少的比较次数就能够将元素找到</strong></li>
+<li><strong>因此在C++11中，STL又提供了4个 unordered 系列的关联式容器，这4个容器与红黑树结构的关联式容器底层结构不同，称为哈希表</strong></li>
+<li><strong>哈希其实就是一种散列、一种映射</strong></li>
+</ol>
+</blockquote>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220737285.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220737285.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220737285">
+
+<p><strong>哈希表结构的 unordered 系列的关联式容器与红黑树结构的关联式容器 map&#x2F;set&#x2F;multimap&#x2F;multiset 使用方式上基本类似，它们的主要区别在于：</strong></p>
+<ol>
+<li><strong>unordered 系列关联式容器，遍历出来不是有序的，迭代器是单向迭代器</strong></li>
+<li><strong>unordered_map 和 unordered_set 不允许数据冗余，支持 <code>[]</code> 操作符</strong></li>
+<li><strong>unordered_multimap 和 unordered_multiset 允许数据冗余，不支持 <code>[]</code> 操作符</strong></li>
+</ol>
+<hr>
+<h2 id="unordered系列关联容器底层结构"><a href="#unordered系列关联容器底层结构" class="headerlink" title="unordered系列关联容器底层结构"></a><strong>unordered系列关联容器底层结构</strong></h2><p><strong>unordered 系列的关联式容器之所以效率比较高，是因为其底层使用了哈希结构</strong></p>
+<p>举例：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; release下测试，debug下可能还会受限于编译器的优化程度，release下是最高优化
+void test()
+&#123;
+	&#x2F;&#x2F; 用n个随机值元素来测试set和unordered_set
+
+	&#x2F;&#x2F; 定义容量为N的向量
+	const int N &#x3D; 1000000;
+	vector&lt;int&gt; v;
+	v.reserve(N);
+
+	srand(time(0)); &#x2F;&#x2F; 初始化随机种子
+
+	for (size_t i &#x3D; 0; i &lt; N; i++)
+	&#123;
+		v.push_back(rand()); &#x2F;&#x2F; 插入生成的随机值
+	&#125;
+
+	&#x2F;&#x2F; 定义set和unordered_set
+	set&lt;int&gt; s;
+	unordered_set&lt;int&gt; us;
+
+    &#x2F;* ----------------------------------------------------------------- *&#x2F;
+	&#x2F;&#x2F; 向set中插入N个随机值，统计时间(ms)
+	size_t begin1 &#x3D; clock();
+	for (auto&amp; e : v)
+	&#123;
+		s.insert(e);
+	&#125;
+	size_t end1 &#x3D; clock();
+
+	&#x2F;&#x2F; 向unordered_set插入N个随机值，统计时间(ms)
+	size_t begin2 &#x3D; clock();
+	for (auto&amp; e : v)
+	&#123;
+		us.insert(e);
+	&#125;
+	size_t end2 &#x3D; clock();
+
+	cout &lt;&lt; &quot;set - inset: &quot; &lt;&lt; end1 - begin1 &lt;&lt; endl;
+	cout &lt;&lt; &quot;unordered_set - inset: &quot; &lt;&lt; end2 - begin2 &lt;&lt; endl;
+    
+    &#x2F;* ----------------------------------------------------------------- *&#x2F;
+	&#x2F;&#x2F; 依次去set中查找向量中的N个元素，统计时间(ms)
+	size_t begin3 &#x3D; clock();
+	for (auto&amp; e : v)
+	&#123;
+		s.find(e);
+	&#125;
+	size_t end3 &#x3D; clock();
+	
+	&#x2F;&#x2F; 依次去unordered_set中查找向量中的N个元素，统计时间(ms)
+	size_t begin4 &#x3D; clock();
+	for (auto&amp; e : v)
+	&#123;
+		us.find(e);
+	&#125;
+	size_t end4 &#x3D; clock();
+
+	cout &lt;&lt; &quot;set - find(): &quot; &lt;&lt; end3 - begin3 &lt;&lt; endl;
+	cout &lt;&lt; &quot;unordered_set - find(): &quot; &lt;&lt; end4 - begin4 &lt;&lt; endl;
+	
+    &#x2F;* ----------------------------------------------------------------- *&#x2F;
+	&#x2F;&#x2F; 依次删除set中的N个元素，统计时间(ms)
+	size_t begin5 &#x3D; clock();
+	for (auto&amp; e : v)
+	&#123;
+		s.erase(e);
+	&#125;
+	size_t end5 &#x3D; clock();
+
+	&#x2F;&#x2F; 依次删除unordered_set中的N个元素，统计时间(ms)
+	size_t begin6 &#x3D; clock();
+	for (auto&amp; e : v)
+	&#123;
+		us.erase(e);
+	&#125;
+	size_t end6 &#x3D; clock();
+
+	cout &lt;&lt; &quot;set - erase(): &quot; &lt;&lt; end5 - begin5 &lt;&lt; endl;
+	cout &lt;&lt; &quot;unordered_set - erase(): &quot; &lt;&lt; end6 - begin6 &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>用同一批100万个数据来测试 unordered_set 和 set，结果分析如下：</strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220743384.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220743384.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220743384">
+
+<p><strong>所以一般情况下，建议使用 unordered 系列的关联式容器</strong></p>
+<hr>
+<h2 id="哈希的概念了解"><a href="#哈希的概念了解" class="headerlink" title="哈希的概念了解"></a><strong>哈希的概念了解</strong></h2><blockquote>
+<ul>
+<li>在顺序结构以及平衡树中，元素关键码与其存储位置之间没有对应的关系，因此在查找一个元素时，必须要经过关键码的多次比较。顺序查找时间复杂度为O(N)，平衡树中为树的高度，即O(logN)，搜索的效率决于搜索过程中元素的比较次数</li>
+<li>理想的搜索方法：可以不经过任何比较，一次直接从表中得到要搜索的元素。 如果构造一种存储结构，通过某种函数(hashFunc)使元素的存储位置与它的关键码之间能够建立一一映射的关系，那么在查找时通过该函数可以很快找到该元素</li>
+</ul>
+<p><strong>当向该结构中：</strong></p>
+<ul>
+<li><strong>插入元素</strong>：根据待插入元素的关键码，以此函数计算出该元素的存储位置并按此位置进行存放</li>
+<li><strong>搜索元素</strong>：对元素的关键码进行同样的计算，把求得的函数值当做元素的存储位置，在结构中按此位置取元素比较，若关键码相等，则搜索成功</li>
+</ul>
+<p><strong>该方式即为哈希(散列)方法，哈希方法中使用的转换函数称为哈希(散列)函数，构造出来的结构称为哈希表(Hash Table)(或者称散列表)</strong></p>
+</blockquote>
+<hr>
+<h2 id="哈希函数的了解"><a href="#哈希函数的了解" class="headerlink" title="哈希函数的了解"></a><strong>哈希函数的了解</strong></h2><p><strong>其实就是按照某种规则，给元素找一个存储位置（哈希位置、映射位置）</strong></p>
+<p><strong><font color=red>常见哈希函数：</font></strong></p>
+<ol>
+<li><p><strong><mark>直接定址法（常用）</mark></strong></p>
+<blockquote>
+<ol>
+<li><strong>取关键字的某个线性函数为散列地址：Hash（Key）&#x3D; A * Key + B</strong></li>
+<li><strong>优点：简单、均匀</strong></li>
+<li><strong>缺点：需要事先知道关键字的分布情况，如果关键字的分布比较分散，会很浪费空间</strong></li>
+<li><strong>使用场景：适合查找比较小且连续的情况，比如：</strong><ul>
+<li><strong>计数排序</strong></li>
+<li><strong>一些OJ题中用哈希映射来统计字符出现次数</strong></li>
+<li><strong>利用字符的ASCII码值来映射字符，利用int型变量的数值来映射该变量</strong></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong><mark>除留余数法（常用）</mark></strong></p>
+<blockquote>
+<ol>
+<li><p><strong>开一段固定大小的空间，比如哈希表中允许的地址数为 n，按照哈希函数：Hash(key) &#x3D; key % n，得到的余数就是该关键码的哈希地址，存放到哈希表对应位置中</strong></p>
+</li>
+<li><p><strong>缺陷：</strong></p>
+<ul>
+<li><strong>适用于整数的存储（字符串、浮点数不能直接存储，因为不能直接取模，后面会讲如何解决）</strong></li>
+<li><strong>余数相同时，会出现哈希冲突</strong></li>
+</ul>
+<p><strong>比如：</strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220750128.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220750128.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220750128"></li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h2 id="哈希冲突的了解"><a href="#哈希冲突的了解" class="headerlink" title="哈希冲突的了解"></a><strong>哈希冲突的了解</strong></h2><blockquote>
+<ol>
+<li><strong>不同关键字通过相同哈希哈数计算出相同的哈希地址，映射到了相同位置，该种现象称为哈希冲突或哈希碰撞</strong></li>
+<li><strong>解决哈希冲突两种常见的方法是：闭散列和开散列</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="解决哈希冲突：闭散列"><a href="#解决哈希冲突：闭散列" class="headerlink" title="解决哈希冲突：闭散列"></a><strong>解决哈希冲突：闭散列</strong></h2><h3 id="闭散列的概念了解"><a href="#闭散列的概念了解" class="headerlink" title="闭散列的概念了解"></a><strong>闭散列的概念了解</strong></h3><p><strong>闭散列也叫开放定址法：</strong></p>
+<blockquote>
+<ol>
+<li><p><strong>开放寻址法的核心思想是，通过哈希函数计算出这个数据对应的哈希位置，如果该位置出现了哈希冲突，我们就重新探测一个空闲位置，将其插入。那如何重新探测新的位置呢？当我们往散列表中插入数据时，如果某个数据经过散列函数散列之后，存储位置已经被占用了，我们就从当前位置开始，依次往后查找，看是否有空闲位置，直到找到为止。如果数组整个都没有空位置，这个时候就需要对数组进行扩容操作</strong></p>
+</li>
+<li><p><strong>而我们要获取数据的时候就需要先Hash运算，然后得到下标后再去拿值，拿到值后要比对是不是要拿的数据，因为有可能Hash冲突了，此时的值并不是你想要的，如果是就直接取出，不是的话就需要重新遍历数组，直到找到对应的数</strong></p>
+</li>
+<li><p><strong>从上面可以明显的看出来开发寻址法并不是一种好的方案，当最好的情况时查询数据时间复杂度为O(1),而最坏的情况时就需要遍历整个数组从而退化为O(n)，平均时间复杂度为O(1)</strong></p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="闭散列探测空位置方法"><a href="#闭散列探测空位置方法" class="headerlink" title="闭散列探测空位置方法"></a><strong>闭散列探测空位置方法</strong></h3><blockquote>
+<p><strong>当前哈希位置已经存放的有数据了，下一个元素也是映射的这个位置，发生哈希冲突了，那怎么办呢？</strong></p>
+<ul>
+<li><strong>如果哈希表未被装满，说明在哈希表中必然还有空位置，那么可以把该元素存放到冲突位置的 “ 下一个空位置 ” 中去</strong></li>
+<li><strong>如果整个数组都没有空位置了，这个时候就需要对数组进行扩容操作</strong></li>
+</ul>
+<p><strong>找下一个空位置有两种方法：线性探测和二次线性探测</strong></p>
+</blockquote>
+<p><strong><font color=red>1.线性探测：从发生冲突的位置开始，依次向后探测，直到寻找到下一个空位置为止</font></strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220756664.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220756664.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220756664">
+
+<blockquote>
+<ol>
+<li><p><strong>线性探测的优点：实现起来非常简单</strong></p>
+</li>
+<li><p><strong>线性探测的缺陷：</strong></p>
+<ul>
+<li><p><strong>如果某个位置冲突的多，会导致一片冲突很多，数据堆积在一起</strong></p>
+</li>
+<li><p><strong>插入和查找的效率都会降低很多，插入元素时，从冲突位置开始不断往后找到下一个空位置；查找元素时，从冲突位置开始不断往后找，需要比较许多次，导致搜索效率降低。最坏情况下要直到找到空位置时，才能说明没有该元素</strong></p>
+</li>
+<li><p><strong>比如下图：</strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220801582.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220801582.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220801582"></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong>观察发现，冲突的那一块区域，数据很集中，但是其它位置又是空着的，那有没有什么办法，让这些数据稍微分散一点点呢？不要那么集中，于是有人提出了二次探测方法</strong></p>
+<p><strong><font color=red>2.二次探测</font></strong></p>
+<blockquote>
+<p><strong>线性探测的缺陷是产生冲突的数据堆积在一块，这与其找下一个空位置有关系，因为找空位置的方式就是挨着往后逐个去找，因此二次探测为了避免该问题，找下一个空位置的方法为：Hash(key) &#x3D; key % n + i2 ( i &#x3D; 1,2,3… )，通过哈希函数 Hash(key) 计算出元素的关键码 key 对应的位置再加上 i 的平方，n 是表的大小</strong></p>
+</blockquote>
+<p><strong>二次探测相比线性探测的好处：如果一个位置有很多数据冲突，那么二次探测会让这些数据存储位置会比较分散，不会集中在一起，导致一片一片的冲突</strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220808790.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220808790.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220808790">
+
+<hr>
+<h3 id="闭散列的实现原理与思考"><a href="#闭散列的实现原理与思考" class="headerlink" title="闭散列的实现原理与思考"></a><strong>闭散列的实现原理与思考</strong></h3><p><strong>哈希表就是数组，只不过是按照某种映射关系把元素存放进去的数组</strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220816158.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220816158.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220816158">
+
+<p><strong><font color=red>1.闭散列的思考一：如何向哈希表中插入元素？</font></strong></p>
+<blockquote>
+<ol>
+<li>先检查哈希表是否需要扩容（表为空或表的负载因子超过某个值，则进行扩容）</li>
+<li>再通过哈希函数计算出待插入元素在哈希表中的位置：<ul>
+<li>如果该位置有元素（即存储状态为: EXIST），说明发生了哈希冲突，使用线性探测（或二次探测）找到下一个空位置，然后插入新元素</li>
+<li>如果该位置中没有元素（即存储状态为: EMPTY &#x2F; DELETE），则直接插入新元素</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong><font color=red>2.闭散列的思考二：如何在哈希表中查找元素？</font></strong></p>
+<blockquote>
+<ol>
+<li><strong>先检查哈希表是否为空，若为空，查找失败，直接返回nullptr</strong></li>
+<li><strong>再通过哈希函数计算出要查找元素在哈希表中对应的位置：</strong><ol>
+<li><strong>如果该位置不为空（即存储状态为: EXIST &#x2F; DELETE），开始往后查找，直到遇到空位置才停止（如果遇到空位置都还没查找到，说明哈希表中没有该元素），查找过程中，如果当前位置存储状态为存在，则判断是不是要查找的元素：</strong><ul>
+<li><strong>如果是，查找成功，返回该元素的地址</strong></li>
+<li><strong>如果不是，继续往后找</strong></li>
+</ul>
+</li>
+<li><strong>如果该位置为空（即存储状态为: EMPTY），返回nullptr</strong></li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<p><strong><font color=red>3.闭散列的思考三：能用0&#x2F;-1来表示哈希表中某个位置是否存放的有元素吗？</font></strong></p>
+<blockquote>
+<p><strong>肯定不能用 0 &#x2F; -1 来表示，万一需要存放的数据就有 0 &#x2F; -1 呢？</strong></p>
+<p>解决方法：哈希表中每个位置存储数据的同时，再存储一个状态标记，表示该位置的存储状态（空、存在、删除）</p>
+</blockquote>
+<p><strong><font color=red>4.闭散列的思考四：如何删除哈希表中某个位置的元素？</font></strong></p>
+<blockquote>
+<p><strong>采用闭散列处理哈希冲突时，不能随便物理删除哈希表中已有的元素，若直接删除元素会影响其他元素的搜索</strong></p>
+<p>解决方法：哈希表中每个位置存储数据的同时，再存储一个状态标记，表示该位置的存储状态（空、存在、删除）</p>
+<p><strong>如上图：直接删除掉了元素 333，那么元素 44 查找起来就会受影响（因为哈希位置4此时为空），导致查找不到。因此线性探测采用标记的伪删除法来删除一个元素</strong></p>
+</blockquote>
+<p><strong><font color=red>5.闭散列的思考五：因为哈希函数采用的是除留余数法，被模的 key 必须要为整型才可以处理，导致闭散列只能存储 key 为整型的元素，其他类型怎么解决？</font></strong></p>
+<blockquote>
+<p><strong>解决方法：如果 key 是 string 类型或其它自定义类型，不能直接取模来计算出它的位置，我们就传一个对应的仿函数，来将其转换成整型</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 定义一个默认仿函数类（针对size_t类型和能够隐式类型转换成size_t的类型）
+template&lt;class K&gt;
+struct HashFunc
+&#123;
+    &#x2F;&#x2F; key: 元素关键码
+    &#x2F;&#x2F; 如果key是整数，转换成size_t，然后返回key
+    &#x2F;&#x2F; 如果key是浮点数，隐式类型转换成size_t，然后返回key
+    size_t operator()(const K&amp; key)
+    &#123;
+        return key;
+    &#125;
+&#125;;
+
+&#x2F;&#x2F; 定义仿函数类（专门针对元素关键码是string类型的，将其转换成可以取模的size_t类型）
+struct HashFuncString
+&#123;
+    size_t operator()(const string&amp; key)
+    &#123;
+        &#x2F;&#x2F; 方法一：每个字符的ASCII码值加起来
+        &#x2F;&#x2F; 缺陷：不同字符串可能加出同样的结果，不能保证key的唯一性
+        size_t hash_key &#x3D; 0;
+        for (size_t i &#x3D; 0; i &lt; key.size(); i++)
+        &#123;
+            hash_key +&#x3D; key[i];
+        &#125;
+        return hash_key;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<p><strong><font color=red>6.闭散列的思考六：哈希表式怎么处理仿函数的？</font></strong></p>
+<blockquote>
+<p><strong>unordered 系列容器底层就是哈希表，但我们用的时候也并没有传仿函数呀，因为 string 类型作为元素关键码 key 很常见，我们也不可能每次都去写个仿函数吧！所以我们写一个针对 string 类型取模的特化版本仿函数</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 默认仿函数类（针对size_t类型和能够隐式类型转换成size_t的类型）
+template&lt;class K&gt;
+struct HashFunc
+&#123;
+    size_t operator()(const K&amp; key)
+    &#123;
+        return key;
+    &#125;
+&#125;;
+
+&#x2F;&#x2F; 特化仿函数（把string类型转换成可以取模的size_t类型）
+template&lt;&gt;
+struct HashFunc&lt;string&gt;
+&#123;
+    size_t operator()(const string&amp; key)
+    &#123;
+		size_t hash_key &#x3D; 0;
+		for (size_t i &#x3D; 0; i &lt; key.size(); i++)
+		&#123;
+            hash_key *&#x3D; 131;
+			hash_key +&#x3D; key[i];
+		&#125;
+		return hash_key;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<hr>
+<h3 id="闭散列的代码实现"><a href="#闭散列的代码实现" class="headerlink" title="闭散列的代码实现"></a><strong>闭散列的代码实现</strong></h3><p><strong><font color=red>1.闭散列的结构(KV模型)</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 闭散列
+namespace close_hash
+&#123;
+    &#x2F;*---------------------------------------------------------*&#x2F;
+	&#x2F;&#x2F; 标记哈希表中某个位置的存储状态
+	enum Status
+	&#123;
+		EMPTY,   &#x2F;&#x2F; 此位置空
+		EXIST,   &#x2F;&#x2F; 此位置已有元素
+		DELETE   &#x2F;&#x2F; 此位置元素已被删除
+	&#125;;
+
+    &#x2F;*---------------------------------------------------------*&#x2F;
+	&#x2F;&#x2F; 定义哈希表中元素的结构
+	template&lt;class K, class V&gt;
+	struct HashData
+	&#123;
+		pair&lt;K, V&gt; _kv;         &#x2F;&#x2F; 键值对
+		Status _status &#x3D; EMPTY; &#x2F;&#x2F; 存储状态标记，默认为空
+	&#125;;
+    
+    &#x2F;*---------------------------------------------------------*&#x2F;
+    &#x2F;&#x2F; 仿函数（解决哈希函数采用除留余数法时，将不能取模的类型转换成可以取模的size_t类型）
+    &#x2F;&#x2F; 默认仿函数类
+    template&lt;class K&gt;
+	struct HashFunc
+    &#123;
+        &#x2F;&#x2F; 针对size_t类型和能够隐式类型转换成size_t的类型
+        size_t operator()(const K&amp; key)
+        &#123;
+            return key;
+        &#125;
+    &#125;;
+
+    &#x2F;&#x2F; 特化仿函数
+    template&lt;&gt;
+    struct HashFunc&lt;string&gt;
+    &#123;
+        &#x2F;&#x2F; 把string类型转换成可以取模的size_t类型
+        size_t operator()(const string&amp; key)
+        &#123;
+            size_t hash_key &#x3D; 0;
+            for (size_t i &#x3D; 0; i &lt; key.size(); i++)
+            &#123;
+                hash_key *&#x3D; 131;
+                hash_key +&#x3D; key[i];
+            &#125;
+            return hash_key;
+        &#125;
+    &#125;;
+    
+    &#x2F;*---------------------------------------------------------*&#x2F;
+	&#x2F;&#x2F; 定义哈希表（KV模型）
+	&#x2F;&#x2F; Hash &#x3D; HashFunc&lt;K&gt;：仿函数，给一个默认的仿函数
+	template&lt;class K, class V, class Hash &#x3D; HashFunc&lt;K&gt;&gt;
+	class HashTable
+	&#123;
+	public:
+        &#x2F;*----------------------------------------------------*&#x2F;
+		&#x2F;&#x2F; 构造、拷贝构造、赋值重载、析构都不需要写，调用vector的就行了
+        
+        &#x2F;*----------------------------------------------------*&#x2F;
+        HashData&lt;K, V&gt;* Find(const K&amp; key); &#x2F;&#x2F; 查找元素
+        bool Insert(const pair&lt;K, V&gt;&amp; kv);  &#x2F;&#x2F; 插入元素
+        bool Erase(const K&amp; key);           &#x2F;&#x2F; 删除元素
+		
+	private:
+		vector&lt;HashData&lt;K, V&gt;&gt; _tables; &#x2F;&#x2F; 哈希表
+		size_t _n &#x3D; 0;                  &#x2F;&#x2F; 存储的有效元素个数，默认为0
+		
+        &#x2F;&#x2F; 注意：因为元素不是挨着挨着存的，所以需要一个变量去表示有效元素个数
+	&#125;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p><strong><font color=red>2.闭散列查找元素</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">HashData&lt;K, V&gt;* Find(const K&amp; key)
+&#123;
+    &#x2F;&#x2F; 先检查哈希表是否为空
+    if (_tables.size() &#x3D;&#x3D; 0) &#x2F;&#x2F; 查找失败
+    &#123;
+        return nullptr;
+    &#125;
+
+    &#x2F;&#x2F; 1. 先通过哈希函数计算出要查找元素在哈希表中对应的位置
+    size_t start &#x3D; Hash()(key) % _tables.size();
+    size_t i &#x3D; 0;
+    size_t index &#x3D; start;
+
+    &#x2F;&#x2F; 2. 该位置不为空
+    while (_tables[index]._status !&#x3D; EMPTY)
+    &#123;
+        &#x2F;* 当前位置存储状态为存在，才去判断当前位置是不是要查找的元素
+		* 为什么呢？
+		* 因为我们采用标记的伪删除法来删除一个元素，并没有清除元素的关键码，所以还可以被查找到
+		*&#x2F;
+        if (_tables[index]._status &#x3D;&#x3D; EXIST &amp;&amp; key &#x3D;&#x3D; _tables[index]._kv.first)
+        &#123;
+            return &amp;_tables[index]; &#x2F;&#x2F; 返回该元素的地址
+        &#125;
+
+        &#x2F;&#x2F; 继续往后找
+        i++;
+        index &#x3D; start + i;       &#x2F;&#x2F; 线性探测
+        &#x2F;&#x2F; index &#x3D; start + i * i;   &#x2F;&#x2F; 二次探测
+
+        &#x2F;&#x2F; 如果超出表尾了，又从表头继续开始找
+        index %&#x3D; _tables.size();
+    &#125;
+
+    &#x2F;&#x2F; 3. 该位置为空
+    return nullptr;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p><strong><font color=red>3.闭散列插入元素</font></strong></p>
+<p><strong>闭散列插入元素有一些小细节需要注意：</strong></p>
+<blockquote>
+<ol>
+<li><strong>首先，我们要严格控制闭散列中的元素数量</strong><ul>
+<li><strong>如果元素数量太多，插入元素时很容易发生哈希冲突</strong></li>
+<li><strong>如果元素数量太多，又存在哈希冲突，就会导致插入和查找效率大幅降低</strong></li>
+<li><strong>因为查找元素最坏要查找到空位置时才能停止，所以闭散列是不能存满的，如果存满了，就没有空位置了，当查找的元素又不在闭散列中时，就会陷入死循环</strong></li>
+<li><strong>所以，当闭散列中的元素数量达到一定程度时，就必须要扩容，降低哈希冲突的概率，提高性能</strong></li>
+</ul>
+</li>
+<li><strong>其次，要知道哈希表怎么扩容的</strong><ul>
+<li><strong>首先我们要知道一个概念：负载因子</strong></li>
+<li><strong>散列表的负载因子（load factor）定义为：α &#x3D; 填入表中的元素个数 &#x2F; 散列表的长度</strong></li>
+<li><strong>负载因子是散列表装满程度的标志因子，由于表长是定值，负载因子与“填入表中的元素个数”成正比，所以：</strong><ul>
+<li><strong>负载因子越大，表明填入表中的元素越多，发生哈希冲突的可能性越大，空间浪费少</strong></li>
+<li><strong>负载因子越小，表明填入表中的元素越少，发生哈希冲突的可能性越小，空间浪费多</strong></li>
+</ul>
+</li>
+<li><strong>对于开放定址法（即闭散列），负载因子是特别重要的因素，因严格限制在 0.7 - 0.8 以下，超过 0.8，查表时的 CPU 缓存不命中（cache missing）按照指数曲线上升，因此，一些采用开放定址法的 hash 库，如 Java 的系统库限制了负载因子为 0.75，超过此值将扩容（resize）散列表</strong></li>
+<li><strong>负载因子的作用很简单，相当于是一个扩容机制的阈值。当超过了这个阈值，就会触发扩容机制。HashMap源码已经为我们默认指定了负载因子是0.75</strong></li>
+<li><strong>比如闭散列的容量是10，负载因子是 0.7，10 * 0.7 &#x3D; 7，也就是说，当容量超过 7 的时候就会进行扩容操作</strong></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong>我们求负载因子的时候写法也有点小细节：</strong></p>
+<blockquote>
+<p><strong>如果当前的闭散列容量是10，表中有 n 个元素，如何判断当前闭散列的负载因子是否超过 0.7 了：</strong></p>
+<ol>
+<li><strong>不能直接这样写：<code>if (n / 10 &gt;= 0.7)</code>，两个整数相除等于0，无法判断</strong></li>
+<li><strong>正确写法：强转成double： <code>if ((double)(n / 10) &gt;= 0.7)</code>，同乘10： <code>if (n * 10 / 10 &gt;= 7)</code></strong></li>
+</ol>
+</blockquote>
+<p><strong>最后求出来还有一个数据冗余小细节：</strong></p>
+<blockquote>
+<p><strong>如果有重复元素，将会导致闭散列中不同位置存放着相同的关键码，引起歧义</strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220824056.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220824056.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220824056">
+
+<ol>
+<li><strong>该如何防止数据冗余呢？</strong></li>
+<li><strong>插入前先Find(key) 查找一下，判断待插入元素是否已存在表中，如果存在，就不要插入了</strong></li>
+</ol>
+</blockquote>
+<p><strong><font color=red>闭散列的插入操作 代码与测试：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool Insert(const pair&lt;K, V&gt;&amp; kv)
+&#123;
+    &#x2F;&#x2F; 防止数据冗余
+    if (Find(kv.first) !&#x3D; nullptr)
+    &#123;
+        return false; &#x2F;&#x2F; 若待插入元素的关键码已存在表中，则插入失败
+    &#125;
+
+    &#x2F;&#x2F; 1. 先检查哈希表是否需要扩容：表为空或表的负载因子&gt;&#x3D;0.7
+    if (_tables.size() &#x3D;&#x3D; 0 || _n * 10 &#x2F; _tables.size() &gt;&#x3D; 7) &#x2F;&#x2F; 注意
+    &#123;
+        &#x2F;&#x2F; 计算新容量（按2倍扩容）
+        size_t new_size &#x3D; _tables.size() &#x3D;&#x3D; 0 ? 10 : _tables.size() * 2;
+
+        &#x2F;* 开始扩容 *&#x2F;
+
+        &#x2F;&#x2F; 定义一个新的哈希表（局部变量）
+        HashTable&lt;K, V, Hash&gt; new_hash_table;
+        new_hash_table._tables.resize(new_size); &#x2F;&#x2F; 更改新表容量
+
+        &#x2F;&#x2F; 遍历旧表中的所有元素，重新计算它在新表中的位置，一一插入到新表中
+        for (size_t i &#x3D; 0; i &lt; _tables.size(); i++)
+        &#123;
+            if (_tables[i]._status &#x3D;&#x3D; EXIST) &#x2F;&#x2F; EXIST: 此位置已有元素
+            &#123;
+                new_hash_table.Insert(_tables[i]._kv); &#x2F;&#x2F; 递归调用Insert，复用代码
+            &#125;
+        &#125;
+
+        &#x2F;&#x2F; 交换新表和旧表的内容（即交换新旧表vector的内容）
+        _tables.swap(new_hash_table._tables);
+    &#125;
+
+    &#x2F;* 2. 再通过哈希函数计算出待插入元素在哈希表中的位置
+	* 注意：
+	* 这里要模size()，不能模capacity()，因为vector中能存放元素的个数为size()
+	*&#x2F;
+    size_t start &#x3D; Hash()(kv.first) % _tables.size();
+    size_t i &#x3D; 0;
+    size_t index &#x3D; start;
+
+    &#x2F;&#x2F; 3. 该位置有元素，说明发生了哈希冲突，则使用线性检测找到下一个空位置
+    while (_tables[index]._status &#x3D;&#x3D; EXIST) &#x2F;&#x2F; EXIST: 此位置已有元素
+    &#123;
+        &#x2F;&#x2F; 往后找
+        i++;
+        index &#x3D; start + i;       &#x2F;&#x2F; 线性探测
+        &#x2F;&#x2F; index &#x3D; start + i * i;   &#x2F;&#x2F; 二次探测
+
+        &#x2F;&#x2F; 如果超出表尾了，又从表头继续开始找
+        index %&#x3D; _tables.size();
+    &#125;
+
+    &#x2F;&#x2F; 4. 该位置没有元素则直接插入
+    _tables[index]._kv &#x3D; kv;
+    _tables[index]._status &#x3D; EXIST; &#x2F;&#x2F; 标记该位置的存储状态：存在
+    _n++;                           &#x2F;&#x2F; 有效元素个数+1
+
+    &#x2F;&#x2F; 5. 插入成功，返回true
+    return true;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220831054.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220831054.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220831054">
+
+<hr>
+<p><strong><font color=red>4.闭散列的删除操作</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 删除元素
+bool Erase(const K&amp; key)
+&#123;
+    &#x2F;&#x2F; 先查找一下，判断该元素是否在表中
+    HashData&lt;K, V&gt;* ret &#x3D; Find(key);
+
+    &#x2F;&#x2F; 待删除元素的关键码不在表中
+    if(ret &#x3D;&#x3D; nullptr)
+    &#123;
+        return false; &#x2F;&#x2F; 删除失败
+    &#125;
+
+    &#x2F;&#x2F; 待删除元素的关键码在表中
+    ret-&gt;_status &#x3D; DELETE; &#x2F;&#x2F; 伪删除，标记该位置存储状态为：删除
+    _n--;                  &#x2F;&#x2F; 有效元素个数-1
+    
+    &#x2F;&#x2F; 删除成功返回true
+    return true;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="闭散列的效率问题"><a href="#闭散列的效率问题" class="headerlink" title="闭散列的效率问题"></a><strong>闭散列的效率问题</strong></h3><p><strong>最好的情况时：时间复杂度为O(1)</strong></p>
+<p><strong>最坏的情况时：需要遍历整个数组从而退化为O(n)，平均时间复杂度为O(1)</strong></p>
+<hr>
+<h2 id="解决哈希冲突：开散列"><a href="#解决哈希冲突：开散列" class="headerlink" title="解决哈希冲突：开散列"></a><strong>解决哈希冲突：开散列</strong></h2><h3 id="开散列的概念了解"><a href="#开散列的概念了解" class="headerlink" title="开散列的概念了解"></a><strong>开散列的概念了解</strong></h3><blockquote>
+<ol>
+<li><strong>开散列法又叫哈希桶、链地址法，首先对关键码集合用散列函数计算散列地址，发生哈希冲突的具有相同地址的关键码归于同一子集合，每一个子集合称为一个桶，各个桶中的元素通过一个单链表链接起来，各链表的头结点地址存储在哈希表中</strong></li>
+<li><strong>我们获取数据的时候只需要Hash运算后拿到下标，然后拿到链表比对是否为获取的数据即可，可能眨眼一看好像复杂度和开放寻址法也差不多</strong></li>
+<li><strong>其实不然，首先Hash冲突并不是每次都会发生，其次因为会不断的进行动态扩容所以碰撞几率会减少，所以冲突的链表并不会像开放寻址法的数组那样长</strong></li>
+<li><strong>开散列中每个桶中放的都是发生哈希冲突的元素</strong></li>
+</ol>
+</blockquote>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220837540.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220837540.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220837540">
+
+<hr>
+<h3 id="开散列的代码实现"><a href="#开散列的代码实现" class="headerlink" title="开散列的代码实现"></a><strong>开散列的代码实现</strong></h3><p><strong><font color=red>1.开散列的结构(KV模型)</font></strong></p>
+<blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;因为哈希函数采用的是除留余数法，被模的 key 必须要为整型才可以处理，导致开散列只能存储 key 为整型的元素，其他类型怎么解决？
+&#x2F;&#x2F;解决方法：如果 key 是 string 类型或其它自定义类型，通过传对应仿函数，将不能取模的类型转换成可以取模的 size_t 类型
+namespace hash_bucket
+&#123;
+    &#x2F;*--------------------------------------------------------------*&#x2F;
+	&#x2F;&#x2F; 定义哈希表节点结构（KV模型）
+	template&lt;class K, class V&gt;
+	struct HashNode
+	&#123;
+		pair&lt;K, V&gt; _kv;        &#x2F;&#x2F; 数据域：键值对
+		HashNode&lt;K, V&gt;* _next; &#x2F;&#x2F; 后继指针
+
+		&#x2F;&#x2F; 构造函数
+		HashNode(const pair&lt;K, V&gt;&amp; kv)
+			: _kv(kv)
+			, _next(nullptr)
+		&#123;&#125;
+	&#125;;
+
+    &#x2F;*---------------------------------------------------------*&#x2F;
+    &#x2F;&#x2F; 仿函数（解决哈希函数采用除留余数法时，将不能取模的类型转换成可以取模的size_t类型）
+    &#x2F;&#x2F; 默认仿函数类
+    template&lt;class K&gt;
+	struct HashFunc
+    &#123;
+        &#x2F;&#x2F; 针对size_t类型和能够隐式类型转换成size_t的类型
+        size_t operator()(const K&amp; key)
+        &#123;
+            return key;
+        &#125;
+    &#125;;
+
+    &#x2F;&#x2F; 特化仿函数
+    template&lt;&gt;
+    struct HashFunc&lt;string&gt;
+    &#123;
+        &#x2F;&#x2F; 把string类型转换成可以取模的size_t类型
+        size_t operator()(const string&amp; key)
+        &#123;
+            size_t hash_key &#x3D; 0;
+            for (size_t i &#x3D; 0; i &lt; key.size(); i++)
+            &#123;
+                hash_key *&#x3D; 131;
+                hash_key +&#x3D; key[i];
+            &#125;
+            return hash_key;
+        &#125;
+    &#125;;
+    
+    &#x2F;*--------------------------------------------------------------*&#x2F;
+	&#x2F;&#x2F; 定义哈希表结构（KV模型）
+	&#x2F;&#x2F; Hash &#x3D; HashFunc&lt;K&gt;：仿函数，给一个默认的仿函数
+	template&lt;class K, class V, class Hash &#x3D; HashFunc&lt;K&gt;&gt;
+	&#123;
+		typedef HashNode&lt;K, V&gt; Node;
+	private:
+		vector&lt;Node*&gt; _tables; &#x2F;&#x2F; 哈希表存储各链表的头结点地址
+		size_t _n &#x3D; 0;         &#x2F;&#x2F; 哈希表中有效节点的个数，缺省为0
+
+	public:
+		&#x2F;*----------------------------------------------------*&#x2F;
+		&#x2F;&#x2F; 构造、拷贝构造、赋值重载需要自己写，因为这里是哈希桶结构
+        &#x2F;&#x2F; ...
+        &#x2F;&#x2F; 析构函数
+		~HashTable()
+		&#123;
+			&#x2F;&#x2F; 遍历哈希表，找到不为空的哈希桶
+			for (size_t i &#x3D; 0; i &lt; _tables.size(); i++)
+			&#123;
+				Node* cur &#x3D; _tables[i];
+				while (cur) &#x2F;&#x2F; 哈希桶不为空，释放哈希桶中的所有节点
+				&#123;
+					Node* next &#x3D; cur-&gt;_next; &#x2F;&#x2F; 记录cur指向节点的下一个节点
+					delete cur; &#x2F;&#x2F; 释放节点
+					cur &#x3D; next; &#x2F;&#x2F; 继续去释放下一个节点
+				&#125;
+				_tables[i] &#x3D; nullptr;
+			&#125;
+			_n &#x3D; 0;
+		&#125;
+
+		&#x2F;*----------------------------------------------------*&#x2F;
+        Node* Find(const K&amp; key);          &#x2F;&#x2F; 查找节点
+        bool Insert(const pair&lt;K, V&gt;&amp; kv); &#x2F;&#x2F; 插入节点
+        bool Erase(const K&amp; key);          &#x2F;&#x2F; 删除节点
+    &#125;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<hr>
+<p><strong><font color=red>2.开散列查找结点操作</font></strong></p>
+<p><strong>开散列的搜索效率由桶的长度决定，桶的长度短，效率就高</strong></p>
+<blockquote>
+<p><strong>查找节点思路：</strong></p>
+<ul>
+<li><strong>先检查哈希表是否为空，若为空，直接返回nullptr</strong></li>
+<li><strong>通过哈希函数计算出该元素映射的哈希桶的位置，然后遍历该哈希桶，查找节点，若找到，返回节点地址；若没找到，返回空</strong></li>
+</ul>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">Node* Find(const K&amp; key)
+&#123;
+    &#x2F;&#x2F; 1. 先检查哈希表是否为空
+    if (_tables.size() &#x3D;&#x3D; 0)
+    &#123;
+        return nullptr;
+    &#125;
+
+    &#x2F;&#x2F; 2. 再通过哈希函数计算出该元素所映射的位置（即映射的哈希桶位置）
+    size_t index &#x3D; Hash()(key) % _tables.size();
+
+    &#x2F;&#x2F; 3. 遍历该哈希桶，查找节点
+    Node* cur &#x3D; _tables[index]; &#x2F;&#x2F; cur指向该哈希桶
+    while (cur)                 &#x2F;&#x2F; 遍历该哈希桶的所有节点
+    &#123;
+        if (key &#x3D;&#x3D; cur-&gt;_kv.first)
+        &#123;
+            return cur; &#x2F;&#x2F; 找到了，返回节点地址
+        &#125;
+
+        &#x2F;&#x2F; 继续往后遍历
+        cur &#x3D; cur-&gt;_next;
+    &#125;
+
+    &#x2F;&#x2F; 4. 没找到，返回空
+    return nullptr;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p><strong><font color=red>3.开散列插入结点操作</font></strong></p>
+<p><strong>开散列的插入操作，我们需要先知道开散列的负载因子和扩容概念</strong></p>
+<blockquote>
+<ol>
+<li>负载因子<ul>
+<li>负载因子（load factor）定义为：α &#x3D; 填入表中的元素个数 &#x2F; 散列表的长度</li>
+<li>哈希桶一般是把负载因子控制在 1 以内（平均每个位置下面挂了一个节点），等于 1 就要扩容了</li>
+</ul>
+</li>
+<li>开散列扩容<ul>
+<li>桶的个数是一定的，随着元素的不断插入，每个桶中元素的个数不断增多，极端情况下，可能会导致一个桶中链表节点非常多，会影响的哈希表的性能，因此在一定条件下需要对哈希表进行增容，那该条件怎么确认呢？开散列最好的情况是：每个哈希桶中刚好挂一个节点，再继续插入元素时，每一次都会发生哈希冲突，因此，当元素个数刚好等于桶的个数时，可以给哈希表增容</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong><font color=red>插入节点思路：</font></strong></p>
+<blockquote>
+<ol>
+<li><p><strong>先检查哈希表是否需要扩容：表为空或者负载因子为1</strong></p>
+<ul>
+<li><strong>扩容时，需要把旧表的所有节点转移到新表中，然后再交换新表和旧表</strong></li>
+</ul>
+</li>
+<li><p><strong>再通过哈希函数计算出待插入节点映射的哈希桶的位置</strong></p>
+</li>
+<li><p><strong>检查该哈希桶中是否存在该节点：</strong></p>
+<ul>
+<li><strong>若不存在，则进行头插</strong></li>
+<li><strong>若存在，不允许数据冗余，插入失败</strong></li>
+</ul>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220843865.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220843865.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220843865"></li>
+</ol>
+</blockquote>
+<p><strong><font color=red>扩容操作思路：</font></strong></p>
+<blockquote>
+<ol>
+<li><p><strong>扩容前：遍历旧表所有节点，准备转移到新表</strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220848706.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220848706.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220848706">
+</li>
+<li><p><strong>扩容后：是把旧表的节点转移到新表中，而不是 new 新的节点插入到新表中，转移结束后，旧表为空</strong></p>
+</li>
+</ol>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220854420.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220854420.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220854420">
+</blockquote>
+<p><strong><font color=red>开散列从插入操作代码实现：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool Insert(const pair&lt;K, V&gt;&amp; kv)
+&#123;
+    &#x2F;&#x2F; 1. 先检查哈希表是否需要扩容：表为空或者负载因子超过1
+    if (_n &#x3D;&#x3D; _tables.size())
+    &#123;
+        &#x2F;&#x2F; 计算新容量（按2倍扩）
+        size_t newSize &#x3D; _tables.size() &#x3D;&#x3D; 0 ? 10 : _tables.size() * 2;
+        &#x2F;&#x2F; 计算新容量（素数大小，按近似2倍扩）
+        &#x2F;&#x2F; size_t newSize &#x3D; GetNextPrime(_tables.size());
+
+        &#x2F;* 开始扩容 *&#x2F; 
+
+        &#x2F;&#x2F; 创建一个新表（局部变量）
+        vector&lt;Node*&gt; newTables;
+        newTables.resize(newSize);
+
+        &#x2F;* 遍历完旧表中的所有节点，重新计算它在新表中的位置，转移到新表中
+		* 注意：
+		* 这里是把旧表的节点转移到新表中，而不是构造新的节点插入到新表中
+		*&#x2F;
+        for (size_t i &#x3D; 0; i &lt; _tables.size(); i++)
+        &#123;
+            Node* cur &#x3D; _tables[i]; &#x2F;&#x2F; cur当前指向的哈希桶
+
+            &#x2F;&#x2F; 哈希桶不为空，开始转移哈希桶中的节点
+            while (cur !&#x3D; nullptr)
+            &#123;
+                &#x2F;&#x2F; 保存cur指向节点的下一个节点
+                Node* next &#x3D; cur-&gt;_next;
+
+                &#x2F;&#x2F; 重新计算cur指向的旧表节点，映射到新表中的位置
+                size_t index &#x3D; Hash()(cur-&gt;_kv.first) % newSize;
+
+                &#x2F;&#x2F; 把cur指向的旧表节点，转移到新表中
+                cur-&gt;_next &#x3D; newTables[index];
+                newTables[index] &#x3D; cur;
+
+                &#x2F;&#x2F; 继续转移下一个旧表节点
+                cur &#x3D; next;
+            &#125;
+
+            &#x2F;&#x2F; 节点转移完毕，把当前哈希桶置空
+            _tables[i] &#x3D; nullptr;
+        &#125;
+
+        &#x2F;&#x2F; 旧表所有节点全部转移到新表中了，交换新表与旧表
+        _tables.swap(newTables);
+    &#125;
+
+    &#x2F;&#x2F; 2. 再通过哈希函数计算出待插入元素映射的哈希桶的位置
+    size_t index &#x3D; Hash()(kv.first) % _tables.size();
+
+    &#x2F;&#x2F; 3. 插入节点到该位置的哈希桶中
+
+    &#x2F;&#x2F; 3.1 先检查哈希桶中是否存在重复节点（因为不允许数据冗余）
+    Node* cur &#x3D; _tables[index]; &#x2F;&#x2F; cur指向哈希桶的第一个节点
+    while (cur)                 
+    &#123;
+        if (kv.first &#x3D;&#x3D; cur-&gt;_kv.first)
+        &#123;
+            return false; &#x2F;&#x2F; 存在重复节点，插入失败
+        &#125;
+
+        cur &#x3D; cur-&gt;_next;
+    &#125;
+
+    &#x2F;&#x2F; 3.2 开始头插
+    Node* newNode &#x3D; new Node(kv);    &#x2F;&#x2F; 申请新节点
+    newNode-&gt;_next &#x3D; _tables[index]; &#x2F;&#x2F; 头插
+    _tables[index] &#x3D; newNode;
+    _n++;                            &#x2F;&#x2F; 有效节点个数+1
+
+    &#x2F;&#x2F; 3.3 插入成功
+    return true;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong>关于扩容的思考：有人建议哈希表的大小是一个素数，除留余数法，也最好模一个素数（SGI STL里面的哈希表是使用的这个），如何每次快速取一个类似两倍关系的素数？</strong></p>
+<p><strong>哈希表每次扩容时，调用 GetNextPrime(_tables.size()) 获取下一个素数，既保证了表的大小是一个素数，而且还达到了近似2倍的扩容，还保证了计算哈希位置时是模一个素数</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 素数表，放了经过筛选的28个素数
+const int PRIMECOUNT &#x3D; 28;
+const size_t primeList[PRIMECOUNT] &#x3D;
+&#123;
+    53ul,         97ul,         193ul,       389ul,       769ul,
+    1543ul,       3079ul,       6151ul,      12289ul,     24593ul,
+    49157ul,      98317ul,      196613ul,    393241ul,    786433ul,
+    1572869ul,    3145739ul,    6291469ul,   12582917ul,  25165843ul,
+    50331653ul,   100663319ul,  201326611ul, 402653189ul, 805306457ul,
+    1610612741ul, 3221225473ul, 4294967291ul
+    &#x2F;&#x2F; ul: unsigned long
+&#125;;
+
+&#x2F;&#x2F; 获取下一个素数，下一个素数是上一个素数的类似两倍
+size_t GetNextPrime(size_t prime)
+&#123;
+    size_t i &#x3D; 0;
+    for (; i &lt; PRIMECOUNT; ++i)
+    &#123;
+        if (primeList[i] &gt; prime)
+            return primeList[i];
+    &#125;
+    return primeList[i];
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<p><strong><font color=red>4.开散列的删除操作</font></strong></p>
+<p><strong>删除节点思路：</strong></p>
+<blockquote>
+<ol>
+<li><p><strong>先判断哈希表是否为空，若为空，则删除失败</strong></p>
+</li>
+<li><p><strong>再通过哈希函数计算出待删除节点对应的哈希桶的位置</strong></p>
+</li>
+<li><p><strong>遍历该哈希桶，查找待删除节点和它的前驱节点</strong></p>
+<ul>
+<li><strong>若找到，判断是头节点还是非头节点，好确定删除方式</strong></li>
+<li><strong>若没找到，则删除失败</strong></li>
+</ul>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220901430.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220901430.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220901430"></li>
+</ol>
+</blockquote>
+<p><strong>删除节点代码实现：</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 删除节点
+bool Erase(const K&amp; key)
+&#123;
+    &#x2F;&#x2F; 1. 先判断哈希表是否为空
+    if (_tables.size() &#x3D;&#x3D; 0)
+    &#123;
+        return false; &#x2F;&#x2F; 表为空，删除失败
+    &#125;
+
+    &#x2F;&#x2F; 2. 通过哈希函数计算出待删除节点所映射哈希桶的位置
+    size_t index &#x3D; Hash()(key) % _tables.size();
+
+    &#x2F;&#x2F; 3. 遍历该哈希桶，查找待删除节点，以及它的前驱节点
+    Node* cur &#x3D; _tables[index];
+    Node* prev &#x3D; nullptr;
+    while (cur)
+    &#123;
+        if (key &#x3D;&#x3D; cur-&gt;_kv.first) &#x2F;&#x2F; 找到该节点了
+        &#123;
+            if (cur &#x3D;&#x3D; _tables[index]) &#x2F;&#x2F; cur是头节点，进行头删
+            &#123;
+                _tables[index] &#x3D; cur-&gt;_next;
+            &#125;
+            else &#x2F;&#x2F; cur不是头节点
+            &#123;
+                prev-&gt;_next &#x3D; cur-&gt;_next;
+            &#125;
+
+            delete cur;    &#x2F;&#x2F; 删除节点
+            cur &#x3D; nullptr;
+            _n--;          &#x2F;&#x2F; 有效节点个数-1
+
+            return true;   &#x2F;&#x2F; 删除成功，返回true
+        &#125;
+
+        &#x2F;&#x2F; 继续往后遍历
+        prev &#x3D; cur;
+        cur &#x3D; cur-&gt;_next;
+    &#125;
+
+    &#x2F;&#x2F; 没有找到该节点，返回false
+    return false;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="开散列的思考"><a href="#开散列的思考" class="headerlink" title="开散列的思考"></a><strong>开散列的思考</strong></h3><p><strong>哈希桶一般是把负载因子控制在 1 以内（平均每个位置下面挂了一个节点），等于 1 就要扩容了，如果出现极端情况，所有节点都挂在了哈希表中的一个桶下面，导致链表越来越长，这将会极大影响查找节点和删除节点的效率，插入节点的效率倒不影响，因为是头插</strong></p>
+<blockquote>
+<p><strong>那么如何解决呢？</strong></p>
+<p><strong>解决：当链表长度达到一定长度的时候，就会把链表转化为红黑树</strong></p>
+<p><strong>但 C++ 库里面暂时没有这样做，Java 的 HashMap 使用的是这种方案，原因就是因为红黑树查询的时间复杂度是比链表要快的（JDK 中每个桶默认超过 8 个就会转成红黑树）</strong></p>
+<img src="/2022/11/11/1.ha-xi-biao/image-20230623220908975.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.ha-xi-biao/image-20230623220908975.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220908975">
+</blockquote>
+<hr>
+<h3 id="开散列的效率问题"><a href="#开散列的效率问题" class="headerlink" title="开散列的效率问题"></a><strong>开散列的效率问题</strong></h3><p><strong>开散列每次扩容2倍，或者一个素数的大小，都是为了减少Hash冲突，而减少Hash冲突的原因就是让时间复杂度降低到 O(1)，因为一旦Hash冲突，时间复杂度可能就不在是 O(1)</strong></p>
+<hr>
+<h2 id="闭散列与开散列的比较"><a href="#闭散列与开散列的比较" class="headerlink" title="闭散列与开散列的比较"></a><strong>闭散列与开散列的比较</strong></h2><blockquote>
+<ol>
+<li><strong>应用链地址法处理溢出，需要增设链接指针，似乎增加了存储开销</strong></li>
+<li><strong>事实上： 由于开地址法必须保持大量的空闲空间以确保搜索效率，如二次探测法要求负载因子 a &lt;&#x3D; 0.7，而表项所占空间又比指针大的多，所以使用<mark>链地址法(开散列)</mark>反而比<mark>开地址法(闭散列)</mark>节省存储空间</strong></li>
+</ol>
+</blockquote>
+<hr>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8C%E9%AB%98%E9%98%B6/" class="">
+              数据结构，高阶
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2022/11/11/1.ha-xi-biao/" target="_blank" title="哈希表">https://Not-Go.github.io/2022/11/11/1.ha-xi-biao/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic2.zhimg.com/80/v2-63bbdb5b76b8d349ad35ff4281efbd37_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-63bbdb5b76b8d349ad35ff4281efbd37_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2022/11/11/1.te-hua-ping-heng-er-cha-shu-sou-suo-shu-hong-hei-shu/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">特化平衡二叉搜索树(红黑树)</div>
+      </div>
+      
+      <!-- <div class="content">
+        特化平衡二叉树搜索树(红黑树)红黑树概念红黑树，是一种特化的平衡二叉搜索树，但在每个结点上增加一个存储位表示结点的颜色，
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic2.zhimg.com/80/v2-63bbdb5b76b8d349ad35ff4281efbd37_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-63bbdb5b76b8d349ad35ff4281efbd37_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2022/11/10/1.shi-jian-fu-za-du-yu-kong-jian-fu-za-du/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">时间复杂度与空间复杂度</div>
+      </div>
+      <!-- <div class="content">
+        时间复杂度与空间复杂度数据结构与算法的概念理解
+数据结构的基本概念认知：
+
+数据：描述客观事实的符号，是计算机中可以操作
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">哈希表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%E4%B8%8E%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">关联式容器与序列式容器的了解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unordered%E7%B3%BB%E5%88%97%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%E6%A6%82%E5%BF%B5"><span class="toc-text">unordered系列关联式容器概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unordered%E7%B3%BB%E5%88%97%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="toc-text">unordered系列关联容器底层结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E7%9A%84%E6%A6%82%E5%BF%B5%E4%BA%86%E8%A7%A3"><span class="toc-text">哈希的概念了解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">哈希函数的了解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">哈希冲突的了解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%EF%BC%9A%E9%97%AD%E6%95%A3%E5%88%97"><span class="toc-text">解决哈希冲突：闭散列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E6%95%A3%E5%88%97%E7%9A%84%E6%A6%82%E5%BF%B5%E4%BA%86%E8%A7%A3"><span class="toc-text">闭散列的概念了解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E6%95%A3%E5%88%97%E6%8E%A2%E6%B5%8B%E7%A9%BA%E4%BD%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-text">闭散列探测空位置方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E6%95%A3%E5%88%97%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%9D%E8%80%83"><span class="toc-text">闭散列的实现原理与思考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E6%95%A3%E5%88%97%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">闭散列的代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E6%95%A3%E5%88%97%E7%9A%84%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="toc-text">闭散列的效率问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%EF%BC%9A%E5%BC%80%E6%95%A3%E5%88%97"><span class="toc-text">解决哈希冲突：开散列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%95%A3%E5%88%97%E7%9A%84%E6%A6%82%E5%BF%B5%E4%BA%86%E8%A7%A3"><span class="toc-text">开散列的概念了解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%95%A3%E5%88%97%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">开散列的代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%95%A3%E5%88%97%E7%9A%84%E6%80%9D%E8%80%83"><span class="toc-text">开散列的思考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%95%A3%E5%88%97%E7%9A%84%E6%95%88%E7%8E%87%E9%97%AE%E9%A2%98"><span class="toc-text">开散列的效率问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E6%95%A3%E5%88%97%E4%B8%8E%E5%BC%80%E6%95%A3%E5%88%97%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">闭散列与开散列的比较</span></a></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

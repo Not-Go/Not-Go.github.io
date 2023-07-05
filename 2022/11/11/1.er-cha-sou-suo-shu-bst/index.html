@@ -1,0 +1,3597 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>二叉搜索树(BST树) | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pica.zhimg.com/80/v2-61f99f8dcf899f54cad2a1aa28b21e44_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        二叉搜索树(BST树)
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2022-11-11 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E9%AB%98%E9%98%B6%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="post-detail-header_category">
+              高阶数据结构
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 5.8k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 24分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="二叉搜索树-BST树"><a href="#二叉搜索树-BST树" class="headerlink" title="二叉搜索树(BST树)"></a><strong>二叉搜索树(BST树)</strong></h1><h2 id="二叉搜索树的概念"><a href="#二叉搜索树的概念" class="headerlink" title="二叉搜索树的概念"></a><strong>二叉搜索树的概念</strong></h2><p><strong><font color=red>二叉搜索树(BST)也叫二叉排序树，它是一颗空树或者具有以下特征的二叉树：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>若它的左子树不为空，则左子树上所有节点的值都 小于「根节点的值」</mark></strong></li>
+<li><strong><mark>若它的右子树不为空，则右子树上所有节点的值都 大于「根节点的值」</mark></strong></li>
+<li><strong><mark>它的所有子树也都是二叉搜索树</mark></strong></li>
+</ul>
+<p><strong><mark>简言之：左子树比根节点小，右子树比根节点大</mark></strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220224309.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220224309.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220224309">
+</blockquote>
+<hr>
+<h2 id="二叉搜索树的结构定义"><a href="#二叉搜索树的结构定义" class="headerlink" title="二叉搜索树的结构定义"></a><strong>二叉搜索树的结构定义</strong></h2><h3 id="二叉搜索树结点模板的定义"><a href="#二叉搜索树结点模板的定义" class="headerlink" title="二叉搜索树结点模板的定义"></a><strong>二叉搜索树结点模板的定义</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+&#x2F;&#x2F; 定义二叉搜索树节点
+template&lt;class K&gt;
+struct BinarySearchTreeNode
+&#123;
+	K _key;
+	BinarySearchTreeNode&lt;K&gt;* _left;
+	BinarySearchTreeNode&lt;K&gt;* _right;
+
+	&#x2F;&#x2F; 构造函数
+	BinarySearchTreeNode(const K&amp; key)
+		:_key(key)
+		,_left(nullptr)
+		,_right(nullptr)
+	&#123;&#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="二叉搜索树类模板的定义"><a href="#二叉搜索树类模板的定义" class="headerlink" title="二叉搜索树类模板的定义"></a><strong>二叉搜索树类模板的定义</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 定义二叉搜索树
+template&lt;class K&gt;
+class BinarySearchTree
+&#123;
+	typedef BinarySearchTreeNode&lt;K&gt; Node; &#x2F;&#x2F; 重命名树节点类名
+private:
+	Node* _root &#x3D; nullptr; &#x2F;&#x2F; 根节点
+
+public:
+	&#x2F;&#x2F; 构造函数
+	BinarySearchTree();
+    &#x2F;&#x2F; 拷贝构造函数
+	BinarySearchTree(const BinarySearchTree&lt;K&gt;&amp; tree); &#x2F;&#x2F; 引用
+    &#x2F;&#x2F; 赋值运算符重载函数
+	BinarySearchTree&lt;K&gt;&amp; operator&#x3D;(BinarySearchTree&lt;K&gt; tree); &#x2F;&#x2F; 传值
+    &#x2F;&#x2F; 析构函数
+    ~BinarySearchTree();
+    
+	&#x2F;&#x2F; 插入元素key
+	bool Insert(const K&amp; key); &#x2F;&#x2F; 常引用：减少传参时的拷贝，保护形参不会被更改
+	&#x2F;&#x2F; 查找元素key，查找到了返回节点地址，否则返回nullptr
+    Node* Find(const K&amp; key);
+    &#x2F;&#x2F; 删除元素key
+    bool Erase(const K&amp; key);
+    
+    &#x2F;&#x2F; 插入元素key（递归版本）
+    bool InsertR(const K&amp; key);
+    &#x2F;&#x2F; 查找元素key（递归版本）
+	Node* FindR(const K&amp; key);
+    &#x2F;&#x2F; 删除元素key（递归版本）
+	bool EraseR(const K&amp; key);
+    
+	&#x2F;&#x2F; 中序遍历
+	void InOrder();
+
+private:
+    &#x2F;&#x2F; 拷贝构造子函数
+	Node* _Copy(Node* _root);
+    &#x2F;&#x2F; 析构子函数
+	void _Destroy(Node* root);
+    
+    &#x2F;&#x2F; 插入元素key子函数（递归版本）
+	bool _InsertR(Node*&amp; root, const K&amp; key); &#x2F;&#x2F; 形参为引用，这里很妙
+    &#x2F;&#x2F; 查找元素key子函数（递归版本）
+	Node* _FindR(Node* root, const K&amp; key);
+    &#x2F;&#x2F; 删除元素key子函数（递归版本）
+	bool _EraseR(Node*&amp; root, const K&amp; key); &#x2F;&#x2F; 形参为引用，这里很妙
+    
+	&#x2F;&#x2F; 中序遍历子函数
+	void _InOrder(Node* _root);
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="二叉搜索树的效率"><a href="#二叉搜索树的效率" class="headerlink" title="二叉搜索树的效率"></a><strong>二叉搜索树的效率</strong></h2><blockquote>
+<ol>
+<li><strong>对有n个结点的二叉搜索树，若每个元素查找的概率相等，则二叉搜索树平均查找长度是与树的深度有关，即树越深，则比较次数越多</strong></li>
+<li><strong>但对于同一个关键码集合，如果各关键码插入的顺序不同，可能得到不同结构的二叉搜索树</strong></li>
+<li>比如：</li>
+</ol>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220232369.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220232369.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220232369">
+
+<p><strong>虽然二叉搜索树的查找是很快的，但是它很依赖于树的形状，比如：</strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220237340.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220237340.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220237340">
+
+<p><strong>因此：</strong></p>
+<ol>
+<li><strong>最优情况下：有 n 个结点的二叉搜索树为完全二叉树，其平均比较次数为：O(log2N)</strong></li>
+<li><strong>最坏情况下：有 n 个结点的二叉搜索树退化为单支树，其平均比较次数为：O(N)</strong></li>
+<li><strong>如果退化成单支树，二叉搜索树的性能就失去了，就得用平衡二叉搜索树(AVL)来处理</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="二叉搜索树的默认成员函数实现"><a href="#二叉搜索树的默认成员函数实现" class="headerlink" title="二叉搜索树的默认成员函数实现"></a><strong>二叉搜索树的默认成员函数实现</strong></h2><h3 id="BST的构造函数实现"><a href="#BST的构造函数实现" class="headerlink" title="BST的构造函数实现"></a><strong>BST的构造函数实现</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;BST构造函数
+public:
+	&#x2F;&#x2F; 构造函数
+	BinarySearchTree()
+		:_root(nullptr)
+	&#123;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="BST的拷贝构造函数实现"><a href="#BST的拷贝构造函数实现" class="headerlink" title="BST的拷贝构造函数实现"></a><strong>BST的拷贝构造函数实现</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
+	&#x2F;&#x2F; 拷贝构造函数
+	BinarySearchTree(const BinarySearchTree&lt;K&gt;&amp; tree)
+	&#123;
+		&#x2F;&#x2F; 深拷贝，用已存在的树tree去拷贝一个新树，然后返回新树的根
+		_root &#x3D; _Copy(tree._root);
+	&#125;
+
+private:
+	&#x2F;&#x2F; 拷贝构造子函数
+	Node* _Copy(Node* _root)
+	&#123;
+		&#x2F;&#x2F; 树为空
+		if (_root &#x3D;&#x3D; nullptr)
+		&#123;
+			return nullptr;
+		&#125;
+
+		&#x2F;&#x2F; 树不为空，开始递归拷贝构建新的树，按照根-左-右的顺序拷贝构造
+		Node* newRoot &#x3D; new Node(_root-&gt;_key);
+		newRoot-&gt;_left &#x3D; _Copy(_root-&gt;_left);
+		newRoot-&gt;_right &#x3D; _Copy(_root-&gt;_right);
+		
+		&#x2F;&#x2F; 返回当前拷贝的新树
+		return newRoot;
+	&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="BST的赋值运算符重载函数实现"><a href="#BST的赋值运算符重载函数实现" class="headerlink" title="BST的赋值运算符重载函数实现"></a><strong>BST的赋值运算符重载函数实现</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
+	&#x2F;&#x2F; 赋值运算符重载函数
+	BinarySearchTree&lt;K&gt;&amp; operator&#x3D;(BinarySearchTree&lt;K&gt; tree) &#x2F;&#x2F; 传值
+	&#123;
+		&#x2F;&#x2F; 现代写法
+		&#x2F;&#x2F; 比如 t1 &#x3D; t2，tree是t2的深拷贝，tree就是t1想要的
+		&#x2F;&#x2F; 所以t1和tree换个头（根节点地址），但不换身体（整颗树）,t1就指向了tree整棵树，然后返回去
+		std::swap(_root, tree._root);
+		return *this;
+	&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="BST的析构函数实现"><a href="#BST的析构函数实现" class="headerlink" title="BST的析构函数实现"></a><strong>BST的析构函数实现</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">public:
+	&#x2F;&#x2F; 析构函数
+	~BinarySearchTree()
+	&#123;
+		_Destroy(_root);
+	&#125;
+
+private:
+	&#x2F;&#x2F; 析构子函数
+	void _Destroy(Node* root)
+	&#123;
+		&#x2F;&#x2F; 根节点不为空
+		if (root)
+		&#123;
+			&#x2F;&#x2F; 建议使用后序遍历，左-右-根
+			_Destroy(root-&gt;_left);
+			_Destroy(root-&gt;_right);
+			delete root;
+			root &#x3D; nullptr;
+		&#125;
+	&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="二叉搜索树API实现"><a href="#二叉搜索树API实现" class="headerlink" title="二叉搜索树API实现"></a><strong>二叉搜索树API实现</strong></h2><p><strong>BST的常用接口有：</strong></p>
+<blockquote>
+<ol>
+<li><em><em><font color=red>BST的查找：Node</em> Find(const K&amp; key);</font></em>*</li>
+<li><strong><font color=red>BST的插入：bool Insert(const K&amp; key);</font></strong></li>
+<li><em><em><font color=red>BST的中序遍历：void _InOrder(Node</em> root)；</font></em>*</li>
+<li><strong><font color=red>BST的删除：bool Erase(const K&amp; key);</font></strong></li>
+</ol>
+<p><strong>思考：为什么要使用中序遍历呢？</strong></p>
+<p><strong>因为：插入数据顺序不同，树的结构不同，前序遍历与后序遍历结果不一样，但是中序遍历是一样的结果</strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220244708.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220244708.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220244708">
+
+<p><strong><mark>对于中序遍历来说，可以用下标线法，直接把元素向下对应标线就可以确定位置</mark></strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220250309.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220250309.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220250309">
+</blockquote>
+<hr>
+<h3 id="BST的查找实现"><a href="#BST的查找实现" class="headerlink" title="BST的查找实现"></a><strong>BST的查找实现</strong></h3><blockquote>
+<p><strong>BST的查找分为两种：<mark>递归查找</mark>和<mark>非递归查找</mark></strong></p>
+<p><strong><font color=red>1.BST的非递归查找：</font></strong></p>
+<p><strong>基本思路：</strong></p>
+<ol>
+<li><strong>如果根节点为空，返回 nullptr</strong></li>
+<li><strong>如果根节点不为空，从根节点开始，查找 key：</strong><ul>
+<li><strong><mark>如果 key 比当前节点小，则去当前节点的左子树中查找</mark></strong></li>
+<li><strong><mark>如果 key 比当前节点大，则去当前节点的右子树中查找</mark></strong></li>
+<li><strong><mark>如果 key 等于当前节点，返回节点地址</mark></strong></li>
+</ul>
+</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 查找元素key，查找到了返回节点地址，否则返回nullptr
+Node* Find(const K&amp; key)
+&#123;
+    &#x2F;&#x2F; 树为空
+    if (_root &#x3D;&#x3D; nullptr)
+    &#123;
+        return nullptr;
+    &#125;
+
+    &#x2F;&#x2F; 树不为空，从根节点开始查找元素key
+    Node* cur &#x3D; _root;
+    while (cur) &#x2F;&#x2F; 当cur为空，停止循环，说明没找到
+    &#123;
+        if (key &gt; cur-&gt;_key)
+        &#123;
+            cur &#x3D; cur-&gt;_right;
+        &#125;
+        else if (key &lt; cur-&gt;_key)
+        &#123;
+            cur &#x3D; cur-&gt;_left;
+        &#125;
+        else &#x2F;&#x2F; 查找到了，返回节点地址
+        &#123;
+            return cur;
+            break;
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F; 没有找到
+    return nullptr;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>2.BST的非递归查找：</font></strong></p>
+<p><strong>基本思路：分而治之的想法</strong></p>
+<p><strong>每一级递归时，在我们眼中，当前树就是这样的，只有 <code>root</code>、<code>left</code>、<code>right</code> 三个节点</strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220255657.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220255657.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220255657">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 定义二叉搜索树
+template&lt;class K&gt;
+class BinarySearchTree
+&#123;
+	typedef BinarySearchTreeNode&lt;K&gt; Node; &#x2F;&#x2F; 重命名为Node
+    
+private:
+	Node* _root &#x3D; nullptr; &#x2F;&#x2F; 根节点
+    
+public:
+	&#x2F;&#x2F; 查找元素key（递归版本）
+	&#x2F;&#x2F; 调用函数需要传递树的根，根是私有成员，所以套一层函数InsertR来间接调用，从而保护根
+	Node* FindR(const K&amp; key)
+	&#123;
+		return _FindR(_root, key);
+	&#125;
+
+private:
+	&#x2F;&#x2F; 查找元素key子函数（递归版本）
+	Node* _FindR(Node* root, const K&amp; key)
+	&#123;
+		&#x2F;&#x2F; 递归出口（终止条件），当前树的根节点为空
+		if (root &#x3D;&#x3D; nullptr)
+		&#123;
+			return nullptr; &#x2F;&#x2F; 没找到，返回nullptr
+		&#125;
+
+		&#x2F;&#x2F; 当前树的根节点不为空
+		if (key &gt; root-&gt;_key)
+		&#123;
+			return _FindR(root-&gt;_right, key);
+		&#125;
+		else if (key &lt; root-&gt;_key)
+		&#123;
+			return _FindR(root-&gt;_left, key);
+		&#125;
+		else
+		&#123;
+			&#x2F;&#x2F; 找到了，返回该节点地址
+			return root;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<hr>
+<h3 id="BST的插入实现"><a href="#BST的插入实现" class="headerlink" title="BST的插入实现"></a><strong>BST的插入实现</strong></h3><blockquote>
+<p><strong>BST的插入分为：<mark>递归插入</mark>和<mark>非递归插入</mark></strong></p>
+<p><strong><font color=red>1.BST的非递归插入：</font></strong></p>
+<p><strong>基本思路：</strong></p>
+<ol>
+<li><strong>树为空，直接插入</strong></li>
+<li><strong>树不为空，根据「二叉搜索树性质」，从根节点开始，查找到适合插入 key 的空位置，然后插入</strong></li>
+</ol>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220301372.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220301372.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220301372">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 插入元素key
+bool Insert(const K&amp; key) &#x2F;&#x2F; 常引用：减少传参时的拷贝，保护形参	不会被更改
+&#123;
+    &#x2F;&#x2F; 树为空
+    if (_root &#x3D;&#x3D; nullptr)
+    &#123;
+        _root &#x3D; new Node(key); &#x2F;&#x2F; 直接插入新节点
+        return true;
+    &#125;
+
+    &#x2F;&#x2F; 树不为空，从根节点开始，先查找到插入key的位置
+    Node* cur &#x3D; _root;
+    
+    &#x2F;&#x2F; 记录cur的父节点，因为新节点最终会插入在cur的父节点左右孩子的位置
+    Node* parent &#x3D; nullptr;
+    
+    while (cur) &#x2F;&#x2F; 当cur为空，说明找到插入key的位置了
+    &#123;
+        if (key &lt; cur-&gt;_key) &#x2F;&#x2F; key比当前节点小
+        &#123;
+            parent &#x3D; cur;
+            cur &#x3D; cur-&gt;_left; &#x2F;&#x2F; 去当前节点的左子树查找
+        &#125;
+        else if (key &gt; cur-&gt;_key) &#x2F;&#x2F; key比当前节点大
+        &#123;
+            parent &#x3D; cur;
+            cur &#x3D; cur-&gt;_right; &#x2F;&#x2F; 去当前节点的右子树查找
+        &#125;
+        else
+        &#123;
+            &#x2F;&#x2F; key等于当前节点，说明元素已经在树中存在，二叉搜索树不允许冗余，则返回false
+            return false;
+        &#125;
+    &#125;
+    &#x2F;&#x2F; 申请一个新节点
+    cur &#x3D; new Node(key);
+
+    &#x2F;&#x2F; 判断下新节点应该链接在其父节点的左边还是右边
+    if (key &gt; parent-&gt;_key)
+    &#123;
+        parent-&gt;_right &#x3D; cur; &#x2F;&#x2F; key比父节点大，链接在右边
+    &#125;
+    else
+    &#123;
+        parent-&gt;_left &#x3D; cur; &#x2F;&#x2F; key比父节点小，链接在左边
+    &#125;
+
+    &#x2F;&#x2F; 插入成功，返回true
+    return true;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>2.BST的递归插入：</font></strong></p>
+<p><strong>基本思路：分而治之，每一级递归时，在我们眼中，当前树就是这样的，只有 <code>root</code>、<code>left</code>、<code>right</code> 三个节点</strong></p>
+<p><strong>递归算法思路：</strong></p>
+<ol>
+<li><strong>如果当前树的根节点为空，则直接插入</strong></li>
+<li><strong>如果当前树的根节点不为空</strong><ul>
+<li><strong>插入的值 key 如果比当前树的根节点大，则去往当前树的右子树中插入</strong></li>
+<li><strong>插入的值 key 如果比当前树的根节点小，则去往当前树的左子树中插入</strong></li>
+</ul>
+</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 定义二叉搜索树
+template&lt;class K&gt;
+class BinarySearchTree
+&#123;
+	typedef BinarySearchTreeNode&lt;K&gt; Node; &#x2F;&#x2F; 重命名
+    
+private:
+	Node* _root &#x3D; nullptr; &#x2F;&#x2F; 根节点
+    
+public:
+	&#x2F;&#x2F; 插入元素key（递归版本）
+	&#x2F;&#x2F; 调用函数需要传递树的根，根是私有成员，所以套一层函数InsertR来间接调用，从而保护根
+	bool InsertR(const K&amp; key)
+	&#123;
+		return _InsertR(_root, key);
+	&#125;
+
+private:
+	&#x2F;&#x2F; 插入元素key子函数（递归版本）
+	bool _InsertR(Node*&amp; root, const K&amp; key) &#x2F;&#x2F; 形参是根节点的引用，这里很巧妙
+	&#123;
+		&#x2F;&#x2F; 当前树的根节点为空
+		if (root &#x3D;&#x3D; nullptr)
+		&#123;
+			root &#x3D; new Node(key); &#x2F;&#x2F; 插入新节点
+			return true;          &#x2F;&#x2F; 返回true
+		&#125;
+
+		&#x2F;&#x2F; 当前树的根节点不为空
+		if (key &gt; root-&gt;_key)
+		&#123;
+			&#x2F;&#x2F; 去往当前树的右子树中插入
+			return _InsertR(root-&gt;_right, key);
+		&#125;
+		else if (key &lt; root-&gt;_key)
+		&#123;
+			&#x2F;&#x2F; 去往当前树的左子树中插入
+			return _InsertR(root-&gt;_left, key);
+		&#125;
+		else
+		&#123;
+			&#x2F;&#x2F; 二叉搜索树不允许数据冗余，返回false
+			return false;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><em><em>对于函数&#96;&#96;bool _InsertR(Node</em>&amp; root,const K&amp; key)&#96;&#96;使用<mark>参数引用</mark>的好处剖析：</em>*</p>
+<p><strong>结论：<font color=red>我们在函数体内就不用定义一个变量来保存要插入的节点的父节点了</font></strong></p>
+<p><strong>如下图：我通过改变 root，从而控制 root 父节点（节点 9）右指针的指向</strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220309566.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220309566.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220309566">
+</blockquote>
+<hr>
+<h3 id="BST的中序遍历实现"><a href="#BST的中序遍历实现" class="headerlink" title="BST的中序遍历实现"></a><strong>BST的中序遍历实现</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;class K&gt;
+class BinarySearchTree
+&#123;
+	typedef BinarySearchTreeNode&lt;K&gt; Node; &#x2F;&#x2F; 重命名树节点类名
+private:
+	Node* _root &#x3D; nullptr; &#x2F;&#x2F; 根节点
+
+public:
+    &#x2F;&#x2F; 其它成员函数......
+    
+	&#x2F;&#x2F; 中序遍历
+	&#x2F;&#x2F; void InOrder(Node* _root)
+	&#x2F;&#x2F; 调用函数需要传递树的根，根是私有成员，所以套一层无参函数InOrder()来间接调用，从而保护根
+	void InOrder()
+	&#123;
+		_InOrder(_root); &#x2F;&#x2F; 调用中序遍历子函数
+        cout &lt;&lt; endl;
+	&#125;
+
+private:
+	&#x2F;&#x2F; 中序遍历子函数
+	void _InOrder(Node* root)
+	&#123;
+		if (root)
+		&#123;
+			_InOrder(root-&gt;_left);
+			cout &lt;&lt; root-&gt;_key &lt;&lt; &quot; &quot;;
+			_InOrder(root-&gt;_right);
+		&#125;
+	&#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>解释：我们在类外面，用对象调用函数时需要传递树的根，但根是私有成员，只能再去写一个 GetRoot 接口来传递树的根，但这样根又被暴露出去了，所以我们在这里，套一层无参函数 <code>InOrder()</code> 来调用有参函数 <code>_InOrder(Node* _root)</code>，从而保护了根节点</strong></p>
+<hr>
+<h3 id="BST的删除"><a href="#BST的删除" class="headerlink" title="BST的删除"></a><strong>BST的删除</strong></h3><blockquote>
+<p><strong>BST的删除分为：<mark>递归删除</mark>和<mark>非递归删除</mark></strong></p>
+<p><strong><font color=red>二叉搜索树的删除比较复杂，要分4种情况讨论：</font></strong></p>
+<ol>
+<li><strong><font color=red>要删除的结点「无孩子」结点(叶子结点)</font></strong></li>
+<li><strong><font color=red>要删除的结点「只有左孩子」结点</font></strong></li>
+<li><strong><font color=red>要删除的结点「只有右孩子」结点</font></strong></li>
+<li><strong><font color=red>要删除的结点「有左右孩子」结点</font></strong></li>
+</ol>
+<hr>
+<p><strong><code>1.BST的非递归删除：</code></strong></p>
+<p><strong>情况一和情况二准确来说是一种情况：：<font color=red>1.要删除的结点「无孩子」结点(叶子结点)</font> <font color=red>2.要删除的结点「只有左孩子」结点</font></strong></p>
+<p><strong>基本思路：</strong></p>
+<ul>
+<li><strong>先判断被删除节点 cur 是父节点 parent 的 左孩子 还是 右孩子</strong></li>
+<li><strong>让父结点 parent 的左 &#x2F; 右指针指向被删除节点的 左孩子 （我被删除了，我的父亲要帮我接管左孩子）</strong></li>
+<li><strong>然后删除该节点</strong></li>
+</ul>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220315289.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220315289.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220315289">
+
+<p><strong><mark>极端情况考虑：删除的是根节点，cur 没有父节点，所以直接把 cur 的左孩子变为根</mark></strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220319689.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220319689.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220319689">
+
+<hr>
+<p><strong>情况三：<font color=red>要删除的结点「只有右孩子」结点</font></strong></p>
+<p><strong>基本思路：</strong></p>
+<ul>
+<li><strong>先判断被删除节点 cur 是父节点 parent 的 左孩子 还是 右孩子</strong></li>
+<li><strong>让父结点 parent 的左 &#x2F; 右指针指向被删除节点的右孩子（我被删除了，我的父亲要帮我接管右孩子）</strong></li>
+<li><strong>然后删除该节点</strong></li>
+</ul>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220329244.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220329244.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220329244">
+
+<p><strong>极端情况考虑：删除的是根节点，cur 没有父节点，所以直接把 cur 的右孩子变为根</strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220333656.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220333656.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220333656">
+
+<hr>
+<p><strong>情况四：<font color=red>要删除的结点「有左右孩子」结点</font></strong></p>
+<p><strong>基本思路：有两个孩子，不好直接删除，所以我们用替代法删除</strong></p>
+<p><strong>替代法删除：找一个「替代节点」，比被删除节点的左孩子值大，比被删除节点右孩子的值小。即找被删除节点左子树中的最大节点或者右子树中的最小节点</strong></p>
+<ul>
+<li><p><strong>左子树中的最大节点 –&gt; 即左子树的最右侧节点（它的右孩子一定为空）</strong></p>
+</li>
+<li><p><strong>右子树中的最小节点 –&gt; 即右子树的最左侧节点（它的左孩子一定为空）</strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220338237.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220338237.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220338237"></li>
+</ul>
+<p><strong>「替代节点」找到后，将替代节点中的值赋给「要的删除节点」，转换成删除替代节点，如下图：</strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220344361.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220344361.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220344361">
+
+<p><strong><mark>特别注意：第三步中</mark></strong></p>
+<ul>
+<li><strong>先要判断一下最大节点 maxleft 是父节点 maxleft_parent 的 左孩子 还是 右孩子</strong></li>
+<li><strong>让父结点 maxleft_parent 的左 &#x2F; 右指针指向被删除节点的 左孩子 （我被删除了，我的父亲要帮我接管左孩子，因为左子树的最大节点没有的右孩子），如下图：</strong></li>
+</ul>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220349325.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220349325.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220349325">
+
+<p><strong>具体实现代码：</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 删除元素key
+bool Erase(const K&amp; key)
+&#123;
+    &#x2F;&#x2F; 树为空，删除失败
+    if (_root &#x3D;&#x3D; nullptr)
+    &#123;
+        return false;
+    &#125;
+
+    &#x2F;&#x2F; 树不为空，从根节点开始，查找元素key
+    Node* cur &#x3D; _root;                              &#x2F;&#x2F; 记录元素key的位置
+    Node* parent &#x3D; nullptr;                         &#x2F;&#x2F; 记录cur的父节点
+
+    while (cur) &#x2F;&#x2F; 如果cur为空，说明没有找到元素key的位置
+    &#123;
+        if (key &gt; cur-&gt;_key)
+        &#123;
+            parent &#x3D; cur;
+            cur &#x3D; cur-&gt;_right;
+        &#125;
+        else if (key &lt; cur-&gt;_key)
+        &#123;
+            parent &#x3D; cur;
+            cur &#x3D; cur-&gt;_left;
+        &#125;
+        else &#x2F;&#x2F; 找到要删除的元素key了，分为以下几种情况：
+        &#123;
+            &#x2F;&#x2F; 1、要删除的节点没有左右孩子，或者要删除的节点只有一个左孩子
+            if (cur-&gt;_right &#x3D;&#x3D; nullptr)
+            &#123;
+                if (cur &#x3D;&#x3D; _root) &#x2F;&#x2F; 如果要删除的cur是树的根节点，cur没有父节点
+                &#123;
+                    _root &#x3D; cur-&gt;_left;
+                &#125;
+                else
+                &#123;
+                    &#x2F;&#x2F; 判断下
+                    if (cur &#x3D;&#x3D; parent-&gt;_left) &#x2F;&#x2F; 被删除节点cur是父节点的左孩子
+                    &#123;
+                        parent-&gt;_left &#x3D; cur-&gt;_left; &#x2F;&#x2F; 让父节点左指针指向cur左孩子
+                    &#125;
+                    else &#x2F;&#x2F; 被删除节点cur是父节点的右孩子
+                    &#123;
+                        parent-&gt;_right &#x3D; cur-&gt;_left; &#x2F;&#x2F; 让父节点右指针指向cur左孩子
+                    &#125;
+                &#125;
+
+                &#x2F;&#x2F; 删除
+                delete cur;
+            &#125;
+
+            &#x2F;&#x2F; 2、要删除的节点只有一个右孩子
+            else if (cur-&gt;_left &#x3D;&#x3D; nullptr)
+            &#123;
+                if (cur &#x3D;&#x3D; _root) &#x2F;&#x2F; 如果要删除的cur是树的根节点，cur没有父节点
+                &#123;
+                    _root &#x3D; cur-&gt;_right;
+                &#125;
+                else
+                &#123;
+                    &#x2F;&#x2F; 判断下
+                    if (cur &#x3D;&#x3D; parent-&gt;_left) &#x2F;&#x2F; 被删除节点cur是父节点的左孩子
+                    &#123;
+                        parent-&gt;_left &#x3D; cur-&gt;_right; &#x2F;&#x2F; 让父节点左指针指向cur右孩子
+                    &#125;
+                    else &#x2F;&#x2F; 被删除节点cur是父节点的右孩子
+                    &#123;
+                        parent-&gt;_right &#x3D; cur-&gt;_right; &#x2F;&#x2F; 让父节点左指针指向cur右孩子
+                    &#125;
+                &#125;
+                
+                &#x2F;&#x2F; 删除
+                delete cur;
+            &#125;
+
+            &#x2F;&#x2F; 3、要删除的节点有左、右两个孩子
+            else
+            &#123;
+                &#x2F;&#x2F; 找替代节点：被删除节点的左子树中的最大节点，即左子树的最右节点（它的右孩子一定为空）
+                Node* maxleft &#x3D; cur-&gt;_left; &#x2F;&#x2F; 从左子树的根节点开始找
+                Node* maxleft_parent &#x3D; cur; &#x2F;&#x2F; 记录最大节点的父亲
+
+                &#x2F;&#x2F; 3.1 找最大节点
+                while (maxleft-&gt;_right) &#x2F;&#x2F; 右孩子为空时，说明找到最大节点了
+                &#123;
+                    maxleft_parent &#x3D; maxleft;
+                    maxleft &#x3D; maxleft-&gt;_right; &#x2F;&#x2F; 继续往右找
+                &#125;
+
+                &#x2F;&#x2F; 3.2 把最大节点的值赋给被删除节点
+                cur-&gt;_key &#x3D; maxleft-&gt;_key;
+
+                &#x2F;&#x2F; 3.3 判断一下
+                if (maxleft &#x3D;&#x3D; maxleft_parent-&gt;_left) &#x2F;&#x2F; 如果最大节点是父节点左孩子
+                &#123;
+                    &#x2F;&#x2F; 让父节点左指针指向maxleft左孩子
+                    maxleft_parent-&gt;_left &#x3D; maxleft-&gt;_left; 
+                &#125;
+                else &#x2F;&#x2F; 如果最大节点是父节点的右孩子
+                &#123;
+                    &#x2F;&#x2F; 让父节点右指针指向maxleft左孩子
+                    maxleft_parent-&gt;_right &#x3D; maxleft-&gt;_left; 
+                &#125;
+
+                &#x2F;&#x2F; 3.4 删除
+                delete maxleft;
+            &#125;
+
+            &#x2F;&#x2F; 删除成功，返回true
+            return true;
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F; 没有找到元素key，删除失败，返回false
+    return false;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><code>2.BST的递归删除：</code></strong></p>
+<p><strong>基本思想：分而治之，每一级递归时，在我们眼中，当前树就是这样的，只有 <code>root</code>、<code>left</code>、<code>right</code> 三个节点</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 定义二叉搜索树
+template&lt;class K&gt;
+class BinarySearchTree
+&#123;
+	typedef BinarySearchTreeNode&lt;K&gt; Node; &#x2F;&#x2F; 重命名
+    
+private:
+	Node* _root &#x3D; nullptr; &#x2F;&#x2F; 根节点
+    
+public:
+	&#x2F;&#x2F; 删除元素key（递归版本）
+	bool EraseR(const K&amp; key)
+	&#123;
+		return _EraseR(_root, key); &#x2F;&#x2F; 保护根
+	&#125;
+
+private:
+&#x2F;&#x2F; 删除元素key子函数（递归版本）
+	bool _EraseR(Node*&amp; root, const K&amp; key)
+	&#123;
+		&#x2F;&#x2F; 树为空，删除失败
+		if (root &#x3D;&#x3D; nullptr)
+		&#123;
+			return false;
+		&#125;
+
+		&#x2F;&#x2F; 树不为空，查找要删除的节点
+		if (key &gt; root-&gt;_key)
+		&#123;
+			return _EraseR(root-&gt;_right, key);
+		&#125;
+		else if (key &lt; root-&gt;_key)
+		&#123;
+			return _EraseR(root-&gt;_left, key);
+		&#125;
+		else &#x2F;&#x2F; 找到了，删除该节点
+		&#123;
+			Node* del &#x3D; root; &#x2F;&#x2F; 保存当前节点的地址
+
+			&#x2F;&#x2F; 1、当前节点没有左右孩子，或者当前节点只有一个左孩子
+			if (root-&gt;_right &#x3D;&#x3D; nullptr)
+			&#123;
+				root &#x3D; root-&gt;_left;
+			&#125;
+			&#x2F;&#x2F; 2、当前节点只有一个右孩子
+			else if (root-&gt;_left &#x3D;&#x3D; nullptr)
+			&#123;
+				root &#x3D; root-&gt;_right;
+			&#125;
+			&#x2F;&#x2F; 3、当前节点有左右两个孩子
+			else
+			&#123;
+				&#x2F;&#x2F; 找到当前节点的右子树中最小节点替代删除
+				Node* minRight &#x3D; root-&gt;_right;
+				while (minRight-&gt;_left)
+				&#123;
+					minRight &#x3D; minRight-&gt;_left;
+				&#125;
+
+				&#x2F;&#x2F; 替代节点值赋给当前节点
+				root-&gt;_key &#x3D; minRight-&gt;_key;
+
+				&#x2F;&#x2F; 转换成，在当前节点的右子树中去删除替代节点
+				return _EraseR(root-&gt;_right, minRight-&gt;_key);
+			&#125;
+
+			delete del;
+			return true;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>特别注意：</strong></p>
+<img src="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220355996.png" class="lazyload placeholder" data-srcset="/2022/11/11/1.er-cha-sou-suo-shu-bst/image-20230623220355996.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623220355996">
+</blockquote>
+<hr>
+<h2 id="二叉搜索树的应用"><a href="#二叉搜索树的应用" class="headerlink" title="二叉搜索树的应用"></a><strong>二叉搜索树的应用</strong></h2><h3 id="K模型-基于set"><a href="#K模型-基于set" class="headerlink" title="K模型(基于set)"></a><strong>K模型(基于set)</strong></h3><p><strong>K (Key) 模型：确定一个值在不在一个集合中，K 模型即只有 Key 作为关键码，二叉搜索树结构中只需要存储 Key 即可，关键码即为需要搜索到的值</strong></p>
+<p><strong>举个例子1：我们在食堂打饭用的饭卡里面就绑定欸连我们的学号，如果学号匹配不对，就不能使用</strong></p>
+<p><strong><font color=red>上面的BST实现就是使用的K模型</font></strong></p>
+<hr>
+<h3 id="KV查找模型-基于map"><a href="#KV查找模型-基于map" class="headerlink" title="KV查找模型(基于map)"></a><strong>KV查找模型(基于map)</strong></h3><p><strong>KV (Key&#x2F;Value) 模型：每一个关键码 Key，都有与之对应的值 Value，即 &lt; Key, Value &gt; 的键值对</strong></p>
+<p><strong>该种方式在现实生活中非常常见：</strong></p>
+<ul>
+<li><strong>比如英汉词典就是英文与中文的对应关系，通过英文可以快速找到与其对应的中文，英文单词与其对应的中文 &lt; word, chinese &gt; 就构成一种键值对</strong></li>
+<li><strong>再比如高铁站买票后刷身份证进站，你的身份证中并没有买票信息，那是如何进站的呢，通过身份证号，查找用这个身份证号买的车票信息，通过 &lt; 身份证号, 车票信息 &gt; 键值对</strong></li>
+</ul>
+<blockquote>
+<p><strong>KV模型中，二叉搜索树的每个节点不仅要存放 key，还要存放 value，但是在插入、删除的时候，还是按照 key 值来查找到该节点，对其进行插入、删除操作</strong></p>
+<p><strong>所以我们要对上面的二叉搜索树进行改造，主要是这几个改动：</strong></p>
+<ul>
+<li><strong>1、节点类模板</strong></li>
+<li><strong>2、树类模板中的插入节点函数、中序遍历函数</strong></li>
+<li><strong>3、查找、删除函数无需改动</strong></li>
+</ul>
+</blockquote>
+<p><strong>举例<mark>英汉词典</mark>：</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void TestTree2()
+&#123;
+	&#x2F;&#x2F; KV模型 -- 英汉词典，通过英文找到与其对应的中文
+	KEY_VALUE::BinarySearchTree&lt;string, string&gt; dict;
+	
+	&#x2F;&#x2F; 插入 &lt; 单词，中文含义 &gt; 构建二叉搜索树
+	dict.Insert(&quot;boy&quot;, &quot;男孩&quot;);
+	dict.Insert(&quot;left&quot;, &quot;左边&quot;);
+	dict.Insert(&quot;right&quot;, &quot;右边&quot;);
+	dict.Insert(&quot;tree&quot;, &quot;树&quot;);
+	dict.Insert(&quot;boy&quot;, &quot;男孩&quot;);
+
+	&#x2F;&#x2F; 查找单词对应中文含义
+	string word;
+	while (cin &gt;&gt; word)
+	&#123;
+		if (word &#x3D;&#x3D; &quot;q&quot;) &#x2F;&#x2F; 输入q退出查找
+		&#123;
+			cout &lt;&lt; &quot;quit！&quot; &lt;&lt; endl;
+			break;
+		&#125;
+		else
+		&#123;
+            &#x2F;&#x2F; 查找该单词
+			auto ret &#x3D; dict.Find(word);
+			&#x2F;&#x2F; 这样写可以，不过太烦了 KEY_VALUE::BinarySearchTreeNode&lt;string, string&gt;* ret &#x3D; dict.Find(word);
+			
+            &#x2F;&#x2F; 判断有没有查找到
+			if (ret &#x3D;&#x3D; nullptr) &#x2F;&#x2F; 没有查找到
+			&#123;
+				cout &lt;&lt; &quot;词典中无此单词，请重新输入&quot; &lt;&lt; endl;
+			&#125;
+			else &#x2F;&#x2F; 查找到了
+			&#123;
+				cout &lt;&lt; ret-&gt;_key &lt;&lt; &quot; -- &quot; &lt;&lt; ret-&gt;_value &lt;&lt; endl;
+			&#125;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>举例<mark>统计单词出现的次数</mark>：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void TestTree3()
+&#123;
+	string str[] &#x3D; &#123; &quot;sort&quot;,&quot;sort&quot;, &quot;tree&quot;,&quot;sort&quot;, &quot;node&quot;, &quot;tree&quot;,&quot;sort&quot;, &quot;sort&quot; &#125;;
+
+	&#x2F;&#x2F; KV模型 -- 统计str中每个单词出现的次数
+	KEY_VALUE::BinarySearchTree&lt;string, int&gt; tree;
+
+	&#x2F;&#x2F; 遍历str
+	for (auto&amp; e : str) &#x2F;&#x2F; 传引用，避免string深拷贝jiang
+	&#123;
+		&#x2F;&#x2F; 先检查当前准备插入的单词，是否已经在二叉搜索树tree中了
+		auto ret &#x3D; tree.Find(e);
+		if (ret &#x3D;&#x3D; nullptr) &#x2F;&#x2F; 不在树中
+		&#123;
+			&#x2F;&#x2F; 插入 &lt; 单词，单词出现次数 &gt;
+			tree.Insert(e, 1);               &#x2F;&#x2F; 当前次数是1次
+		&#125;
+		else &#x2F;&#x2F; 在树中
+		&#123;
+			ret-&gt;_value++;                   &#x2F;&#x2F; 修改value，出现次数+1
+		&#125;
+	&#125;
+
+	&#x2F;&#x2F; 打印每个 &lt; 单词，单词出现次数 &gt;
+	tree.InOrder();
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8C%E9%AB%98%E9%98%B6/" class="">
+              数据结构，高阶
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2022/11/11/1.er-cha-sou-suo-shu-bst/" target="_blank" title="二叉搜索树(BST树)">https://Not-Go.github.io/2022/11/11/1.er-cha-sou-suo-shu-bst/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2022/12/10/1.stl-ku-map-he-set/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">STL库：map和set</div>
+      </div>
+      
+      <!-- <div class="content">
+        STL库：map和setSTL库中set的官方介绍
+
+
+
+T：set(集合)中存放元素的类型，实际在底层存储的是 &lt
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2022/11/11/1.ping-heng-er-cha-sou-suo-shu-avl/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">平衡二叉搜索树(AVL树)</div>
+      </div>
+      <!-- <div class="content">
+        平衡二叉搜索树（AVL树）使用AVL树的原因
+
+BST树的插入与删除操作都必须先查找，查找效率代表了BST树中各个操作的
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-BST%E6%A0%91"><span class="toc-text">二叉搜索树(BST树)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">二叉搜索树的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%BB%93%E6%9E%84%E5%AE%9A%E4%B9%89"><span class="toc-text">二叉搜索树的结构定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%BB%93%E7%82%B9%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">二叉搜索树结点模板的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%B1%BB%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">二叉搜索树类模板的定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%95%88%E7%8E%87"><span class="toc-text">二叉搜索树的效率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E9%BB%98%E8%AE%A4%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="toc-text">二叉搜索树的默认成员函数实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BST%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="toc-text">BST的构造函数实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BST%E7%9A%84%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="toc-text">BST的拷贝构造函数实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BST%E7%9A%84%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="toc-text">BST的赋值运算符重载函数实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BST%E7%9A%84%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0"><span class="toc-text">BST的析构函数实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91API%E5%AE%9E%E7%8E%B0"><span class="toc-text">二叉搜索树API实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BST%E7%9A%84%E6%9F%A5%E6%89%BE%E5%AE%9E%E7%8E%B0"><span class="toc-text">BST的查找实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BST%E7%9A%84%E6%8F%92%E5%85%A5%E5%AE%9E%E7%8E%B0"><span class="toc-text">BST的插入实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BST%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%AE%9E%E7%8E%B0"><span class="toc-text">BST的中序遍历实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BST%E7%9A%84%E5%88%A0%E9%99%A4"><span class="toc-text">BST的删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">二叉搜索树的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#K%E6%A8%A1%E5%9E%8B-%E5%9F%BA%E4%BA%8Eset"><span class="toc-text">K模型(基于set)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#KV%E6%9F%A5%E6%89%BE%E6%A8%A1%E5%9E%8B-%E5%9F%BA%E4%BA%8Emap"><span class="toc-text">KV查找模型(基于map)</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

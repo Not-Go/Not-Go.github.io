@@ -1,0 +1,3599 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>C++基础 | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pic2.zhimg.com/80/v2-29e78b52051ce542adf6d786d61fbd19_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        C++基础
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2022-12-10 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E5%88%9D%E9%98%B6C/" class="post-detail-header_category">
+              初阶C++
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 6.5k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 27分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="C-基础"><a href="#C-基础" class="headerlink" title="C++基础"></a><strong>C++基础</strong></h1><h2 id="C-关键字-98版，63个"><a href="#C-关键字-98版，63个" class="headerlink" title="C++ 关键字(98版，63个)"></a><strong>C++ 关键字(98版，63个)</strong></h2><h3 id="C-关键字表"><a href="#C-关键字表" class="headerlink" title="C++ 关键字表"></a><strong>C++ 关键字表</strong></h3><table>
+<thead>
+<tr>
+<th align="center"><strong>asm</strong></th>
+<th align="center"><strong>do</strong></th>
+<th align="center"><strong>if</strong></th>
+<th align="center"><strong>return</strong></th>
+<th align="center"><strong>try</strong></th>
+<th align="center"><strong>continue</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>auto</strong></td>
+<td align="center"><strong>double</strong></td>
+<td align="center"><strong>inline</strong></td>
+<td align="center"><strong>short</strong></td>
+<td align="center"><strong>typedef</strong></td>
+<td align="center"><strong>for</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>bool</strong></td>
+<td align="center"><strong>dynamic_cast</strong></td>
+<td align="center"><strong>int</strong></td>
+<td align="center"><strong>signed</strong></td>
+<td align="center"><strong>typeid</strong></td>
+<td align="center"><strong>public</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>break</strong></td>
+<td align="center"><strong>else</strong></td>
+<td align="center"><strong>long</strong></td>
+<td align="center"><strong>sizeof</strong></td>
+<td align="center"><strong>typename</strong></td>
+<td align="center"><strong>throw</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>case</strong></td>
+<td align="center"><strong>enum</strong></td>
+<td align="center"><strong>mutable</strong></td>
+<td align="center"><strong>static</strong></td>
+<td align="center"><strong>union</strong></td>
+<td align="center"><strong>wchar_t</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>catch</strong></td>
+<td align="center"><strong>explicit</strong></td>
+<td align="center"><strong>namespace</strong></td>
+<td align="center"><strong>static_cast</strong></td>
+<td align="center"><strong>unsigned</strong></td>
+<td align="center"><strong>default</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>char</strong></td>
+<td align="center"><strong>export</strong></td>
+<td align="center"><strong>new</strong></td>
+<td align="center"><strong>struct</strong></td>
+<td align="center"><strong>using</strong></td>
+<td align="center"><strong>friend</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>class</strong></td>
+<td align="center"><strong>extern</strong></td>
+<td align="center"><strong>operator</strong></td>
+<td align="center"><strong>switch</strong></td>
+<td align="center"><strong>virtual</strong></td>
+<td align="center"><strong>register</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>const</strong></td>
+<td align="center"><strong>false</strong></td>
+<td align="center"><strong>private</strong></td>
+<td align="center"><strong>template</strong></td>
+<td align="center"><strong>void</strong></td>
+<td align="center"><strong>true</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>const_cast</strong></td>
+<td align="center"><strong>float</strong></td>
+<td align="center"><strong>protected</strong></td>
+<td align="center"><strong>this</strong></td>
+<td align="center"><strong>volatile</strong></td>
+<td align="center"><strong>while</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>delete</strong></td>
+<td align="center"><strong>goto</strong></td>
+<td align="center"><strong>reinterpret_cast</strong></td>
+<td align="center">…</td>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+<p><font color=green><strong>C++98有63个关键字，C语言有32个关键字</strong></font></p>
+<p>C++11有73个关键字(新增alignas、alignof、char16_t、char32_t、constexpr、decltype、noexcept、nullptr、static_assert、thread_local)</p>
+<p><font color=red><strong>C++兼容C语言头文件，也有自己的用C库的方法：stdio.h(C&#x2F;C++)、cstdio(C++)</strong></font></p>
+<hr>
+<h2 id="C-命名空间"><a href="#C-命名空间" class="headerlink" title="C++ 命名空间"></a><strong>C++ 命名空间</strong></h2><h3 id="命名空间的常见形式"><a href="#命名空间的常见形式" class="headerlink" title="命名空间的常见形式"></a><strong>命名空间的常见形式</strong></h3><p><strong>C++中定义命名空间使用<mark>namespace</mark>关键字，一般写法为<mark>namespace+命名空间名字+{}</mark></strong>—<strong>命名空间解决了命名空间污染问题</strong></p>
+<blockquote>
+<p><font color=red><strong>C++命名空间的三种情况：</strong></font></p>
+<ol>
+<li><font color=red><strong>单独命名空间</strong></font></li>
+<li><font color=red><strong>嵌套命名空间</strong></font></li>
+<li><font color=red><strong>同名命名空间会合并</strong></font></li>
+</ol>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//C++ 命名空间的三种常见情况</span>
+
+<span class="token comment">//1.单独命名空间</span>
+namespace A <span class="token comment">//A为命名空间的名称</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">//命名空间里可以定义变量也可以定义函数</span>
+    <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">ADD</span><span class="token punctuation">(</span><span class="token keyword">int</span> num1<span class="token punctuation">,</span><span class="token keyword">int</span> num2<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> num1<span class="token operator">+</span>nunm2<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//2.嵌套命名空间</span>
+namespace B
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">ADD</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> a<span class="token operator">+</span>b<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    namespace C
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> <span class="token function">ADD</span><span class="token punctuation">(</span><span class="token keyword">int</span> aa<span class="token punctuation">,</span><span class="token keyword">int</span> bb<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> aa<span class="token operator">+</span>bb<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">//3.一个工程里，多个相同名称的命名空间，最后会合并成同一个命名空间</span>
+namespace A
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> num<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+namespace A
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> <span class="token function">ADD</span><span class="token punctuation">(</span><span class="token keyword">int</span> num1<span class="token punctuation">,</span><span class="token keyword">int</span> num2<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> num1<span class="token operator">+</span>num2<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>一点补充：头文件中，cstdio和stdio.h这种函数的区别是，cstdio里面的内容放在了命名空间std，stdio.h没有，cstdio是标准C++头文件，stdio.h是标准C语言头文件。使用：#include<cstdio>、#include&lt;stdio.h&gt;</font></strong></p>
+</blockquote>
+<hr>
+<h3 id="命名空间的常见使用方法"><a href="#命名空间的常见使用方法" class="headerlink" title="命名空间的常见使用方法"></a><strong>命名空间的常见使用方法</strong></h3><blockquote>
+<p><font color=red><strong>命名空间一般有三种使用方法：常用第二种方式</strong></font></p>
+<ol>
+<li><mark><strong>命名空间名+: :</strong></mark></li>
+<li><mark><strong>using+命名空间名+: :</strong></mark></li>
+<li><mark><strong>using namespace+命名空间名</strong></mark></li>
+</ol>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//1.命名空间名称＋作用域限定符</span>
+namespace A
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span> num<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> num2<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">ADD</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> x<span class="token operator">+</span>y<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    cin<span class="token operator">>></span>A<span class="token operator">::</span>num<span class="token operator">>></span>A<span class="token operator">::</span>num2<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//2.使用using将命名空间中成员引入释放</span>
+namespace A
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span> num<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> num2<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">ADD</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> x<span class="token operator">+</span>y<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+using A<span class="token operator">::</span>num<span class="token punctuation">;</span><span class="token comment">//释放A中num</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    cin<span class="token operator">>></span>num<span class="token punctuation">;</span>
+    cin<span class="token operator">>></span>A<span class="token operator">::</span>num2<span class="token punctuation">;</span><span class="token comment">//num2没有释放出来不能直接用</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//3.使用using namespace命名空间名称引入</span>
+namespace A
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span> num<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> num2<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> <span class="token function">ADD</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span><span class="token keyword">int</span> y<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> x<span class="token operator">+</span>y<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+using namespace A<span class="token punctuation">;</span><span class="token comment">//释放A中所有内容</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    cin<span class="token operator">>></span>num<span class="token operator">>></span>num2<span class="token punctuation">;</span>
+    <span class="token function">ADD</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<p><mark><strong>using可以理解为释放的意思，比如using A：：num；就是释放A中num但是不释放num2和ADD，意思就是num2和ADD必须在前面加A: :才能正常使用，而num可以直接用！</strong></mark></p>
+<hr>
+<h2 id="C-输入与输出"><a href="#C-输入与输出" class="headerlink" title="C++ 输入与输出"></a><strong>C++ 输入与输出</strong></h2><h3 id="cout与cin标识符"><a href="#cout与cin标识符" class="headerlink" title="cout与cin标识符"></a><strong>cout与cin标识符</strong></h3><p><strong>C++中的输入与输出是使用<iostream>头文件和std标准命名空间实现的</strong></p>
+<p><font color=green><strong>我们使用标准化输出依靠cout和cin标识符。cout标准输出(控制台)、cin标准输入(键盘)</strong></font></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+int main()
+&#123;
+    int a;
+    float b;
+    &#x2F;&#x2F;endl是换行的意思，和&#39;\n&#39;意思相同，可以替换
+    cin&gt;&gt;a&gt;&gt;b;
+    cout&lt;&lt;a&lt;&lt;b&lt;&lt;endl;
+    cout&lt;&lt;a&lt;&lt;b&lt;&lt;&#39;\n&#39;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="C-缺省参数-x2F-默认参数"><a href="#C-缺省参数-x2F-默认参数" class="headerlink" title="C++ 缺省参数&#x2F;默认参数"></a><strong>C++ 缺省参数&#x2F;默认参数</strong></h2><h3 id="缺省参数概念"><a href="#缺省参数概念" class="headerlink" title="缺省参数概念"></a><strong>缺省参数概念</strong></h3><p><font color=red><strong>缺省参数(<mark>也称默认参数</mark>)是声明或定义函数时，为函数的参数指定一个默认值</strong></font></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void func(int x&#x3D;0)
+&#123;
+    cout&lt;&lt;x&lt;&lt;endl;
+&#125;
+
+int main()
+&#123;
+    func();&#x2F;&#x2F;没有传入实参，使用默认值0，打印出0
+    func(1);&#x2F;&#x2F;传入实参，使用实参值，打印出1
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="缺省参数类型"><a href="#缺省参数类型" class="headerlink" title="缺省参数类型"></a><strong>缺省参数类型</strong></h3><p><strong>缺省参数分为：<mark>全缺省参数</mark>、<mark>半缺省参数</mark></strong></p>
+<p><font color=red><strong>缺省参数特性：</strong></font></p>
+<blockquote>
+<p><font color=red><strong>1.缺省参数不能在声明和定义中同时出现，声明和定义二选一写</strong></font>—否则报错：重定义默认参数—原因：怕你两个默认参数给的不一样</p>
+<p><font color=red><strong>2.半缺省参数必须从右往左依次给出，不能间隔给，否则编译器不知道识别谁</strong></font></p>
+<p><font color=red><strong>3.缺省参数值必须是常量或全局变量</strong></font></p>
+<p><font color=red><strong>4.C语言不支持缺省参数，C++支持缺省参数</strong></font></p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;全缺省参数
+void func(int x&#x3D;0,int y&#x3D;1,int z&#x3D;2)
+&#123;
+	cout&lt;&lt;&quot;x&#x3D;&quot;&lt;&lt;x&lt;&lt;endl;
+    cout&lt;&lt;&quot;y&#x3D;&quot;&lt;&lt;y&lt;&lt;endl;
+    cout&lt;&lt;&quot;z&#x3D;&quot;&lt;&lt;z&lt;&lt;endl;
+&#125;
+
+&#x2F;&#x2F;半缺省参数
+void func2(int x,int y&#x3D;1,int z&#x3D;2)
+&#123;
+    cout&lt;&lt;&quot;x&#x3D;&quot;&lt;&lt;x&lt;&lt;endl;
+    cout&lt;&lt;&quot;y&#x3D;&quot;&lt;&lt;y&lt;&lt;endl;
+    cout&lt;&lt;&quot;z&#x3D;&quot;&lt;&lt;z&lt;&lt;endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="C-函数重载"><a href="#C-函数重载" class="headerlink" title="C++ 函数重载"></a><strong>C++ 函数重载</strong></h2><h3 id="函数重载的概念"><a href="#函数重载的概念" class="headerlink" title="函数重载的概念"></a><strong>函数重载的概念</strong></h3><p><font color=green><strong>函数重载：在同一作用域中声明几个功能类似的同名函数，这些同名函数的形参列表必须不同</strong></font></p>
+<p><font color=red><strong>函数重载特性：同一作用域下，函数名相同，参数不同(参数的<mark>个数</mark>、<mark>类型</mark>、<mark>类型顺序不同</mark>)，与返回值类型无关</strong></font></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int Add(int x,int y)&#x2F;&#x2F;原函数Add
+&#123;
+	return x+y;
+&#125;
+
+double Add(double x,double y)&#x2F;&#x2F;Add重载函数
+&#123;
+    return x+y;
+&#125;
+
+long Add(long x,long y)&#x2F;&#x2F;Add重载函数
+&#123;
+    return x+y;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="函数名字修饰原则"><a href="#函数名字修饰原则" class="headerlink" title="函数名字修饰原则"></a><strong>函数名字修饰原则</strong></h3><blockquote>
+<p><strong>实际上我们的项目通常是由多个头文件和多个源文件构成的，通过编译链接我们可以知道：</strong></p>
+<p><strong><mark>当两个cpp文件(一个函数在x.cpp中声明，y.cpp中定义)中定义一个Add函数时</mark>，我们编译后链接前，<mark>x.o的目标文件中没有Add函数的地址，因为Add是在x.cpp中声明，y.cpp中定义的，所以Add的地址在y.o</mark>中！<mark>因此链接阶段就是专门处理这个问题的，链接器看到x.o调用了Add，但是没有Add的地址，就会到y.o的符号表中找到Add的地址，然后链接在一起！</mark>因此我们需要为函数名字拟定一个修饰规则</strong></p>
+</blockquote>
+<p><strong><mark>Linux下gcc、g++的修饰规则：</mark> ①gcc函数修饰名字不变   ②g++函数修饰为<font color=red>_Z+函数长度+函数名+类型首字母</font></strong></p>
+<p><strong>比如gcc我们定义一个int f(int x,int y)—&gt; f</strong></p>
+<p><strong>比如g++我们定义一个int Add(int x,int y)—&gt; _Z3Addii</strong></p>
+<p><strong>比如g++我们定义一个int Add(double x,double y)—&gt; _Z3Adddd</strong></p>
+<img src="/2022/12/10/1.c-ji-chu/image-20230623222519613.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.c-ji-chu/image-20230623222519613.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222519613">
+
+<img src="/2022/12/10/1.c-ji-chu/image-20230623222533030.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.c-ji-chu/image-20230623222533030.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222533030">
+
+<p><strong>如图，在<mark>Linux下采用gcc编译后，函数名字的修饰没有发生改变</mark>，函数名后的数据是函数参数类型的信息</strong></p>
+<p><strong>如图，在<mark>LInux下采用g++编译后，函数名字修饰发生改变</mark>，函数名后的数据是函数参数类型的信息</strong></p>
+<p><strong><mark>windows下名字修饰规则</mark><strong>：</strong>根据编译器规则</strong></p>
+<img src="/2022/12/10/1.c-ji-chu/image-20230623222615129.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.c-ji-chu/image-20230623222615129.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222615129">
+
+
+
+<p><strong>从以上说明就可以基本理解，经常说的<mark>C语言不支持重载，而C++支持重载的原因是：g++编译后函数名字修饰改变了</mark>，同时也说明了为什么<mark>函数重载要求参数不同，而跟返回值无关的原因</mark></strong></p>
+<p><font color=red><strong>C++通过函数修饰规则来区分函数重载，只要参数不同，修饰出来的名字不同，就支持了重载！而C语言无法识别出来！</strong></font></p>
+<hr>
+<h2 id="C-引用"><a href="#C-引用" class="headerlink" title="C++ 引用"></a><strong>C++ 引用</strong></h2><h3 id="引用的概念"><a href="#引用的概念" class="headerlink" title="引用的概念"></a><strong>引用的概念</strong></h3><p><font color=red><strong>引用不是新定义一个变量，而是取一个别名，编译器不会引用变量开辟内存空间，它和它引用的变量共用同一块内存空间</strong></font></p>
+<p><mark><strong>引用类型和引用实体的类型必须相同</strong></mark></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;引用类型定义格式：类型&amp; 引用变量名&#x3D;引用实体
+void func()
+&#123;
+	int x&#x3D;0;
+    int&amp; tmp&#x3D;x;&#x2F;&#x2F;定义引用类型
+    printf(&quot;%p\n&quot;,&amp;x);
+    printf(&quot;%p\n&quot;,&amp;tmp);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="引用的特性"><a href="#引用的特性" class="headerlink" title="引用的特性"></a><strong>引用的特性</strong></h3><blockquote>
+<p><font color=red><strong>1.引用在定义时必须初始化</strong></font></p>
+<p><font color=red><strong>2.一个变量可以有多个引用</strong></font></p>
+<p><font color=red><strong>3.一旦引用一个实体，不能再引用其他实体</strong></font></p>
+<p><font color=red><strong>4.引用只能缩小权限不能放大权限，及引用的权限范围小于或者等于引用实体</strong></font></p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void func()
+&#123;
+	int x&#x3D;0;
+    &#x2F;&#x2F;int&amp; x;这条语句编译会错误，引用在定义时必须初始化
+    int&amp; num1&#x3D;x;
+    int&amp; num2&#x3D;x;
+    printf(&quot;%p %p %p\n&quot;,x,num1,num2);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="常引用"><a href="#常引用" class="headerlink" title="常引用"></a><strong>常引用</strong></h3><blockquote>
+<p><strong><mark>常引用涉及const权限的放大与缩小问题</mark></strong></p>
+<ul>
+<li><strong><font color=red>注意：临时变量具有常性，引用要加const</font></strong></li>
+</ul>
+</blockquote>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token comment">//取别名原则：对原引用变量，权限只能缩小，不能放大</span>
+    <span class="token comment">//注意：临时变量具有常性，要用const+引用</span>
+    
+	<span class="token keyword">const</span> <span class="token keyword">int</span> x<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token comment">//int&amp; tmp=x;该语句编译错误，因为x为常量  权限放大了</span>
+    
+    <span class="token keyword">const</span> <span class="token keyword">int</span><span class="token operator">&amp;</span> tmp<span class="token operator">=</span>x<span class="token punctuation">;</span><span class="token comment">//同一权限级</span>
+    <span class="token comment">//int&amp; num=0;该语句编译错误，因为0为常量  权限放大了</span>
+    <span class="token keyword">const</span> <span class="token keyword">int</span><span class="token operator">&amp;</span> num<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">double</span> y<span class="token operator">=</span><span class="token number">1.234</span><span class="token punctuation">;</span>
+    <span class="token comment">//int&amp; num2=y;该语句编译错误，因为类型不同，引用要求类型相同  常值具有常性const</span>
+    
+    <span class="token keyword">const</span> <span class="token keyword">int</span><span class="token operator">&amp;</span> num2<span class="token operator">=</span>y<span class="token punctuation">;</span>
+    <span class="token comment">//正确，因为底层实现是y先赋值给一个临时变量，再让临时变量赋值给num2，临时变量有常性，所以引用必须加const---临时变量问题也解释了为什么nums2的地址和y的地址不一样，nums2存的应该是临时变量的地址</span>
+    
+    <span class="token keyword">int</span> f<span class="token operator">=</span>y<span class="token punctuation">;</span><span class="token comment">//正确，因为f和y没有使用指针和引用，不会改变原值，所以不加const也可以</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>使用场景：①做参数  ②做返回值</font></strong></p>
+<ul>
+<li><strong><mark>传值返回：会有一个拷贝</mark></strong></li>
+<li><strong><mark>传引用返回：没有这个拷贝，函数返回的直接就是返回变量的别名</mark></strong></li>
+</ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//1.做参数---代替指针使用---输出型参数、减少拷贝、提高效率</span>
+<span class="token keyword">void</span> <span class="token function">Swap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">&amp;</span> x<span class="token punctuation">,</span><span class="token keyword">int</span><span class="token operator">&amp;</span> y<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">int</span>	temp<span class="token operator">=</span>x<span class="token punctuation">;</span>
+    x<span class="token operator">=</span>y<span class="token punctuation">;</span>
+    y<span class="token operator">=</span>temp<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//2.做返回值---变量出了函数还在用，则使用引用做返回值---其实就是&amp;必须有目标变量在才能用，否则目标变量没了，还用它的地址，不就是野指针了吗</span>
+<span class="token keyword">int</span><span class="token operator">&amp;</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">static</span> <span class="token keyword">int</span> n<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span><span class="token comment">//补充：static只会初始化一次</span>
+    n<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token comment">//int&amp;相当于返回的n的别名，而不是开一个临时变量进行值拷贝</span>
+    <span class="token keyword">return</span> n<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font color=red><strong>注：如果函数返回时，出了函数作用域，如果返回对象还未还给系统，则可以使用引用返回，如果已经还给系统了，必须使用传值返回</strong></font><strong><font color=green>(即变量出了函数还在吗，在就用引用，不在就用传值)</font></strong></p>
+<p><strong><mark>传值、传引用效率比较：</mark></strong> <strong>以值作为参数或者返回值类型，在传参和返回期间，函数不会直接传递实参或者将变量本身直接返回，而是传递实参或者返回变量的一份临时的拷贝，因此用值作为参数或者返回值类型，效率是非常低下的，尤其是当参数或者返回值类型非常大时，效率就更低</strong></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;传值和传引用作为参数的效率对比
+#include&lt;iostream&gt;
+using namespace std;
+#include&lt;time.h&gt; &#x2F;&#x2F;clock()的头文件
+struct A
+&#123;
+    int a[10000];
+&#125;;
+void func1(A a)&#123;&#125;&#x2F;&#x2F;传值
+void func2(A&amp; a)&#123;&#125;&#x2F;&#x2F;传引用
+
+void func()
+&#123;
+    A a;
+    &#x2F;&#x2F;以值作为函数参数
+    size_t begin1&#x3D;clock();
+    for(size_t i&#x3D;0;i&lt;10000;++i)
+        func1(a);
+   	size_t end1&#x3D;clock();
+
+    &#x2F;&#x2F;以引用作为函数参数
+    size_t begin2&#x3D;clock();
+    for(size_t i&#x3D;0;i&lt;10000;++i)
+        func2(a);
+    size_t end2&#x3D;clock();
+    
+    &#x2F;&#x2F;分别计算出两个函数运行结束后的时间
+    cout&lt;&lt;&quot;func1(A)-time:&quot;&lt;&lt;end1-begin1&lt;&lt;endl;
+    cout&lt;&lt;&quot;func2(A)-time:&quot;&lt;&lt;end2-begin2&lt;&lt;endl;
+&#125;
+int main()
+&#123;
+    func();
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.c-ji-chu/image-20230623222645676.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.c-ji-chu/image-20230623222645676.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222645676">
+
+<p><mark><strong>值和引用的作为返回值类型的性能比较：</strong></mark></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;传值和传引用作为返回值的效率对比
+#include&lt;iostream&gt;
+#include&lt;time.h&gt;
+using namespace std;
+struct A
+&#123;
+	int a[10000];
+&#125;;
+A a;
+
+A func1()
+&#123;
+    return a;
+&#125;
+A&amp; func2()
+&#123;
+    return a;
+&#125;
+void func()
+&#123;
+    &#x2F;&#x2F;以值作为函数的返回值类型
+    size_t begin1&#x3D;clock();
+    for(size_t i&#x3D;0;i&lt;10000;++i)
+        func1();
+    size_t end1&#x3D;clock();
+    
+    &#x2F;&#x2F;以引用作为函数的返回值类型
+    size_t begin2&#x3D;clock();
+    for(size_t i&#x3D;0;i&lt;10000;++i)
+        func2();
+    size_t end2&#x3D;clock();
+    
+    &#x2F;&#x2F;计算两个函数运算完成之后的时间
+	cout&lt;&lt;&quot;func1 time:&quot;&lt;&lt;end1-begin1&lt;&lt;endl;
+    cout&lt;&lt;&quot;func2 time:&quot;&lt;&lt;end2-begin2&lt;&lt;endl;
+&#125;
+int main()
+&#123;
+    func();
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.c-ji-chu/image-20230623222708914.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.c-ji-chu/image-20230623222708914.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222708914">
+
+<p><strong><mark>通过上述代码的比较，发现传值和指针在作为传参以及返回值类型上效率相差很大，传引用远优于传值</mark></strong></p>
+<blockquote>
+<p><font color=red><strong>传值与传引用返回总结：</strong></font></p>
+<ol>
+<li><font color=red><strong>传值返回：会有临时拷贝</strong></font></li>
+<li><font color=red><strong>传引用返回：没有临时拷贝，函数返回的直接就是返回变量的别名</strong></font></li>
+<li><strong><font color=green>反正记住返回的变量是static才用传引用返回，否则可能出现越界问题</font></strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="引用与指针的区别"><a href="#引用与指针的区别" class="headerlink" title="引用与指针的区别"></a><strong>引用与指针的区别</strong></h3><p><strong>引用就是一个别名，没有独立空间，和其引用实体共用同一块空间</strong></p>
+<p><font color=red><strong>在底层实现上实际是有空间的，因为引用是按照指针的方式来实现的</strong></font></p>
+<img src="/2022/12/10/1.c-ji-chu/image-20230623222717939.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.c-ji-chu/image-20230623222717939.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222717939">
+
+<p><strong><mark>指针和引用的不同点：</mark></strong></p>
+<ul>
+<li><strong><font color=red>底层角度：相同，都是用的指针</font></strong></li>
+<li><strong><font color=red>语法角度：不同，如下</font></strong></li>
+</ul>
+<blockquote>
+<p><strong><mark>1.引用在定义时必须初始化，指针无要求</mark></strong></p>
+<p><strong><mark>2.引用在初始化引用一个实体后，无法再引用其他实体，而指针无要求</mark></strong></p>
+<p><strong><mark>3.没有NULL引用，有NULL指针</mark></strong></p>
+<p><strong><mark>4.在sizeof中含义不同：引用结果为引用类型的大小，指针始终是地址空间所占字节个数</mark></strong></p>
+<p><strong><mark>5.引用自加则实体增加1，指针自加则指针向后偏移一个类型大小</mark></strong></p>
+<p><strong><mark>6.有多级指针，但是没有多级引用</mark></strong></p>
+<p><strong><mark>7.访问实体方法不同，指针需要显示解引用，引用编译器自己处理</mark></strong></p>
+<p><strong><mark>8.引用比指针使用更安全</mark></strong></p>
+</blockquote>
+<hr>
+<h2 id="C-内联函数"><a href="#C-内联函数" class="headerlink" title="C++ 内联函数"></a><strong>C++ 内联函数</strong></h2><h3 id="内联函数概念"><a href="#内联函数概念" class="headerlink" title="内联函数概念"></a><strong>内联函数概念</strong></h3><p><strong>以<mark>inline修饰的函数叫做内联函数</mark>，编译时C++<mark>编译器会把调用内联函数的地方展开，没有函数压栈的开销</mark>，<mark>内联函数提升程序运行的效率</mark></strong></p>
+<p><strong><mark>内联函数不放入符号表</mark></strong></p>
+<p><strong>函数展开也就是说编译器将指定的函数体插入并取代每一处调用该函数的地方，相当于直接把内容写在了调用的地方</strong></p>
+<hr>
+<h3 id="内联函数的查看方法"><a href="#内联函数的查看方法" class="headerlink" title="内联函数的查看方法"></a><strong>内联函数的查看方法</strong></h3><p><strong>方法一：在release模式下，查看编译器生成的Add函数汇编代码中是否存在<mark>call Add</mark></strong></p>
+<img src="/2022/12/10/1.c-ji-chu/image-20230623222737533.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.c-ji-chu/image-20230623222737533.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222737533">
+
+<p><strong>方法二：在debug模式下，需要对编译器设置，否则不会展开(因为debug模式下，编译器默认不会对代码进行优化)</strong></p>
+<img src="/2022/12/10/1.c-ji-chu/image-20230623222747996.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.c-ji-chu/image-20230623222747996.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623222747996">
+
+<hr>
+<h3 id="内联函数的特性"><a href="#内联函数的特性" class="headerlink" title="内联函数的特性"></a><strong>内联函数的特性</strong></h3><blockquote>
+<p><font color=green><strong>1.inline是一种以空间换时间的方法，省去函数压栈开销</strong></font></p>
+<p><font color=green><strong>2.inline不适合代码很长或者有循环、递归的函数</strong></font>(10行以内适合用)</p>
+<p><font color=green><strong>3.inline对于编译器而言只是一个建议，编译器会自动优化</strong></font></p>
+<p><font color=green><strong>4.inline不建议声明和定义分离，会发生链接错误(inline被展开，它不进入符号表，就没有函数地址了，链接找不到)</strong></font></p>
+</blockquote>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F; demo.h
+#include&lt;iostream&gt;
+using namespace std;
+inline void func(int x);
+
+&#x2F;&#x2F;demo.cpp
+#include&quot;demo.h&quot;
+void func(int x)
+&#123;
+    cout&lt;&lt;x&lt;&lt;endl;
+&#125;
+
+&#x2F;&#x2F;main.cpp
+#include&quot;demo.h&quot;
+int main()
+&#123;
+    func(10);
+    return 0;
+&#125;
+
+&#x2F;&#x2F;这里就会报错！
+&#x2F;*链接错误：main.obj LNK2019：无法解析的外部符号&quot;void _cdeck func(int)&quot;?
+f@@YAXH@Z)，该符号在函数 _main中被引用*&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="C-auto关键字-C-11"><a href="#C-auto关键字-C-11" class="headerlink" title="C++ auto关键字(C++11)"></a><strong>C++ auto关键字(C++11)</strong></h2><h3 id="auto关键字的概念"><a href="#auto关键字的概念" class="headerlink" title="auto关键字的概念"></a><strong>auto关键字的概念</strong></h3><blockquote>
+<p><strong>个人觉得，auto很少有人使用，只有后面用模板的时候才会用到</strong></p>
+<p><strong>在早期C&#x2F;C++中auto时含义：使用auto修饰的变量，是具有自动存储器的局部变量</strong></p>
+<p><strong>C++11中，标准委员会重新赋予了auto含义：auto作为新的类型指示符来指示编译器，auto声明的变量必须由编译器在编译时期推导而得</strong></p>
+</blockquote>
+<p><font color=red><strong>简单来说：auto自动匹配数据类型</strong></font></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">int func()
+&#123;
+	return 0;
+&#125;
+int main()
+&#123;
+    int x&#x3D;1;
+    auto xx&#x3D;x;
+    auto xxx&#x3D;&#39;x&#39;;
+    auto xxxx&#x3D;func();
+    &#x2F;&#x2F;auto xxxxx;编译错误，使用auto必须初始化
+    &#x2F;&#x2F;typied(x).name  输出x的类型名字
+    cout&lt;&lt;typied(xx).name&lt;&lt;endl;&#x2F;&#x2F;int
+    cout&lt;&lt;typied(xxx).name&lt;&lt;endl;&#x2F;&#x2F;char
+    cout&lt;&lt;tupied(xxxx).name&lt;&lt;endl;&#x2F;&#x2F;int
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font color=red><strong>使用auto定义变量时必须对其进行初始化，在编译阶段编译器需要根据初始化表达式来推导auto的实际类型。因此auto并非是一种“类型”的声明，而是一个类型声明时的“占位符”编译器在编译期会将auto替换为变量实际的类型</strong></font></p>
+<hr>
+<h3 id="auto使用规则"><a href="#auto使用规则" class="headerlink" title="auto使用规则"></a><strong>auto使用规则</strong></h3><blockquote>
+<p><font color=red><strong>1.auto声明指针类型时，auto与auto*没有区别</strong></font></p>
+<p><font color=red><strong>2.auto声明引用类型时，必须加&amp;</strong></font></p>
+<p><font color=red><strong>3.auto声明多个变量，类型必须相同—auto识别第一个变量，后面也认为时这个变量</strong></font></p>
+<p><font color=red><strong>4.auto不能作为函数参数</strong></font></p>
+<p><font color=red><strong>5.auto不能声明数组</strong></font></p>
+</blockquote>
+<p><strong>1.auto与指针和引用结合使用</strong></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">1.用auto声明指针类型时，用auto和auto*没有任何区别
+2.用auto声明引用类型时必须加&amp;
+
+int main()
+&#123;
+	int x&#x3D;0;
+    auto xx&#x3D;&amp;x;
+    auto* xxx&#x3D;&amp;x;
+    auto&amp; xxxx&#x3D;x;
+    cout&lt;&lt;typeid(xx).name&lt;&lt;endl;&#x2F;&#x2F;int*
+    cout&lt;&lt;typeid(xxx).name&lt;&lt;endl;&#x2F;&#x2F;int*
+    cout&lt;&lt;typeid(xxxx).name&lt;&lt;endl;&#x2F;&#x2F;int
+    *xx&#x3D;1;
+    *xxx&#x3D;2;
+    xxxx&#x3D;3;
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>2.在同一行定义多个变量</strong></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">1.当在同一行声明多个变量时，这些变量必须是相同的类型，否则编译器会报错
+2.编译器只对第一个类型进行推导，然后用推导出来的类型定义其他变量
+    
+void func()
+&#123;
+    auto a&#x3D;1,b&#x3D;2;&#x2F;&#x2F;正确
+    auto c&#x3D;3,d&#x3D;4.0;&#x2F;&#x2F;错误，因为c和d的初始化表达式类型不同
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>3.auto不能作为函数的参数</strong></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;编译失败，auto不能作为形参类型，因为编译器无法对a的实际类型进行推导
+void func(auto a)
+&#123;
+	return a;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>4.auto不能直接用来声明数组</strong></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;编译错误，没有这种用法
+void func()
+&#123;
+    int a[]&#x3D;&#123;1,2,3,4,5,6&#125;;
+    auto b[]&#x3D;&#123;1,2,3,4,5&#125;;&#x2F;&#x2F;编译错误
+    return 0;
+&#125;
+
+&#x2F;&#x2F;特殊：
+void func2(int array[])
+&#123;
+    for(auto&amp;array : array)&#x2F;&#x2F;错误，因为int array[]是int*，是指针，但是范围fo&#39;r
+    &#123;
+        cout&lt;&lt;e&lt;&lt;endl;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><strong>补充：</strong></p>
+<p>​		<strong>①为了避免和C++98中的auto发生混洗，C++11只保留了auto作为类型指示符的用法</strong></p>
+<p>​		<strong>②auto在实际中最常见的优势用法就是跟以后会讲到的C++提供的新式for循环，还有lambda表达式等进行配合使用</strong></p>
+</blockquote>
+<hr>
+<h2 id="C-基于范围的for循环-C-11"><a href="#C-基于范围的for循环-C-11" class="headerlink" title="C++ 基于范围的for循环(C++11)"></a><strong>C++ 基于范围的for循环(C++11)</strong></h2><h3 id="for遍历与范围for遍历"><a href="#for遍历与范围for遍历" class="headerlink" title="for遍历与范围for遍历"></a><strong>for遍历与范围for遍历</strong></h3><blockquote>
+<p><strong>对于一个有范围的集合而言，由程序员来说明循环的范围是多余的，有时候还会容易犯错误。因此C++11中引入了基于范围的for循环。for循环后的括号由冒号“ ：”分为两部分：第一部分是范围内用于迭代的变量， 第二部分则表示被迭代的范围</strong></p>
+</blockquote>
+<p>注意：与普通循环类似，可以用continue来结束本次循环，也可以用break来跳出整个循环</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;for遍历
+void func()
+&#123;
+	int a[]&#x3D;&#123;1,2,3,4,5,6,7&#125;;
+    for(int i&#x3D;0;i&lt;sizeof(a)&#x2F;sizeof(a[0]);++i)
+        a[i]+&#x3D;1;
+    for(int* j&#x3D;a;j&lt;a+sizeof(a)&#x2F;sizeof(a[0]),++j)
+        cout&lt;&lt;*j&lt;&lt;endl;
+&#125;
+
+&#x2F;&#x2F;范围for遍历：自动获取array中的数据，赋值给e，自动判断结束
+void func()
+&#123;
+    int a[]&#x3D;&#123;1,2,3,4,5,6,7&#125;;
+    int aa[]&#x3D;&#123;2,4,6,8,10,12&#125;;
+    
+    &#x2F;&#x2F;auto&amp;与auto的在for遍历中的区别
+    
+    &#x2F;&#x2F;auto---相当于操作的是临时变量(拷贝的)
+    for(auto e:a)
+        e&#x2F;&#x3D;2;
+    for(auto e:a)
+        cout&lt;&lt;e&lt;&lt;&quot; &quot;;&#x2F;&#x2F;还是打印的1 2 3 4 5 6 7---原因：把a的元素赋值给e相当于形参的改变不影响实参
+    
+    &#x2F;&#x2F;auto&amp;---相当于操作的变量别名
+    for(auto&amp;ee :aa)
+        ee&#x2F;&#x3D;2;
+    for(auto&amp; ee:aa)
+        cout&lt;&lt;ee&lt;&lt;&quot; &quot;;&#x2F;&#x2F;打印1 2 3 4 5 6
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="范围for的使用要求"><a href="#范围for的使用要求" class="headerlink" title="范围for的使用要求"></a><strong>范围for的使用要求</strong></h3><p><strong>1.for循环迭代的范围必须是确定的</strong></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">对于数组而言，就是数组中的第一个元素和最后一个元素的范围
+对类而言，应该提供begin和end的方法，begin和end就是for循环迭代的范围
+
+void func(int a[])
+&#123;
+    &#x2F;&#x2F;编译错误，for范围不确定
+    for(auto&amp; e:a)
+        cout&lt;&lt;e&lt;&lt;endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="C-指针空值nullptr-C-11"><a href="#C-指针空值nullptr-C-11" class="headerlink" title="C++ 指针空值nullptr(C++11)"></a><strong>C++ 指针空值nullptr(C++11)</strong></h2><h3 id="指针空值的底层原理"><a href="#指针空值的底层原理" class="headerlink" title="指针空值的底层原理"></a><strong>指针空值的底层原理</strong></h3><p><strong>指针空值的初始化：</strong></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">如果一个指针没有合法的指向，按照一下方法对其初始化
+void Ptr()
+&#123;
+	int* p1&#x3D;NULL;&#x2F;&#x2F;NULL就是0
+    int* p2&#x3D;nullptr;
+    int* p3&#x3D;0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><font color=red><strong>NULL底层就是一个宏，值为0，在传统的C头文件stddef.h中</strong></font></p>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">#ifndef NULL
+#ifdef __cplusplus
+#define NULL	0
+#else
+#define NULL	((void *)0)
+#endif
+#endif
+
+可以看到，NULL可能被定义为字面常量0，或者被定义为无类型指针(void*)的常量---NULL和0的值一样就会引发问题--所以C++使用了nullptr<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>指针空值的规则：</strong></p>
+<blockquote>
+<ol>
+<li><strong>为了提高代码的健壮性，在C++11后表示指针空值时建议最好使用nullptr</strong></li>
+<li><strong>在使用nullptr表示指针空值时，不需要包含头文件，因为nullptr时C++11作为关键字引入的</strong></li>
+<li>*<em>在C++11中，<mark>sizeof(nullptr)与sizeof((void <em>)0)所占的字节数相同</mark></em></em></li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="剖析extern-“C”"><a href="#剖析extern-“C”" class="headerlink" title="剖析extern “C”"></a><strong>剖析extern “C”</strong></h2><blockquote>
+<p><strong>曾经Google有一个项目叫tcmalloc和tcfree项目，就是用C++写tcmalloc和tcfree两个接口来实现更高的效率，但是写出来的话C语言就没办法使用，于是就诞生了extern “C”这个东西</strong></p>
+<p><font color=red><strong><font color=green>extern “C”的主要作用就是为了能够正确实现C++代码调用其他C语言代码</font>。加上extern “C”后，会指示编译器这部分代码按C语言的进行编译，而不是C++的。由于C++支持函数重载，因此编译器编译函数的过程中会将函数的参数类型也加到编译后的代码中，而不仅仅是函数名；而C语言并不支持函数重载，因此编译C语言代码的函数时不会带上函数的参数类型，一般只包括函数名</strong></font></p>
+</blockquote>
+<h3 id="解析extern-“C”"><a href="#解析extern-“C”" class="headerlink" title="解析extern “C”"></a><strong>解析extern “C”</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#ifndef __INCvxWorksh  &#x2F;*防止该头文件被重复引用*&#x2F;
+#define __INCvxWorksh
+
+#ifdef __cplusplus    &#x2F;&#x2F;__cplusplus是cpp中自定义的一个宏
+extern &quot;C&quot; &#123;          &#x2F;&#x2F;告诉编译器，这部分代码按C语言的格式进行编译，而不是C++的
+#endif
+
+#ifdef __cplusplus
+&#125;
+#endif
+
+#endif &#x2F;* __INCvxWorksh *&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>extern “C” 包含双重含义，从字面上即可得到：<mark>首先，被它修饰的目标是“extern”的；其次，被它修饰的目标是“C”的</mark>。被extern “C”限定的函数或变量是extern类型的。</strong></p>
+<hr>
+<h3 id="extern-“C”的应用场景"><a href="#extern-“C”的应用场景" class="headerlink" title="extern “C”的应用场景"></a><strong>extern “C”的应用场景</strong></h3><p><strong>1.C++代码调用C语言代码、在C++的头文件中使用</strong></p>
+<p>在C++中引用C语言中的函数和变量，在包含C语言头文件（假设为Example.h）时，需进行下列处理：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">extern &quot;C&quot;
+&#123;
+#include &quot;Example.h&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>而在C语言的头文件中，对其外部函数只能指定为extern类型，C语言中不支持extern “C”声明，在.c文件中包含了extern “C”时会出现编译语法错误</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;c语言头文件：Example.h 
+#ifndef C_EXAMPLE_H
+#define C_EXAMPLE_H
+extern int add(int x,int y);     &#x2F;&#x2F;写成extern &quot;C&quot; int add(int,int );也可以
+#endif
+
+&#x2F;&#x2F;c语言实现文件：Example.c 
+#include &quot;cExample.h&quot;
+int Add( int x, int y )
+&#123;
+　return x + y;
+&#125;
+
+&#x2F;&#x2F; c++实现文件，调用add：cppFile.cpp
+extern &quot;C&quot;
+&#123;
+　#include &quot;Example.h&quot;       
+ &#x2F;&#x2F;如果这样编译通不过，换成 extern &quot;C&quot; int  add(int , int ); 可以通过
+&#125;
+
+int main(int argc, char* argv[])
+&#123;
+　Add(2,3);
+　return 0;
+&#125;
+
+&#x2F;&#x2F;如果C++调用一个C语言编写的.DLL时，当包括.DLL的头文件或声明接口函数时，应加extern &quot;C&quot;&#123;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在C中引用C++语言中的函数和变量时，C++的头文件需添加extern “C”，但是在C语言中不能直接引用声明了extern “C”的该头文件，应该仅将C文件中将C++中定义的extern “C”函数声明为extern类型</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;C++头文件 cppExample.h
+#ifndef CPP_EXAMPLE_H
+#define CPP_EXAMPLE_H
+extern &quot;C&quot; int Add( int x, int y );
+#endif
+
+&#x2F;&#x2F;C++实现文件 cppExample.cpp
+#include &quot;cppExample.h&quot;
+int Add( int x, int y )
+&#123;
+　return x + y;
+&#125;
+
+&#x2F;&#x2F; C实现文件 cFile.c
+&#x2F;&#x2F;这样会编译出错：#include &quot;Example.h&quot; 
+extern int Add( int x, int y );
+int main( int argc, char* argv[] )
+&#123;
+　Add( 2, 3 );
+　return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="extern-“C”引出的宏问题"><a href="#extern-“C”引出的宏问题" class="headerlink" title="extern “C”引出的宏问题"></a><strong>extern “C”引出的宏问题</strong></h3><p><strong>宏的优点：</strong></p>
+<p>​				<strong>①增强代码的复用性</strong></p>
+<p>​				<strong>②提高性能</strong></p>
+<p><strong>宏的缺点：</strong></p>
+<p>​				<strong>①不方便调试宏(因为预编译阶段进行了替换，不好读)</strong></p>
+<p>​				<strong>②导致代码可读性差，可维护性差，容易误用</strong></p>
+<p>​				<strong>③没有类型安全的检查</strong></p>
+<p><strong>C++替换宏的技术方法：</strong></p>
+<p>​				<strong>①C++使用常量定义换用const</strong></p>
+<p>​				<strong>②C++函数定义换用内联函数</strong></p>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/C-%EF%BC%8C%E5%88%9D%E9%98%B6/" class="">
+              C++，初阶
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2022/12/10/1.c-ji-chu/" target="_blank" title="C++基础">https://Not-Go.github.io/2022/12/10/1.c-ji-chu/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/01/20/9.kong-jian-pei-zhi-qi/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">C++的空间配置器</div>
+      </div>
+      
+      <!-- <div class="content">
+        空间配置器空间配置器的诞生缘由 我们知道STL容器在不断保存数据时，当保存的的数据个数超过容器容量时，需要进行扩容。但是
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2022/12/10/2.c-lei-yu-dui-xiang-ji-chu/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">C++类与对象(基础)</div>
+      </div>
+      <!-- <div class="content">
+        C++类与对象(基础)理解面向过程与面向对象我们说C语言是面向过程的，C++是面向对象的，从而分割出了面向过程编程和面向
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%9F%BA%E7%A1%80"><span class="toc-text">C++基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%85%B3%E9%94%AE%E5%AD%97-98%E7%89%88%EF%BC%8C63%E4%B8%AA"><span class="toc-text">C++ 关键字(98版，63个)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E5%85%B3%E9%94%AE%E5%AD%97%E8%A1%A8"><span class="toc-text">C++ 关键字表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-text">C++ 命名空间</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BD%A2%E5%BC%8F"><span class="toc-text">命名空间的常见形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">命名空间的常见使用方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="toc-text">C++ 输入与输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cout%E4%B8%8Ecin%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-text">cout与cin标识符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0-x2F-%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0"><span class="toc-text">C++ 缺省参数&#x2F;默认参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0%E6%A6%82%E5%BF%B5"><span class="toc-text">缺省参数概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-text">缺省参数类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD"><span class="toc-text">C++ 函数重载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">函数重载的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%90%8D%E5%AD%97%E4%BF%AE%E9%A5%B0%E5%8E%9F%E5%88%99"><span class="toc-text">函数名字修饰原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%BC%95%E7%94%A8"><span class="toc-text">C++ 引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">引用的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">引用的特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E5%BC%95%E7%94%A8"><span class="toc-text">常引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E4%B8%8E%E6%8C%87%E9%92%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">引用与指针的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text">C++ 内联函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5"><span class="toc-text">内联函数概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E7%9A%84%E6%9F%A5%E7%9C%8B%E6%96%B9%E6%B3%95"><span class="toc-text">内联函数的查看方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">内联函数的特性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-auto%E5%85%B3%E9%94%AE%E5%AD%97-C-11"><span class="toc-text">C++ auto关键字(C++11)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#auto%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">auto关键字的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#auto%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%99"><span class="toc-text">auto使用规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%9F%BA%E4%BA%8E%E8%8C%83%E5%9B%B4%E7%9A%84for%E5%BE%AA%E7%8E%AF-C-11"><span class="toc-text">C++ 基于范围的for循环(C++11)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#for%E9%81%8D%E5%8E%86%E4%B8%8E%E8%8C%83%E5%9B%B4for%E9%81%8D%E5%8E%86"><span class="toc-text">for遍历与范围for遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8C%83%E5%9B%B4for%E7%9A%84%E4%BD%BF%E7%94%A8%E8%A6%81%E6%B1%82"><span class="toc-text">范围for的使用要求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E6%8C%87%E9%92%88%E7%A9%BA%E5%80%BCnullptr-C-11"><span class="toc-text">C++ 指针空值nullptr(C++11)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E7%A9%BA%E5%80%BC%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="toc-text">指针空值的底层原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%96%E6%9E%90extern-%E2%80%9CC%E2%80%9D"><span class="toc-text">剖析extern “C”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90extern-%E2%80%9CC%E2%80%9D"><span class="toc-text">解析extern “C”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extern-%E2%80%9CC%E2%80%9D%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">extern “C”的应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extern-%E2%80%9CC%E2%80%9D%E5%BC%95%E5%87%BA%E7%9A%84%E5%AE%8F%E9%97%AE%E9%A2%98"><span class="toc-text">extern “C”引出的宏问题</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

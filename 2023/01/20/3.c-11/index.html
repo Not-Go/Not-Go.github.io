@@ -1,0 +1,3664 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>C++11新特性 | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pica.zhimg.com/80/v2-61f99f8dcf899f54cad2a1aa28b21e44_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        C++11新特性
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-01-20 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E9%AB%98%E9%98%B6C/" class="post-detail-header_category">
+              高阶C++
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 7.8k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 33分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="C-11新特性"><a href="#C-11新特性" class="headerlink" title="C++11新特性"></a><strong>C++11新特性</strong></h1><h2 id="C-11的诞生来由"><a href="#C-11的诞生来由" class="headerlink" title="C++11的诞生来由"></a><strong>C++11的诞生来由</strong></h2><ol>
+<li><strong><font color=red>C++11标准是 ISO&#x2F;IEC 14882:2011 - Information technology – Programming languages – C++ 的简称</font></strong></li>
+<li><strong><font color=red>C++11是C++的标准委员会在<code>2011</code>年更新的C++新特性。说白了就是一个升级包。和<code>JAVA\PYTHON</code>这种更新比较频繁的语言相比，C++更新的就没有那么顺风顺水了，而且每一次更新虽然修复了一些问题，但也带来了更多的“没太大必要”的更新</font></strong></li>
+<li><strong><font color=red>2011年发布的C++标准，对C++98的一次重大修正</font></strong></li>
+</ol>
+<hr>
+<h2 id="新特性：-初始化"><a href="#新特性：-初始化" class="headerlink" title="新特性：{}初始化"></a><strong>新特性：{}初始化</strong></h2><h3 id="对于-的使用形式"><a href="#对于-的使用形式" class="headerlink" title="对于{}的使用形式"></a><strong>对于{}的使用形式</strong></h3><p><strong><font color=red>官方的意思：C++11提供了{}初始化的方法用来简单化列表初始化和其他初始化</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main()
+&#123;
+	&#x2F;&#x2F;&#123;&#125;初始化的简单使用
+	int arr1[] &#x3D; &#123; 1,2,3,4,5 &#125;;&#x2F;&#x2F;直接用&#123;&#125;初始化
+	int arr2[]&#123; 1,2,3,4,5 &#125;;&#x2F;&#x2F;去掉赋值符号&#x3D;也可以用，但代码可读性会变差
+
+	pair&lt;int, int&gt;(1, 1);&#x2F;&#x2F;括号改成&#123;&#125;也能初始化
+	pair&lt;int, int&gt;&#123;1, 1&#125;;&#x2F;&#x2F;直接用&#123;&#125;初始化
+
+	pair&lt;string, int&gt;* pr &#x3D; new pair&lt;string, int&gt;[2]&#123; &#123;&quot;sort&quot;,1&#125; ,&#123;&quot;good&quot;,2&#125; &#125;;&#x2F;&#x2F;直接用&#123;&#125;初始化pari数组
+
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><mark>我的看法：实际使用中我们还是更多的使用new，而不是直接用{}，因为这样让代码可读性变差了</mark></strong></p>
+<hr>
+<h3 id="new中-的使用"><a href="#new中-的使用" class="headerlink" title="new中{}的使用"></a><strong>new中{}的使用</strong></h3><blockquote>
+<ul>
+<li><strong><code>我们曾经使用new有（）和 []的区别：</code></strong></li>
+</ul>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int *p1 &#x3D; new int(3);&#x2F;&#x2F;开辟一个int的空间，并初始化为3
+int *p2 &#x3D; new int[3];&#x2F;&#x2F;开辟3个int的空间，不进行初始化
+
+&#x2F;&#x2F;--------------------------------------------------
+&#x2F;&#x2F;TestA代码
+struct TestA
+&#123;
+	int _a;
+	int _b;
+&#125;;
+void TestInit()
+&#123;
+	int arr1[] &#x3D; &#123; 1,2,3,4,5 &#125;;
+	TestA t1 &#x3D; &#123; 1,2 &#125;;
+    int* p2 &#x3D; new int[3];
+    int* p3 &#x3D; new int[3]&#123;1,2,3&#125;;
+    for(int i&#x3D;0;i&lt;3;i++)
+    &#123;
+        cout&lt;&lt;p2[i]&lt;&lt;&quot;_&quot;&lt;&lt;p3[i]&lt;&lt;endl;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<ul>
+<li><strong><font color=red>在C++11中，我们可以直接用花括号，对new开拼出来的数组进行批量初始化。打印的时候，可以看到<code>p2</code>中的数据都是没有进行初始化（vs也报了警告）而<code>p3</code>中的数据都完成了初始化</font></strong></li>
+</ul>
+<img src="/2023/01/20/3.c-11/20230623224556001.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556001.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556001">
+
+
+
+<p><strong><font color=red>对于结构体数据而言，我们可以用花括号直接调用其构造函数</font></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556002.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556002.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556002">
+
+<p><strong><mark>其中t5是发生了隐式类型转换+调用构造函数进行的初始化</mark></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">TestA t5 &#x3D; &#123; 1, 3 &#125;;&#x2F;&#x2F;对类来说，会进行隐式类型转换+调用构造函数<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong><mark>通过调试+打断点可以看到其调用了构造函数进行初始化：</mark></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556003.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556003.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556003">
+
+<ul>
+<li><strong><font color=red>同样的，调用new的时候，我们可以用多个花括号的方式进行批量初始化。这在<code>new</code>一个对象数组的时候非常方便</font></strong></li>
+</ul>
+<img src="/2023/01/20/3.c-11/20230623224556004.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556004.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556004">
+</blockquote>
+<hr>
+<h3 id="initializer-list的了解"><a href="#initializer-list的了解" class="headerlink" title="initializer_list的了解"></a><strong>initializer_list的了解</strong></h3><p><strong><font color=red>{}在C++11里面是一个类型，initializer_list,也叫初始化列表，用于表示某种特定类型的值的数组，和vector一样是一种模板类型</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;initializer_list函数模板
+&#x2F;&#x2F;initializer_list头文件为#include&lt;initializer_list&gt;
+template&lt;class T&gt; 
+class initializer_list;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><mark>initializer_list的类型的验证：</mark></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556005.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556005.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556005">
+
+<blockquote>
+<p><strong><font color=green>要介绍initializer_list的使用，有必要先谈一谈列表初始化：</font></strong></p>
+<ol>
+<li><p><strong><font color=red>C++11扩大了初始化列表的适用范围，使其可用于所有内置类型和用户定义的类型。无论是初始化对象还是某些时候为对象赋新值，都可以使用这样一组由花括号括起来的初始值了。使用初始化列表时，可添加&#x3D;，也可不添加</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;定义一个变量并初始化
+int units_sold&#x3D;0;
+int units_sold(0);
+int units_sold&#x3D;&#123;0&#125;;  &#x2F;&#x2F;列表初始化
+int units_sold&#123;0&#125;;    &#x2F;&#x2F;列表初始化<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong><font color=red>当初始化列表用于内置类型的变量时，这种初始化形式有一个重要特点：如果我们使用列表初始化值存在丢失信息的风险，则编译器将报错：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;initializer_list&gt;&#x2F;&#x2F;initializer_list头文件
+using namespace std;
+int main()
+&#123;
+	long double ld &#x3D; 3.1415926536;
+	int a &#x3D; &#123; ld &#125;, b &#x3D; &#123; ld &#125;; &#x2F;&#x2F;错误:转换未执行，因为存在丢失信息的风险
+	int c(ld), d &#x3D; ld;   &#x2F;&#x2F;正确:转换执行，且确实丢失了部分值
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556006.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556006.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556006">
+
+<img src="/2023/01/20/3.c-11/20230623224556007.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556007.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556007">
+
+<ol start="3">
+<li><strong><font color=red>列表初始化就谈到这里，接下来介绍initializer_list的使用</font></strong><br><strong><mark>它提供的操作如下:</mark></strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++"> initializer_list&lt;T&gt; lst; 
+&#x2F;&#x2F;默认初始化；T类型元素的空列表
+initializer_list&lt;T&gt; lst&#123;a,b,c...&#125;;
+&#x2F;&#x2F;lst的元素数量和初始值一样多；lst的元素是对应初始值的副本
+lst2(lst)   
+lst2&#x3D;lst  
+&#x2F;&#x2F;拷贝或赋值一个initializer_list对象不会拷贝列表中的元素；拷贝后，原始列表和副本元素共享
+lst.size()  &#x2F;&#x2F;列表中的元素数量
+lst.begin()  &#x2F;&#x2F;返回指向lst中首元素的指针
+lst.end()   &#x2F;&#x2F;返回指向lst中尾元素下一位置的指针<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>需要注意的是,initializer_list对象中的元素永远是常量值，我们无法改变initializer_list对象中元素的值。并且，拷贝或赋值一个initializer_list对象不会拷贝列表中的元素，其实只是引用而已，原始列表和副本共享元素</font></strong></p>
+</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="initializer-list在STL容器中的使用"><a href="#initializer-list在STL容器中的使用" class="headerlink" title="initializer_list在STL容器中的使用"></a><strong>initializer_list在STL容器中的使用</strong></h3><img src="/2023/01/20/3.c-11/20230623224556008.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556008.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556008">
+
+<img src="/2023/01/20/3.c-11/20230623224556009.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556009.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556009">
+
+<blockquote>
+<p><strong><font color=red>这也解释了为什么上面我们验证initializer_list类型的时候，auto识别出来是initializer_list类型</font></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556010.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556010.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556010">
+
+<p><strong>个人理解，当其他容器使用<code>initializer_list</code>进行初始化的时候，本质上调用的接口和利用迭代器进行初始化是一样的</strong></p>
+</blockquote>
+<hr>
+<h3 id="initializer-list的插入操作扩展"><a href="#initializer-list的插入操作扩展" class="headerlink" title="initializer_list的插入操作扩展"></a><strong>initializer_list的插入操作扩展</strong></h3><blockquote>
+<p><strong>部分容器的<code>insert</code>函数也添加了使用<code>il</code>进行插入连续数据的操作</strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556011.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556011.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556011">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">set&lt;int&gt; s2 &#x3D; &#123; 1,2,3,4 &#125;;
+s2.insert(&#123; 5,6,7,8 &#125;);
+for(auto e: s2)
+&#123;
+      cout&lt;&lt;e&lt;&lt;&quot; &quot;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556012.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556012.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556012">
+
+
+
+<p>在<code>vector</code>中使用<code>il</code>插入的时候，需要指定pos位置这个和<code>vector</code>的其他几个插入函数是一样的</p>
+<img src="/2023/01/20/3.c-11/20230623224556013.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556013.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556013">
+</blockquote>
+<hr>
+<h2 id="新特性：变量声明"><a href="#新特性：变量声明" class="headerlink" title="新特性：变量声明"></a><strong>新特性：变量声明</strong></h2><h3 id="变量声明：auto"><a href="#变量声明：auto" class="headerlink" title="变量声明：auto"></a><strong>变量声明：auto</strong></h3><blockquote>
+<ol>
+<li><strong><code>C++98</code>中auto是一个存储类型的说明符，表明变量是局部自动存储类型，但是局部域中定义局 部的变量默认就是自动存储类型，所以auto就没什么价值了</strong></li>
+<li><strong>C++11给auto上了实现自动类型推断的全新功能，方便我们在定义一个变量的时候直接用<code>auto</code>进行类型推导</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">auto num &#x3D; 1;&#x2F;&#x2F;自动推导num类型为：int
+auto p &#x3D; &amp;num;&#x2F;&#x2F;自动推导p类型为： int*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>需要注意的是，如果想用<code>auto</code>推到，则必须初始化。只给一个<code>auto num</code>是不行的，你都不给我来个值，我怎么推导你呢</font></strong></p>
+</blockquote>
+<hr>
+<h3 id="变量声明：decltype"><a href="#变量声明：decltype" class="headerlink" title="变量声明：decltype"></a><strong>变量声明：decltype</strong></h3><blockquote>
+<p><strong><font color=red>关键字<code>decltype</code>可以把变量声明成我们想要的目标类型</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int a &#x3D; 10, b &#x3D; 20;
+int sum &#x3D; a * b;
+cout &lt;&lt; &quot;type(sum) &quot; &lt;&lt; typeid(sum).name() &lt;&lt; endl;
+
+decltype(a * b) num;
+decltype(&amp;sum) ptr;
+cout &lt;&lt; &quot;type(a*b)  &quot; &lt;&lt; typeid(num).name() &lt;&lt; endl;
+cout &lt;&lt; &quot;type(&amp;sum) &quot; &lt;&lt; typeid(ptr).name() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556014.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556014.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556014">
+</blockquote>
+<hr>
+<h3 id="变量声明：typeid"><a href="#变量声明：typeid" class="headerlink" title="变量声明：typeid"></a><strong>变量声明：typeid</strong></h3><blockquote>
+<p><strong><font color=red>这个关键字上面已经用过好几次了，就是用来打印变量的类型的，</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+class C
+&#123;
+
+&#125;;
+int main()
+&#123;
+	int a;
+	C c;
+	cout &lt;&lt; typeid(a).name() &lt;&lt; endl;
+	cout &lt;&lt; typeid(float).name() &lt;&lt; endl;
+	cout &lt;&lt; typeid(c).name() &lt;&lt; endl;
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556015.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556015.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556015">
+</blockquote>
+<hr>
+<h2 id="新特性：范围for遍历"><a href="#新特性：范围for遍历" class="headerlink" title="新特性：范围for遍历"></a><strong>新特性：范围for遍历</strong></h2><blockquote>
+<p><strong><font color=red>范围for：遍历容器内的所有元素，如果要修改需要加引用，其本质上就是迭代器iterator的遍历</font></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556016.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556016.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556016">
+
+<img src="/2023/01/20/3.c-11/20230623224556017.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556017.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556017">
+</blockquote>
+<hr>
+<h2 id="新特性：左值右值引用"><a href="#新特性：左值右值引用" class="headerlink" title="新特性：左值右值引用"></a><strong>新特性：左值右值引用</strong></h2><h3 id="左值右值概念的区别"><a href="#左值右值概念的区别" class="headerlink" title="左值右值概念的区别"></a><strong>左值右值概念的区别</strong></h3><p><strong><mark>在之前我学习了引用的基本操作，但那个是<code>左值引用</code>。当时我尚未引入左指引用和右值引用的区别，这里来剖析一下</mark></strong></p>
+<blockquote>
+<p><strong><font color=blue>要解答这两种引用的区别，首先我们需要直到<code>左值/右值</code>分别代指什么：</font></strong></p>
+<ol>
+<li><strong><font color=red>左值：</font></strong><ul>
+<li><strong><font color=green>可以存在于<code>=</code>左边或右边</font></strong></li>
+<li><strong><font color=green>可以取地址</font></strong></li>
+<li><strong><font color=green>可以对它赋值（const除外）</font></strong></li>
+</ul>
+</li>
+<li><strong><font color=red>右值：</font></strong><ul>
+<li><strong><font color=green>右值是一个表示数据的表达式，比如：函数返回值<code>[不能是左值引用返回的]</code>、表达式返回值<code>A+B</code>、字面常量<code>10</code></font></strong></li>
+<li><strong><font color=green>右指只能出现在<code>=</code>的右边，不能出现在左边（可没见过<code>A+B=C</code>的代码语法）</font></strong></li>
+<li><strong><font color=green>右指不能取地址</font></strong></li>
+</ul>
+</li>
+<li><strong><font color=red>左值和右值最大的区别便是：左值可以取地址，右值不能取地址</font></strong></li>
+</ol>
+<p><strong><mark>比如：</mark></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;例子一
+int main()
+&#123;
+	int i &#x3D; 2;&#x2F;&#x2F;i是左值，2是右值
+	int j &#x3D; i;&#x2F;&#x2F;j和i都是左值
+	return 0;
+&#125;
+
+&#x2F;&#x2F;例子二
+int main()
+&#123;
+	int a &#x3D; 1;
+	&#x2F;&#x2F;左值引用
+	int&amp; b &#x3D; a;
+	const int&amp; x &#x3D; 1;&#x2F;&#x2F;const引用是例外
+	int&amp; c &#x3D; 5;&#x2F;&#x2F;error，左值引用不能接受右值
+	&#x2F;&#x2F;右值引用
+	int&amp;&amp; m &#x3D; 1;
+	int&amp;&amp; n &#x3D; a;&#x2F;&#x2F;error，右值引用不能接受左值
+	int&amp;&amp; p &#x3D; move(a);&#x2F;&#x2F;move可以把左值转为右值，及左值退化为右值	
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556018.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556018.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556018">
+</blockquote>
+<hr>
+<h3 id="左值引用"><a href="#左值引用" class="headerlink" title="左值引用"></a><strong>左值引用</strong></h3><blockquote>
+<p><strong><mark>左值引用就是对左值的引用</mark></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; a、b、c、*a都是左值
+&#x2F;&#x2F; 对象内部的*this也是左值
+int* a &#x3D; new int(0);
+int b &#x3D; 1;
+const int c &#x3D; 2;
+&#x2F;&#x2F; 以下是对上面左值的 左值引用
+int*&amp; rp &#x3D; a;
+int&amp; rb &#x3D; b;
+const int&amp; rc &#x3D; c;
+int&amp; p &#x3D; *a;
+&#x2F;&#x2F; 引用相当于别名，修改引用后的内容相等于修改原本的参数
+&#x2F;&#x2F; 左值引用：其作用主要是在针对出了作用域不会销毁的变量进行引用返回，以节省拷贝的代价。亦或者是引用传参，减少形参拷贝代价<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<hr>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a><strong>右值引用</strong></h3><blockquote>
+<ol>
+<li><p><strong><font color=green>右值引用分为：<code>将亡值</code>和<code>纯右值</code>两种</font></strong></p>
+</li>
+<li><p><strong><font color=red>关于右值引用中<code>将亡值</code>概念的介绍(了解即可，没啥用)：</font></strong></p>
+<p><strong>通常指代一个生存周期即将结束的值（因此其资源可以被转移）。是某些涉及到右值引用的表达式的值，根据C++11标准，以下四种情况属于xvalue：</strong></p>
+<ul>
+<li><strong>调用函数（无论是隐式还是显式）的结果，该函数的返回类型是对对象类型的右值引用</strong></li>
+<li><strong>对对象类型的右值引用的强制转换</strong></li>
+<li><strong>类成员访问表达式，指定非引用类型的非静态数据成员，其中对象表达式是xvalue</strong></li>
+<li><strong>指向成员表达式的*指针，其中第一个操作数是xvalue，第二个操作数是指向数据成员的指针</strong></li>
+</ul>
+</li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;纯右值
+10;
+a+b;
+Add(a,b);
+&#x2F;&#x2F;将亡值
+string s1(&quot;1111&quot;);&#x2F;&#x2F;&quot;1111&quot;是将亡值
+string s2 &#x3D; to_string(1234);&#x2F;&#x2F;to_string的return对象是一个将亡值
+string s3 &#x3D; s1+&quot;hello&quot; &#x2F;&#x2F;相加重载的return对象是一个将亡值
+move(s1);&#x2F;&#x2F;被move之后的s1也是将亡值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><code>一般来说，具名的右值引用（named rvalue reference）属于左值，不具名的右值引用（unamed rvalue reference）就属于xvalue(将亡值)，而对函数的右值引用不论是否具名都当做左值处理</code></strong></p>
+</blockquote>
+<p><strong><font color=red>常见的右值引用：</font></strong></p>
+<blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">double x &#x3D; 1.1, y &#x3D; 2.2;
+&#x2F;&#x2F; 常见的右值
+10;
+x + y;
+Add(x, y);
+&#x2F;&#x2F; 以下都是对右值的右值引用
+int&amp;&amp; rr1 &#x3D; 10;
+double&amp;&amp; rr2 &#x3D; x + y;
+double&amp;&amp; rr3 &#x3D; Add(x, y);
+
+&#x2F;&#x2F;右值不能出现在&#x3D;的左边
+&#x2F;&#x2F;10 &#x3D; 1;
+&#x2F;&#x2F;x + y &#x3D; 1;
+&#x2F;&#x2F;fmin(x, y) &#x3D; 1;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li><strong>虽然我们不能直接对右值进行<code>取地址/赋值</code>操作，但是在右值引用过后，便可以对引用值进行<code>取地址/赋值</code>操作</strong></li>
+<li><strong>这是因为右值引用的时候，会把当前引用的数据放入一个位置存起来</strong></li>
+<li><strong>存放位置：普通变量在<code>栈</code>，全局变量&#x2F;静态变量在<code>静态区</code></strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int&amp;&amp; rr1 &#x3D; 10;&#x2F;&#x2F;rr1对右值取地址，从而进行间接的赋值等操作
+cout &lt;&lt; rr1  &lt;&lt; endl;&#x2F;&#x2F;打印：10
+rr1 &#x3D; 3;
+cout &lt;&lt; rr1 &lt;&lt; endl;&#x2F;&#x2F;打印：3
+int* p &#x3D; &amp;rr1;
+*p &#x3D; 2;
+cout &lt;&lt; rr1 &lt;&lt; endl;&#x2F;&#x2F;打印：2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<hr>
+<h3 id="右值引用使用场景"><a href="#右值引用使用场景" class="headerlink" title="右值引用使用场景"></a><strong>右值引用使用场景</strong></h3><blockquote>
+<p><strong>右值引用可以提高<code>移动构造/移动赋值</code>等深拷贝场景的效率</strong></p>
+<ol>
+<li><strong>什么场景可以使用左值引用提高效率?</strong><ul>
+<li><strong>操作符重载：<code>前置++</code></strong></li>
+<li><strong>操作符重载：<code>+=</code></strong></li>
+<li><strong>出了作用域后不会销毁的变量，如输出型参数（即传入函数进行处理的参数）</strong></li>
+</ul>
+</li>
+<li><strong>而有一些场景是左值引用无法处理的：</strong><ul>
+<li><strong>操作符重载：<code>后置++</code>（需要返回一个全新变量）</strong></li>
+<li><strong>操作符重载：<code>+</code>（需要返回一个全新变量）</strong></li>
+<li><strong>模拟实现string中的<code>to_string</code>函数</strong></li>
+<li><strong>这些场景大多有一个特性，那就是会生成一个全新的变量（对象）其对象生命周期出了函数作用域便会销毁（将亡值）</strong></li>
+<li><strong>如果使用左值引用返回，就会出现访问已经销毁了的对象的错误</strong></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><font color=red>对于移动构造的理解：</font></p>
+<blockquote>
+<ol>
+<li><strong><mark>假如现在需要一个一次性对象A来拷贝构造另一个生命周期更长的对象B，一次性对象A用完就销毁了，但是拷贝构造B前还是得去构造这个一次性对象A，是不是觉得有点浪费</mark></strong></li>
+<li><strong><mark>反正这个一次性对象A的作用也是拷贝出另一个对象B，反正一次性对象A用完就要销毁了，那我们有没有一种办法把A的资源“偷走”给拷贝出来的对象B，这样不就可以减少一次拷贝构造</mark></strong></li>
+<li><strong>因此就有了移动构造这种方法，来解决这个问题</strong></li>
+</ol>
+<p><strong><font color=red>比如：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">test::string to_string(int val)
+&#123;
+    bool flag &#x3D; true;
+    if (val &lt; 0)
+    &#123;
+        flag &#x3D; false;
+        val &#x3D; 0 - val;
+    &#125;
+
+    test::string str;
+    while (val &gt; 0)
+    &#123;
+        int x &#x3D; val % 10;
+        val &#x2F;&#x3D; 10;
+
+        str +&#x3D; (&#39;0&#39; + x);
+    &#125;
+
+    if (flag &#x3D;&#x3D; false)
+    &#123;
+       str +&#x3D; &#39;-&#39;;
+    &#125;
+
+    std::reverse(str.begin(), str.end());
+    return str;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li><strong><font color=red>在默认情况下，如果想使用这个<code>to_string</code>函数，就需要进行深拷贝进行传值返回，这是无可避免的代价。但是，如果使用左值引用返回，这里就会有bug。因为出了函数作用域后，临时对象<code>str</code>会被销毁。而如果我们使用左值引用取别名，在进行赋值的时候，便会出现利用str的别名进行拷贝构造，而str是一个已经销毁的对象的问题</font></strong></li>
+<li><strong>而如果我们使用右值引用返回，则不会出现这种问题。前提是我们自己实现了右值引用的构造函数和赋值重载</strong></li>
+<li><strong>一般我们把右值引用的构造函数&#x2F;赋值重载称作<code>移动构造/移动赋值</code></strong>—为什么叫移动呢？因为右值引用是会直接拿取<strong>对象的资源</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">string s1 &#x3D; &quot;1234134&quot;;
+string s2(s1);
+string s3(move(s1));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><strong>正常深拷贝构造</strong>函数</li>
+</ul>
+<img src="/2023/01/20/3.c-11/20230623224556019.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556019.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556019">
+
+<ul>
+<li><strong>右值引用构造函数</strong></li>
+</ul>
+<img src="/2023/01/20/3.c-11/20230623224556020.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556020.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556020">
+
+<p><strong><mark>右值引用优化：在使用右值进行返回的时候，编译器会进行一波优化，直接使用移动构造拿取资源，避免多次拷贝构造造成的空间和时间损失</mark></strong></p>
+</blockquote>
+<hr>
+<h3 id="move-函数的理解和万能引用概念"><a href="#move-函数的理解和万能引用概念" class="headerlink" title="move()函数的理解和万能引用概念"></a><strong>move()函数的理解和万能引用概念</strong></h3><p><font color=red>1.move()函数的理解：move的作用就是将左值转为右值使用</font></p>
+<blockquote>
+<p><strong>上面通过拷贝构造窃取了资源，那假如我们想通过赋值来直接窃取资源呢？方法：重载&#x3D;即可</strong></p>
+<p><strong>注意：处理旧数据，不能窃取自己的资源，防止一块内存被析构两次</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">String&amp; operator&#x3D;(String&amp;&amp; other)
+&#123;
+	if (this !&#x3D; &amp;other)&#x2F;&#x2F;窃取的不是自己的资源
+	&#123;
+		&#x2F;&#x2F;处理旧数据，防止内存泄漏
+		delete[] _string;
+		&#x2F;&#x2F;窃取资源
+		_string &#x3D; other._string;
+		_size &#x3D; other._size;
+		&#x2F;&#x2F;防止一块内存被析构两次
+		other._string &#x3D; nullptr;
+		other._size &#x3D; 0;
+        return *this;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>调用时得用move转成右值取匹配赋值的右值版本</strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556021.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556021.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556021">
+
+<p><strong>用move时得注意可能把数据转走了,毕竟是把左值转成了右值去使用，要是资源被窃取走了还去用就会造成一下问题</strong></p>
+</blockquote>
+<p><font color=red>2.万能引用概念</font></p>
+<blockquote>
+<p><strong><code>如下代码中，模板里的&amp;&amp;叫做万能引用，而不是右值引用</code></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void Test(int&amp;)
+&#123;
+	cout &lt;&lt; &quot;左值引用&quot; &lt;&lt; endl;
+&#125;
+void Test(const int&amp;)
+&#123;
+	cout &lt;&lt; &quot;const 左值引用&quot; &lt;&lt; endl;
+&#125;
+void Test(int&amp;&amp;)
+&#123;
+	cout &lt;&lt; &quot;右值引用&quot; &lt;&lt; endl;
+&#125;
+void Test(const int&amp;&amp;)
+&#123;
+	cout &lt;&lt; &quot;const 右值引用&quot; &lt;&lt; endl;
+&#125;
+template&lt;class T&gt;
+void PerfectForward(T&amp;&amp; t)&#x2F;&#x2F;万能引用
+&#123;
+	Test(t);&#x2F;&#x2F;万能引用  右值接受后变成左值
+&#125;
+int main()
+&#123;
+	int a &#x3D; 1;
+	const int b &#x3D; 1;
+	PerfectForward(a);
+	PerfectForward(b);
+	PerfectForward(1);
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556022.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556022.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556022">
+
+<p><strong><font color=red>万能引用改变了值的左右值属性，该怎么保留之前的属性呢，此时就需要std::forward完美转发保留传参过程中对象的原生类型属性</font></strong></p>
+</blockquote>
+<p><strong>扩展：完美转发</strong></p>
+<blockquote>
+<ol>
+<li><strong><code>完美转发概念：完美转发的概念很简单，即在函数内部完美转发函数实参的原始类型和值类型，即如果函数传入实参A是左值引用类型且值类型为左值，转发时应保持A的左值属性和左值引用类型</code></strong></li>
+<li><strong><code>std::forward&lt;T&gt;(arg)</code> 可以实现完美转发，即如果 <code>arg</code> 是一个右值引用，则转发之后结果仍是右值引用；反之，如果 <code>arg</code> 是一个左值引用，则转发之后结果仍是左值引用</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;class T&gt;
+void PerfectForward(T&amp;&amp; t)&#x2F;&#x2F;万能引用
+&#123;
+	Test(std::forward&lt;T&gt;(t));&#x2F;&#x2F;完美转发
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556023.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556023.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556023">
+
+<p><strong><mark>完美转发的引用折叠规则：</mark></strong></p>
+<ol>
+<li><strong>右值引用和右值引用叠加将得到右值引用</strong></li>
+<li><strong>右值引用和左值引用叠加将得到左值引用</strong></li>
+<li><strong>左值引用和左值引用叠加将得到左值引用</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template &lt;typename T&gt;
+using TR &#x3D; T&amp;;&#x2F;&#x2F;左值引用
+						   	&#x2F;&#x2F; v 的类型
+TR&lt;int&gt; v;				 	&#x2F;&#x2F; int&amp;
+TR&lt;int&gt;&amp; v;					&#x2F;&#x2F; int&amp;
+TR&lt;int&gt;&amp;&amp; v;			    &#x2F;&#x2F; int&amp;
+
+&#x2F;&#x2F;--------------------------------------
+
+template &lt;typename T&gt;
+using TRR &#x3D; T&amp;&amp;;&#x2F;&#x2F;右值引用
+						    &#x2F;&#x2F; v 的类型
+TRR&lt;int&gt; v;				 	&#x2F;&#x2F; int&amp;&amp;
+TRR&lt;int&gt;&amp; v;				&#x2F;&#x2F; int&amp;
+TRR&lt;int&gt;&amp;&amp; v;			    &#x2F;&#x2F; int&amp;&amp;
+
+结论：
+1.所有右值引用折叠到右值引用上仍然是一个右值引用（v&amp;&amp; &amp;&amp; 变成 v&amp;&amp;）
+2.所有的其他引用类型之间的折叠都将变成左值引用（v&amp; &amp; 变成 v&amp;; v&amp; &amp;&amp; 变成 v&amp;; v&amp;&amp; &amp; 变成 v&amp;）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>完美转发的原理：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt; class T &gt;
+T&amp;&amp; forward( typename std::remove_reference&lt;T&gt;::type&amp; t ) noexcept;&#x2F;&#x2F;左值引用
+ 
+template&lt; class T &gt;
+T&amp;&amp; forward( typename std::remove_reference&lt;T&gt;::type&amp;&amp; t ) noexcept;&#x2F;&#x2F;右值引用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><code>std::remove_reference&lt;T&gt;</code> 的作用就是去掉 <code>T</code> 中的引用，它是通过模板特化来实现：</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt; class T &gt; struct remove_reference      &#123;typedef T type;&#125;;
+template&lt; class T &gt; struct remove_reference&lt;T&amp;&gt;  &#123;typedef T type;&#125;;
+template&lt; class T &gt; struct remove_reference&lt;T&amp;&amp;&gt; &#123;typedef T type;&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>根据上述引用折叠规则，如果 <code>T</code> 是 <code>int&amp;</code>，则 <code>T&amp;&amp;</code> 即为 <code>int&amp;</code>；反之，如果 <code>T</code> 是 <code>int&amp;&amp;</code>，则 <code>T&amp;&amp;</code> 为 <code>int&amp;&amp;</code></strong></p>
+</blockquote>
+<hr>
+<h2 id="新特性：新增的默认成员函数"><a href="#新特性：新增的默认成员函数" class="headerlink" title="新特性：新增的默认成员函数"></a><strong>新特性：新增的默认成员函数</strong></h2><blockquote>
+<p><strong>在初识类和对象的时候，提到了C++的几个默认成员函数：</strong></p>
+<ul>
+<li><strong>构造函数</strong></li>
+<li><strong>拷贝构造函数</strong></li>
+<li><strong>析构函数</strong></li>
+<li><strong>拷贝赋值重载</strong></li>
+<li><strong>取地址重载</strong></li>
+<li><strong>const取地址重载</strong></li>
+</ul>
+<ol>
+<li><strong>在<code>C++11</code>中也多了两个成员函数，那便是前文所讲述的<code>移动构造/移动赋值</code></strong></li>
+<li><strong>但是想让编译器默认生成<mark>移动构造</mark>可没那么容易：<mark>只有你没有自己实现移动构造函数，且没有实现析构函数 、拷贝构造、拷贝赋值重载中的任意一个，编译器才会帮你整一个移动构造出来</mark></strong></li>
+<li><strong><font color=red>编译器默认生成的移动构造：对于内置类型会执行逐成员按字节拷贝；对自定义类型成员，则需要看这个成员是否实现移动构造， 如果实现了就调用移动构造，没有实现就调用拷贝构造</font></strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class TestB
+&#123;
+private:
+	test::string _s;
+	int _a;
+public:
+	TestB(const test::string&amp; s&#x3D;&quot;&quot;, int a&#x3D;0)
+		:_s(s),
+		_a(a)
+	&#123;&#125;
+&#125;;
+void DefaultMoveCopy()
+&#123;
+	TestB t1;
+	cout &lt;&lt; endl;
+	TestB t2 &#x3D; t1;
+	cout &lt;&lt; endl;
+	TestB t3 &#x3D; std::move(t1);
+	cout &lt;&lt; endl;
+	TestB t4;
+	t4 &#x3D; std::move(t2);
+	cout &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556024.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556024.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556024">
+</blockquote>
+<hr>
+<h2 id="新特性：新的关键字"><a href="#新特性：新的关键字" class="headerlink" title="新特性：新的关键字"></a><strong>新特性：新的关键字</strong></h2><blockquote>
+<ol>
+<li><strong><font color=red>C++11新加入了关键字：default、delete、final、override</font></strong></li>
+<li><strong><code>default：成员函数加上=default表示强制生成默认的函数</code></strong></li>
+<li><strong><code>delete：成员函数加上=delete表示删除这个函数，表现为只声明不实现</code></strong></li>
+<li><strong><code>final：被final修饰的类不能继承，修饰的变量成为常量且经初始化后不能改变,修饰的虚函数子类无法重写</code></strong></li>
+<li><strong><code>override：写在函数参数列表后面表示这个函数重写了父类的虚函数，编译器就会去检查是否重写了，如果没有重写就会报错</code></strong></li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="新特性：可变模板参数"><a href="#新特性：可变模板参数" class="headerlink" title="新特性：可变模板参数"></a><strong>新特性：可变模板参数</strong></h2><p><strong><font color=red>可变参数就是参数的个数和类型都是任意的</font></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556025.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556025.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556025">
+
+<p><strong>下面就是一个可变参数的函数模板:</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;class...Args&gt;&#x2F;&#x2F;...表示模板的个数是不固定的
+void ShowArguList(Args...agrs)&#123;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>我们把…当作为参数包，我们无法直接获取参数包里的具体参数，需要一点特别的办法来展开参数包获取具体的参数，下面列举两种方法：递归式和逗号表达式展开</strong></p>
+<blockquote>
+<p><strong><font color=red>1.递归展开</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;class T&gt;
+void ShowArguList(T value)&#x2F;&#x2F;递归终止
+&#123;
+	cout &lt;&lt; value &lt;&lt; endl;
+	
+&#125;
+template&lt;class T,class...Args&gt;&#x2F;&#x2F;...表示模板的个数是不固定的
+void ShowArguList(T value,Args...args)
+&#123;
+	cout &lt;&lt; value &lt;&lt; &quot; &quot;;
+	ShowArguList(args...);
+&#125;
+
+int main()&#x2F;&#x2F;调用
+&#123;
+	ShowArguList(1);
+	ShowArguList(2, &#39;b&#39;);
+	ShowArguList(3, &#39;c&#39;, 3.33);
+	ShowArguList(4, &#39;d&#39;, &quot;hello&quot;);
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556026.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556026.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556026">
+
+
+
+<p><font color=red>2.逗号表达式展开</font></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;class T&gt;
+void ShowArguList(T value)
+&#123;
+	cout &lt;&lt; value &lt;&lt;&quot; &quot;;
+&#125;
+template&lt;class ... Args&gt;
+void ShowArguList(Args ... args)
+&#123;
+	int arr[] &#x3D; &#123; (ShowArguList(args),0)... &#125;;
+	cout &lt;&lt; endl;
+&#125;
+int main()
+&#123;
+	&#x2F;&#x2F;ShowArguList(1);
+	ShowArguList(2, &#39;b&#39;);
+	ShowArguList(3, &#39;c&#39;, 3.33);
+	ShowArguList(4, &#39;d&#39;, &quot;hello&quot;);
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556027.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556027.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556027">
+</blockquote>
+<p><strong><font color=red>扩展：C++11中的emplace_back和push_back的效率问题</font></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556028.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556028.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556028">
+
+<blockquote>
+<ol>
+<li><strong><mark>可以看到参数列表是可变参数和万能引用。直接给结论：emplace_back的效率确实比push_back高一点</mark></strong></li>
+<li><strong>一般对于传过来的参数都是就地构造（不需要移动或者拷贝），而push_back需要先构造出来再拷贝，如果传的是右值且存在移动构造，那emplace_back比push_back高效一点（可以少进行一次移动构造）</strong></li>
+</ol>
+<img src="/2023/01/20/3.c-11/20230623224556029.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556029.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556029">
+</blockquote>
+<hr>
+<h2 id="新特性：lambda表达式"><a href="#新特性：lambda表达式" class="headerlink" title="新特性：lambda表达式"></a><strong>新特性：lambda表达式</strong></h2><blockquote>
+<p><strong><mark>lambada表达式格式：</mark></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">[capture-list](parameters)mutable -&gt; return-type&#123;statement&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556030.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556030.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556030">
+
+<p><strong><mark>说明一下各个位置分别写的是啥玩意:</mark></strong></p>
+<ol>
+<li><strong><code>[capture-list]</code>捕捉列表，用于编译器判断为lambda表达式，同时捕捉该表达式所在域的变量以供函数使用</strong></li>
+<li><strong><code>(parameters)</code>参数，和函数的参数一致。如果不需要传参则可连带<code>()</code>一起省略</strong></li>
+<li><strong><code>mutable</code>默认情况下捕捉列表捕捉的参数是<code>const</code>修饰的，该关键字的作用是取消const使其可修改</strong></li>
+<li><strong><code>-&gt; return-type</code>函数返回值类型</strong></li>
+<li><strong><code>&#123;statement&#125;</code>函数体，和普通函数一样。除了可以使用传入的参数，还可以使用捕捉列表获取的参数</strong></li>
+</ol>
+<p><font color=red>简单lambda使用举例(只用参数列表、可变规则、返回类型、函数体)：</font></p>
+<img src="/2023/01/20/3.c-11/20230623224556031.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556031.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556031">
+
+
+
+<p><strong>可以看到，这个表达式的使用方法和函数完全一致，也成功提供了结果，因为我们返回值的类型是明确的，所以这里可以省略类型，让编译器自己来推断。当然也可以显示指定类型，这样可以更精确的控制</strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556032.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556032.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556032">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void TestLambda1()
+&#123;
+	int a &#x3D; 10, b &#x3D; 20;
+	auto func3 &#x3D; [a,b](int x, int y)-&gt;int &#123;return a+b;&#125;;
+    &#x2F;&#x2F;这里我们捕捉了函数作用域里面的局部变量a&#x2F;b，直接在lambda表达式内部使用
+	cout&lt;&lt;func3(a, b)&lt;&lt;endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556033.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556033.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556033">
+
+<p><strong>因为不需要传入参数，所以我们可以直接把参数<code>()</code>和返回值一并省略掉</strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556034.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556034.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556034">
+
+
+
+<p><strong><font color=red>默认情况下：我们捕捉到的参数是带<code>const</code>的，我们并不能对其进行修改，所以我们需要使用C++11中的新关键字mutable(lambda表达式格式里的)</font></strong></p>
+<p><strong>这个关键字使用的时候必须带上函数参数的<code>()</code></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556035.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556035.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556035">
+
+
+
+<p><font color=red>复杂的lambda表达式(增加使用捕获列表)：</font></p>
+<p><strong>注意，当我们在对象里面以值传递方式捕获参数的时候，还需要捕获this指针来调用类内部的函数</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">[val]：表示值传递方式捕捉变量val
+[&#x3D;]：表示值传递方式捕获所有父作用域中的变量(包括this)
+[&amp;val]：表示引用传递捕捉变量val
+[&amp;]：表示引用传递捕捉所有父作用域中的变量(包括this)
+[this]：表示值传递方式捕捉当前的this指针<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>捕获列表有三种情况：全捕获&#x3D;、引用全捕获&amp;、全捕获+单独操作</font></strong></p>
+<ol>
+<li><p><strong><font color=green>全捕获&#x3D;：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int a &#x3D; 10, b &#x3D; 20;
+int c &#x3D; 1, d &#x3D; 3, e &#x3D; 5;
+auto func6 &#x3D; [&#x3D;]&#x2F;&#x2F;全捕获&#x3D; 
+&#123;
+    return (a + b + c + d + e);
+&#125;;
+cout &lt;&lt; func6() &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556036.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556036.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556036">
+</li>
+<li><p><strong><font color=green>引用全捕获&amp;：</font></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556037.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556037.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556037">
+</li>
+<li><p><strong><font color=green>全捕获+单独操作：e默认带const不能修改，需要用其引用</font></strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556038.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556038.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556038">
+
+
+
+<p><strong><font color=red>lambda表达式的适用场景：</font></strong></p>
+<ol>
+<li><strong>当我们使用<code>sort</code>函数的时候，就不再需要用仿函数了，而是可以直接用<code>lambda</code>表达式来完成相同的操作，大大增加代码可读性！</strong></li>
+<li><strong>这是因为排序所用的方法直接就在sort这里用<code>lambda</code>的形式给出了，看代码的时候，也不需要去找定义，更不用担心函数命名规则的问题了</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">vector&lt;Goods&gt; v1 &#x3D; &#123; &#123;&quot;牛奶&quot;,20,100&#125;,&#123;&quot;杯子&quot;,10,200&#125;,&#123;&quot;饼干&quot;,15,50&#125; &#125;;
+   
+&#x2F;&#x2F;价格升序
+sort(v1.begin(), v1.end(), [](const Goods&amp; g1, const Goods&amp; g2) &#123;return g1._price &lt; g2._price; &#125;);
+for (auto&amp; e : v1) &#123;
+	cout &lt;&lt; e._name &lt;&lt; &quot;_&quot; &lt;&lt; e._price &lt;&lt; &quot;  &quot;;
+&#125;
+cout &lt;&lt; endl;
+
+v1 &#x3D; &#123; &#123;&quot;牛奶&quot;,20,100&#125;,&#123;&quot;杯子&quot;,10,200&#125;,&#123;&quot;饼干&quot;,15,50&#125; &#125;;
+&#x2F;&#x2F;价格降序
+sort(v1.begin(), v1.end(), [](const Goods&amp; g1, const Goods&amp; g2) &#123;return g1._price &gt; g2._price; &#125;);
+for (auto&amp; e : v1) &#123;
+	cout &lt;&lt; e._name &lt;&lt; &quot;_&quot; &lt;&lt; e._price &lt;&lt; &quot;  &quot;;
+&#125;
+cout &lt;&lt; endl;
+   
+v1 &#x3D; &#123; &#123;&quot;牛奶&quot;,20,100&#125;,&#123;&quot;杯子&quot;,10,200&#125;,&#123;&quot;饼干&quot;,15,50&#125; &#125;;
+&#x2F;&#x2F;名称字典序
+sort(v1.begin(), v1.end(), [](const Goods&amp; g1, const Goods&amp; g2) &#123;return g1._name &lt; g2._name; &#125;);
+for (auto&amp; e : v1) &#123;
+	cout &lt;&lt; e._name &lt;&lt; &quot;_&quot; &lt;&lt; e._price &lt;&lt; &quot;  &quot;;
+&#125;
+cout &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<img src="/2023/01/20/3.c-11/20230623224556039.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556039.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556039">
+
+<p>   <strong><font color=red>lambda底层剖析：仿函数</font></strong></p>
+<p>   <strong>实际上，lambda的底层就是把自己转成了一个仿函数供我们调用。这也是为何sort可以以<code>lambda</code>来作为排序方法的原因，底层都是仿函数嘛！</strong></p>
+<img src="/2023/01/20/3.c-11/20230623224556040.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556040.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556040">
+</blockquote>
+<hr>
+<h2 id="新特性：包装器function"><a href="#新特性：包装器function" class="headerlink" title="新特性：包装器function"></a><strong>新特性：包装器function</strong></h2><blockquote>
+<ol>
+<li><strong>function包装器，也叫作适配器。C++中的function本质是一个类模板，也是一个包装器</strong></li>
+<li><strong><mark>那么这个东西是用来干啥的呢？</mark>—&gt; <font color=red>把所有的可调用对象封装成统一的格式</font></strong></li>
+<li><strong><mark>什么是可调用对象？</mark>—&gt; <font color=red>函数指针、仿函数对象、lambda表达式</font></strong></li>
+</ol>
+<p><strong>我们可以用<code>function</code>来包装这些不同的可调用对象，说白了就是产生了另外一个相同的可调用对象。类似于“引用”了这个函数</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class AddClass&#123;
+public:
+	static int Addi(int a, int b)&#123;
+		return a + b;
+	&#125;
+	double Addd(double a, double b)&#123;
+		return a + b;
+	&#125;
+&#125;;
+
+int func(int a,int b)&#123;
+	return a + b;
+&#125;
+
+struct Functor&#123;
+	int operator()(int a,int b)&#123;
+		return a+b;
+	&#125;
+&#125;;
+
+void TestFunction1()
+&#123;
+	&#x2F;&#x2F; 函数
+	function&lt;int(int, int)&gt; func1 &#x3D; func;
+	cout &lt;&lt; func1(10, 20) &lt;&lt; endl;
+	&#x2F;&#x2F; 仿函数
+	function&lt;int(int, int)&gt; func2 &#x3D; Functor();
+	cout &lt;&lt; func2(10, 20) &lt;&lt; endl;
+	&#x2F;&#x2F; 类中static成员函数
+	function&lt;int(int, int)&gt; func3 &#x3D; AddClass::Addi;
+	cout &lt;&lt; func3(100, 200) &lt;&lt; endl;
+	&#x2F;&#x2F; 类中非静态成员函数
+	function&lt;double(AddClass, double, double)&gt; func4 &#x3D; &amp;AddClass::Addd;
+	cout &lt;&lt; func4(AddClass(), 100.11, 200.11) &lt;&lt; endl;
+	&#x2F;&#x2F; lambda表达式
+	function&lt;int(int, int)&gt; func5 &#x3D; [](int a, int b) &#123;return a + b; &#125;;
+	cout &lt;&lt; func5(100, 200) &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556041.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556041.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556041">
+</blockquote>
+<hr>
+<h2 id="扩展：bind函数绑定"><a href="#扩展：bind函数绑定" class="headerlink" title="扩展：bind函数绑定"></a><strong>扩展：bind函数绑定</strong></h2><p><strong>在上面我们用<code>fuction</code>包装一个对象内部的成员函数时，需要利用匿名对象传入一个<code>this</code>指针。这样就很不方便了，明明是两个参数的函数，非要传入第三个参数</strong></p>
+<p><strong>要是我们再用<code>map</code>的方式来封装一个可调用的表，那带<code>this</code>指针的函数就没办法一起包装了</strong></p>
+<p><strong>比如：</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class AddClass
+&#123;
+public:
+	static int Addi(int a, int b)
+	&#123;
+		return a + b;
+	&#125;
+
+	int Addii(int a, int b)
+	&#123;
+		return a + b;
+	&#125;
+&#125;;
+int func(int a,int b)
+&#123;
+	return a + b;
+&#125;
+struct Functor
+&#123;
+	int operator()(int a,int b)
+	&#123;
+		return a+b;
+	&#125;
+&#125;;
+
+map&lt;string, function&lt;int(int, int)&gt;&gt; FuncMap &#x3D; 
+&#123;
+    &#123;&quot;函数&quot;,func&#125;,
+    &#123;&quot;仿函数&quot;,Functor()&#125;,
+    &#123;&quot;静态成员函数&quot;,AddClass::Addi&#125;,
+    &#123;&quot;非静态成员函数&quot;,&amp;AddClass::Addii&#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556042.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556042.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556042">
+
+
+
+<p><strong><font color=red>这时候我们就可以使用<code>bind</code>来进行参数绑定</font></strong></p>
+<p><strong><font color=green>函数绑定bind函数用于把某种形式的参数列表与已知的函数进行绑定，形成新的函数。这种更改已有函数调用模式的做法，就叫函数绑定。需要指出：bind就是函数适配器</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">function&lt;int(int, int)&gt; func7 &#x3D; bind(&amp;AddClass::Addii,AddClass(), placeholders::_1, placeholders::_2);
+cout &lt;&lt; func7(100, 200) &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556043.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556043.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556043">
+
+
+
+<p><strong>补充：占位符placeholders，<code>placeholders</code>是用来占位的，代表这里的参数需要用户手动传入，而<code>_1</code>代表传入的第一个参数，<code>_2</code>就是传入的第二个参数，以此类推</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">function&lt;int(int, int)&gt; func7 &#x3D; bind(&amp;AddClass::Addii,AddClass(), placeholders::_1, placeholders::_2);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>因为有不同的后缀，所以我们还可以调整绑定的参数顺序:</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;Minii的作用是a-b
+function&lt;int(int, int)&gt; func8 &#x3D; bind(&amp;AddClass::Minii, AddClass(), placeholders::_1, placeholders::_2);
+cout &lt;&lt; func8(100, 200) &lt;&lt; endl;
+function&lt;int(int, int)&gt; func9 &#x3D; bind(&amp;AddClass::Minii, AddClass(), placeholders::_2, placeholders::_1);
+cout &lt;&lt; func9(100, 200) &lt;&lt; endl;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2023/01/20/3.c-11/20230623224556044.png" class="lazyload placeholder" data-srcset="/2023/01/20/3.c-11/20230623224556044.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20230623224556044">
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/C-%EF%BC%8C%E9%AB%98%E9%98%B6/" class="">
+              C++，高阶
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/01/20/3.c-11/" target="_blank" title="C++11新特性">https://Not-Go.github.io/2023/01/20/3.c-11/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic4.zhimg.com/80/v2-83ea273b88e119d9615aed0d89aad4ab_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-83ea273b88e119d9615aed0d89aad4ab_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/01/20/2.duo-tai/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">C++多态</div>
+      </div>
+      
+      <!-- <div class="content">
+        C++ 多态多态的概念多态的概念：通俗来说，就是多种形态，具体点就是去完成某个行为，当不同的对象去完成同一事情时会产生出
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/01/20/4.yi-chang-chu-li/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">C++异常处理</div>
+      </div>
+      <!-- <div class="content">
+        C++异常处理C语言与C++对于异常的处理方式
+1.C语言对于异常的处理：
+
+方法一：在之前我们遇到一些bug的时候，通
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-11%E6%96%B0%E7%89%B9%E6%80%A7"><span class="toc-text">C++11新特性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-11%E7%9A%84%E8%AF%9E%E7%94%9F%E6%9D%A5%E7%94%B1"><span class="toc-text">C++11的诞生来由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">新特性：{}初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E-%E7%9A%84%E4%BD%BF%E7%94%A8%E5%BD%A2%E5%BC%8F"><span class="toc-text">对于{}的使用形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#new%E4%B8%AD-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">new中{}的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#initializer-list%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">initializer_list的了解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#initializer-list%E5%9C%A8STL%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">initializer_list在STL容器中的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#initializer-list%E7%9A%84%E6%8F%92%E5%85%A5%E6%93%8D%E4%BD%9C%E6%89%A9%E5%B1%95"><span class="toc-text">initializer_list的插入操作扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-text">新特性：变量声明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%EF%BC%9Aauto"><span class="toc-text">变量声明：auto</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%EF%BC%9Adecltype"><span class="toc-text">变量声明：decltype</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%EF%BC%9Atypeid"><span class="toc-text">变量声明：typeid</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E8%8C%83%E5%9B%B4for%E9%81%8D%E5%8E%86"><span class="toc-text">新特性：范围for遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%B7%A6%E5%80%BC%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="toc-text">新特性：左值右值引用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E5%80%BC%E5%8F%B3%E5%80%BC%E6%A6%82%E5%BF%B5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">左值右值概念的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E5%80%BC%E5%BC%95%E7%94%A8"><span class="toc-text">左值引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="toc-text">右值引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">右值引用使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#move-%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%E5%92%8C%E4%B8%87%E8%83%BD%E5%BC%95%E7%94%A8%E6%A6%82%E5%BF%B5"><span class="toc-text">move()函数的理解和万能引用概念</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E6%96%B0%E5%A2%9E%E7%9A%84%E9%BB%98%E8%AE%A4%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">新特性：新增的默认成员函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E6%96%B0%E7%9A%84%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">新特性：新的关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%8F%AF%E5%8F%98%E6%A8%A1%E6%9D%BF%E5%8F%82%E6%95%B0"><span class="toc-text">新特性：可变模板参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9Alambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">新特性：lambda表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%8C%85%E8%A3%85%E5%99%A8function"><span class="toc-text">新特性：包装器function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%EF%BC%9Abind%E5%87%BD%E6%95%B0%E7%BB%91%E5%AE%9A"><span class="toc-text">扩展：bind函数绑定</span></a></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

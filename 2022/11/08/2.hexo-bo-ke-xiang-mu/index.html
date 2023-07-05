@@ -1,0 +1,3510 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>Hexo博客 | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        Hexo博客
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2022-11-08 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-detail-header_category">
+              项目
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 5.4k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 22分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="Hexo博客项目"><a href="#Hexo博客项目" class="headerlink" title="Hexo博客项目"></a>Hexo博客项目</h1><h2 id="Hexo博客项目环境搭建"><a href="#Hexo博客项目环境搭建" class="headerlink" title="Hexo博客项目环境搭建"></a>Hexo博客项目环境搭建</h2><h3 id="首先下载node-js、Git"><a href="#首先下载node-js、Git" class="headerlink" title="首先下载node.js、Git"></a><strong>首先下载node.js、Git</strong></h3><p><strong><a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">Node.js下载地址：https://nodejs.org/en/download/</a></strong></p>
+<p><strong><a target="_blank" rel="noopener" href="https://git-scm.com/">Git下载地址：https://git-scm.com/</a></strong> </p>
+<p><strong>注：git的使用请自行百度，这里不教</strong></p>
+<hr>
+<h3 id="使用下面命令进行hexo框架和配置Git工具的下载"><a href="#使用下面命令进行hexo框架和配置Git工具的下载" class="headerlink" title="使用下面命令进行hexo框架和配置Git工具的下载"></a><strong>使用下面命令进行hexo框架和配置Git工具的下载</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>cli <span class="token operator">-</span>g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121347159.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121347159.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112134724104">
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121420460.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121420460.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112142038424">
+
+<hr>
+<h3 id="初始化Hexo项目文件，然后我们在你创建的地址下就可以看到新的文件夹Myblog"><a href="#初始化Hexo项目文件，然后我们在你创建的地址下就可以看到新的文件夹Myblog" class="headerlink" title="初始化Hexo项目文件，然后我们在你创建的地址下就可以看到新的文件夹Myblog"></a><strong>初始化Hexo项目文件，然后我们在你创建的地址下就可以看到新的文件夹Myblog</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo init Myblog <span class="token comment">//Myblog为项目的文件夹名</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121348250.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121348250.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112134805204">
+
+<hr>
+<h3 id="本地测试项目是否可以运行"><a href="#本地测试项目是否可以运行" class="headerlink" title="本地测试项目是否可以运行"></a><strong>本地测试项目是否可以运行</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo clean <span class="token comment">//清空已经存在的hexo网站文件</span>
+hexo <span class="token function">generate</span><span class="token punctuation">(</span>可简写g<span class="token punctuation">)</span> <span class="token comment">//依据网页文件和新的css样式生成新的网站文件</span>
+hexo <span class="token function">server</span><span class="token punctuation">(</span>可简写为s<span class="token punctuation">)</span> <span class="token comment">//启动本地服务器，可以在localhost：4000查看网站修改效果</span>
+hexo <span class="token function">deploy</span><span class="token punctuation">(</span>可简写为d<span class="token punctuation">)</span> <span class="token comment">//自动生成网页静态文件，并部署指定仓库</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>补充：我们首先要cd到博客目录，然后才能执行hexo指令，否则都会提示没有该命令</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121348449.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121348449.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112134825418">
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121349144.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121349144.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112134902111">
+
+
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121349768.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121349768.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112134916736">
+
+
+
+<p><strong><font color=red>当我们用上图命令后，得出了静态观看网站，就可以<code>ctrl+鼠标点击</code>进去看我们网站的效果了</font></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121350268.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121350268.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112135020193">
+
+<p><strong><font color=red>自此hexo博客的基本骨架就建成了</font></strong></p>
+<hr>
+<h3 id="使用下面的命令查看npm、node、hexo的版本号，以免后续的接口和架构等级不支持"><a href="#使用下面的命令查看npm、node、hexo的版本号，以免后续的接口和架构等级不支持" class="headerlink" title="使用下面的命令查看npm、node、hexo的版本号，以免后续的接口和架构等级不支持"></a><strong>使用下面的命令查看npm、node、hexo的版本号，以免后续的接口和架构等级不支持</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">npm <span class="token operator">-</span>v
+node <span class="token operator">-</span>v
+hexo <span class="token operator">-</span>v<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121351768.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121351768.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112135144726">
+
+<hr>
+<h3 id="如果hexo的版本低于5-0的话，使用下面的命令进行升级，因为后续的主题有些插件需要5-0的hexo框架"><a href="#如果hexo的版本低于5-0的话，使用下面的命令进行升级，因为后续的主题有些插件需要5-0的hexo框架" class="headerlink" title="如果hexo的版本低于5.0的话，使用下面的命令进行升级，因为后续的主题有些插件需要5.0的hexo框架"></a><strong>如果hexo的版本低于5.0的话，使用下面的命令进行升级，因为后续的主题有些插件需要5.0的hexo框架</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install <span class="token operator">-</span>g hexo<span class="token operator">-</span><span class="token function">cli</span><span class="token punctuation">(</span>重安装会更新为最新版本<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<hr>
+<h3 id="在Gitee或者Github上创建项目，这里使用gitee-国内访问快，但是敏感词很严，后续换github-这里只是演示"><a href="#在Gitee或者Github上创建项目，这里使用gitee-国内访问快，但是敏感词很严，后续换github-这里只是演示" class="headerlink" title="在Gitee或者Github上创建项目，这里使用gitee(国内访问快，但是敏感词很严，后续换github,这里只是演示)"></a><strong>在Gitee或者Github上创建项目，这里使用gitee(国内访问快，但是敏感词很严，后续换github,这里只是演示)</strong></h3><p><strong>[请参考官方文档]：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/gitlab-pages">将 Hexo 部署到 GitLab Pages | Hexo</a></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121355916.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121355916.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112135510829">
+
+<p><strong><font color=red>然后我们重新部署hexo服务，然后去gitee开启gitee pages服务</font></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121400454.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121400454.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112140002392">
+
+<blockquote>
+<p><strong>步骤简言之：</strong></p>
+<ol>
+<li><strong>开辟仓库</strong></li>
+<li><strong>创建HTTPS或SSH连接(HTTPS支持gitee，SSH支持Github)</strong></li>
+<li><strong>复制HTTPS或者SSH放入Hexo配置文件config里</strong></li>
+<li><strong>修改type、repo、branch的指</strong></li>
+<li><strong>调用Hexo命令，尝试部署</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="然后通过我们开启Gitee-Pages服务的到的网站地址，就可以发给别人看你的网站了"><a href="#然后通过我们开启Gitee-Pages服务的到的网站地址，就可以发给别人看你的网站了" class="headerlink" title="然后通过我们开启Gitee Pages服务的到的网站地址，就可以发给别人看你的网站了"></a><strong>然后通过我们开启Gitee Pages服务的到的网站地址，就可以发给别人看你的网站了</strong></h3><p><strong>这里提一下，我们后续会进行Hexo骨架美化，我们可以用hexo s命令，把博客改好了再进行更新pages，否则老更新很费神</strong></p>
+<hr>
+<h2 id="Hexo博客美化"><a href="#Hexo博客美化" class="headerlink" title="Hexo博客美化"></a>Hexo博客美化</h2><p><strong><font color=red>前言：我使用的主题是经过自己浏览各大佬对于博客每个部分的优化，自行设计和组装成型，需要此主题可以私聊我。其次，配置是使用的yml文件，不懂的可以先去学习了解一下！</font></strong></p>
+<h3 id="主题更改"><a href="#主题更改" class="headerlink" title="主题更改"></a><strong>主题更改</strong></h3><p><strong><font color=red>1.将网上或者本地的theme包解压到本地Hexo的theme文件夹下</font></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121404762.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121404762.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112140413714">
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121405326.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121405326.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112140511296">
+
+
+
+<p><strong><font color=red>2.将Hexo根目录包中的_config.yml中的theme值修改为包名，比如：</font></strong>	<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121409344.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121409344.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112140928310"></p>
+<blockquote>
+<p><strong>我参考的Hexo主题网站：<a target="_blank" rel="noopener" href="http://120.48.121.186/">http://120.48.121.186/</a></strong></p>
+</blockquote>
+<p><strong>3.修改<code>根目录下_config.yml</code>中的url值为你的网站主URL(如：<a target="_blank" rel="noopener" href="https://xxx.github.io/">https://xxx.github.io</a>)</strong></p>
+<p><strong>4.修改<code>根目录_config.yml</code>中author值为你的名称(如：pure_hearted)</strong></p>
+<p><strong>5.修改<code>根目录下_config.yml</code>中description值为你想要的一段描述(如：天行健，君子以自强不息)</strong></p>
+<p><strong><font color=red>比如下面我的设置：</font></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121426961.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121426961.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112142607923">
+
+<hr>
+<h3 id="代码高亮"><a href="#代码高亮" class="headerlink" title="代码高亮"></a><strong>代码高亮</strong></h3><p><strong>本主题支持三种代码高亮方式，前两种是hexo内置的<code>highlight</code>和<code>prismjs</code>，后一种是使用的插件<code>hexo-prism-plugin</code>，我推荐使用<code>prismjs</code></strong></p>
+<p>1.首先请先确保你的<code>hexo版本为5.0</code>以上,在根目录下的<code>package.json</code>中可以查看hexo的版本。如果不是5.0.以上，请先升级，例如在根目录下使用如下命令，这个下载的版本号是5.3.0版本，你可以指定下载最新的版本</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo@<span class="token number">5.3</span><span class="token number">.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>2.首先需要在根目录下的_config.yml 文件中，将<code>highlight</code>的<code>enable</code>设置为false，然后将<code>prismjs</code>的<code>enable</code>设置为true，如下所示</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121431232.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121431232.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112143135188">
+
+<p><strong>3.最后可以通过本主题目录下的_config.yml 文件中<code>prismjs</code>参数来选择主题，个人觉得okaidia和tomorrow好看，我还多留了几个主题</strong></p>
+<hr>
+<h3 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a><strong>搜索功能</strong></h3><p><strong>本主题中还使用到了 <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search">hexo-generator-search</a> 的 Hexo 插件来做内容搜索，安装命令如下：</strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>search <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在 Hexo 根目录下的 <code>_config.yml</code> 文件中，新增以下的配置项：</p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121436954.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121436954.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112143601921">
+
+<p><strong>在主题文件夹下的<code>_config.yml</code>文件中设置<code>search</code>为true或者false控制显示隐藏</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121437808.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121437808.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112143711773">
+
+
+
+<hr>
+<h3 id="新建分类categories页"><a href="#新建分类categories页" class="headerlink" title="新建分类categories页"></a><strong>新建分类categories页</strong></h3><p><code>categories</code> 页是用来展示所有分类的页面，也就是导航上的分类页面，如果在你的博客 <code>source</code> 目录下还没有 <code>categories/index.md</code> 文件，那么你就需要手动或者使用命令新建一个，命令如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo new page <span class="token string">"categories"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>编辑你刚刚新建的页面文件 <code>/source/categories/index.md</code>，<strong>至少需要以下内容</strong>：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
+title<span class="token operator">:</span> categories
+date<span class="token operator">:</span> <span class="token number">2022</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">08</span> <span class="token number">12</span><span class="token operator">:</span><span class="token number">30</span><span class="token operator">:</span><span class="token number">30</span>
+type<span class="token operator">:</span> <span class="token string">"categories"</span>
+layout<span class="token operator">:</span> <span class="token string">"categories"</span>
+<span class="token operator">--</span><span class="token operator">-</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<hr>
+<h3 id="新建分类tag页"><a href="#新建分类tag页" class="headerlink" title="新建分类tag页"></a><strong>新建分类tag页</strong></h3><p><code>tags</code> 页是用来展示所有标签的页面，如果在你的博客 <code>source</code> 目录下还没有 <code>tags/index.md</code> 文件，那么你就需要新建一个，命令如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">hexo new page <span class="token string">"tags"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>编辑你刚刚新建的页面文件 <code>/source/tags/index.md</code>，<strong>至少需要以下内容</strong>：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
+title<span class="token operator">:</span> tags
+date<span class="token operator">:</span> <span class="token number">2022</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">08</span> <span class="token number">12</span><span class="token operator">:</span><span class="token number">30</span><span class="token operator">:</span><span class="token number">30</span>
+type<span class="token operator">:</span> <span class="token string">"tags"</span>
+layout<span class="token operator">:</span> <span class="token string">"tags"</span>
+<span class="token operator">--</span><span class="token operator">-</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<hr>
+<h3 id="中文链接转拼音插件"><a href="#中文链接转拼音插件" class="headerlink" title="中文链接转拼音插件"></a><strong>中文链接转拼音插件</strong></h3><p><strong>如果你的文章名称是中文的，那么 Hexo 默认生成的永久链接也会有中文，这样不利于 <code>SEO</code>，且 <code>gitment</code> 评论对中文链接也不支持。我们可以用 <a target="_blank" rel="noopener" href="https://github.com/viko16/hexo-permalink-pinyin">hexo-permalink-pinyin</a> Hexo 插件使在生成文章时生成中文拼音的永久链接。安装命令如下：</strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>permalink<span class="token operator">-</span>pinyin <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>在 Hexo 根目录下的 <code>_config.yml</code> 文件中，新增以下的配置项：</strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">permalink_pinyin<span class="token operator">:</span>
+  enable<span class="token operator">:</span> true
+  separator<span class="token operator">:</span> <span class="token char">'-'</span> # <span class="token keyword">default</span><span class="token operator">:</span> <span class="token char">'-'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121443137.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121443137.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112144321100">
+
+<hr>
+<h3 id="订阅功能"><a href="#订阅功能" class="headerlink" title="订阅功能"></a><strong>订阅功能</strong></h3><p>本主题中还使用到了 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-generator-feed">hexo-generator-feed</a> 的 Hexo 插件来做 <code>RSS</code>，安装命令如下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>feed <span class="token operator">--</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在 Hexo 根目录下的 <code>_config.yml</code> 文件中，新增以下的配置项：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">feed<span class="token operator">:</span>
+  type<span class="token operator">:</span> atom
+  path<span class="token operator">:</span> atom<span class="token punctuation">.</span>xml
+  limit<span class="token operator">:</span> <span class="token number">20</span>
+  hub<span class="token operator">:</span>
+  content<span class="token operator">:</span>
+  content_limit<span class="token operator">:</span> <span class="token number">140</span>
+  content_limit_delim<span class="token operator">:</span> <span class="token char">' '</span>
+  order_by<span class="token operator">:</span> <span class="token operator">-</span>date<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<hr>
+<h3 id="Pjax功能"><a href="#Pjax功能" class="headerlink" title="Pjax功能"></a><strong>Pjax功能</strong></h3><p><strong>Pjax用来使页面不刷新跳转，音乐可以不间断播放。关闭则跳转页面时候刷新页面</strong></p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">pjax<span class="token operator">:</span>
+  on<span class="token operator">:</span> true
+  animation<span class="token operator">:</span> circle # false<span class="token punctuation">,</span> nprogress<span class="token punctuation">,</span> circle
+  animationColor<span class="token operator">:</span> <span class="token char">'orangered'</span> # animation为 nprogress时候的动画颜色<span class="token punctuation">,</span> red or #<span class="token number">000</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  cacheBust<span class="token operator">:</span> false # url 地址追加时间戳，用以避免浏览器缓存
+  timeout<span class="token operator">:</span> <span class="token number">5000</span>    # The timeout in milliseconds <span class="token keyword">for</span> the XHR requests<span class="token punctuation">.</span> Set to <span class="token number">0</span> to disable the timeout<span class="token punctuation">.</span>
+  banUrl<span class="token operator">:</span>          # 被屏蔽的 url 地址将不启用 pjax 跳转，可以在控制台下使用 window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>pathname 获取
+      # <span class="token operator">-</span> <span class="token char">'/xxx/'</span>     
+      # <span class="token operator">-</span> <span class="token char">'/xxx/'</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<hr>
+<h3 id="最终效果展示"><a href="#最终效果展示" class="headerlink" title="最终效果展示"></a><strong>最终效果展示</strong></h3><img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121448150-1688464317513-22.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121448150-1688464317513-22.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="202211121448150">
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121449286-1688464339983-30.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121449286-1688464339983-30.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="202211121449286">
+
+<hr>
+<h2 id="Hexo页面功能配置"><a href="#Hexo页面功能配置" class="headerlink" title="Hexo页面功能配置"></a>Hexo页面功能配置</h2><h3 id="网站Logo和博主Logo更改"><a href="#网站Logo和博主Logo更改" class="headerlink" title="网站Logo和博主Logo更改"></a><strong>网站Logo和博主Logo更改</strong></h3><p><code>主题下的_config.yml</code>里使用到的图片地址，例如<code>logo</code>参数：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">logo<span class="token operator">:</span> http<span class="token operator">:</span><span class="token comment">//xxx.png  # 为空则不显示</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>我们可以使用线上地址, 也可以使用本地地址<br>首先在<code>source</code>文件夹(根目录下的source文件夹)下创建<code>img</code>文件夹，然后引入：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">logo<span class="token operator">:</span> <span class="token operator">/</span>img<span class="token operator">/</span><span class="token number">1.</span>jpg # 为空则不显示<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>注意<code>source</code>是根目录下的，不是主题文件夹下的，主题文件夹不用管<br>当然，文章里面引用本地地址也行的，例如:</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">!</span><span class="token punctuation">[</span>图片描述<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token operator">/</span>img<span class="token operator">/</span>full<span class="token punctuation">.</span>png<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<p>比如我的操作：搞个图片放入主题source中的medias中，然后更改主题yml文件中的图片地址</p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121456987.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121456987.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112145611950">
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121457526.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121457526.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112145704494">
+
+
+
+<hr>
+<h3 id="网页菜单选择配置"><a href="#网页菜单选择配置" class="headerlink" title="网页菜单选择配置"></a><strong>网页菜单选择配置</strong></h3><p>我在yml中默认关闭了菜单，为了方便大家更好的自定义，只需要把#去掉就可以使用了，比如下面我的菜单配置：</p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121503650.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121503650.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112150313601">
+
+
+
+<p><strong><font color=red>然后我们就看到了下面的菜单了：</font></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121504319.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121504319.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112150404271">
+
+
+
+<hr>
+<h3 id="首页翻转图配置"><a href="#首页翻转图配置" class="headerlink" title="首页翻转图配置"></a><strong>首页翻转图配置</strong></h3><p>主题yml文件中修改swiper为以下：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">swiper<span class="token operator">:</span>
+  on<span class="token operator">:</span> true # 设置为false<span class="token punctuation">,</span> 则首页不显示轮播图<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>首页轮播图显示默认内容：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">#这里只给部分内容，具体看我下面给的图和theme文件的注释
+swiper<span class="token operator">:</span>
+  on<span class="token operator">:</span> true # 设置为false<span class="token punctuation">,</span> 则首页不显示轮播图
+  defaultImg<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic3.zhimg.com/80/v2-7e6795a0b7b4fbe87b0a388b8a052f78_1440w.jpg' # 图片，没有则随机选取</span>
+  defaultVideo<span class="token operator">:</span> <span class="token char">''</span> # video，min<span class="token operator">-</span>width<span class="token operator">:</span><span class="token number">992</span>px show
+  defaultTile<span class="token operator">:</span> <span class="token char">''</span> # 标题
+  defaultDesc<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token char">''</span><span class="token punctuation">]</span> #描述，例如 <span class="token punctuation">[</span><span class="token char">'天行健'</span>，<span class="token char">'君子以自强不息'</span><span class="token punctuation">]</span>
+  defaultLeftBtnText<span class="token operator">:</span> <span class="token char">'阅读文档'</span> # 左边按钮文字<span class="token punctuation">,</span> 空字符串则不显示
+  defaultRightBtnText<span class="token operator">:</span> <span class="token char">'我的简历'</span> # 右边按钮的文字，空字符串则不显示<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>defaultImg</code>代表默认图片，<code>defaultVideo</code>代表默认视频，这两个值都设置的话，则在pc端显示视频，手机端显示图片</p>
+<p>以下是我的配置：</p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121513123.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121513123.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112151332028">
+
+
+
+<p><strong><font color=red>然后得到了这样的效果：我这里没有放图，以后放，放入后他就会自动翻转切换背景图片</font></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121516884.gif" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121516884.gif" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="1">
+
+
+
+<hr>
+<h3 id="主界面和首站的翻转图样式配置"><a href="#主界面和首站的翻转图样式配置" class="headerlink" title="主界面和首站的翻转图样式配置"></a><strong>主界面和首站的翻转图样式配置</strong></h3><p>下面的图片是放在图床上的，可能加载有点慢：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">#这样设置是全屏显示，我选择的这种
+swiper<span class="token operator">:</span>
+  on<span class="token operator">:</span> true # 设置为false<span class="token punctuation">,</span> 则首页不显示轮播图
+  # 图片只有宽度为<span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">(</span>轮播图的文字和按钮只能居中显示<span class="token punctuation">)</span>
+  imgwidthFull<span class="token operator">:</span> false
+  # 整个轮播图宽高都是<span class="token number">100</span><span class="token operator">%</span>  <span class="token punctuation">(</span>轮播图的文字和按钮只能居中显示<span class="token punctuation">)</span>
+  full<span class="token operator">:</span> true # full 优先级大于 imgwidthFull<span class="token operator">/</span>bothSideTransparent
+  # 两边透明，imgwidthFull<span class="token operator">/</span>full<span class="token operator">:</span> false的时候，设置该值为true，则两边的模糊效果为透明
+  bothSideTransparent<span class="token operator">:</span> false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121521688.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121521688.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112152154525">
+
+
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">#这样设置显示一半
+swiper<span class="token operator">:</span>
+  on<span class="token operator">:</span> true # 设置为false<span class="token punctuation">,</span> 则首页不显示轮播图
+  # 图片只有宽度为<span class="token number">100</span><span class="token operator">%</span> <span class="token punctuation">(</span>轮播图的文字和按钮只能居中显示<span class="token punctuation">)</span>
+  imgwidthFull<span class="token operator">:</span> false
+  # 整个轮播图宽高都是<span class="token number">100</span><span class="token operator">%</span>  <span class="token punctuation">(</span>轮播图的文字和按钮只能居中显示<span class="token punctuation">)</span>
+  full<span class="token operator">:</span> false # full 优先级大于 imgwidthFull<span class="token operator">/</span>bothSideTransparent
+  # 两边透明，imgwidthFull<span class="token operator">/</span>full<span class="token operator">:</span> false的时候，设置该值为true，则两边的模糊效果为透明
+  bothSideTransparent<span class="token operator">:</span> false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121522762.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121522762.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112152239619">
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121525573.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121525573.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112152522531">
+
+<hr>
+<h3 id="音乐功能配置"><a href="#音乐功能配置" class="headerlink" title="音乐功能配置"></a><strong>音乐功能配置</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">music<span class="token operator">:</span>
+  on<span class="token operator">:</span> true
+  server<span class="token operator">:</span> tencent   #require music platform<span class="token operator">:</span> netease<span class="token punctuation">,</span> tencent<span class="token punctuation">,</span> kugou<span class="token punctuation">,</span> xiami<span class="token punctuation">,</span> baidu
+  type<span class="token operator">:</span> song    #require song<span class="token punctuation">,</span> playlist<span class="token punctuation">,</span> album<span class="token punctuation">,</span> search<span class="token punctuation">,</span> artist
+  id<span class="token operator">:</span> <span class="token number">0020</span>dKPG3mp0GT     #require song id <span class="token operator">/</span> playlist id <span class="token operator">/</span> album id <span class="token operator">/</span> search keyword<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>server</code>代表音乐平台，<code>netease</code>代表网易云, <code>tencent</code>代表qq音乐<br><code>type</code>代表歌曲类别，<code>song</code>代表单曲, <code>playlist</code>代表歌单<br><code>id</code>代表歌曲或者歌单的id，例如网易云的歌单地址<code>https://music.163.com/#/playlist?id=2788431035</code>, 后面的id就是这个</p>
+<p>比如我的配置：</p>
+<img src="./2.Hexo%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE/202211121527630.png" class="lazyload placeholder" data-srcset="./2.Hexo%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE/202211121527630.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20221112152727557" style="zoom: 80%;" />
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121529160.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121529160.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112152942106">
+
+
+
+<p><strong>效果展示：</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121537313.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121537313.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112153723280">
+
+<hr>
+<h3 id="页脚功能配置"><a href="#页脚功能配置" class="headerlink" title="页脚功能配置"></a><strong>页脚功能配置</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">site_footer<span class="token operator">:</span>
+  custom<span class="token operator">:</span> # 根据需要自行取消注释，label<span class="token operator">:</span> <span class="token char">'markdown格式'</span>，会在下面继续增加内容
+    # <span class="token operator">-</span> label<span class="token operator">:</span> <span class="token char">'&lt;br>'</span>
+    # <span class="token operator">-</span> label<span class="token operator">:</span> <span class="token char">'[Hello World](http://baidu.com)'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>比如我下面的配置：</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121538692.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121538692.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112153852622">
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121538343.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121538343.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112153801306">
+
+<p><strong>这里的角标点击可以跳转到对应的地方，比如点QQ就直接弹出加你的QQ的请求</strong></p>
+<hr>
+<h3 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h3><img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121540940.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121540940.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112154046751">
+
+
+
+<hr>
+<h2 id="Hexo菜单框配置"><a href="#Hexo菜单框配置" class="headerlink" title="Hexo菜单框配置"></a>Hexo菜单框配置</h2><h3 id="归档、标签、分类、页面等图片配置"><a href="#归档、标签、分类、页面等图片配置" class="headerlink" title="归档、标签、分类、页面等图片配置"></a><strong>归档、标签、分类、页面等图片配置</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">#以下为我的初始文件
+# 归档页面图片、描述、视频，全屏 or <span class="token char">'http://xxx'</span>
+archive<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'archive'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic1.zhimg.com/80/v2-1414b3a4b205e19060db18a20d08723a_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> true # 设置为true，则图片全屏显示
+  video<span class="token operator">:</span> <span class="token char">''</span> # 如果有值，则在屏幕大于<span class="token number">920</span>px的时候，全屏显示视频，为空则显示图片<span class="token punctuation">(</span>img<span class="token punctuation">)</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  yearColor<span class="token operator">:</span> <span class="token char">''</span> # 年份字体颜色
+  monthColor<span class="token operator">:</span> <span class="token char">''</span> # 月份字体颜色
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色
+
+# 标签页面，配置同上
+tag<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'tags'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic2.zhimg.com/80/v2-bf6c555e7c61a57ba4a1fd95a9a32975_1440w.jpg' # 标签页上面的图片</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false # 标签页上面的图片是否全屏显示
+  video<span class="token operator">:</span> <span class="token char">''</span> # 如果有值，则在屏幕大于<span class="token number">920</span>px的时候，全屏显示视频
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色
+
+# 标签详情页面，配置同上
+tagDetail<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'tag'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic1.zhimg.com/80/v2-604a15cef201cf177943af2d915eb2e7_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span> # 标签页详情上上面的图片上的文字
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+
+# 分类页面，配置同上
+categories<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'categories'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic2.zhimg.com/80/v2-7c496c95897fb15768593cc5170c8b1a_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色
+
+#分类详情页面，配置同上
+categoryDetail<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'category'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic3.zhimg.com/80/v2-98dcd81cb0d1fee52a807c13cedb8338_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+
+# 关于我页面，配置同上
+about<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'about'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic4.zhimg.com/80/v2-d12b0c9802720897793993a5a199720f_1440w.jpg'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色
+
+# 友情链接页面，配置同上
+friends<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'friends'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic2.zhimg.com/80/v2-2407599a217ba89f9499c282f129d44d_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<hr>
+<h3 id="自定义主题"><a href="#自定义主题" class="headerlink" title="自定义主题"></a><strong>自定义主题</strong></h3><p>默认主题颜色是绿色<code>#42b983</code>，可以通过设置主题文件夹下的<code>_config.yml</code>文件中的<code>color_scheme</code>属性，进行配置，参数如下:</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"># 归档页面图片、描述、视频，全屏 or <span class="token char">'http://xxx'</span>
+archive<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'archive'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic1.zhimg.com/80/v2-1414b3a4b205e19060db18a20d08723a_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> true # 设置为true，则图片全屏显示
+  video<span class="token operator">:</span> <span class="token char">''</span> # 如果有值，则在屏幕大于<span class="token number">920</span>px的时候，全屏显示视频，为空则显示图片<span class="token punctuation">(</span>img<span class="token punctuation">)</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  yearColor<span class="token operator">:</span> <span class="token char">''</span> # 年份字体颜色
+  monthColor<span class="token operator">:</span> <span class="token char">''</span> # 月份字体颜色
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色
+
+# 标签页面，配置同上
+tag<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'tags'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic2.zhimg.com/80/v2-bf6c555e7c61a57ba4a1fd95a9a32975_1440w.jpg' # 标签页上面的图片</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false # 标签页上面的图片是否全屏显示
+  video<span class="token operator">:</span> <span class="token char">''</span> # 如果有值，则在屏幕大于<span class="token number">920</span>px的时候，全屏显示视频
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色
+
+# 标签详情页面，配置同上
+tagDetail<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'tag'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic1.zhimg.com/80/v2-604a15cef201cf177943af2d915eb2e7_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span> # 标签页详情上上面的图片上的文字
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+
+# 分类页面，配置同上
+categories<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'categories'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic2.zhimg.com/80/v2-7c496c95897fb15768593cc5170c8b1a_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色
+
+#分类详情页面，配置同上
+categoryDetail<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'category'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic3.zhimg.com/80/v2-98dcd81cb0d1fee52a807c13cedb8338_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+
+# 关于我页面，配置同上
+about<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'about'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic4.zhimg.com/80/v2-d12b0c9802720897793993a5a199720f_1440w.jpg'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色
+
+# 友情链接页面，配置同上
+friends<span class="token operator">:</span>
+  title<span class="token operator">:</span> <span class="token char">'friends'</span>
+  img<span class="token operator">:</span> 'https<span class="token operator">:</span><span class="token comment">//pic2.zhimg.com/80/v2-2407599a217ba89f9499c282f129d44d_1440w.jpg?source=1940ef5c'</span>
+  desc<span class="token operator">:</span> <span class="token char">'愿你如风，被人温柔以待'</span>
+  full<span class="token operator">:</span> false
+  video<span class="token operator">:</span> <span class="token char">''</span>
+  background<span class="token operator">:</span> <span class="token char">''</span> # red or <span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">255</span><span class="token punctuation">,</span><span class="token number">0.8</span><span class="token punctuation">)</span> or other color or <span class="token function">url</span><span class="token punctuation">(</span><span class="token string">"http:xxx.png"</span><span class="token punctuation">)</span>
+  titleColor<span class="token operator">:</span> <span class="token char">''</span> # 标题字体颜色<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里重点说几个参数，<code>theme</code>是主题色参数, <code>bgFloor</code>是<code>首页</code>背景颜色或者背景图片参数, <code>bgImg</code>是<code>文章详情页面</code>的背景图片或者背景颜色参数, <code>contentOpacity</code>是文章详情页面的左侧文章内容背景颜色的透明度，<code>tocOpacity</code>是文章详情页面的右侧文章目录背景颜色的透明度，其余参数上面有注释哈</p>
+<hr>
+<h2 id="Hexo侧边栏配置"><a href="#Hexo侧边栏配置" class="headerlink" title="Hexo侧边栏配置"></a>Hexo侧边栏配置</h2><h3 id="sidebar侧边栏"><a href="#sidebar侧边栏" class="headerlink" title="sidebar侧边栏"></a>sidebar侧边栏</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">sidebar<span class="token operator">:</span>
+  on<span class="token operator">:</span> true
+  position<span class="token operator">:</span> left # left right
+  widget_library<span class="token operator">:</span>
+    side_blogger<span class="token operator">:</span>
+      on<span class="token operator">:</span> true
+      avatar<span class="token operator">:</span> http<span class="token operator">:</span><span class="token comment">//api.btstu.cn/sjtx/api.php?lx=c1&amp;format=images</span>
+      shape<span class="token operator">:</span> rectangle # circle<span class="token punctuation">,</span> rectangle
+      url<span class="token operator">:</span> <span class="token operator">/</span>about<span class="token operator">/</span>
+      title<span class="token operator">:</span> 青墨书晚风
+      subtitle<span class="token operator">:</span> 我是副标题
+      jinrishici<span class="token operator">:</span> true # Poetry Today<span class="token punctuation">.</span> You can set a string<span class="token punctuation">,</span> and it will be displayed when loading fails<span class="token punctuation">.</span>
+      fontFammily<span class="token operator">:</span> Long Cang<span class="token punctuation">,</span>cursive
+      background<span class="token operator">:</span> <span class="token char">'#fff'</span>
+      order<span class="token operator">:</span>  # 卡片排序<span class="token punctuation">,</span> 数值越小，越在上面
+      social<span class="token operator">:</span>
+        <span class="token operator">-</span> icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>rss
+          url<span class="token operator">:</span> <span class="token operator">/</span>atom<span class="token punctuation">.</span>xml
+        <span class="token operator">-</span> icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>envelope
+          url<span class="token operator">:</span> mailto<span class="token operator">:</span>me@xxx<span class="token punctuation">.</span>com
+        <span class="token operator">-</span> icon<span class="token operator">:</span> fab fa<span class="token operator">-</span>github
+          url<span class="token operator">:</span> https<span class="token operator">:</span><span class="token comment">//github.com/yuang01/hexo-theme-bamboo</span>
+        <span class="token operator">-</span> icon<span class="token operator">:</span> fab fa<span class="token operator">-</span>qq
+          url<span class="token operator">:</span> tencent<span class="token operator">:</span><span class="token comment">//AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=你的qq号码</span>
+    # <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+    <span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">category</span> <span class="token expression">widget</span></span>
+    side_category<span class="token operator">:</span>
+      on<span class="token operator">:</span> true
+      background<span class="token operator">:</span> <span class="token char">'#fff'</span>
+      order<span class="token operator">:</span>  # 卡片排序<span class="token punctuation">(</span>widget都有<span class="token punctuation">)</span>，任意数字，数字小的在上面
+      header<span class="token operator">:</span>
+        icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>folder<span class="token operator">-</span>open
+        icon_color<span class="token operator">:</span> # 标题字体颜色
+        title<span class="token operator">:</span> 文章分类
+        url<span class="token operator">:</span> <span class="token operator">/</span>blog<span class="token operator">/</span>categories<span class="token operator">/</span>
+    # <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+    <span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">tagcloud</span> <span class="token expression">widget</span></span>
+    side_tagcloud<span class="token operator">:</span>
+      on<span class="token operator">:</span> true
+      background<span class="token operator">:</span> <span class="token char">'#fff'</span>
+      order<span class="token operator">:</span> 
+      header<span class="token operator">:</span>
+        icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>tags
+        icon_color<span class="token operator">:</span> 
+        title<span class="token operator">:</span> 热门标签
+        url<span class="token operator">:</span> <span class="token operator">/</span>tags<span class="token operator">/</span>
+      min_font<span class="token operator">:</span> <span class="token number">14</span>
+      max_font<span class="token operator">:</span> <span class="token number">24</span>
+      color<span class="token operator">:</span> true
+      start_color<span class="token operator">:</span> <span class="token char">'#999'</span>
+      end_color<span class="token operator">:</span> <span class="token char">'#555'</span>
+    # <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+    <span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">recent</span><span class="token expression">_post widget</span></span>
+    side_recent_post<span class="token operator">:</span>
+      on<span class="token operator">:</span> true
+      background<span class="token operator">:</span> <span class="token char">'#fff'</span>
+      limit<span class="token operator">:</span> <span class="token number">5</span>
+      sort<span class="token operator">:</span> update # date
+      order<span class="token operator">:</span> 
+      header<span class="token operator">:</span>
+        icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>book
+        icon_color<span class="token operator">:</span> 
+        title<span class="token operator">:</span> 最新文章
+        url<span class="token operator">:</span> <span class="token operator">/</span>tags<span class="token operator">/</span>
+    # <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+    <span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">side</span><span class="token expression">_archives widget</span></span>
+    side_archives<span class="token operator">:</span>
+      on<span class="token operator">:</span> true
+      type<span class="token operator">:</span> monthly # yearly or monthly      or yearly
+      format<span class="token operator">:</span> MMMM YYYY # eg<span class="token operator">:</span> YYYY年MM月     or YYYY
+      timeOrder<span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span> # Sort of order<span class="token punctuation">.</span> <span class="token number">1</span><span class="token punctuation">,</span> asc <span class="token keyword">for</span> ascending<span class="token punctuation">;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> desc <span class="token keyword">for</span> descending 时间排序
+      limit<span class="token operator">:</span> <span class="token number">8</span> # <span class="token keyword">if</span> set <span class="token number">0</span> will show all
+      order<span class="token operator">:</span>  # widget order 卡片排序
+      background<span class="token operator">:</span> <span class="token char">'#fff'</span>
+      header<span class="token operator">:</span> 
+        icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>archive
+        icon_color<span class="token operator">:</span> red
+        title<span class="token operator">:</span> 归档
+    # <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span>
+    <span class="token macro property"><span class="token directive-hash">#</span> <span class="token directive keyword">side</span><span class="token expression">_webinfo widget</span></span>
+    side_webinfo<span class="token operator">:</span>
+      background<span class="token operator">:</span> <span class="token char">'#fff'</span>
+      order<span class="token operator">:</span> 
+      header<span class="token operator">:</span> 
+        icon<span class="token operator">:</span> fas fa<span class="token operator">-</span>chart<span class="token operator">-</span>line
+        title<span class="token operator">:</span> 站点信息
+      type<span class="token operator">:</span>
+        article<span class="token operator">:</span>
+          on<span class="token operator">:</span> true
+          text<span class="token operator">:</span> <span class="token char">'文章数目：'</span>
+          unit<span class="token operator">:</span> <span class="token char">'篇'</span>
+        runtime<span class="token operator">:</span>
+          on<span class="token operator">:</span> true
+          data<span class="token operator">:</span> <span class="token char">'2020/01/01'</span>    # 填写建站日期
+          text<span class="token operator">:</span> <span class="token char">'已运行时间：'</span>
+          unit<span class="token operator">:</span> <span class="token char">'天'</span>
+        wordcount<span class="token operator">:</span>
+          on<span class="token operator">:</span> true
+          text<span class="token operator">:</span> <span class="token char">'本站总字数：'</span>   # 需要启用 wordcount
+          unit<span class="token operator">:</span> <span class="token char">'字'</span>
+        visitcounter<span class="token operator">:</span>
+          service<span class="token operator">:</span> busuanzi # only busuanzi
+          siteuv<span class="token operator">:</span>
+            on<span class="token operator">:</span> true
+            text<span class="token operator">:</span> <span class="token char">'本站访客数：'</span>
+            unit<span class="token operator">:</span> <span class="token char">'人'</span>
+          sitepv<span class="token operator">:</span>
+            on<span class="token operator">:</span> true
+            text<span class="token operator">:</span> <span class="token char">'本站总访问量：'</span>
+            unit<span class="token operator">:</span> <span class="token char">'次'</span>
+        lastupd<span class="token operator">:</span>
+          on<span class="token operator">:</span> true
+          friendlyShow<span class="token operator">:</span> true    # 更友好的时间显示
+          text<span class="token operator">:</span> <span class="token char">'最后活动时间：'</span>
+          unit<span class="token operator">:</span> <span class="token char">'日'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<hr>
+<h2 id="Hexo扩展live2d"><a href="#Hexo扩展live2d" class="headerlink" title="Hexo扩展live2d"></a>Hexo扩展live2d</h2><h3 id="添加live2d组件"><a href="#添加live2d组件" class="headerlink" title="添加live2d组件"></a><strong>添加live2d组件</strong></h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">$ npm install <span class="token operator">--</span>save hexo<span class="token operator">-</span>helper<span class="token operator">-</span>live2d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121706290.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121706290.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112170635231">
+
+
+
+<hr>
+<h3 id="添加live2d的模型"><a href="#添加live2d的模型" class="headerlink" title="添加live2d的模型"></a><strong>添加live2d的模型</strong></h3><img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121709158.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121709158.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221112170944115">
+
+<p>关于live2d的模型，请自行去live2d社区看一下样子，我这里选择的是一条白猫(很乖)</p>
+<hr>
+<h3 id="配置live2d模型显示"><a href="#配置live2d模型显示" class="headerlink" title="配置live2d模型显示"></a><strong>配置live2d模型显示</strong></h3><p>向Hexo的 <code>_config.yml</code> 文件或主题的 <code>_config.yml</code> 文件中添加配置:</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">live2d<span class="token operator">:</span>
+  enable<span class="token operator">:</span> true
+  scriptFrom<span class="token operator">:</span> local
+  pluginRootPath<span class="token operator">:</span> live2dw<span class="token operator">/</span>
+  pluginJsPath<span class="token operator">:</span> lib<span class="token operator">/</span>
+  pluginModelPath<span class="token operator">:</span> assets<span class="token operator">/</span>
+  tagMode<span class="token operator">:</span> false
+  debug<span class="token operator">:</span> false
+  model<span class="token operator">:</span>
+    use<span class="token operator">:</span> live2d<span class="token operator">-</span>widget<span class="token operator">-</span>model<span class="token operator">-</span>tororo #这里改为你模型的名字
+  display<span class="token operator">:</span>
+    position<span class="token operator">:</span> left  #left放左，right放右
+    width<span class="token operator">:</span> <span class="token number">150</span>
+    height<span class="token operator">:</span> <span class="token number">300</span>
+  mobile<span class="token operator">:</span>
+    show<span class="token operator">:</span> true
+  react<span class="token operator">:</span>
+    opacity<span class="token operator">:</span> <span class="token number">0.7</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<hr>
+<h3 id="效果展示-1"><a href="#效果展示-1" class="headerlink" title="效果展示"></a><strong>效果展示</strong></h3><img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121719802-1688480954966-18.gif" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/202211121719802-1688480954966-18.gif" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="202211121719802">
+
+<hr>
+<h2 id="Hexo网页反馈优化"><a href="#Hexo网页反馈优化" class="headerlink" title="Hexo网页反馈优化"></a>Hexo网页反馈优化</h2><h3 id="优化上传博客内容敏感词问题：Gitee搭建博客，国内审核过于离谱"><a href="#优化上传博客内容敏感词问题：Gitee搭建博客，国内审核过于离谱" class="headerlink" title="优化上传博客内容敏感词问题：Gitee搭建博客，国内审核过于离谱"></a>优化上传博客内容敏感词问题：Gitee搭建博客，国内审核过于离谱</h3><blockquote>
+<p><strong><font color=red>我们在使用Gitee搭建博客完成后，如果使用Hexo服务器上传博客内容，有时候会发现Gitee-Pages会部署不了！报错：含有敏感词！</font></strong></p>
+<p><strong>&#x3D;&#x3D;这个问题是非常致命的，因为Gitee官方他只告诉你有敏感词，不告诉你在哪里。如果每一次传都出这个问题，那么去修改敏感词无疑大海捞针，属于自己恶心自己&#x3D;&#x3D;</strong></p>
+</blockquote>
+<p><strong><font color=blue>所以我给出了以下的搭建方案给予优化：</font></strong></p>
+<blockquote>
+<p><strong>第一：将图床放在Gitee仓库，用于博客图片的显示(Github上图床反馈太慢)</strong></p>
+<p><strong>第二：将整个项目放在Github-Pages服务上跑</strong></p>
+</blockquote>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200033165.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200033165.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200033165">
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200052866.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200052866.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200052866">
+
+<hr>
+<h3 id="优化博客访问速度和图片显示过慢问题：使用Netlify进行Github-Pages加速"><a href="#优化博客访问速度和图片显示过慢问题：使用Netlify进行Github-Pages加速" class="headerlink" title="优化博客访问速度和图片显示过慢问题：使用Netlify进行Github-Pages加速"></a>优化博客访问速度和图片显示过慢问题：使用Netlify进行Github-Pages加速</h3><blockquote>
+<p><strong><font color=red>Netlify操作步骤：</font></strong></p>
+<ol>
+<li><p><strong>&#x3D;&#x3D;进入Netlify官网，绑定自己的Github账号&#x3D;&#x3D;</strong></p>
+<p><strong><a target="_blank" rel="noopener" href="https://app.netlify.com/">Netlify官方地址</a></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200219654.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200219654.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200219654">
+</li>
+<li><p><strong>&#x3D;&#x3D;进入官网新建site&#x3D;&#x3D;</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200311427.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200311427.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200311427">
+</li>
+<li><p><strong>&#x3D;&#x3D;选择GitHub来源&#x3D;&#x3D;</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200420139.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200420139.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200420139">
+</li>
+<li><p><strong>&#x3D;&#x3D;选择我们的博客项目&#x3D;&#x3D;</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200457188.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200457188.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200457188">
+</li>
+<li><p><strong>&#x3D;&#x3D;进入一步进行配置&#x3D;&#x3D;</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200548643.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200548643.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200548643">
+</li>
+<li><p><strong>&#x3D;&#x3D;接着等待一会儿,Netlify会自动帮我们生成网址&#x3D;&#x3D;</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200650640.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200650640.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200650640">
+</li>
+<li><p><strong>&#x3D;&#x3D;第一次新建的时候,它会随机生成一个Netlify的二级域名,我们可以进行自定义二级域名,点击”Change site name”即可进行设置,像下图这样&#x3D;&#x3D;</strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200741298.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310200741298.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310200741298">
+</li>
+<li><p><strong>&#x3D;&#x3D;点击Save,等待Netlify进行热部署即可&#x3D;&#x3D;</strong></p>
+</li>
+</ol>
+<p><strong><font color=red>最终测试网站反馈和图片加载时，就会发现速度比以前快了N倍，域名也可以自己div了：</font></strong></p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310201200421.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230310201200421.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230310201200421">
+</blockquote>
+<hr>
+<h3 id="关于使用Nginx部署、ICP、云服务的看法"><a href="#关于使用Nginx部署、ICP、云服务的看法" class="headerlink" title="关于使用Nginx部署、ICP、云服务的看法"></a>关于使用Nginx部署、ICP、云服务的看法</h3><blockquote>
+<p><strong><font color=red>我个人觉得，这个项目只适合自己建个人博客用来存储自己的资料或者练手，不建议大家真的使用Nginx去部署到服务器上甚至搞个ICP，也不推荐大家买服务器去挂这个项目，而是像我一样，使用免费的网站托管来进行，毕竟免费嘛！这个项目只是用于体验使用这种成熟架构来开发东西的的过程，还是得好好学好编程基础，踏踏实实写代码！</font></strong></p>
+</blockquote>
+<hr>
+<h2 id="Hexo重新部署文档"><a href="#Hexo重新部署文档" class="headerlink" title="Hexo重新部署文档"></a>Hexo重新部署文档</h2><h3 id="重新部署方法"><a href="#重新部署方法" class="headerlink" title="重新部署方法"></a>重新部署方法</h3><p>必下组件：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">npm install hexo<span class="token operator">-</span>cli <span class="token operator">-</span>g <span class="token comment">//安装hexo框架</span>
+hexo init <span class="token string">"项目名"</span> 	  <span class="token comment">//创建hexo项目</span>
+<span class="token comment">//复制本地项目文件进入项目地址</span>
+npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>search <span class="token operator">--</span>save <span class="token comment">//安装搜索功能组件</span>
+npm install hexo<span class="token operator">-</span>permalink<span class="token operator">-</span>pinyin <span class="token operator">--</span>save <span class="token comment">//安装中文链接转拼音组件</span>
+npm install hexo<span class="token operator">-</span>generator<span class="token operator">-</span>feed <span class="token operator">--</span>save   <span class="token comment">//安装订阅功能组件</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">npm</span> <span class="token expression">install hexo<span class="token operator">-</span>helper<span class="token operator">-</span>live2d  <span class="token operator">--</span>save  </span><span class="token comment">//安装live2d组件，默认主题左边带一个，用这个命令，右边会带一个live2d</span></span>
+npm i hexo<span class="token operator">-</span>wordcount	<span class="token operator">--</span>save			<span class="token comment">//安装字数统计组件</span>
+npm install hexo<span class="token operator">-</span>deployer<span class="token operator">-</span>git <span class="token operator">--</span>save	<span class="token comment">//安装git上传组件</span>
+npm install hexo<span class="token operator">-</span>image<span class="token operator">-</span>link <span class="token operator">--</span>save	   <span class="token comment">//在typora 文件中正常显示的图片，在hexo发布后依然正常显示</span>
+hexo s								<span class="token comment">//自动生成网页静态文件，并部署指定仓库，查看效果</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>文章部署格式：</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token operator">--</span><span class="token operator">-</span>
+title<span class="token operator">:</span> 什么是C语言？
+date<span class="token operator">:</span> <span class="token number">2022</span><span class="token operator">-</span><span class="token number">11</span><span class="token operator">-</span><span class="token number">08</span> <span class="token number">12</span><span class="token operator">:</span><span class="token number">00</span>
+categories<span class="token operator">:</span> 初阶C语言
+tags<span class="token operator">:</span> <span class="token punctuation">[</span>C语言，初阶<span class="token punctuation">]</span>
+top<span class="token operator">:</span> false  #推荐文章
+<span class="token operator">--</span><span class="token operator">-</span>
+下面是文章内容，不用加<span class="token punctuation">[</span>top<span class="token punctuation">]</span>，hexo里有索引
+
+放置文件的时候，先hexo n <span class="token string">"文章名"</span>，然后复制内容进去，图片地址是同名文件夹图片路径   <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230621125305531.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230621125305531.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230621125305531">
+
+
+
+<p>特别问题解决：</p>
+<img src="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230623130644173.png" class="lazyload placeholder" data-srcset="/2022/11/08/2.hexo-bo-ke-xiang-mu/image-20230623130644173.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623130644173">
+
+<p>错误可能一：生成rsa丢到github的ssh里，如果还错就删除rsa重新生成</p>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">git config <span class="token operator">--</span>unset <span class="token operator">--</span>global user<span class="token punctuation">.</span>name
+git config <span class="token operator">--</span>unset <span class="token operator">--</span>global user<span class="token punctuation">.</span>email
+git config <span class="token operator">--</span>unset <span class="token operator">--</span>global user<span class="token punctuation">.</span>autocrlf
+git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>name <span class="token string">"github用户名"</span>
+git config <span class="token operator">--</span>global user<span class="token punctuation">.</span>email <span class="token string">"github邮箱"</span>
+ssh<span class="token operator">-</span>keygen <span class="token operator">-</span>t rsa <span class="token operator">-</span>C <span class="token string">"github邮箱"</span>  #一直回车
+ssh <span class="token operator">-</span>T git@github<span class="token punctuation">.</span>com #测试效果<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>错误可能二：用了github加速器，导致进不了github,这种打开github网页就可以发现说不安全进不去</p>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/%E9%A1%B9%E7%9B%AE/" class="">
+              项目
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2022/11/08/2.hexo-bo-ke-xiang-mu/" target="_blank" title="Hexo博客">https://Not-Go.github.io/2022/11/08/2.hexo-bo-ke-xiang-mu/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2022/11/08/1.han-shu-zhan-zheng-de-chuang-jian-he-xiao-hui/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">函数栈帧的创建和销毁</div>
+      </div>
+      
+      <!-- <div class="content">
+        函数栈帧的创建和销毁寄存器的认知
+函数栈帧的创建和销毁离不开寄存器，了解函数栈帧之前先了解一下cpu中的寄存器
+cpu中
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic2.zhimg.com/v2-175be238e0e71c76a5b2504d6a9425e5_b.jpg" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/v2-175be238e0e71c76a5b2504d6a9425e5_b.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2022/11/08/wo-de-jian-li/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">我的简历</div>
+      </div>
+      <!-- <div class="content">
+        个人介绍
+
+  个人姓名：牟建波
+   代码仓库：https://gitee.com/Not_Go
+  毕业院校：西昌学
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE"><span class="toc-text">Hexo博客项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">Hexo博客项目环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E4%B8%8B%E8%BD%BDnode-js%E3%80%81Git"><span class="toc-text">首先下载node.js、Git</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%8B%E9%9D%A2%E5%91%BD%E4%BB%A4%E8%BF%9B%E8%A1%8Chexo%E6%A1%86%E6%9E%B6%E5%92%8C%E9%85%8D%E7%BD%AEGit%E5%B7%A5%E5%85%B7%E7%9A%84%E4%B8%8B%E8%BD%BD"><span class="toc-text">使用下面命令进行hexo框架和配置Git工具的下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96Hexo%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%EF%BC%8C%E7%84%B6%E5%90%8E%E6%88%91%E4%BB%AC%E5%9C%A8%E4%BD%A0%E5%88%9B%E5%BB%BA%E7%9A%84%E5%9C%B0%E5%9D%80%E4%B8%8B%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E6%96%B0%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9Myblog"><span class="toc-text">初始化Hexo项目文件，然后我们在你创建的地址下就可以看到新的文件夹Myblog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E8%BF%90%E8%A1%8C"><span class="toc-text">本地测试项目是否可以运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%B8%8B%E9%9D%A2%E7%9A%84%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8Bnpm%E3%80%81node%E3%80%81hexo%E7%9A%84%E7%89%88%E6%9C%AC%E5%8F%B7%EF%BC%8C%E4%BB%A5%E5%85%8D%E5%90%8E%E7%BB%AD%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%9E%B6%E6%9E%84%E7%AD%89%E7%BA%A7%E4%B8%8D%E6%94%AF%E6%8C%81"><span class="toc-text">使用下面的命令查看npm、node、hexo的版本号，以免后续的接口和架构等级不支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9Chexo%E7%9A%84%E7%89%88%E6%9C%AC%E4%BD%8E%E4%BA%8E5-0%E7%9A%84%E8%AF%9D%EF%BC%8C%E4%BD%BF%E7%94%A8%E4%B8%8B%E9%9D%A2%E7%9A%84%E5%91%BD%E4%BB%A4%E8%BF%9B%E8%A1%8C%E5%8D%87%E7%BA%A7%EF%BC%8C%E5%9B%A0%E4%B8%BA%E5%90%8E%E7%BB%AD%E7%9A%84%E4%B8%BB%E9%A2%98%E6%9C%89%E4%BA%9B%E6%8F%92%E4%BB%B6%E9%9C%80%E8%A6%815-0%E7%9A%84hexo%E6%A1%86%E6%9E%B6"><span class="toc-text">如果hexo的版本低于5.0的话，使用下面的命令进行升级，因为后续的主题有些插件需要5.0的hexo框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8Gitee%E6%88%96%E8%80%85Github%E4%B8%8A%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%EF%BC%8C%E8%BF%99%E9%87%8C%E4%BD%BF%E7%94%A8gitee-%E5%9B%BD%E5%86%85%E8%AE%BF%E9%97%AE%E5%BF%AB%EF%BC%8C%E4%BD%86%E6%98%AF%E6%95%8F%E6%84%9F%E8%AF%8D%E5%BE%88%E4%B8%A5%EF%BC%8C%E5%90%8E%E7%BB%AD%E6%8D%A2github-%E8%BF%99%E9%87%8C%E5%8F%AA%E6%98%AF%E6%BC%94%E7%A4%BA"><span class="toc-text">在Gitee或者Github上创建项目，这里使用gitee(国内访问快，但是敏感词很严，后续换github,这里只是演示)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%84%B6%E5%90%8E%E9%80%9A%E8%BF%87%E6%88%91%E4%BB%AC%E5%BC%80%E5%90%AFGitee-Pages%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%B0%E7%9A%84%E7%BD%91%E7%AB%99%E5%9C%B0%E5%9D%80%EF%BC%8C%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%8F%91%E7%BB%99%E5%88%AB%E4%BA%BA%E7%9C%8B%E4%BD%A0%E7%9A%84%E7%BD%91%E7%AB%99%E4%BA%86"><span class="toc-text">然后通过我们开启Gitee Pages服务的到的网站地址，就可以发给别人看你的网站了</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96"><span class="toc-text">Hexo博客美化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E6%9B%B4%E6%94%B9"><span class="toc-text">主题更改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE"><span class="toc-text">代码高亮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%8A%9F%E8%83%BD"><span class="toc-text">搜索功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%88%86%E7%B1%BBcategories%E9%A1%B5"><span class="toc-text">新建分类categories页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%88%86%E7%B1%BBtag%E9%A1%B5"><span class="toc-text">新建分类tag页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%87%E9%93%BE%E6%8E%A5%E8%BD%AC%E6%8B%BC%E9%9F%B3%E6%8F%92%E4%BB%B6"><span class="toc-text">中文链接转拼音插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A2%E9%98%85%E5%8A%9F%E8%83%BD"><span class="toc-text">订阅功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pjax%E5%8A%9F%E8%83%BD"><span class="toc-text">Pjax功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-text">最终效果展示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E9%A1%B5%E9%9D%A2%E5%8A%9F%E8%83%BD%E9%85%8D%E7%BD%AE"><span class="toc-text">Hexo页面功能配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%AB%99Logo%E5%92%8C%E5%8D%9A%E4%B8%BBLogo%E6%9B%B4%E6%94%B9"><span class="toc-text">网站Logo和博主Logo更改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E8%8F%9C%E5%8D%95%E9%80%89%E6%8B%A9%E9%85%8D%E7%BD%AE"><span class="toc-text">网页菜单选择配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E9%A1%B5%E7%BF%BB%E8%BD%AC%E5%9B%BE%E9%85%8D%E7%BD%AE"><span class="toc-text">首页翻转图配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E7%95%8C%E9%9D%A2%E5%92%8C%E9%A6%96%E7%AB%99%E7%9A%84%E7%BF%BB%E8%BD%AC%E5%9B%BE%E6%A0%B7%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="toc-text">主界面和首站的翻转图样式配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9F%B3%E4%B9%90%E5%8A%9F%E8%83%BD%E9%85%8D%E7%BD%AE"><span class="toc-text">音乐功能配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E8%84%9A%E5%8A%9F%E8%83%BD%E9%85%8D%E7%BD%AE"><span class="toc-text">页脚功能配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-text">效果展示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E8%8F%9C%E5%8D%95%E6%A1%86%E9%85%8D%E7%BD%AE"><span class="toc-text">Hexo菜单框配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E6%A1%A3%E3%80%81%E6%A0%87%E7%AD%BE%E3%80%81%E5%88%86%E7%B1%BB%E3%80%81%E9%A1%B5%E9%9D%A2%E7%AD%89%E5%9B%BE%E7%89%87%E9%85%8D%E7%BD%AE"><span class="toc-text">归档、标签、分类、页面等图片配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%BB%E9%A2%98"><span class="toc-text">自定义主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E4%BE%A7%E8%BE%B9%E6%A0%8F%E9%85%8D%E7%BD%AE"><span class="toc-text">Hexo侧边栏配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#sidebar%E4%BE%A7%E8%BE%B9%E6%A0%8F"><span class="toc-text">sidebar侧边栏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E6%89%A9%E5%B1%95live2d"><span class="toc-text">Hexo扩展live2d</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0live2d%E7%BB%84%E4%BB%B6"><span class="toc-text">添加live2d组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0live2d%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-text">添加live2d的模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AElive2d%E6%A8%A1%E5%9E%8B%E6%98%BE%E7%A4%BA"><span class="toc-text">配置live2d模型显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA-1"><span class="toc-text">效果展示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E7%BD%91%E9%A1%B5%E5%8F%8D%E9%A6%88%E4%BC%98%E5%8C%96"><span class="toc-text">Hexo网页反馈优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E4%B8%8A%E4%BC%A0%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E6%95%8F%E6%84%9F%E8%AF%8D%E9%97%AE%E9%A2%98%EF%BC%9AGitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%EF%BC%8C%E5%9B%BD%E5%86%85%E5%AE%A1%E6%A0%B8%E8%BF%87%E4%BA%8E%E7%A6%BB%E8%B0%B1"><span class="toc-text">优化上传博客内容敏感词问题：Gitee搭建博客，国内审核过于离谱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%8D%9A%E5%AE%A2%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6%E5%92%8C%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA%E8%BF%87%E6%85%A2%E9%97%AE%E9%A2%98%EF%BC%9A%E4%BD%BF%E7%94%A8Netlify%E8%BF%9B%E8%A1%8CGithub-Pages%E5%8A%A0%E9%80%9F"><span class="toc-text">优化博客访问速度和图片显示过慢问题：使用Netlify进行Github-Pages加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8Nginx%E9%83%A8%E7%BD%B2%E3%80%81ICP%E3%80%81%E4%BA%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%9C%8B%E6%B3%95"><span class="toc-text">关于使用Nginx部署、ICP、云服务的看法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%E6%96%87%E6%A1%A3"><span class="toc-text">Hexo重新部署文档</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%E6%96%B9%E6%B3%95"><span class="toc-text">重新部署方法</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

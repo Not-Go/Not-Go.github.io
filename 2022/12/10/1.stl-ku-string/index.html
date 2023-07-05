@@ -1,0 +1,4007 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>STL库：string | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pic4.zhimg.com/80/v2-83ea273b88e119d9615aed0d89aad4ab_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        STL库：string
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2022-12-10 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E5%88%9D%E9%98%B6C/" class="post-detail-header_category">
+              初阶C++
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 9.5k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 42分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="STL库：string"><a href="#STL库：string" class="headerlink" title="STL库：string"></a><strong>STL库：string</strong></h1><h2 id="STL库对于string类的介绍"><a href="#STL库对于string类的介绍" class="headerlink" title="STL库对于string类的介绍"></a><strong>STL库对于string类的介绍</strong></h2><blockquote>
+<p><strong>官方介绍：</strong></p>
+<ol>
+<li><strong><mark>字符串是表示字符序列的对象</mark></strong></li>
+<li><strong><mark>标准的字符串类提供了对此类对象的支持，其接口类似于标准字符容器的接口，但添加了专门用于操作单字节字符字符串的设计特性</mark></strong></li>
+<li><strong><mark>string 类是使用 char (即作为它的字符类型，使用它的默认 char_traits 和分配器类型(关于模板的更多信息，请参阅 basic_string)</mark></strong></li>
+<li><strong><mark>string 类是 basic_string 模板类的一个实例，它使用 char 来实例化 basic_string 模板类，并用 char_traits 和 allocator 作为 basic_string 的默认参数(关于更多的模板信息请参考 basic_string)</mark></strong></li>
+<li><strong><mark>注意，这个类独立于所使用的编码来处理字节：如果用来处理多字节或变长字符(如UTF-8)的序列，这个类的所有成员(如长度或大小)以及它的迭代器，将仍然按照字节(而不是实际编码的字符)来操作</mark></strong></li>
+</ol>
+<p><strong>简言之：</strong></p>
+<ol>
+<li><strong>string 是表示字符串的字符串类</strong></li>
+<li><strong>该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作 string 的常规操作</strong></li>
+<li><strong>string 在底层实际是 basic_string 模板类的别名 <font color=red>typedef basic_string<char> string;</font></strong></li>
+<li><strong>不能操作多字节或者变长字符的序列</strong></li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="string常用接口的掌握"><a href="#string常用接口的掌握" class="headerlink" title="string常用接口的掌握"></a><strong>string常用接口的掌握</strong></h2><h3 id="string的构造接口"><a href="#string的构造接口" class="headerlink" title="string的构造接口"></a><strong>string的构造接口</strong></h3><p><strong><font color=red>string类的构造函数接口很多，记住以下常用的就可以：</font></strong></p>
+<blockquote>
+<ol>
+<li><p>string();                      	&#x2F;&#x2F; 默认构造，构造空的string类对象，即空字符串”” </p>
+</li>
+<li><p>string (const string&amp; str);        &#x2F;&#x2F; 拷贝构造，用已有的string类对象去构造string类对象 </p>
+</li>
+<li><p>string (const char* s);            &#x2F;&#x2F; 用c-string来构造string类对象 </p>
+</li>
+<li><p>string (const char* s, size_t n);  &#x2F;&#x2F; 用c-string前n个字符来构造string类对象</p>
+</li>
+<li><p>string (size_t n, char c);         &#x2F;&#x2F; 用n个c字符来构造string对象</p>
+</li>
+<li><p>template <class InputIterator>     &#x2F;&#x2F; 用迭代器[first,last)范围内的字符序列构造string类对象</p>
+<p>string  (InputIterator first, InputIterator last);</p>
+</li>
+</ol>
+</blockquote>
+<p><strong>接口使用举例：</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; string constructor
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main()
+&#123;
+    std::string s0 (&quot;Initial string&quot;);				   &#x2F;&#x2F;string(const char* s);
+
+    std::string s1;                                    &#x2F;&#x2F; string();---空串里放了一个字符\0
+    std::string s2 (s0);                               &#x2F;&#x2F; string(cosnt string&amp; str);
+    std::string s4 (&quot;A character sequence&quot;);           &#x2F;&#x2F; string(const char* s);
+    std::string s5 (&quot;Another character sequence&quot;, 12); &#x2F;&#x2F; string(const char* s,size_t n);
+    std::string s6 (10, &#39;x&#39;);                          &#x2F;&#x2F; string(size_t n,char c);
+    std::string s7 (s0.begin(), s0.begin() + 7);       &#x2F;&#x2F; string(InputIterator first,InputIterator last);
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>注意：空串并不是没有，而是第一个字符放的\0，存储空间不为0</font></strong></p>
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223424740.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223424740.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223424740">
+
+<hr>
+<h3 id="string的容量操作接口"><a href="#string的容量操作接口" class="headerlink" title="string的容量操作接口"></a><strong>string的容量操作接口</strong></h3><blockquote>
+<ol>
+<li><strong><mark>size：返回字符串有效长度(为了统一设计，所有容器都是用size表示有效元素个数，而抛弃了使用length)</mark></strong></li>
+<li><strong><mark>length：返回字符串有效字符长度（这是早期提供的接口）</mark></strong></li>
+<li><strong><mark>resize：将字符串大小调整为 n 个有效字符的长度</mark></strong></li>
+<li><strong><mark>capacity：返回有效字符的最大容量（即已分配 size 的大小）</mark></strong></li>
+<li><strong><mark>reverse：更改容量（capacity）的大小</mark></strong></li>
+<li><strong><mark>clear：清空字符串的内容，变为空字符串（size 变为 0，不改变 capacity 的大小）</mark></strong></li>
+<li><strong><mark>empty：检测字符串是否为空串，是返回 true，否则返回 false</mark></strong></li>
+</ol>
+</blockquote>
+<p><strong>对于容量操作我们主要看resize、reverse：</strong></p>
+<p><strong><font color=red>1.resize函数的两种重载形式：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;resize的两种重载形式
+void resize (size_t n);
+void resize (size_t n, char c);
+
+&#x2F;&#x2F;举例代码
+void Test1()
+&#123;
+	string s(&quot;hello&quot;);
+
+	&#x2F;&#x2F; 将s中有效字符个数增加到10个，多出位置用&#39;a&#39;进行填充
+	&#x2F;&#x2F; &quot;helloaaaaa&quot;
+	s.resize(10, &#39;a&#39;);
+	cout &lt;&lt; s.size() &lt;&lt; endl;     &#x2F;&#x2F; 10
+	cout &lt;&lt; s.capacity() &lt;&lt; endl; &#x2F;&#x2F; 15
+	cout &lt;&lt; s &lt;&lt; endl;            &#x2F;&#x2F; s: &quot;helloaaaaa&quot;
+
+	&#x2F;&#x2F; 将s中有效字符个数增加到20个，多出位置用缺省值&#39;\0&#39;进行填充
+	&#x2F;&#x2F; 如果resize参数大于原有 capacity 大小，会进行增容
+	&#x2F;&#x2F; &quot;helloaaaaa\0\0\0\0\0\0\0\0\0\0&quot;
+	s.resize(20);
+	cout &lt;&lt; s.size() &lt;&lt; endl;     &#x2F;&#x2F; 15
+	cout &lt;&lt; s.capacity() &lt;&lt; endl; &#x2F;&#x2F; 31
+	cout &lt;&lt; s &lt;&lt; endl;            &#x2F;&#x2F; s: &quot;helloaaaaa&quot;
+
+    &#x2F;&#x2F; 如果resize参数x原有 capacity 大小
+	&#x2F;&#x2F; 将s中有效字符个数缩小到2个
+	&#x2F;&#x2F; &quot;he&quot;
+	s.resize(2);
+	cout &lt;&lt; s.size() &lt;&lt; endl;     &#x2F;&#x2F; 2
+	cout &lt;&lt; s.capacity() &lt;&lt; endl; &#x2F;&#x2F; 31
+	cout &lt;&lt; s &lt;&lt; endl;            &#x2F;&#x2F; s: &quot;he&quot;
+
+	&#x2F;&#x2F; 将s的内容清空，注意清空时只是将size置0，不改变capacity的大小
+	s.clear();
+	cout &lt;&lt; s.size() &lt;&lt; endl;     &#x2F;&#x2F; 0
+	cout &lt;&lt; s.capacity() &lt;&lt; endl; &#x2F;&#x2F; 31
+	cout &lt;&lt; s &lt;&lt; endl;            &#x2F;&#x2F; s: &quot;&quot;
+
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>2.reserve函数的形式：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;reserve函数的形式
+void reserve (size_t n &#x3D; 0);
+
+&#x2F;&#x2F;举例代码
+void Test2()
+&#123;
+	string s(&quot;hellohellohello&quot;);
+
+	&#x2F;&#x2F; 如果reserve参数大于原有 capacity 大小，会进行增容
+	s.reserve(20);
+	cout &lt;&lt; s.size() &lt;&lt; endl;     &#x2F;&#x2F; 15
+	cout &lt;&lt; s.capacity() &lt;&lt; endl; &#x2F;&#x2F; 31
+
+	&#x2F;&#x2F; 测试reserve参数小于原有 capacity 大小，是否会将空间缩小呢？
+	&#x2F;&#x2F; VS2019下，如果字符串有效长度size大于参数10，不会缩小，如果字符串长度小于参数10，会缩小
+	&#x2F;&#x2F; 当然，这个也和编译器平台有关系
+	s.reserve(10);
+	cout &lt;&lt; s.size() &lt;&lt; endl;     &#x2F;&#x2F; 15
+	cout &lt;&lt; s.capacity() &lt;&lt; endl; &#x2F;&#x2F; 31（VS2019）
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>3.思考：reverse扩容的大小：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void Test3()
+&#123;
+	string s;
+
+	cout &lt;&lt; &quot;initial value: &quot; &lt;&lt; s.capacity() &lt;&lt; endl;
+
+	size_t sz &#x3D; s.capacity();
+	for (size_t i &#x3D; 0; i &lt; 500; i++)
+	&#123;
+		s.push_back(&#39;a&#39;);
+		if (s.capacity() !&#x3D; sz)
+		&#123;
+			sz &#x3D; s.capacity();
+			cout &lt;&lt; &quot;capacity changed: &quot; &lt;&lt; sz &lt;&lt; endl;
+		&#125;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223440513.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223440513.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223440513">
+
+<p><strong><font color=red>结论：VS下是1.5倍扩容，Linux下是2倍扩容</font></strong></p>
+<hr>
+<h3 id="string的访问操作接口"><a href="#string的访问操作接口" class="headerlink" title="string的访问操作接口"></a><strong>string的访问操作接口</strong></h3><p>string的访问操作通常使用[]运算重载来实现，就行数组下标一样</p>
+<blockquote>
+<p><strong>operator[]：返回对字符串中 pos 位置处的字符的引用（string 类对象支持随机访问）（一般物理地址是连续的才支持）</strong></p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;operator[]函数的两种重载形式
+char&amp; operator[] (size_t pos);
+const char&amp; operator[] (size_t pos) const;
+
+&#x2F;&#x2F;注意：operator[] 函数会自动检查越界（pos 必须小于 size），不像下标一样随机检查<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="string的迭代器遍历操作接口"><a href="#string的迭代器遍历操作接口" class="headerlink" title="string的迭代器遍历操作接口"></a><strong>string的迭代器遍历操作接口</strong></h3><blockquote>
+<ol>
+<li><strong>begin(iterator)：返回指向第一个有效字符的迭代器</strong></li>
+<li><strong>rbegin(reverse_iterator)：反向迭代器（可以反向遍历对象）</strong></li>
+<li><strong>end：返回指向字符串末尾字符的迭代器（即最后一个有效字符的下一个位置）</strong></li>
+<li><strong>rend：反向迭代器</strong></li>
+<li><strong>范围for：C++11支持更简洁的范围 for 的新遍历方式（底层其实是被替换成迭代器，所以支持迭代器就支持范围 for）</strong></li>
+</ol>
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223447651.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223447651.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223447651">
+
+<p><strong><font color=red>1.string迭代器的使用举例：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;普通迭代器和const迭代器
+iterator begin();             &#x2F;&#x2F; 可读可写
+const_iterator begin() const; &#x2F;&#x2F; 只读
+
+&#x2F;&#x2F;举例代码
+void test(const std::string&amp; s) 
+&#123;
+    &#x2F;&#x2F; const对象必须要用const迭代器
+	std::string::const_iterator it &#x3D; s.begin();
+	while (it !&#x3D; s.end()) 
+    &#123;
+		std::cout &lt;&lt; *it;
+        it++;
+	&#125;
+&#125;
+
+int main()
+&#123;
+	std::string s1;
+	std::string s2(&quot;hello&quot;);
+    
+	&#x2F;&#x2F; for+operator[]遍历
+    for (size_t i &#x3D; 0; i &lt; s.size(); ++i)
+		cout &lt;&lt; s2[i] &lt;&lt; endl;
+    
+    &#x2F;&#x2F; 正向迭代器遍历
+    &#x2F;&#x2F; 注意：这里不建议写成it &lt; s2.end()，比如链式结构的容器，就没法用了
+    &#x2F;&#x2F; 所以统一写成 it !&#x3D; s2.end()
+	std::string::iterator it &#x3D; s2.begin();
+	while (it !&#x3D; s2.end()) 
+    &#123;
+		std::cout &lt;&lt; *it;
+		it++;
+	&#125;
+	&#x2F;&#x2F; 反向迭代器遍历
+    for (std::string::reverse_iterator rit &#x3D; s2.rbegin(); rit !&#x3D; s2.rend(); ++rit)
+		std::cout &lt;&lt; *rit;
+    for (auto rit &#x3D; s2.rbegin(); rit !&#x3D; s2.rend(); ++rit) &#x2F;&#x2F; 用auto简化代码
+		std::cout &lt;&lt; *rit;
+    
+    &#x2F;&#x2F; 范围for遍历，支持迭代器的容器就支持范围for
+	for (auto&amp; e : s2) 
+    &#123;
+		std::cout &lt;&lt; e;
+	&#125;
+
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+</blockquote>
+<hr>
+<h3 id="string的修改操作接口"><a href="#string的修改操作接口" class="headerlink" title="string的修改操作接口"></a><strong>string的修改操作接口</strong></h3><blockquote>
+<ol>
+<li><em><em>operator+&#x3D;：在当前字符串末尾追加字符串（追加 string &#x2F; char</em> &#x2F; char 类型的都可以）</em>*</li>
+<li><strong>append：在当前字符串末尾追加字符串</strong></li>
+<li><strong>push_back：将一个字符附加到字符串的末尾（尾插）（<code>void push_back (char c);</code>）</strong></li>
+<li><strong>swap：交换两个字符串的内容（注意：还存在一个具有相同名称的非成员函数 swap）</strong></li>
+<li><strong>c_str：返回指向 C 格式字符串的数组的指针（<code>const char* c_str() const;</code>）</strong></li>
+<li><strong>find：从 pos 位置开始往后找字符，返回该字符在字符串中的位置，如果未找到返回 npos</strong></li>
+<li><strong>rfind：从 pos 位置开始往前找字符，返回该字符在字符串中的位置，如果未找到返回 npos</strong></li>
+<li><strong>npos：作为返回值，通常用于表示不匹配（npos是一个静态成员变量 <code>static const size_t npos = -1;</code> ）</strong></li>
+<li><strong>substr：在字符串中从 pos 位置开始，截取 len 个字符，然后将其作为新的 string 类对象返回</strong></li>
+</ol>
+<p><strong><mark>insert、erase不推荐，因为要挪动字符，时间效率太低</mark></strong></p>
+<p><strong><font color=red>追加内容举例代码：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void Test4()
+&#123;
+	string s1(&quot;hello&quot;);
+	string s2(&quot;world&quot;);
+
+	s1 +&#x3D; &#39; &#39;;   &#x2F;&#x2F; 追加字符
+	s1 +&#x3D; s2;    &#x2F;&#x2F; 追加string类对象
+	s1 +&#x3D; &quot;!!!&quot;; &#x2F;&#x2F; 追加字符串
+&#125;
+
+&#x2F;&#x2F;c_str举例代码
+void Test7()
+&#123;
+    string s(&quot;hello&quot;);
+	printf(&quot;%s\n&quot;, s.c_str()); 
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<p><strong><font color=red>find函数介绍：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 从pos位置开始往后找，默认从第一个字符的位置（即pos &#x3D; 0）开始找
+size_t find (const string&amp; str, size_t pos &#x3D; 0) const;
+size_t find (const char* s, size_t pos &#x3D; 0) const;
+size_t find (const char* s, size_t pos, size_t n) const; &#x2F;&#x2F; 从pos位置往后匹配n个字符
+size_t find (char c, size_t pos &#x3D; 0) const;
+
+void Test6()
+&#123;
+	&#x2F;&#x2F; 取出url中的协议、域名、uri
+	string url(&quot;http:&#x2F;&#x2F;www.cplusplus.com&#x2F;reference&#x2F;&quot;);
+
+	size_t pos1 &#x3D; url.find(&quot;:&#x2F;&#x2F;&quot;);
+	if (pos1 !&#x3D; string::npos) 
+	&#123;
+		cout &lt;&lt; url.substr(0, pos1 - 0) &lt;&lt; endl;
+	&#125;
+
+	size_t pos2 &#x3D; pos1 + 3;            &#x2F;&#x2F; &#39;w&#39;的位置
+	size_t pos3 &#x3D; url.find(&#39;&#x2F;&#39;, pos2); &#x2F;&#x2F; &#39;&#x2F;&#39;的位置，从pos2开始查找
+	if (pos3 !&#x3D; string::npos)
+	&#123;
+		cout &lt;&lt; url.substr(pos2, pos3 - pos2) &lt;&lt; endl;
+	&#125;
+	
+	cout &lt;&lt; url.substr(pos3) &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>substr函数介绍：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; len: 从pos位置开始，要截取字符的个数
+string substr (size_t pos &#x3D; 0, size_t len &#x3D; npos) const; &#x2F;&#x2F; 若len缺省，默认截取到字符串最后
+
+void Test5()
+&#123;
+	&#x2F;&#x2F; 取出文件1的后缀
+	string file1(&quot;test.txt&quot;);
+
+	size_t pos &#x3D; file1.find(&quot;.&quot;);
+	if (pos !&#x3D; string::npos)
+	&#123;
+		cout &lt;&lt; file1.substr(pos) &lt;&lt; endl; &#x2F;&#x2F; .txt
+		&#x2F;&#x2F; cout &lt;&lt; file.substr(pos, file1.size() - pos) &lt;&lt; endl;
+	&#125;
+
+	&#x2F;&#x2F; 取出文件2的后缀
+	string file2(&quot;test.txt.zip&quot;);
+
+	size_t rpos &#x3D; file2.rfind(&quot;.&quot;);
+	if (rpos !&#x3D; string::npos)
+	&#123;
+		cout &lt;&lt; file2.substr(rpos) &lt;&lt; endl; &#x2F;&#x2F; .zip
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="string的非成员函数重载接口"><a href="#string的非成员函数重载接口" class="headerlink" title="string的非成员函数重载接口"></a><strong>string的非成员函数重载接口</strong></h3><blockquote>
+<ol>
+<li><strong>std::operator&gt;&gt;：流提取运算符重载</strong></li>
+<li><strong>std::operator&lt;&lt;：流插入运算符重载</strong></li>
+<li><strong>std::getline：获取一行字符串，直到遇到换行符 ‘\n’</strong></li>
+<li><strong>relational operators：关系运算符，进行大小比较</strong></li>
+<li><strong>std::operator+：尽量少用，因为是传值返回，导致深拷贝效率低</strong></li>
+<li><strong>std::swap：交换两个字符串的值</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;getline的介绍
+&#x2F;&#x2F; istream&amp; getline (istream&amp; is, string&amp; str);
+string s;
+getline(cin, s);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+</blockquote>
+<hr>
+<h3 id="string的特殊判断接口"><a href="#string的特殊判断接口" class="headerlink" title="string的特殊判断接口"></a><strong>string的特殊判断接口</strong></h3><blockquote>
+<p><strong>C语言头文件&lt;ctype.h&gt;中处理字符的接口：</strong></p>
+<p><strong>1.字符串处理函数：</strong></p>
+<ul>
+<li><strong>int isalpha(int c)：检查字符是否为字母，是返回非零(true)，不是则返回0(false)</strong></li>
+<li><strong>int isdigit(int c)：检查字符是否为十进制数字，是返回非零(true)，不是则返回0(false)</strong></li>
+</ul>
+<p><strong>2.字符转换函数：</strong></p>
+<ul>
+<li><strong>int tolower(int c)：把字母转换成小写字母，返回转换之后的字符</strong></li>
+<li><strong>int toupper(int c)：把字母转换成大写字母，返回转换之后的字符</strong></li>
+</ul>
+<p><strong>C++头文件<string>中处理字符的接口：</strong></p>
+<p><strong>1.函数 std::to_string（C++11）：将数值转换为字符串，返回 string 类对象</strong></p>
+<p><strong>2.函数 std::stoi（C++11）：将字符串转换为整数，返回 int 整数</strong></p>
+<p>C++头文件<algorithm>中反转排序接口：</p>
+<p>1.函数 std::reverse：反转范围 [first,last) 中元素的顺序</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 传一段迭代器区间 [first, last)
+template &lt;class BidirectionalIterator&gt; &#x2F;&#x2F; 双向迭代器
+void reverse (BidirectionalIterator first, BidirectionalIterator last);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>2.函数 std::sort：将 [first,last) 范围内的元素按升序排序</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 传一段迭代器区间 [first, last)，默认排升序，若要排降序，需要传仿函数
+template &lt;class RandomAccessIterator, class Compare&gt; &#x2F;&#x2F; 随机访问迭代器
+void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<hr>
+<h2 id="string的模拟实现"><a href="#string的模拟实现" class="headerlink" title="string的模拟实现"></a><strong>string的模拟实现</strong></h2><h3 id="string类的结构实现"><a href="#string类的结构实现" class="headerlink" title="string类的结构实现"></a><strong>string类的结构实现</strong></h3><img src="/2022/12/10/1.stl-ku-string/image-20230623223455553.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223455553.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223455553">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cassert&gt;
+using namespace std;
+
+namespace winter
+&#123;
+    class string
+    &#123;
+	private:
+        char* _str;       &#x2F;&#x2F; 指向字符数组
+        size_t _size;     &#x2F;&#x2F; 有效字符数
+        size_t _capacity; &#x2F;&#x2F; 有效字符容量，不包含最后作标识的&#39;\0&#39;
+
+        static const size_t npos;
+
+	public:
+        &#x2F;*******************************************************&#x2F;
+        &#x2F;&#x2F; 迭代器
+        typedef char* iterator;
+        typedef const char* const_iterator;
+        iterator begin() &#123; return _str; &#125; &#x2F;&#x2F; 返回指向第一个字符的迭代器
+        iterator end() &#123; return _str + _size; &#125; &#x2F;&#x2F; 返回指向最后一个字符下一个字符的迭代器
+        const_iterator begin() const &#123; return _str; &#125; &#x2F;&#x2F; 返回指向第一个字符的迭代器
+        const_iterator end() const &#123; return _str + _size; &#125; &#x2F;&#x2F; 返回指向最后一个字符下一个字符的迭代器
+
+        &#x2F;*******************************************************&#x2F;
+        &#x2F;&#x2F; 默认成员函数：
+
+        string(const char* str &#x3D; &quot;&quot;); &#x2F;&#x2F; 默认构造函数
+        void swap(string&amp; s); &#x2F;&#x2F; 交换两个对象的内容
+        string(const string&amp; s); &#x2F;&#x2F; 拷贝构造函数（深拷贝）
+        string&amp; operator&#x3D;(string s); &#x2F;&#x2F; 赋值运算符重载（深拷贝）
+        ~string(); &#x2F;&#x2F; 析构函数
+
+        &#x2F;*******************************************************&#x2F;
+        &#x2F;&#x2F; 访问元素，[]运算符重载
+        
+        char&amp; operator[](size_t pos);             &#x2F;&#x2F; 可读可写
+        const char&amp; operator[](size_t pos) const; &#x2F;&#x2F; 只读不能写
+
+        &#x2F;*******************************************************&#x2F;
+		&#x2F;&#x2F; 容量操作：
+        
+        &#x2F;&#x2F; 获取字符串有效元素个数
+        size_t size() const &#123; return _size; &#125; 
+        &#x2F;&#x2F; 获取字符串容量（有效字符的最大容量）
+        size_t capacity() const &#123; return _capacity; &#125; 
+        &#x2F;&#x2F; 清空有效字符
+        void clear() 
+        &#123;
+            _str[0] &#x3D; &#39;\0&#39;;
+            _size &#x3D; 0;
+        &#125;
+        &#x2F;&#x2F; 更改容量（capacity）的大小
+        void reserve(size_t n); 
+        &#x2F;&#x2F; 调整字符串有效字符的长度
+        void resize(size_t n, char ch &#x3D; &#39;\0&#39;); 
+
+		&#x2F;*******************************************************&#x2F;
+        &#x2F;&#x2F; 修改操作：
+        
+        string&amp; insert(size_t pos, const char ch); &#x2F;&#x2F; 在pos位置插入一个字符
+        
+        string&amp; insert(size_t pos, const char* str); &#x2F;&#x2F; 在pos位置插入一个字符串
+        
+        void push_back(const char ch); &#x2F;&#x2F; 尾插一个字符
+        
+        void append(const char* str); &#x2F;&#x2F; 在当前字符串末尾追加一个字符串
+        
+        string&amp; operator+&#x3D;(const char ch); &#x2F;&#x2F; 当前字符串末尾追加一个字符&#x2F;字符串
+        string&amp; operator+&#x3D;(const char* str);
+        string&amp; operator+&#x3D;(const string&amp; s);        
+        
+        string&amp; erase(size_t pos &#x3D; 0, size_t len &#x3D; npos); &#x2F;&#x2F; 删除从pos位置开始的len个字符
+        
+        &#x2F;*******************************************************&#x2F;
+        &#x2F;&#x2F; String operations
+        
+        &#x2F;&#x2F; 从pos位置开始查找字符，若找到，则返回该字符的下标，若没找到，则返回npos
+        size_t find(char ch, size_t pos &#x3D; 0) const;
+
+        &#x2F;&#x2F; 从pos位置开始查找子串，若找到，则返回该子串首字符的下标，若没找到，则返回npos
+        size_t find(const char* str, size_t pos &#x3D; 0) const;
+		
+        &#x2F;&#x2F; 返回指向 C 格式字符串的数组的指针
+        char* c_str() const &#123; return _str; &#125;
+    &#125;;
+
+    const size_t string::npos &#x3D; -1;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="string的默认成员函数模拟实现"><a href="#string的默认成员函数模拟实现" class="headerlink" title="string的默认成员函数模拟实现"></a><strong>string的默认成员函数模拟实现</strong></h3><p><strong><font color=red>1.默认构造函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 默认构造函数
+string(const char* str &#x3D; &quot;&quot;)  &#x2F;&#x2F; 空串并不是什么都没有，第一个字符为&#39;\0&#39;
+    :_size(strlen(str))
+	,_capacity(_size)
+&#123;
+	_str &#x3D; new char[_capacity + 1]; &#x2F;&#x2F; 多开一个空间是存放&#39;\0&#39;的
+	strcpy(_str, str);              &#x2F;&#x2F; 拷贝数据
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>2.交换容器内容swap函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; s1.swap(s2);
+void swap(string&amp; s)
+&#123;
+    &#x2F;&#x2F; 函数名冲突，指定去调用全局域里面的::swap
+    ::swap(_str, s._str);
+    ::swap(_size, s._size);
+    ::swap(_capacity, s._capacity);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>3.拷贝构造函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 拷贝构造函数（深拷贝）
+&#x2F;&#x2F; s2(s1)
+string(const string&amp; s)
+    :_str(nullptr) &#x2F;&#x2F; 当前对象是一个正在构造的对象，成员变量还未初始化，是一个随机值，所以先置空
+	,_size(0)
+	,_capacity(0)
+&#123;
+	string tmp(s._str); &#x2F;&#x2F; 拿s的内容，调用构造函数构造临时对象tmp
+	this-&gt;swap(tmp);    &#x2F;&#x2F; 将临时对象tmp和当前对象的成员变量分别进行交换
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>4.赋值运算符重载</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 赋值运算符重载（深拷贝）
+&#x2F;&#x2F; s1 &#x3D; s2
+string&amp; operator&#x3D;(string s)
+&#123;
+    this-&gt;swap(s); &#x2F;&#x2F; 将拷贝构造的对象s和当前对象的成员变量分别进行交换
+    return *this;  &#x2F;&#x2F; 返回当前对象
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>5.析构函数</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 析构函数
+~string()
+&#123;
+    delete[] _str;
+    _str &#x3D; nullptr;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="string的浅拷贝、深拷贝问题"><a href="#string的浅拷贝、深拷贝问题" class="headerlink" title="string的浅拷贝、深拷贝问题"></a><strong>string的浅拷贝、深拷贝问题</strong></h3><p><strong>需要「深拷贝」的类，其内部往往是很复杂的，是需要用户显式定义拷贝构造函数来完成「深拷贝」的</strong></p>
+<p><strong><font color=red>浅拷贝举例代码：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">namespace winter
+&#123;
+	class string
+	&#123;
+	private:
+		char* _str;
+        
+	public:
+        &#x2F;&#x2F; 构造函数
+		string(const char* s)
+			:_str(new char[strlen(s) + 1])
+		&#123;
+			strcpy(_str, s);
+		&#125;
+		
+        &#x2F;&#x2F; 析构函数
+		~string()
+		&#123;
+			delete[] _str;
+			_str &#x3D; nullptr;
+		&#125;
+	&#125;;
+
+	void test()
+	&#123;
+		string s1(&quot;hello&quot;); &#x2F;&#x2F; 用一个常量字符串去构造string类对象s1
+		string s2(s1); &#x2F;&#x2F; s2调用编译器默认生成的拷贝构造函数
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>通过调试可以看到：<font color=red>编译器默认生成的拷贝构造函数是「浅拷贝」，会导致两个 string 对象中的字符指针 <code>_str</code> 指向的是同一个字符数组。（因为浅拷贝只拷贝了 <code>_str</code> 数组指针的 4 个字节的内容）</font></font></strong></p>
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223505981.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223505981.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223505981">
+
+
+
+<p><strong>所以在上述类中必须要<mark>显式定义拷贝构造函数</mark>，否则编译器默认生成的拷贝构造函数无法正常完成拷贝</strong></p>
+<blockquote>
+<ul>
+<li><strong><font color=red>总结：上述 string 类没有显式定义其拷贝构造函数与赋值运算符重载函数，此时编译器会默认生成一个，当用 s1 构造 s2 时，编译器会调用默认生成的拷贝构造函数。最终导致：s1 和 s2 共用同一块内存空间，在调用析构函数清理对象资源时，同一块空间被释放多次，引起程序崩溃，这种拷贝方式是浅拷贝，而我们实际需要的是深拷贝</font></strong></li>
+<li><strong><font color=red>浅拷贝：也称<mark>位拷贝，编译器只是将对象中的数据「按字节序」拷贝过来</mark>。如果对象中管理的有其它资源（比如堆上的资源），那就会导致多个对象共享同一份资源，当一个对象销毁时就会将该资源释放掉，而另一些对象不知道该资源已经被释放，以为还有效，就继续对资源进行操作（比如增删查改），此时就会发生违规访问</font></strong></li>
+<li><strong><font color=green>深拷贝：给每个对象独立分配资源，保证多个对象之间不会因为共享资源问题而造成多次释放资源，导致程序崩溃</font></strong></li>
+<li><strong><font color=blue>浅拷贝引发的问题：同一块空间会被析构多次，一个对象修改会影响另外一个对象</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="string的拷贝构造的深拷贝实现"><a href="#string的拷贝构造的深拷贝实现" class="headerlink" title="string的拷贝构造的深拷贝实现"></a><strong>string的拷贝构造的深拷贝实现</strong></h3><p><strong>string的拷贝构造的深拷贝实现有两种写法：传统写法、现代写法</strong></p>
+<p><strong><font color=red>1.拷贝构造深拷贝传统写法：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;浅拷贝
+string(const char* s)
+	:_str(new char[strlen(s) + 1])
+&#123;
+	strcpy(_str, s);
+&#125;
+
+&#x2F;&#x2F; 显式定义拷贝构造函数（深拷贝）
+string(const string&amp; s) &#x2F;&#x2F; 保护形参不被改变，加引用防止无穷递归
+    :_str(new char[strlen(s._str) + 1])  &#x2F;&#x2F; 给新对象申请一段和原对象一样大小的空间
+&#123;
+	strcpy(_str, s._str); &#x2F;&#x2F; 把原对象的数据一一拷贝给新对象
+&#125;
+
+&#x2F;&#x2F;测试代码
+void test()
+&#123;
+	string s1(&quot;hello&quot;); &#x2F;&#x2F; 用一个常量字符串去构造string类对象s1
+	string s2(s1); &#x2F;&#x2F; s2调用编译器默认生成的拷贝构造函数
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223515448.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223515448.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223515448">
+
+<p><strong><font color=red>2.深拷贝的现代写法：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 拷贝构造函数（深拷贝）
+string(const string&amp; s)
+    :_str(nullptr) &#x2F;&#x2F; 当前对象是一个正在构造的对象，成员变量还未初始化，是一个随机值，所以先置空
+&#123;
+	string tmp(s._str);   &#x2F;&#x2F; 拿s的内容，调用构造函数构造临时对象tmp
+	swap(_str, tmp._str); &#x2F;&#x2F; 将临时对象tmp和当前对象的成员变量_str进行交换
+&#125;
+
+&#x2F;&#x2F;测试代码
+void test()
+&#123;
+	string s1(&quot;hello&quot;); &#x2F;&#x2F; 用一个常量字符串去构造string类对象s1
+	string s2(s1); &#x2F;&#x2F; s2调用编译器默认生成的拷贝构造函数
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223523158.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223523158.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223523158">
+
+<hr>
+<h3 id="string的赋值运算符重载函数的深拷贝实现"><a href="#string的赋值运算符重载函数的深拷贝实现" class="headerlink" title="string的赋值运算符重载函数的深拷贝实现"></a><strong>string的赋值运算符重载函数的深拷贝实现</strong></h3><p><strong>string的赋值运算符重载函数的深拷贝实现分为：传统写法、现代写法</strong></p>
+<p><strong>需要「深拷贝」的类，其内部往往是很复杂的，是需要用户显式定义赋值运算符重载函数来完成「深拷贝」的</strong></p>
+<p><strong><font color=red>1.赋值运算符重载函数的深拷贝传统写法：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 显式定义赋值运算符重载（深拷贝）
+string&amp; operator&#x3D;(const string&amp; s)
+&#123;
+    if (this !&#x3D; &amp;s) &#x2F;&#x2F; 防止自己给自己赋值
+    &#123;
+        char* tmp &#x3D; new char[strlen(s._str) + 1]; &#x2F;&#x2F; 重新开辟一块和s一样大小的空间
+        delete[] _str;                            &#x2F;&#x2F; 释放自己的空间
+        _str &#x3D; tmp;
+        strcpy(_str, s._str);                     &#x2F;&#x2F; 把s的数据拷贝过来
+    &#125;
+    return *this;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223528783.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223528783.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223528783">
+
+
+
+<p><strong><font color=red>2.赋值运算符重载函数的深拷贝现代写法：</font></strong></p>
+<p><strong>通过参数间接调用拷贝构造函数，将「拷贝构造出来的 string 类对象 s」和「当前对象」的成员变量分别进行交换即可，这样当前对象就拿到了自己想要的内容，当函数调用结束后，拷贝构造出来的对象 s 出了作用域会被自动析构</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 赋值运算符重载（深拷贝）
+&#x2F;&#x2F; s1 &#x3D; s2
+&#x2F;&#x2F; 写法一：
+string&amp; operator&#x3D;(const string&amp; s) &#x2F;&#x2F; 传引用
+&#123;
+    if (this !&#x3D; &amp;s) &#x2F;&#x2F; 防止自己给自己赋值
+    &#123;
+        string tmp(s._str);   &#x2F;&#x2F; 拿s的内容，调用构造函数构造临时对象tmp
+        swap(_str, tmp._str); &#x2F;&#x2F; 将临时对象tmp和当前对象的成员变量_str进行交换
+    &#125;
+    return *this;
+&#125;
+
+&#x2F;&#x2F; 写法二：
+string&amp; operator&#x3D;(string s) &#x2F;&#x2F; 重点：传值
+&#123;
+    &#x2F;&#x2F; 传参时，调用拷贝构造函数，拷贝构造了一个string类对象s
+
+    &#x2F;&#x2F; 将拷贝构造出来的string类对象s和当前对象的成员变量_str进行交换
+    swap(_str, s._str);
+    
+    return *this; &#x2F;&#x2F; 返回当前对象
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223534698.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223534698.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223534698">
+
+
+
+<hr>
+<h3 id="string的迭代器模拟实现"><a href="#string的迭代器模拟实现" class="headerlink" title="string的迭代器模拟实现"></a><strong>string的迭代器模拟实现</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class string
+&#123;
+private:
+    char* _str;       &#x2F;&#x2F; 指向字符数组
+    size_t _size;     &#x2F;&#x2F; 有效字符数
+    size_t _capacity; &#x2F;&#x2F; 有效字符容量，不包含最后作标识的&#39;\0&#39;
+
+    static const size_t npos;
+
+public:
+    &#x2F;*******************************************************&#x2F;
+    &#x2F;&#x2F; 迭代器
+    &#x2F;&#x2F; iterator是内嵌类型，在stirng类域里面定义的类型
+    
+    typedef char* iterator;
+    typedef const char* const_iterator;
+    
+    iterator begin() &#123; return _str; &#125; &#x2F;&#x2F; 返回指向第一个字符的迭代器
+    iterator end() &#123; return _str + _size; &#125; &#x2F;&#x2F; 返回指向最后一个字符下一个字符的迭代器
+    
+    const_iterator begin() const &#123; return _str; &#125; &#x2F;&#x2F; 返回指向第一个字符的迭代器
+    const_iterator end() const &#123; return _str + _size; &#125; &#x2F;&#x2F; 返回指向最后一个字符下一个字符的迭代器
+    &#x2F;&#x2F; ...
+    &#x2F;&#x2F; ...
+&#125;;
+const size_t string::npos &#x3D; -1;
+
+&#x2F;&#x2F;测试代码
+void test3()
+&#123;
+    string s1(&quot;hello world&quot;);
+
+    &#x2F;&#x2F; iterator是内嵌类型，在stirng类域里面定义的类型
+    &#x2F;&#x2F; 告诉编译器，要到string类域里面去找
+    string::iterator it &#x3D; s1.begin();
+    while (it !&#x3D; s1.end())
+    &#123;
+        cout &lt;&lt; *it;
+        it++;
+    &#125;
+    cout &lt;&lt; endl;
+
+    &#x2F;&#x2F; 范围for的原理就是被替换成迭代器
+    for (auto e : s1)
+    &#123;
+        cout &lt;&lt; e;
+    &#125;
+    cout &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="string的访问操作运算符重载模拟实现"><a href="#string的访问操作运算符重载模拟实现" class="headerlink" title="string的访问操作运算符重载模拟实现"></a><strong>string的访问操作运算符重载模拟实现</strong></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;对于普通数组来说：越界读一般是检查不出来的，越界写会抽查，可能会检查出来
+&#x2F;&#x2F;对于string类来说：越界读写都会被检查出来，因为[]中进行了严格的检查
+
+&#x2F;&#x2F; 普通版本
+char&amp; operator[](size_t pos) &#x2F;&#x2F; 可读可写
+&#123;
+    assert(pos &lt; _size);
+    return _str[pos]; &#x2F;&#x2F; *(_str + pos)
+&#125;
+
+&#x2F;&#x2F;const版本
+const char&amp; operator[](size_t pos) const &#x2F;&#x2F; 只读不能写
+&#123;
+    assert(pos &lt; _size);
+    return _str[pos]; &#x2F;&#x2F; *(_str + pos)
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="string的容量操作函数模拟实现"><a href="#string的容量操作函数模拟实现" class="headerlink" title="string的容量操作函数模拟实现"></a><strong>string的容量操作函数模拟实现</strong></h3><p><strong><font color=red>1.resize函数：调整字符串有效字符的长度</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 调整字符串有效字符的长度
+void resize(size_t n, char ch &#x3D; &#39;\0&#39;)
+&#123;
+    &#x2F;&#x2F; 要调整的有效字符的长度小于原有 _size 大小
+    if (n &lt; _size)
+    &#123;
+        _size &#x3D; n;          &#x2F;&#x2F; 更新有效字符个数
+        _str[_size] &#x3D; &#39;\0&#39;; &#x2F;&#x2F; 补上字符串结束标志&#39;\0&#39;
+    &#125;
+    &#x2F;&#x2F; 要调整的有效字符的长度大于原有 _size 大小
+    else if (n &gt; _size)
+    &#123;
+        &#x2F;&#x2F; 要调整的有效字符的长度大于原有 _capacity 大小，先进行增容
+        if (n &gt; _capacity) reserve(n);
+
+        &#x2F;&#x2F; 多出的位置用字符 ch（缺省值&#39;\0&#39;）进行填充
+        for (size_t i &#x3D; _size; i &lt; n; i++)
+        &#123;
+            _str[i] &#x3D; ch;
+        &#125;
+        _size &#x3D; n;          &#x2F;&#x2F; 更新有效字符个数
+        _str[_size] &#x3D; &#39;\0&#39;; &#x2F;&#x2F; 补上字符串结束标志&#39;\0&#39;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>2.reverse函数：更改容量(capacity)的大小</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 更改容量（capacity）的大小
+void reserve(size_t n)
+&#123;
+    if (n &gt; _capacity)
+    &#123;
+        &#x2F;&#x2F; 开辟新空间
+        char* tmp &#x3D; new char[n + 1];
+        strcpy(tmp, _str);  &#x2F;&#x2F; 旧空间数据拷贝到新空间
+
+        &#x2F;&#x2F; 释放旧空间，使用新空间
+        delete[] _str;
+        _str &#x3D; tmp;    &#x2F;&#x2F; 指向新空间
+        _capacity &#x3D; n; &#x2F;&#x2F; 更新容量
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="string的修改操作函数模拟实现"><a href="#string的修改操作函数模拟实现" class="headerlink" title="string的修改操作函数模拟实现"></a><strong>string的修改操作函数模拟实现</strong></h3><p><strong><font color=red>1.insert函数：在pos位置插入一个字符</font></strong></p>
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223543567.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223543567.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223543567">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 在pos位置插入一个字符串
+string&amp; insert(size_t pos, const char* str)
+&#123;
+    assert(pos &gt;&#x3D; 0 &amp;&amp; pos &lt;&#x3D; _size);
+
+    &#x2F;&#x2F; 先检查是否需要扩容
+    size_t len &#x3D; strlen(str);
+    if (_size + len &gt;&#x3D; _capacity)
+    &#123;
+        reserve(_size + len);
+    &#125;
+
+    &#x2F;&#x2F; 挪动字符
+    for (size_t i &#x3D; _size + len; i &gt;&#x3D; pos + len; i--)
+    &#123;
+        _str[i] &#x3D; _str[i - len];
+    &#125;
+    &#x2F;&#x2F; 插入字符
+    for (size_t i &#x3D; 0; i &lt; len; i++)
+    &#123;
+        _str[pos++] &#x3D; str[i];
+    &#125;
+    _size +&#x3D; len; &#x2F;&#x2F; 更新有效字符个数
+
+    return *this;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>2.push_back函数：尾插一个字符</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void push_back(const char ch)
+&#123;
+	&#x2F;&#x2F;方法一：
+    &#x2F;&#x2F; 先检查是否需要扩容
+    if (_size &gt;&#x3D; _capacity)
+    &#123;
+    	&#x2F;&#x2F; 防止是空串&quot;&quot;，容量为0，扩容失败
+        size_t newcapacity &#x3D; _capacity &#x3D;&#x3D; 0 ? 4 : 2 * _capacity;
+
+        reserve(newcapacity); &#x2F;&#x2F; 扩2倍容
+    &#125;
+
+    _str[_size] &#x3D; ch;   &#x2F;&#x2F; 尾插字符
+    _size++;            &#x2F;&#x2F; 有效字符个数+1
+    _str[_size] &#x3D; &#39;\0&#39;; &#x2F;&#x2F; 补上字符串结束标志&#39;\0&#39;
+
+  
+    &#x2F;&#x2F;方法二： 复用 insert 函数的代码 
+    insert(_size, ch);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>3.append函数：在当前字符串末尾追加一个字符串</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void append(const char* str)
+&#123;
+	&#x2F;&#x2F;方法一：
+    &#x2F;&#x2F; 先检查是否需要扩容
+    size_t len &#x3D; strlen(str);
+    if (_size + len &gt; _capacity)
+    &#123;
+        reserve(_size + len); &#x2F;&#x2F; 扩容
+    &#125;
+
+    strcpy(_str + _size, str); &#x2F;&#x2F; 尾插字符串（strcpy会拷贝&#39;\0&#39;，并在该点停止）
+    _size +&#x3D; len;              &#x2F;&#x2F; 有效字符个数+len
+	
+
+    &#x2F;&#x2F;方法二：复用 insert 函数的代码 
+
+    insert(_size, str);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>4.+&#x3D;运算符重载函数：在当前字符串末尾追加一个字符或字符串</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">string&amp; operator+&#x3D;(const char ch)
+&#123;
+    push_back(ch);
+    return *this;
+&#125;
+string&amp; operator+&#x3D;(const char* str)
+&#123;
+    append(str);
+    return *this;
+&#125;
+string&amp; operator+&#x3D;(const string&amp; s)
+&#123;
+    append(s._str);
+    return *this;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>5.erase函数：删除从 pos 位置（包含 pos 位置）开始的 len 个字符</font></strong></p>
+<blockquote>
+<p><strong><mark>erase删除分为两种情况</mark>：</strong></p>
+<p><strong>1.情况一：</strong></p>
+<ul>
+<li><strong>如果 len 缺省，表示从 pos 位置开始，后面的字符删除完</strong></li>
+<li><strong>如果 pos + len &gt;&#x3D; _size，表示删除 [ pos, _size - 1 ] 区间的字符</strong></li>
+</ul>
+<p><strong>2.情况二：</strong></p>
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223551198.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223551198.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223551198">
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">string&amp; erase(size_t pos &#x3D; 0, size_t len &#x3D; npos)
+&#123;
+    assert(pos &gt;&#x3D; 0 &amp;&amp; pos &lt; _size);
+
+    &#x2F;&#x2F; 1. 从pos位置开始，后面的字符删除完，这是一个O(1)的操作
+    if (len &#x3D;&#x3D; npos || pos + len &gt;&#x3D; _size)
+    &#123;
+        _str[pos] &#x3D; &#39;\0&#39;;
+        _size &#x3D; pos;
+    &#125;
+    &#x2F;&#x2F; 2. 从pos位置开始，后面的字符删除一部分，这是一个O(n)的操作
+    else
+    &#123;
+        strcpy(_str + pos, _str + pos + len);
+        _size -&#x3D; len;
+    &#125;
+
+    return *this;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<hr>
+<h3 id="string的字符串操作函数模拟实现"><a href="#string的字符串操作函数模拟实现" class="headerlink" title="string的字符串操作函数模拟实现"></a><strong>string的字符串操作函数模拟实现</strong></h3><p><strong><font color=red>1.find函数：从 pos 位置开始查找<mark>字符</mark>，若找到，返回该字符第一次出现的下标；若没找到，返回npos</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">size_t find(char ch, size_t pos &#x3D; 0) const
+&#123;
+    assert(pos &gt;&#x3D; 0 &amp;&amp; pos &lt; _size);
+
+    for (size_t i &#x3D; pos; i &lt; _size; i++)
+    &#123;
+        if (_str[i] &#x3D;&#x3D; ch) return i;
+    &#125;
+    return npos;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>2.find函数：从 pos 位置开始查找<mark>子串</mark>，若找到，返回该字符第一次出现的下标；若没找到，返回npos</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">size_t find(const char* str, size_t pos &#x3D; 0) const
+&#123;
+    assert(pos &gt;&#x3D; 0 &amp;&amp; pos &lt; _size);
+
+    &#x2F;&#x2F; 在原串中去匹配子串str
+    &#x2F;&#x2F; 匹配成功，返回子串str首字符的地址
+    &#x2F;&#x2F; 匹配失败，返回空指针
+    const char* p &#x3D; strstr(_str + pos, str);
+
+    if (p) return p - _str; &#x2F;&#x2F; 通过子串str首字符的地址，计算出首字符的下标
+    else return npos;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="string的特殊函数模拟实现"><a href="#string的特殊函数模拟实现" class="headerlink" title="string的特殊函数模拟实现"></a><strong>string的特殊函数模拟实现</strong></h3><p><strong><font color=red>1.流插入&lt;&lt;运算符重载</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 流插入运算符重载
+ostream&amp; operator&lt;&lt;(ostream&amp; out, const string&amp; s)
+&#123;
+    &#x2F;&#x2F; 遍历string类对象 s ，一个一个字符的插入
+    for (size_t i &#x3D; 0; i &lt; s.size(); i++)
+    &#123;
+        out &lt;&lt; s[i];
+    &#125;
+
+    return out;
+&#125;
+
+void test6()
+&#123;
+    &#x2F;&#x2F; 一般场景下，以下两种输出没有差别
+    string s1(&quot;hello&quot;);
+    cout &lt;&lt; s1 &lt;&lt; endl;         &#x2F;&#x2F; 编译器当成自定义类型对象处理，匹配该类型重载的&lt;&lt;运算符
+    cout &lt;&lt; s1.c_str() &lt;&lt; endl; &#x2F;&#x2F; C_str()返回char*，编译器当成字符数组处理（内置类型）
+
+    &#x2F;&#x2F; 但是这种场景下有区别
+    string s2(&quot;hello&quot;);
+    s2.resize(10);
+    s2[9] &#x3D; &#39;x&#39;; &#x2F;&#x2F; 最后一个字符设为&#39;x&#39;
+
+    &#x2F;&#x2F; s2 &#x3D; &quot;hello\0\0\0\0x&quot;
+
+    cout &lt;&lt; s2 &lt;&lt; endl;         &#x2F;&#x2F; 输出所有有效字符，&quot;hello\0\0\0\0x&quot;
+    cout &lt;&lt; s2.c_str() &lt;&lt; endl; &#x2F;&#x2F; 遇到&#39;\0&#39;终止，&quot;hello&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>2.流提取&gt;&gt;运算符重载</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 流提取运算符重载
+istream&amp; operator&gt;&gt;(istream&amp; in, string&amp; s)
+&#123;
+    &#x2F;&#x2F; 一个一个字符输入
+    &#x2F;&#x2F; 遇到空格或者换行符终止输入
+    char ch;
+    in &gt;&gt; ch; &#x2F;&#x2F; 从流中获取一个字符
+    while (ch !&#x3D; &#39; &#39; &amp;&amp; ch !&#x3D; &#39;\n&#39;)
+    &#123;
+        s +&#x3D; ch;  &#x2F;&#x2F; 把提取的字符追加到sting类对象 s 中去
+        in &gt;&gt; ch; &#x2F;&#x2F; 继续从流中获取下一个字符
+    &#125;
+
+    return in;
+&#125;
+
+void test7()
+&#123;
+    string s1;
+    cin &gt;&gt; s1; &#x2F;&#x2F; operator&gt;&gt;(cin, s1);
+    cout &lt;&lt; s1 &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223601196.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223601196.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223601196">
+
+<blockquote>
+<p><strong>流提取运算符重载函数中，改成用 get() 函数获取字符：但还是存在一个小问题</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 流提取运算符重载
+istream&amp; operator&gt;&gt;(istream&amp; in, string&amp; s)
+&#123;
+    &#x2F;&#x2F; 一个一个字符输入
+    &#x2F;&#x2F; 遇到空格或者换行符终止输入
+    char ch;
+    ch &#x3D; in.get(); &#x2F;&#x2F; 从流中获取一个字符
+    while (ch !&#x3D; &#39; &#39; &amp;&amp; ch !&#x3D; &#39;\n&#39;)
+    &#123;
+        s +&#x3D; ch;       &#x2F;&#x2F; 把提取的字符追加到sting类对象 s 中去
+        ch &#x3D; in.get(); &#x2F;&#x2F; 继续从流中获取下一个字符
+    &#125;
+
+    return in;
+&#125;
+
+void test6()
+&#123;
+    string s1;
+    cin &gt;&gt; s1; &#x2F;&#x2F; operator&gt;&gt;(cin, s1);
+    cout &lt;&lt; s1 &lt;&lt; endl;
+&#125;
+void test7()
+&#123;
+    string s1(&quot;hello&quot;);
+    cin &gt;&gt; s1; &#x2F;&#x2F; operator&gt;&gt;(cin, s1);
+    cout &lt;&lt; s1 &lt;&lt; endl;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223607394.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223607394.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223607394">
+
+<p><strong><font color=red>正确写法：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class string
+&#123;
+private:
+    &#x2F;&#x2F; ...
+public:
+    &#x2F;&#x2F; ...
+    void clear() &#x2F;&#x2F; 清空所有有效字符
+    &#123;
+        _str[0] &#x3D; &#39;\0&#39;;
+        _size &#x3D; 0;
+    &#125;
+    &#x2F;&#x2F; ...
+&#125;;
+
+&#x2F;&#x2F; 流提取运算符重载
+istream&amp; operator&gt;&gt;(istream&amp; in, string&amp; s)
+&#123;
+    &#x2F;&#x2F; 先清空所有有效字符
+    s.clear();
+
+    &#x2F;&#x2F; 一个一个字符输入
+    &#x2F;&#x2F; 遇到空格或者换行符终止输入
+    char ch;
+    ch &#x3D; in.get(); &#x2F;&#x2F; 从流中获取一个字符
+    while (ch !&#x3D; &#39; &#39; &amp;&amp; ch !&#x3D; &#39;\n&#39;)
+    &#123;
+        s +&#x3D; ch;       &#x2F;&#x2F; 把提取的字符追加到sting类对象 s 中去
+        ch &#x3D; in.get(); &#x2F;&#x2F; 继续从流中获取下一个字符
+    &#125;
+
+    return in;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</blockquote>
+<p><strong><font color=red>3.getline函数:获取一行字符串，直到遇到换行符 ‘\n’</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">istream&amp; getline(istream&amp; in, string&amp; s)
+&#123;
+    &#x2F;&#x2F; 先清空所有有效字符
+    s.clear();
+
+    &#x2F;&#x2F; 一个一个字符的输入
+    &#x2F;&#x2F; 遇到换行符终止输入
+    char ch;
+    ch &#x3D; in.get(); &#x2F;&#x2F; 从流中获取一个字符
+    while (ch !&#x3D; &#39;\n&#39;)
+    &#123;
+        s +&#x3D; ch;       &#x2F;&#x2F; 把获取的字符追加到string类对象 s 中去
+        ch &#x3D; in.get(); &#x2F;&#x2F; 继续从流中获取下一个字符
+    &#125;
+    return in;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p><strong><font color=red>4.关系运算符&gt;重载：关系运算符，进行大小比较</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 比较两个对象的大小（按字符ascii码比较）
+&#x2F;&#x2F; s1 &gt; s2
+bool operator&gt;(const string&amp; s1, const string&amp; s2)
+&#123;
+    &#x2F;&#x2F; 指针 i 和 j 分别指向两个字符串的第一个字符
+    size_t i &#x3D; 0, j &#x3D; 0;
+    for (; i &lt; s1.size() &amp;&amp; j &lt; s2.size(); i++, j++) &#x2F;&#x2F; 同时遍历两个字符串
+    &#123;
+        if (s1[i] !&#x3D; s2[j]) return s1[i] &gt; s2[j];
+    &#125;
+
+    if (i &#x3D;&#x3D; s1.size() &amp;&amp; j &#x3D;&#x3D; s2.size()) return false; &#x2F;&#x2F; 同时被遍历完，说明 s1 &#x3D; s2
+    else if (i &#x3D;&#x3D; s1.size()) return false; &#x2F;&#x2F; s1先被遍历完，说明 s1 &lt; s2
+    else if (j &#x3D;&#x3D; s2.size()) return true;  &#x2F;&#x2F; s2先被遍历完，说明 s1 &gt; s2
+&#125;
+
+&#x2F;&#x2F; s1 &#x3D;&#x3D; s2
+bool operator&#x3D;&#x3D;(const string&amp; s1, const string&amp; s2)
+&#123;
+    &#x2F;&#x2F; 指针 i 和 j 分别指向两个字符串的第一个字符
+    size_t i &#x3D; 0, j &#x3D; 0;
+    for (; i &lt; s1.size() &amp;&amp; j &lt; s2.size(); i++, j++) &#x2F;&#x2F; 同时遍历两个字符串
+    &#123;
+        if (s1[i] !&#x3D; s2[j]) return false;
+    &#125;
+
+    if (i &#x3D;&#x3D; s1.size() &amp;&amp; j &#x3D;&#x3D; s2.size()) return true; &#x2F;&#x2F; 同时被遍历完，说明 s1 &#x3D; s2
+    else return false; &#x2F;&#x2F; 有一个字符串没被遍历完
+&#125;
+
+&#x2F;&#x2F; 下面的关系运算符重载，全都可以复用上面的代码
+
+&#x2F;&#x2F; s1 !&#x3D; s2
+bool operator!&#x3D;(const string&amp; s1, const string&amp; s2)
+&#123;
+    return !(s1 &#x3D;&#x3D; s2);
+&#125;
+
+&#x2F;&#x2F; s1 &gt;&#x3D; s2
+bool operator&gt;&#x3D;(const string&amp; s1, const string&amp; s2)
+&#123;
+    return s1 &gt; s2 || s1 &#x3D;&#x3D; s2;
+&#125;
+
+&#x2F;&#x2F; s1 &lt; s2
+bool operator&lt;(const string&amp; s1, const string&amp; s2)
+&#123;
+    return !(s1 &gt;&#x3D; s2);
+&#125;
+
+&#x2F;&#x2F; s1 &lt;&#x3D; s2
+bool operator&lt;&#x3D;(const string&amp; s1, const string&amp; s2)
+&#123;
+    return !(s1 &gt; s2);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="string类对象的大小计算"><a href="#string类对象的大小计算" class="headerlink" title="string类对象的大小计算"></a><strong>string类对象的大小计算</strong></h2><p><strong>举例：</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int main()
+&#123;
+	string s1(&quot;xxx&quot;);              &#x2F;&#x2F; 3个有效字符
+	string s2(&quot;xxxxxxxxxxxxxxxx&quot;); &#x2F;&#x2F; 16个有效字符
+
+    &#x2F;&#x2F;我的VS2019得出都是28
+	cout &lt;&lt; sizeof(s1) &lt;&lt; endl; &#x2F;&#x2F; 输出：28
+	cout &lt;&lt; sizeof(s2) &lt;&lt; endl; &#x2F;&#x2F; 输出：28
+
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>思考：VS2019 下测试，输出28，按照我们上面模拟实现的版本应该是12，为什么会是28呢？</font></strong></p>
+<p><strong>这其实和 VS 下 PJ 版本的 STL string 的实现有关：</strong></p>
+<ol>
+<li><strong>如果有效字符个数 &lt; 16，不会去堆上开空间，而是存到一个名叫 _buf 的数组空间上，即存到对象中</strong></li>
+<li><strong>如果有效字符个数 &gt;&#x3D; 16，则会存到 _str 指向的堆空间上</strong></li>
+<li><strong>这样做可以减少内存碎片，提高效率</strong></li>
+</ol>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; VS下string的实现，大概是这样样子
+class string
+&#123;
+private:
+    char _buf[16];
+    char* _str;
+    size_t _size;
+    size_t _capacity;
+&#x2F;&#x2F; ...
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223615261.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223615261.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223615261">
+
+<p><strong>补充：Linux下输出8，所以当我们计算 string 类对象大小时，不要总不同而觉得奇怪，因为各家实现的版本可能会有所差异</strong></p>
+<hr>
+<h2 id="写时拷贝的了解"><a href="#写时拷贝的了解" class="headerlink" title="写时拷贝的了解"></a><strong>写时拷贝的了解</strong></h2><blockquote>
+<p><strong>首先回顾一下浅拷贝引发的问题：</strong></p>
+<ul>
+<li><strong>同一块空间会被析构（释放）多次</strong></li>
+<li><strong>一个对象修改会影响另外一个对象</strong></li>
+</ul>
+<p><strong>为了解决这两个问题：</strong></p>
+<ol>
+<li><strong>为了应对同一块空间会被析构多次这个问题，提出了引用计数</strong><ul>
+<li><strong>引用计数：用来记录资源使用者的个数。在构造时，将资源的计数给成 1，每增加一个对象使用该资源，就给计数增加 1，当某个对象被销毁时，先给该计数减 1，然后再检查是否需要释放资源，如果计数为 1，说明该对象是资源的最后一个使用者，将该资源释放；否则就不能释放，因为还有其他对象在使用该资源</strong></li>
+</ul>
+</li>
+<li><strong>为了应对一个对象修改会影响另外一个对象这个问题，提出了写时拷贝计数</strong><ul>
+<li><strong>写时拷贝就是一种拖延症，是在「浅拷贝」的基础之上增加了引用计数的方式来实现的</strong></li>
+<li><strong>多个对象共用同一块内存空间，哪个对象去写数据，哪个对象就再进行深拷贝，本质是一种延迟深拷贝。当然，如果不进行写数据，那就不用进行深拷贝，提高了效率</strong></li>
+<li><strong>但这种方案也是有副作用的，现在基本上也被放弃了</strong></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong><font color=red>写时拷贝的验证：</font></strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;string&gt;
+int main()
+&#123;
+	std::string s1(&quot;hello world&quot;);
+	std::string s2(s1);              &#x2F;&#x2F; 拷贝构造
+	printf(&quot;%p\n&quot;, s1.c_str()); &#x2F;&#x2F; c_str()函数返回其指向字符数组的地址
+	printf(&quot;%p\n&quot;, s2.c_str());
+	&#x2F;&#x2F; 修改
+    s2[0] &#x3D; &#39;x&#39;;
+    printf(&quot;%p\n&quot;, s1.c_str());
+	printf(&quot;%p\n&quot;, s2.c_str());
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong><font color=red>运行结果（VS2019 下 PJ 版本的 STL）：没有用写时拷贝技术，直接深拷贝</font></strong></p>
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223621842.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223621842.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223621842">
+
+<p><strong><font color=red>运行结果（Linux 下 SGI 版本的 STL）：这个早期15年的版本用了写时拷贝技术，加上了引用计数</font></strong></p>
+<img src="/2022/12/10/1.stl-ku-string/image-20230623223628121.png" class="lazyload placeholder" data-srcset="/2022/12/10/1.stl-ku-string/image-20230623223628121.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20230623223628121">
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/C-%EF%BC%8C%E5%88%9D%E9%98%B6/" class="">
+              C++，初阶
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2022/12/10/1.stl-ku-string/" target="_blank" title="STL库：string">https://Not-Go.github.io/2022/12/10/1.stl-ku-string/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/v2-a5267dfbf175991d4b3a69b41f3f678a_b.jpg" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/v2-a5267dfbf175991d4b3a69b41f3f678a_b.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2022/12/10/6.fan-xing-bian-cheng-yu-mo-ban/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">C++模板</div>
+      </div>
+      
+      <!-- <div class="content">
+        C++模板泛型编程泛型编程：编写与类型无关的通用代码，是代码复用的一种手段
+
+
+
+
+泛型编程使用模板来实现，模板分为：函
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2022/12/10/9.stl-ku-vector/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">STL库：vector</div>
+      </div>
+      <!-- <div class="content">
+        STL库：vectorSTL库对vector的官方介绍
+
+vector 是表示可变大小数组的序列容器
+就像数组一样，ve
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#STL%E5%BA%93%EF%BC%9Astring"><span class="toc-text">STL库：string</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#STL%E5%BA%93%E5%AF%B9%E4%BA%8Estring%E7%B1%BB%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-text">STL库对于string类的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3%E7%9A%84%E6%8E%8C%E6%8F%A1"><span class="toc-text">string常用接口的掌握</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E6%9E%84%E9%80%A0%E6%8E%A5%E5%8F%A3"><span class="toc-text">string的构造接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E5%AE%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E6%8E%A5%E5%8F%A3"><span class="toc-text">string的容量操作接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C%E6%8E%A5%E5%8F%A3"><span class="toc-text">string的访问操作接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%81%8D%E5%8E%86%E6%93%8D%E4%BD%9C%E6%8E%A5%E5%8F%A3"><span class="toc-text">string的迭代器遍历操作接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E4%BF%AE%E6%94%B9%E6%93%8D%E4%BD%9C%E6%8E%A5%E5%8F%A3"><span class="toc-text">string的修改操作接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E9%9D%9E%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E6%8E%A5%E5%8F%A3"><span class="toc-text">string的非成员函数重载接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E7%89%B9%E6%AE%8A%E5%88%A4%E6%96%AD%E6%8E%A5%E5%8F%A3"><span class="toc-text">string的特殊判断接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的模拟实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%B1%BB%E7%9A%84%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">string类的结构实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E9%BB%98%E8%AE%A4%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的默认成员函数模拟实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E6%B5%85%E6%8B%B7%E8%B4%9D%E3%80%81%E6%B7%B1%E6%8B%B7%E8%B4%9D%E9%97%AE%E9%A2%98"><span class="toc-text">string的浅拷贝、深拷贝问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的拷贝构造的深拷贝实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E5%87%BD%E6%95%B0%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的赋值运算符重载函数的深拷贝实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的迭代器模拟实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E8%AE%BF%E9%97%AE%E6%93%8D%E4%BD%9C%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的访问操作运算符重载模拟实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E5%AE%B9%E9%87%8F%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的容量操作函数模拟实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E4%BF%AE%E6%94%B9%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的修改操作函数模拟实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的字符串操作函数模拟实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string%E7%9A%84%E7%89%B9%E6%AE%8A%E5%87%BD%E6%95%B0%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">string的特殊函数模拟实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#string%E7%B1%BB%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A4%A7%E5%B0%8F%E8%AE%A1%E7%AE%97"><span class="toc-text">string类对象的大小计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E6%97%B6%E6%8B%B7%E8%B4%9D%E7%9A%84%E4%BA%86%E8%A7%A3"><span class="toc-text">写时拷贝的了解</span></a></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,3339 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>Linux常用指令与shell理解 | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        Linux常用指令与shell理解
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-02-20 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/Linux%E7%BC%96%E7%A8%8B/" class="post-detail-header_category">
+              Linux编程
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 6.1k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 23分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="Linux常用指令与shell理解"><a href="#Linux常用指令与shell理解" class="headerlink" title="Linux常用指令与shell理解"></a><strong>Linux常用指令与shell理解</strong></h1><p><strong>插一嘴啊：我们学习Linux指令最好设置一个新的用户，直接在root下跑很容易坏！</strong></p>
+<p><strong>&#x3D;&#x3D;其他用户切换root用户：su root&#x3D;&#x3D;</strong></p>
+<p><strong>创建用户随后新建会话用这个ID就可以了</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626001.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626001.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626001">
+
+<p><strong>&#x3D;&#x3D;删除用户使用userdel -r 用户名 这个指令&#x3D;&#x3D;</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626002.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626002.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626002">
+
+<hr>
+<h3 id="ls指令"><a href="#ls指令" class="headerlink" title="ls指令"></a><strong>ls指令</strong></h3><blockquote>
+<p><strong>&#x3D;&#x3D;常用：ls -a -1 其他用的很少&#x3D;&#x3D;</strong></p>
+<p><strong><font color=red>语法：ls [选项] [目录或文件]</font></strong></p>
+<p><strong>功能：对于目录，该命令列出该目录下的所有子目录与文件。对于文件，将列出文件名以及其他信息</strong></p>
+</blockquote>
+<p><font color=green><strong>常用选项：</strong></font></p>
+<ul>
+<li><p><strong>-a：列出目录下的所有文件</strong></p>
+<blockquote>
+<p><strong>&#x3D;&#x3D;补充：&#x3D;&#x3D;</strong></p>
+<ol>
+<li><strong><font color=red>在下图中我们可以看到有.和..(叫做隐藏文件)，这是因为Linux在任意目录下都会存放两个隐藏文件</font></strong></li>
+<li><strong><code>.是当前路径</code>，<code>..是上级路径</code></strong></li>
+</ol>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626003.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626003.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626003">
+</li>
+<li><p><strong>-1：一行只输出一个文件</strong></p>
+</li>
+</ul>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626004.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626004.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626004">
+
+
+
+<p><strong><font color=red>其他指令不怎么用，了解就行，可以自己尝试</font></strong></p>
+<blockquote>
+<ul>
+<li><p><strong>-d：将目录像文件一样显示，而不是显示其下文件</strong></p>
+</li>
+<li><p><strong>-i：输出文件的i节点的索引信息</strong></p>
+</li>
+<li><p><strong>-k：以k字节的形式表示文件大小</strong></p>
+</li>
+<li><p><strong>-l：列出文件的详细信息</strong></p>
+</li>
+<li><p><strong>-n：用数字的UID、GID代替名称</strong></p>
+</li>
+<li><p><strong>-F：在每个文件后附上一个字符以说明该文件类型</strong></p>
+</li>
+<li><p><strong>-r：对目录反向排序</strong></p>
+</li>
+<li><p><strong>-t：以时间排序</strong></p>
+</li>
+<li><p><strong>-s：在文件名后输出该文件大小</strong></p>
+</li>
+<li><p><strong>-R：列出所有子目录下的文件</strong></p>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="cd指令"><a href="#cd指令" class="headerlink" title="cd指令"></a><strong>cd指令</strong></h3><blockquote>
+<p><strong><font color=red>语法：cd 目录名</font></strong></p>
+<p><strong>功能：改变工作目录</strong></p>
+</blockquote>
+<p><strong>&#x3D;&#x3D;常用：&#x3D;&#x3D;</strong></p>
+<blockquote>
+<p><strong>cd ..：返回上级目录</strong></p>
+<p><strong>cd &#x2F;home&#x2F;：绝对路径</strong></p>
+<p><strong>cd ..&#x2F;bin&#x2F;：相对路径</strong></p>
+<p><strong>cd ~：进入用户家目录</strong></p>
+<p><strong>cd -：返回最近访问目录</strong></p>
+</blockquote>
+<p><strong><font color=red>一个.(点)开头的文件是隐藏文件！</font></strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626005.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626005.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626005">
+
+<p><strong><font color=red>两个..(点)开头的文件是上级路径文件！</font></strong></p>
+<p><strong>返回上级路径指令：cd ..</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626006.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626006.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626006">
+
+<p><strong>&#x3D;&#x3D;注意：&#x3D;&#x3D;</strong></p>
+<p><strong>windows的路径分割符为：\ (反斜杠)</strong></p>
+<p><strong>Linux的路径分割符为：&#x2F;（斜杠）</strong></p>
+<p><font color=red><strong>如果我们一直cd ..那么最后就只剩下一个&#x2F;了，这个&#x2F;其实就是Linux的根目录</strong></font></p>
+<p><strong>补充知识：Linux目录结构</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626007.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626007.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626007">
+
+<blockquote>
+<p><strong>1.Linux的目录结构本质是一棵多叉树</strong></p>
+<p><strong>&#x3D;&#x3D;2.每一个子节点，既可以是一个目录(再放目录或普通文件，递归式的定义)，也可以是一个普通文件&#x3D;&#x3D;</strong></p>
+<p><strong>3.这颗多叉树的叶子节点一定是一个普通文件或空目录</strong></p>
+<p><strong>&#x3D;&#x3D;绝对路径：从根目录开始到单一节点的路径叫绝对路径，具有唯一性，永远有效。例如：&#x2F;user&#x2F;local&#x2F;test.c&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;相对路径：从当前路径去找路径。例如：cd ..&#x2F;local&#x2F;test.c&#x3D;&#x3D;</strong></p>
+</blockquote>
+<ul>
+<li><strong>-：跳转到上一个目录</strong></li>
+</ul>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626008.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626008.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626008">
+
+
+
+<ul>
+<li><p><strong>~：返回家目录</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626009.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626009.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626009"></li>
+</ul>
+<hr>
+<h3 id="pwd命令"><a href="#pwd命令" class="headerlink" title="pwd命令"></a><strong>pwd命令</strong></h3><blockquote>
+<p><strong><font color=red>语法：pwd</font></strong></p>
+<p><strong>功能：显示用户当前所在的目录</strong></p>
+<p><strong><font color=red>补充：whoami命令：用来显示用户当前身份。clear命令：清空当前屏幕</font></strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626010.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626010.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626010">
+
+<hr>
+<h3 id="touch指令"><a href="#touch指令" class="headerlink" title="touch指令"></a><strong>touch指令</strong></h3><blockquote>
+<p><strong><font color=red>语法：touch [选项]…文件…</font></strong></p>
+<p><strong>功能：touch命令参数可更改文档或目录的日期时间，包括存取时间和更改时间，或新建一个不存在的文件</strong></p>
+</blockquote>
+<p><strong>&#x3D;&#x3D;常用选项：&#x3D;&#x3D;</strong></p>
+<blockquote>
+<p><strong>-a 或–time&#x3D;atime或–time&#x3D;access或–time&#x3D;use：只更改存取时间。</strong></p>
+<p> <strong>-c  或–no-create：不建立任何文档。</strong> </p>
+<p><strong>-d ：使用指定的日期时间，而非现在的时间。</strong> </p>
+<p><strong>-f ：此参数将忽略不予处理，仅负责解决BSD版本touch指令的兼容性问题。</strong> </p>
+<p><strong>-m  或–time&#x3D;mtime或–time&#x3D;modify ：只更改变动时间。</strong></p>
+<p> <strong>-r ：把指定文档或目录的日期时间，统统设成和参考文档或目录的日期时间相同。</strong> </p>
+<p><strong>-t ：使用指定的日期时间，而非现在的时间</strong></p>
+</blockquote>
+<p><strong>&#x3D;&#x3D;touch常用来创建一个文件：&#x3D;&#x3D;</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626011.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626011.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626011">
+
+<p><strong>比如我们在test1.c下写一个Hello Linux命令：</strong></p>
+<p><strong>第一步：用touch 创建一个test1.c，然后使用nano编译器进去编辑</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626012.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626012.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626012">
+
+<p><strong>第二步：编写代码然后按insert取消输入</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626013.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626013.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626013">
+
+<p><strong>第三步：最下面弹出选择，&#x3D;&#x3D;^符号是ctrl的意思，我们选择ctrl X保存文件&#x3D;&#x3D;，然后输入要保存目标的文件名，然后回车，&#x3D;&#x3D;最后ctrl X退出nano编译器,输入Y退出&#x3D;&#x3D;</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626014.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626014.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626014">
+
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626015.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626015.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626015">
+
+<p><strong>第四步：用cat命令看下自己写的代码内容，并使用gcc编译器去编辑它，然后通过.&#x2F;a.out调用编辑后的源文件</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626016.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626016.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626016">
+
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626017.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626017.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626017">
+
+<hr>
+<h3 id="mkdir指令"><a href="#mkdir指令" class="headerlink" title="mkdir指令"></a><strong>mkdir指令</strong></h3><blockquote>
+<p><strong><font color=red>语法：mkdir [选项] dirname…</font></strong></p>
+<p><strong>功能：在当前目录下创建一个名为dirname的目录</strong></p>
+</blockquote>
+<p><strong>常用选项:</strong></p>
+<blockquote>
+<p><strong>&#x3D;&#x3D;-p, –parents 用来创建多级路径&#x3D;&#x3D;。此时若路径中的某些目录尚不存在,加上此选项后,系统将自动建立好那些尚不存在的目录，即&#x3D;&#x3D;一次可以创立多个目录&#x3D;&#x3D;</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626018.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626018.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626018">
+
+
+
+<hr>
+<h3 id="rmdir和rm指令"><a href="#rmdir和rm指令" class="headerlink" title="rmdir和rm指令"></a><strong>rmdir和rm指令</strong></h3><blockquote>
+<p><strong>rmdir是一个与mkdir相对应的命令。rmdir是删除目录，mkdir是创建目录</strong></p>
+<p><strong><font color=red>语法：rmdir [-p] [dirname]</font></strong></p>
+<p><strong>适用对象：具有当前目录操作权限的所有使用者</strong></p>
+<p><strong>功能：删除空目录</strong></p>
+<p><strong><font color=red>注：rmdir只能删除空目录</font></strong></p>
+</blockquote>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>-p：当子目录被删除后如果父目录也变成空目录的话，就连带父目录一起删除</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626019.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626019.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626019">
+
+<p><strong>这里我们会看到删除dir1提示它不为空，所以我们使用rm -r去全部删除它更加合适</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626020.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626020.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626020">
+
+
+
+<blockquote>
+<p><strong>&#x3D;&#x3D;rm命令可以删除文件或目录&#x3D;&#x3D;</strong></p>
+<p><strong><font color=red>语法：rm [-f-i-r-v] [dirname&#x2F;dir]</font></strong></p>
+<p><strong>适用对象：所有使用者</strong></p>
+<p><strong>功能：删除文件或目录</strong></p>
+</blockquote>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>&#x3D;&#x3D;-f ：即使文件属性为只读，也直接删除（强制删除）&#x3D;&#x3D;</strong> </p>
+<p><strong>-i ：删除前逐一询问确认</strong></p>
+<p><strong>&#x3D;&#x3D;-r ：删除目录及其下所有文件（递归删除）&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;rm：删除普通文件&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;rm -r：递归删除目录文件&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;rm -f：强力删除&#x3D;&#x3D;</strong></p>
+<p><strong>rm -i：删前问一下</strong></p>
+<p><strong>&#x3D;&#x3D;补充：删根目录，rm -rf &#x2F;*&#x3D;&#x3D;</strong></p>
+</blockquote>
+<hr>
+<h3 id="man指令"><a href="#man指令" class="headerlink" title="man指令"></a><strong>man指令</strong></h3><blockquote>
+<p>**Linux的命令有很多参数，我们不可能全记住，我们可以通过查看联机手册获取帮助。访问Linux手册页的命令是 man **</p>
+<p><strong><font color=red>语法: man [选项] 命令</font></strong></p>
+</blockquote>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>-k：根据关键字搜索联机帮助</strong> </p>
+<p><strong>num：只在第num章节找</strong> </p>
+<p><strong>-a：将所有章节的都显示出来，比如man printf它缺省从第一章开始搜索，知道就停止，用a选项，当按下q退出，会继续往后面搜索，直到所有章节都搜索完毕</strong> </p>
+<p><strong>&#x3D;&#x3D;解释一下,面手册分为8章&#x3D;&#x3D;</strong> </p>
+<p><strong>&#x3D;&#x3D;1：是普通的命令&#x3D;&#x3D;</strong> </p>
+<p><strong>&#x3D;&#x3D;2：是系统调用,如open,write之类的(通过这个，至少可以很方便的查到调用这个函数，需要加什么头文件)&#x3D;&#x3D;</strong>  </p>
+<p><strong>&#x3D;&#x3D;3：是库函数,如printf,fread&#x3D;&#x3D;</strong></p>
+<p><strong>4：是特殊文件,也就是&#x2F;dev下的各种设备文件</strong> </p>
+<p><strong>5：是指文件的格式,比如passwd, 就会说明这个文件中各个字段的含义</strong> </p>
+<p><strong>6：是给游戏留的,由各个游戏自己定义</strong></p>
+<p><strong>7：是附件还有一些变量,比如向environ这种全局变量在这里就有说明</strong> </p>
+<p><strong>8：是系统管理用的命令,这些命令只能由root使用,如ifconfig</strong></p>
+</blockquote>
+<p><strong>man手册的安装：</strong></p>
+<p><strong>1.root用户：yum install -y man-pages</strong>  </p>
+<p><strong>2.普通用户：sudo yum install -y man&#x3D;pages(可能会不行，切换root用户再下载)</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626021.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626021.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626021">
+
+<hr>
+<h3 id="cp指令"><a href="#cp指令" class="headerlink" title="cp指令"></a><strong>cp指令</strong></h3><blockquote>
+<p><strong><font color=red>语法：cp [选项] 源文件或目录 目标文件或目录</font></strong> </p>
+<p><strong>功能: 复制文件或目录</strong> </p>
+<p><strong>说明: cp指令用于复制文件或目录，如同时指定两个以上的文件或目录，且最后的目的地是一个已经存在的目录， 则它会把前面指定的所有文件或目录复制到此目录中。若同时指定多个文件或目录，而最后的目的地并非一个已存在的目录，则会出现错误信息</strong></p>
+</blockquote>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>&#x3D;&#x3D;-f 或 –force：强行复制文件或目录， 不论目的文件或目录是否已经存在&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;-i 或 –interactive：覆盖文件之前先询问用户&#x3D;&#x3D;</strong> </p>
+<p><strong>&#x3D;&#x3D;-r：递归处理，将指定目录下的文件与子目录一并处理&#x3D;&#x3D;。若源文件或目录的形态，不属于目录或符号链接，则一律视为普通文件处理</strong> </p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626022.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626022.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626022">
+
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626041.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626041.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626041">
+
+<hr>
+<h3 id="mv指令"><a href="#mv指令" class="headerlink" title="mv指令"></a><strong>mv指令</strong></h3><blockquote>
+<p><strong>&#x3D;&#x3D;mv命令是move的缩写，可以用来移动文件或者将文件改名（move (rename) files），是Linux系统下常用的命令，经常用来备份文件或者目录&#x3D;&#x3D;</strong></p>
+<p><font color=red><strong>语法: mv [选项] 源文件或目录 目标文件或目录</strong></font></p>
+</blockquote>
+<p><strong>&#x3D;&#x3D;功能：剪切普通文件、整体剪切目录、重命名&#x3D;&#x3D;</strong></p>
+<blockquote>
+<ol>
+<li><strong>视mv命令中第二个参数类型的不同（是目标文件还是目标目录），mv命令将文件重命名或将其移至一个新的目录中</strong></li>
+<li><strong>&#x3D;&#x3D;当第二个参数类型是文件时，mv命令完成文件重命名&#x3D;&#x3D;，此时，源文件只能有一个（也可以是源目录名），它将所给的源文件或目录重命名为给定的目标文件名</strong></li>
+<li><strong>&#x3D;&#x3D;当第二个参数是已存在的目录名称时&#x3D;&#x3D;，源文件或目录参数可以有多个，&#x3D;&#x3D;mv命令将各参数指定的源文件均移至目标目录中&#x3D;&#x3D;</strong></li>
+</ol>
+</blockquote>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>-f ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖</strong> </p>
+<p><strong>-i ：若目标文件 (destination) 已经存在时，就会询问是否覆盖！</strong></p>
+</blockquote>
+<p><strong><font color=red>注：Linux中不要随便删除和更改文件，因为Linux没有回收站</font></strong></p>
+<hr>
+<h3 id="cat与tac指令"><a href="#cat与tac指令" class="headerlink" title="cat与tac指令"></a><strong>cat与tac指令</strong></h3><blockquote>
+<p><strong><font color=red>语法：cat [选项] [文件]</font></strong></p>
+<p><strong>功能： 正着查看目标文件的内容</strong></p>
+<p><strong>&#x3D;&#x3D;cat适合查看短文本和短代码&#x3D;&#x3D;</strong></p>
+</blockquote>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>&#x3D;&#x3D;-b：对非空输出行编号&#x3D;&#x3D;</strong> </p>
+<p><strong>&#x3D;&#x3D;-n：对输出的所有行编号&#x3D;&#x3D;</strong> </p>
+<p><strong>-s：不输出多行空行</strong></p>
+</blockquote>
+<p><strong>&#x3D;&#x3D;tac：也是查看目标文件的内容，但是它是倒着查看文件内容，且它没有选项&#x3D;&#x3D;</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626023.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626023.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626023">
+
+
+
+<hr>
+<h3 id="more指令"><a href="#more指令" class="headerlink" title="more指令"></a><strong>more指令</strong></h3><blockquote>
+<p>**<font color=red>语法：more [选项] [文件]</font> **</p>
+<p><strong>功能：more命令，功能类似 cat</strong> </p>
+<p><strong>&#x3D;&#x3D;more适合查看长文本和长代码&#x3D;&#x3D;</strong></p>
+</blockquote>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>-n：对输出的所有行编号</strong> </p>
+<p><strong>q：退出more</strong> </p>
+</blockquote>
+<p><strong>&#x3D;&#x3D;首先我们先用第一行代码去生成一个1000行的hello linux在file.txt文件里，然后使用 wc -l 指令去查看有多少行&#x3D;&#x3D;</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626024.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626024.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626024">
+
+<p><strong><font color=red>使用more去查看，它只显示到把屏幕占满，如果要继续看就按enter，不看就按q：</font></strong></p>
+<p><font color=red>&#x2F;+行号，可以直接跳转到具体的行</font></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626025.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626025.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626025">
+
+
+
+<hr>
+<h3 id="less指令"><a href="#less指令" class="headerlink" title="less指令"></a><strong>less指令</strong></h3><p><strong><font color=red>less就是支持前后翻动查看，more只支持向后翻查看,cat只能打印</font></strong></p>
+<p>这后面没什么用，看看就好了</p>
+<blockquote>
+<p><strong>less 工具也是对文件或其它输出进行分页显示的工具，应该说是linux正统查看文件内容的工具，功能极 其强大。</strong></p>
+<p> <strong>less 的用法比起 more 更加的有弹性。在 more 的时候，我们并没有办法向前面翻， 只能往后面看</strong> </p>
+<p><strong>但若使用了 less 时，就可以使用 [pageup] [pagedown] 等按键的功能来往前往后翻看文件，更容易用 来查看一个文件的内容！</strong> </p>
+<p><strong>除此之外，在 less 里头可以拥有更多的搜索功能，不止可以向下搜，也可以向上搜。</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>&#x3D;&#x3D;语法： less [参数] 文件&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;功能：less与more类似，但<code>使用less可以随意浏览文件</code>，而more仅能向前移动，却不能向后移动，而且less在查看之前不会加载整个文件&#x3D;&#x3D;</strong></p>
+</blockquote>
+<p><strong>选项：</strong></p>
+<blockquote>
+<p><strong>-i：忽略搜索时的大小写</strong> </p>
+<p><strong>-N：显示每行的行号 &#x2F;字符串：向下搜索“字符串”的功能 ?字符串：向上搜索“字符串”的功能</strong> </p>
+<p><strong>n：重复前一个搜索（与 &#x2F; 或 ? 有关）</strong> </p>
+<p><strong>N：反向重复前一个搜索（与 &#x2F; 或 ? 有关）</strong></p>
+<p><strong>q：quit</strong></p>
+</blockquote>
+<hr>
+<p><strong><font color=red>扩展内容：echo指令与输入输出重定向</font></strong></p>
+<p><strong>上面的代码中，echo… &gt;</strong> </p>
+<p><font color=red><strong>这里的&#x3D;&#x3D;&gt;&#x3D;&#x3D;被叫做&#x3D;&#x3D;输出重定向&#x3D;&#x3D;，就是说&#x3D;&#x3D;本来应该写入显示器的内容，把它写入到文件中，输出重定向会清空原始文件内容，进行重新写入&#x3D;&#x3D;</strong></font></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626026.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626026.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626026">
+
+<p><strong><font color=red>这里把上面的1000行hello Linux抹掉了，重新写入内容</font></strong></p>
+<p>1、<font color=red><strong>对于&#x3D;&#x3D;&gt;&gt;&#x3D;&#x3D;来说：&gt;&gt;叫做&#x3D;&#x3D;追加重定向&#x3D;&#x3D;，与<code>&gt;</code>一样，但是<font color=red>它不会清空原始内容，而是在原文件结尾进行新增式写入</font></strong></font></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626027.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626027.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626027">
+
+<p>2、**<font color=red>对于cat来说：cat默认会从键盘读取输出(图中红色的就是cat打出来的)</font>**</p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626028.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626028.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626028">
+
+<p><strong>&#x3D;&#x3D;这里大家会遇到一个问题，就是无法退出它的输出！&#x3D;&#x3D;</strong></p>
+<p><strong><font color=red>(重要!)记住！所有的阻碍你的命令操作，无脑<code>ctrl+C(杀掉程序)</code>，不敢<code>ctrl+Z(中断程序)</code></font></strong></p>
+<p><strong>&#x3D;&#x3D;比如：我们cat并中断三次，然后用jobs查看有几个程序中断了，然后用fg 1去杀掉第一个中断程序，fg 2杀掉第二个中断程序&#x3D;&#x3D;</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626029.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626029.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626029">
+
+<p><strong>3、<font color=red>对于&lt;：<code>&lt;叫做输入重定向</code>，把本来应该从键盘文件中读取数据的方式，改成从指定文件中读取</font></strong></p>
+<p><strong>&#x3D;&#x3D;linux下一切皆为文件！&#x3D;&#x3D;</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626030.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626030.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626030">
+
+<hr>
+<h3 id="head指令"><a href="#head指令" class="headerlink" title="head指令"></a><strong>head指令</strong></h3><p><strong>&#x3D;&#x3D;head 与 tail 就像它的名字一样的浅显易懂，它是用来显示开头或结尾某个数量的文字区块&#x3D;&#x3D;</strong></p>
+<p><strong>head 用来显示档案的开头至标准输出中，而tail想当然尔就是看档案的结尾</strong> <font color=red>head默认拿头部10个，tail默认拿尾部10个</font></p>
+<p><strong>语法： head [参数]… [文件]…</strong></p>
+<p><strong><font color=red>功能：head 用来显示档案的开头至标准输出中，默认head命令打印其相应文件的开头10行</font></strong> </p>
+<p><strong>选项：</strong></p>
+<blockquote>
+<p><strong>-n&lt;行数&gt;：显示的行数</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626031.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626031.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626031">
+
+<p><strong><font color=red>这里的|是管道的意思！</font></strong></p>
+<p><strong>&#x3D;&#x3D;管道用来传输数据资源，什么意思呢？就是把head里运行出来的数据写入到管道里，然后tail把管道里的数据拿出来做二次加工&#x3D;&#x3D;</strong></p>
+<p><strong><font color=red>管道级联多个命令，来完成流水线式的数据处理工作</font></strong></p>
+<p><strong>这里head拿前900个数据，然后通过管道传输数据，然后tail只要尾部20个数据，管道的数据通过tail进行二次加工得到了从 881到900的20个数据</strong></p>
+<hr>
+<h3 id="tail指令"><a href="#tail指令" class="headerlink" title="tail指令"></a><strong>tail指令</strong></h3><blockquote>
+<p><strong>tail 命令从指定点开始将文件写到标准输出.使用tail命令的-f选项可以方便的查阅正在改变的日志文件,tail - f filename会把filename里最尾部的内容显示在屏幕上,并且不但刷新,使你看到最新的文件内容</strong>  </p>
+<p><strong>语法： tail[必要参数] [选择参数] [文件]</strong>  </p>
+<p><strong>功能： 用于显示指定文件末尾内容，不指定文件时，作为输入信息进行处理。常用查看日志文件</strong></p>
+</blockquote>
+<p> <strong>选项：</strong></p>
+<blockquote>
+<p><strong>-f 循环读取</strong> </p>
+<p><strong>-n&lt;行数&gt; 显示行数</strong></p>
+</blockquote>
+<hr>
+<h3 id="时间指令"><a href="#时间指令" class="headerlink" title="时间指令"></a><strong>时间指令</strong></h3><blockquote>
+<p>**date显示 **</p>
+<p><strong>date指定格式显示时间： date +%Y:%m:%d</strong> 或 date +%Y-%m-%d </p>
+<p><strong>date 用法：date +[OPTION]… [+FORMAT]</strong> </p>
+</blockquote>
+<p><strong>1.在显示方面，使用者可以设定欲显示的格式，格式设定为一个加号后接数个标记，其中常用的标记列表如下</strong></p>
+<blockquote>
+<p><strong>%H : 小时(00..23)</strong>  </p>
+<p><strong>%M : 分钟(00..59)</strong>  </p>
+<p><strong>%S : 秒(00..59)</strong>  </p>
+<p><strong>%Y : 完整年份 (0000..9999)</strong>  &#x2F;&#x2F;小写%y会丢失最前面两位，如2022丢为22</p>
+<p><strong>%m : 月份 (01..12)</strong>  </p>
+<p><strong>%d : 日 (01..31)</strong>   </p>
+<p><strong>&#x3D;&#x3D;%F : 相当于 %Y-%m-%d&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;%X : 相当于 %H:%M:%S&#x3D;&#x3D;</strong></p>
+<p><strong><font color=red>常写：date +%F_%X  显示所以时间</font></strong></p>
+</blockquote>
+<p><strong>2.在设定时间方面</strong></p>
+<blockquote>
+<p><strong>date -s &#x2F;&#x2F;设置当前时间，只有root权限才能设置，其他只能查看。</strong></p>
+<p><strong>date -s 20080523 &#x2F;&#x2F;设置成20080523，这样会把具体时间设置成空00:00:00</strong>  </p>
+<p><strong>date -s 01:01:01 &#x2F;&#x2F;设置具体时间，不会对日期做更改</strong> </p>
+<p><strong>date -s “01:01:01 2008-05-23″ &#x2F;&#x2F;这样可以设置全部时间</strong> </p>
+<p><strong>date -s “01:01:01 20080523″ &#x2F;&#x2F;这样可以设置全部时间</strong> </p>
+<p><strong>date -s “2008-05-23 01:01:01″ &#x2F;&#x2F;这样可以设置全部时间</strong> </p>
+<p><strong>date -s “20080523 01:01:01″ &#x2F;&#x2F;这样可以设置全部时间</strong></p>
+</blockquote>
+<p><strong>3.时间戳</strong></p>
+<blockquote>
+<p><strong>&#x3D;&#x3D;时间-&gt;时间戳转换&#x3D;&#x3D;：<code>date +%s</code></strong> </p>
+<p><strong>&#x3D;&#x3D;时间戳-&gt;时间转换&#x3D;&#x3D;：<code>date +%F_%X -d@1508749502</code></strong> </p>
+<p><strong>Unix时间戳（英文为Unix epoch, Unix time, POSIX time 或 Unix timestamp）是从1970年1月1日（UTC&#x2F;GMT的 午夜）开始所经过的秒数，不考虑闰秒</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626032.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626032.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626032">
+
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626033.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626033.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626033">
+
+
+
+<hr>
+<h3 id="Cal指令"><a href="#Cal指令" class="headerlink" title="Cal指令"></a><strong>Cal指令</strong></h3><p><strong>cal命令可以用来显示公历（阳历）日历。公历是现在国际通用的历法，又称格列历，通称阳历。“阳历”又名“太阳历”，系以地球绕行太阳一周为一年，为西方各国所通用，故又叫“西历”。</strong></p>
+<p><strong>&#x3D;&#x3D;命令格式： cal [参数]&#x2F;[月份]&#x2F;[年份]&#x3D;&#x3D;</strong></p>
+<p><strong>功能： 用于查看日历等时间信息，如只有一个参数，则表示年份(1-9999)，如有两个参数，则表示月份和年份</strong></p>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>-3 显示系统前一个月，当前月，下一个月的月历</strong></p>
+<p><strong>-j 显示在当年中的第几天（一年日期按天算，从1月1号算起，默认显示当前月在一年中的天数）</strong> </p>
+<p><strong>-y 显示当前年份的日历</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626034.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626034.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626034">
+
+
+
+<hr>
+<h3 id="find指令"><a href="#find指令" class="headerlink" title="find指令"></a><strong>find指令</strong></h3><blockquote>
+<p><strong>&#x3D;&#x3D;Linux下find命令在目录结构中搜索文件，并执行指定的操作&#x3D;&#x3D;</strong> </p>
+<p><strong>Linux下find命令提供了相当多的查找条件，功能很强大。由于find具有强大的功能，所以它的选项也很多，其中大部分选项都值得我们花时间来了解一下</strong> </p>
+<p><strong>即使系统中含有网络文件系统(NFS)，find命令在该文件系统中同样有效，只你具有相应的权限</strong> </p>
+<p><strong>在运行一个非常消耗资源的find命令时，很多人都倾向于把它放在后台执行，因为遍历一个大的文件系 统可能会花费很长的时间(这里是指30G字节以上的文件系统)</strong></p>
+</blockquote>
+<p><strong>语法： find pathname -options</strong></p>
+<p><strong>功能： 用于在文件树种查找文件，并作出相应的处理（可能访问磁盘）</strong></p>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>-name  按照文件名查找文件</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626035.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626035.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626035">
+
+<hr>
+<h3 id="grep指令"><a href="#grep指令" class="headerlink" title="grep指令"></a><strong>grep指令</strong></h3><p><strong>&#x3D;&#x3D;语法： grep [选项] 搜寻字符串文件-&#x3D;&#x3D;</strong> </p>
+<p><strong>功能： 在文件中搜索字符串，将找到的行打印出来，grep被叫做行文本过滤工具</strong> </p>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>-i ：忽略大小写的不同，所有大小写视为相同</strong> </p>
+<p><strong>-n ：顺便输出行号</strong> </p>
+<p><strong>-v ：具有关键字的文本行，去掉；保留没有匹配的文本行</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626036.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626036.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626036">
+
+
+
+<hr>
+<h3 id="zip和unzip指令"><a href="#zip和unzip指令" class="headerlink" title="zip和unzip指令"></a><strong>zip和unzip指令</strong></h3><p><strong><font color=red>语法： zip 压缩文件.zip 目录或文件</font></strong> </p>
+<p><strong>功能： 将目录或文件压缩成zip格式</strong></p>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>&#x3D;&#x3D;-r：递归处理，将指定目录下的所有文件和子目录一并处理(即文件里面的数据一起压缩进去)&#x3D;&#x3D;</strong></p>
+<p><strong>将test2目录&#x3D;&#x3D;压缩&#x3D;&#x3D;：zip test2.zip -d 解压路径</strong> </p>
+<p><strong>&#x3D;&#x3D;解压&#x3D;&#x3D;到tmp目录：unzip test2.zip，&#x3D;&#x3D;压缩后如果删除了压缩文件，通过解压可以还原压缩文件&#x3D;&#x3D;</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626037.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626037.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626037">
+
+<p><strong>&#x3D;&#x3D;默认情况下(zip&#x2F;unzip test2.zip)&#x3D;&#x3D;，几乎所有的解压工具，解压出来的原始数据，都会被放在当前路径下！</strong></p>
+<p><strong>为什么要打包压缩：1.节约空间  2.软件下载的都是压缩包，因为提供软件的人，上传的就是压缩包  3.所有的软件写好之后，不是只有一个文件</strong></p>
+<hr>
+<h3 id="tar指令"><a href="#tar指令" class="headerlink" title="tar指令"></a><strong>tar指令</strong></h3><p><strong>&#x3D;&#x3D;tar：打包&#x2F;解包，不打开它，直接看内容&#x3D;&#x3D;</strong></p>
+<p><strong><font color=red>一般用指定解压：tar xzf test.tgz -C 解压目录</font></strong></p>
+<blockquote>
+<p><strong>-c ：建立一个压缩文件的参数指令(create 的意思)；</strong> </p>
+<p><strong>-x ：解开一个压缩文件的参数指令！</strong> </p>
+<p><strong>-t ：查看 tarfile 里面的文件！</strong> </p>
+<p><strong>-z ：是否同时具有 gzip 的属性？亦即是否需要用 gzip 压缩？</strong> </p>
+<p><strong>-j ：是否同时具有 bzip2 的属性？亦即是否需要用 bzip2 压缩？</strong> </p>
+<p><strong>-v ：压缩的过程中显示文件！这个常用，但不建议用在背景执行过程！</strong> </p>
+<p><strong>-f ：使用档名，请留意，在 f 之后要立即接档名喔！不要再加参数！</strong> </p>
+<p><strong>-C ：解压到指定目录</strong></p>
+</blockquote>
+<hr>
+<h3 id="bc指令"><a href="#bc指令" class="headerlink" title="bc指令"></a><strong>bc指令</strong></h3><p><strong>bc命令可以很方便的进行浮点运算</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626038.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626038.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626038">
+
+<hr>
+<h3 id="uname-r指令"><a href="#uname-r指令" class="headerlink" title="uname -r指令"></a><strong>uname -r指令</strong></h3><p><strong>语法：uname [选项]</strong>  </p>
+<p><strong>功能： &#x3D;&#x3D;uname用来获取电脑和操作系统的相关信息&#x3D;&#x3D;</strong> </p>
+<p><strong>补充说明：uname可显示linux主机所用的操作系统的版本、硬件的名称等基本信息</strong></p>
+<p><strong>常用选项：</strong></p>
+<blockquote>
+<p><strong>-a或–all：详细输出所有信息，依次为内核名称，主机名，内核版本号，内核版本，硬件名，处理器类型，硬件平台类型，操作系统名称</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626039.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626039.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626039">
+
+<p><strong>X86是主指使用的是英特尔的处理器规格，ARM主指苹果的处理器规格</strong></p>
+<p><strong>以英特尔为例：x64对标x86_64，64位系统；x86和x86_32对标x32，32位系统</strong></p>
+<p><strong><font color=red>补充：重要的几个热键[Tab],[ctrl]-c, [ctrl]-d</font></strong></p>
+<blockquote>
+<p><strong>&#x3D;&#x3D;[Tab]按键—命令自动补齐&#x3D;&#x3D;</strong> </p>
+<p><strong>&#x3D;&#x3D;[Ctrl]-r按键—搜索历史命令&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;[Ctrl]-c按键—终止失控程序&#x3D;&#x3D;</strong> </p>
+<p><strong>&#x3D;&#x3D;[Ctrl]-z按钮—中断当前程序&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;[Ctrl]-d按键—快速退出账户&#x3D;&#x3D;</strong></p>
+</blockquote>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626040.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626040.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626040">
+
+
+
+<hr>
+<h3 id="关机指令"><a href="#关机指令" class="headerlink" title="关机指令"></a><strong>关机指令</strong></h3><p><strong>语法：shutdown [选项]</strong> </p>
+<p><strong>常见选项：</strong></p>
+<blockquote>
+<p><strong>-h ： 将系统的服务停掉后，立即关机。</strong> </p>
+<p><strong>-r ： 在将系统的服务停掉之后就重新启动</strong> </p>
+<p><strong>-t sec ： -t 后面加秒数，亦即『过几秒后关机』的意思</strong></p>
+</blockquote>
+<p><strong>&#x3D;&#x3D;以下命令作为扩展:&#x3D;&#x3D;</strong></p>
+<p><strong>◆ 安装和登录命令：login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；</strong> </p>
+<p><strong>◆ 文件处理命令：file、mkdir、grep、dd、find、mv、ls、diff、cat、ln；</strong> </p>
+<p><strong>◆ 系统管理相关命令：df、top、free、quota、at、lp、adduser、groupadd、kill、crontab；</strong> </p>
+<p><strong>◆ 网络操作命令：ifconfig、ip、ping、netstat、telnet、ftp、route、rlogin、rcp、finger、mail、 nslookup；</strong> </p>
+<p><strong>◆ 系统安全相关命令：passwd、su、umask、chgrp、chmod、chown、chattr、sudo ps、who；</strong> </p>
+<p><strong>◆ 其它命令：tar、unzip、gunzip、unarj、mtools、man、unendcode、uudecode。</strong></p>
+<hr>
+<h3 id="shell命令"><a href="#shell命令" class="headerlink" title="shell命令"></a><strong>shell命令</strong></h3><p><strong>Linux严格意义上说的是一个操作系统，我们称之为“核心（kernel）“ ，但我们一般用户，不能直接使用kernel。 而是通过kernel的“外壳”程序，也就是所谓的shell，来与kernel沟通。如何理解？为什么不能直接使用kernel？</strong></p>
+<img src="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626042.png" class="lazyload placeholder" data-srcset="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/20220807114626042.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" width="20220807114626042">
+
+<p><strong><font color=red>从技术角度，Shell的最简单定义：命令行解释器（command Interpreter）主要包含：</font></strong></p>
+<blockquote>
+<ol>
+<li><strong>将使用者的命令翻译给核心（kernel）处理</strong></li>
+<li><strong>同时，将核心的处理结果翻译给使用者</strong></li>
+</ol>
+</blockquote>
+<p><strong>&#x3D;&#x3D;对比windows GUI，我们操作windows 不是直接操作windows内核，而是通过图形接口，点击，从而完成我们的 操作（比如进入D盘的操作，我们通常是双击D盘盘符.或者运行起来一个应用程序）&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;shell 对于Linux，有相同的作用，主要是对我们的指令进行解析，解析指令给Linux内核。反馈结果在通过内核运行出结果，通过shell解析给用户&#x3D;&#x3D;</strong></p>
+<blockquote>
+<p><strong>帮助理解：如果说你是一个闷骚且害羞的程序员，那shell就像媒婆，操作系统内核就是你们村头漂亮的且有让你心动的MM小花。你看上了小花，但是有不好意思直接表白，那就让你你家人找媒婆帮你提亲，所有的事情你都直接跟媒婆沟通，由媒婆转达你的意思给小花，而我们找到媒婆姓王，所以我们叫它王婆，它对应我们常使用的bash</strong></p>
+</blockquote>
+<p><font color=blue><strong>Linux下，其实shell就是命令行解释器</strong></font><strong>(shell存在的目的是为了降低操作OS的成本，保护OS系统)</strong></p>
+<p><font color=blue><strong>windous下，其实外壳就是图形化界面</strong></font></p>
+<p><strong><font color=red>CentOs 7常用的命令行解释器(shell)，叫做bash</font></strong></p>
+<h3 id="补充：Xshell下复制粘贴指令"><a href="#补充：Xshell下复制粘贴指令" class="headerlink" title="补充：Xshell下复制粘贴指令"></a><strong>补充：Xshell下复制粘贴指令</strong></h3><blockquote>
+<p><strong><font color=red>Xshell下的复制粘贴指令：</font></strong></p>
+<p><strong>&#x3D;&#x3D;复制：ctrl+insert&#x3D;&#x3D;</strong></p>
+<p><strong>&#x3D;&#x3D;粘贴：shift+insert&#x3D;&#x3D;</strong></p>
+<p><strong>我们也可以通过右键进行复制和粘贴</strong></p>
+</blockquote>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/Linux%E7%BC%96%E7%A8%8B/" class="">
+              Linux编程
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/" target="_blank" title="Linux常用指令与shell理解">https://Not-Go.github.io/2023/02/20/2.linux-chang-jian-zhi-ling-yu-shell-li-jie/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/02/20/1.linux-huan-jing-da-jian/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">Linux环境搭建</div>
+      </div>
+      
+      <!-- <div class="content">
+        Linux环境搭建Linux背景介绍系统发展史我们学习Linux系统编程，那Linux从哪里来？它是怎么发展的？要说 L
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/02/20/3.linux-quan-xian-guan-li/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">Linux权限管理</div>
+      </div>
+      <!-- <div class="content">
+        Linux权限管理Linux权限管理Linux下有两种用户：超级用户（root）、普通用户
+
+超级用户：可以再linux
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E4%B8%8Eshell%E7%90%86%E8%A7%A3"><span class="toc-text">Linux常用指令与shell理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ls%E6%8C%87%E4%BB%A4"><span class="toc-text">ls指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cd%E6%8C%87%E4%BB%A4"><span class="toc-text">cd指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwd%E5%91%BD%E4%BB%A4"><span class="toc-text">pwd命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#touch%E6%8C%87%E4%BB%A4"><span class="toc-text">touch指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mkdir%E6%8C%87%E4%BB%A4"><span class="toc-text">mkdir指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rmdir%E5%92%8Crm%E6%8C%87%E4%BB%A4"><span class="toc-text">rmdir和rm指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#man%E6%8C%87%E4%BB%A4"><span class="toc-text">man指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cp%E6%8C%87%E4%BB%A4"><span class="toc-text">cp指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mv%E6%8C%87%E4%BB%A4"><span class="toc-text">mv指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cat%E4%B8%8Etac%E6%8C%87%E4%BB%A4"><span class="toc-text">cat与tac指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#more%E6%8C%87%E4%BB%A4"><span class="toc-text">more指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#less%E6%8C%87%E4%BB%A4"><span class="toc-text">less指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#head%E6%8C%87%E4%BB%A4"><span class="toc-text">head指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tail%E6%8C%87%E4%BB%A4"><span class="toc-text">tail指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E6%8C%87%E4%BB%A4"><span class="toc-text">时间指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cal%E6%8C%87%E4%BB%A4"><span class="toc-text">Cal指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#find%E6%8C%87%E4%BB%A4"><span class="toc-text">find指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grep%E6%8C%87%E4%BB%A4"><span class="toc-text">grep指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#zip%E5%92%8Cunzip%E6%8C%87%E4%BB%A4"><span class="toc-text">zip和unzip指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tar%E6%8C%87%E4%BB%A4"><span class="toc-text">tar指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bc%E6%8C%87%E4%BB%A4"><span class="toc-text">bc指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#uname-r%E6%8C%87%E4%BB%A4"><span class="toc-text">uname -r指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E6%9C%BA%E6%8C%87%E4%BB%A4"><span class="toc-text">关机指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell%E5%91%BD%E4%BB%A4"><span class="toc-text">shell命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9AXshell%E4%B8%8B%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E6%8C%87%E4%BB%A4"><span class="toc-text">补充：Xshell下复制粘贴指令</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,3216 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>Linux网络协议之以太网协议(数据链路层) | 建波的学习妙妙屋</title>
+
+  <link rel="icon" type="image/jpeg" href="/img/logo.jpg">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '5';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('false') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" rel="stylesheet">
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script defer src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+    
+    <!-- 依赖于jquery和vue -->
+    
+        <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+
+    
+        <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="建波的学习妙妙屋" type="application/atom+xml">
+</head>
+
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader-1" id="loader">
+  <div  aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+    <div class="wheel"></div>
+    <div class="hamster">
+      <div class="hamster__body">
+        <div class="hamster__head">
+          <div class="hamster__ear"></div>
+          <div class="hamster__eye"></div>
+          <div class="hamster__nose"></div>
+        </div>
+        <div class="hamster__limb hamster__limb--fr"></div>
+        <div class="hamster__limb hamster__limb--fl"></div>
+        <div class="hamster__limb hamster__limb--br"></div>
+        <div class="hamster__limb hamster__limb--bl"></div>
+        <div class="hamster__tail"></div>
+      </div>
+    </div>
+    <div class="spoke"></div>
+  </div>
+</div>
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">建波的学习妙妙屋</h3>
+      <h5 class="drawer-box-head_desc">天行健，君子以自强不息</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(4)">
+                  <span>
+                    
+                      <i class="fas fa-wrench"></i>
+                    
+                    <span class="name">编程学习网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(4)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(4)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(5)">
+                  <span>
+                    
+                      <i class="fas fa-star"></i>
+                    
+                    <span class="name">后端全栈开发</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(5)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(5)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(6)">
+                  <span>
+                    
+                      <i class="fas fa-check-circle"></i>
+                    
+                    <span class="name">刷题网站</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(6)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(6)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(7)">
+                  <span>
+                    
+                      <i class="fas fa-key"></i>
+                    
+                    <span class="name">八股文</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(7)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(7)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="javascript:;" class="drawer-menu-item-link has-children" @click="openOrCloseMenu(8)">
+                  <span>
+                    
+                      <i class="fas fa-graduation-cap"></i>
+                    
+                    <span class="name">工具</span>
+                  </span>
+                  <i class="fas fa-chevron-left arrow " :class="{'icon-rotate': isOpen(8)}" aria-hidden="true"></i>
+                </a>
+                <ul class="drawer-sub-menu" v-if="isOpen(8)">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/img/logo.jpg" class="lazyload placeholder" data-srcset="/img/logo.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">建波的学习妙妙屋</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a target="_blank" rel="noopener" href="http://qzbltushu.ysepan.com/" class="menu-item-link" title="考研专区">
+                  
+                    <i class="fas fa-book" aria-hidden="true"></i>
+                  
+                  <span class="name">考研专区</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="编程学习网站">
+                  
+                    <i class="fas fa-wrench"></i>
+                  
+                  <span class="name">编程学习网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.csdn.net/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>CSDN</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://juejin.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>稀土掘金</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>博客园</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="http://www.codebaoku.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>编程宝库</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://github.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Github</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://gitee.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Gitee</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://app.netlify.com/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Netlify</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stackoverflow.org.cn/">
+                      
+                      <i class="fas fa-wrench" style="margin-top: -20px;"></i>
+                      
+                      <span>Stack Overflow</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="后端全栈开发">
+                  
+                    <i class="fas fa-star"></i>
+                  
+                  <span class="name">后端全栈开发</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://stibel.icu/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>C++全栈开发</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.pdai.tech/">
+                      
+                      <i class="fas fa-star" style="margin-top: -20px;"></i>
+                      
+                      <span>JAVA全栈开发</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="刷题网站">
+                  
+                    <i class="fas fa-check-circle"></i>
+                  
+                  <span class="name">刷题网站</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.nowcoder.com/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>牛客网</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>Leetcode</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://codetop.cc/home">
+                      
+                      <i class="fas fa-check-circle" style="margin-top: -20px;"></i>
+                      
+                      <span>CodeTop</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="八股文">
+                  
+                    <i class="fas fa-key"></i>
+                  
+                  <span class="name">八股文</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://interviewguide.cn/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>阿秀的学习笔记</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://xiaolincoding.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>小林coding</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.programmercarl.com/">
+                      
+                      <i class="fas fa-key" style="margin-top: -20px;"></i>
+                      
+                      <span>代码随想录</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="javascript:;" class="menu-item-link" title="工具">
+                  
+                    <i class="fas fa-graduation-cap"></i>
+                  
+                  <span class="name">工具</span>
+                  <i class="fas fa-chevron-down arrow" aria-hidden="true"></i>
+                </a>
+                <ul class="sub-menu">
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.canva.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Canva可画</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.processon.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>ProcessOn思维导图</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.officeplus.cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>OfficePLUS模板</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.aconvert.com/cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Aconvert万能格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://speedpdf.com/zh-cn/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Speedpdf文档格式转换</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/github%E5%8A%A0%E9%80%9F/alhnbdjjbokpmilgemopoomnldpejihb?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>github加速(Edge插件)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://microsoftedge.microsoft.com/addons/detail/wetab%E5%85%8D%E8%B4%B9chatgpt%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5/bpelnogcookhocnaokfpoeinibimbeff?hl=zh-CN">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Wetab浏览器(免费Gpt)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://steampp.net/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>Watt Toolkit(外网加速器)</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a target="_blank" rel="noopener" href="https://www.internetdownloadmanager.com/">
+                      
+                      <i class="fas fa-graduation-cap" style="margin-top: -20px;"></i>
+                      
+                      <span>IDM下载器</span>
+                    </a>
+                  </li>
+                  
+                </ul>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+    <div id="he-plugin-simple"></div>
+    <script>
+      WIDGET = {
+        CONFIG: {
+          "modules": "012",
+          "background": 5,
+          "tmpColor": "4A4A4A",
+          "tmpSize": 16,
+          "cityColor": "4A4A4A",
+          "citySize": 16,
+          "aqiSize": 16,
+          "weatherIconSize": 24,
+          "alertIconSize": 18,
+          "padding": "10px 10px 10px 10px",
+          "shadow": "1",
+          "language": "auto",
+          "borderRadius": 5,
+          "fixed": "false",
+          "vertical": "middle",
+          "horizontal": "center",
+          "key": "2784dd3fcb1e4f0f9a9b579bf69641f2"
+        }
+      }
+    </script>
+    <script defer src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script> 
+    
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+    
+    <link href="/js/prism/prism-line-numbers.css" rel="stylesheet">
+    
+        <link href="/js/prism/prism-solarizedlight.min.css" rel="stylesheet">
+    
+
+    <style>
+        pre[class*="language-"] {
+            overflow-y: hidden;
+        }
+        .line-numbers .line-numbers-rows {
+            border: none;
+        }
+    </style>
+  
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        Linux网络协议之以太网协议(数据链路层)
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-03-20 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="post-detail-header_category">
+              Linux网络编程
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 8.3k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 29分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="Linux网络协议之以太网协议-数据链路层"><a href="#Linux网络协议之以太网协议-数据链路层" class="headerlink" title="Linux网络协议之以太网协议(数据链路层)"></a>Linux网络协议之以太网协议(数据链路层)</h1><h2 id="数据链路层解决的问题"><a href="#数据链路层解决的问题" class="headerlink" title="数据链路层解决的问题"></a>数据链路层解决的问题</h2><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229184725621.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229184725621.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229184725621">
+
+<blockquote>
+<ul>
+<li><strong><font color=red>IP拥有将数据跨网络从一台主机送到另一台主机的能力，但IP并不能保证每次都能够将数据可靠的送到对端主机，因此IP需要上层TCP为其提供可靠性保证，比如数据丢包后TCP可以让IP重新发送数据，最终在TCP提供的可靠性机制下IP就能够保证将数据可靠的发送到对端主机</font></strong></li>
+<li><strong><font color=red>TCP除了对下层IP提供可靠性机制之外，TCP对上还提供进程到进程的服务，我们在进行socket编程时，本质就是在使用TCP或UDP为我们提供的进程到进程的服务</font></strong></li>
+<li><strong><font color=red>但数据在网络传输时需要一跳一跳的从一台主机跳到另一台主机，最终才能将数据转发到目标主机，因此要将数据发送到目标主机的前提是，需要先将数据转发给与当前主机直接相连的下一跳主机，而两台主机直接相连也就意味着这两台主机属于同一网段，因此将数据转发到下一跳主机实际是属于局域网通信范畴的，而这实际就是链路层需要解决的问题</font></strong></li>
+<li><strong><font color=red>也就是说，网络层IP提供的是跨网络发送数据的能力，传输层TCP是为数据发送提供可靠性保证的，而链路层解决的则是两台相连主机之间的通信问题</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="以太网协议"><a href="#以太网协议" class="headerlink" title="以太网协议"></a>以太网协议</h2><h3 id="认识以太网"><a href="#认识以太网" class="headerlink" title="认识以太网"></a>认识以太网</h3><p><strong>不同局域网所采用的通信技术可能是不同的，常见的局域网技术有以下三种：</strong></p>
+<ul>
+<li><strong>以太网：以太网是一种计算机局域网技术，一种应用最普遍的局域网技术</strong></li>
+<li><strong>令牌环网：令牌环网常用于IBM系统中，在这种网络中有一种专门的帧称为“令牌”，在环路上持续地传输来确定一个节点何时可以发送包</strong></li>
+<li><strong>无线LAN&#x2F;WAN：无线局域网是有线网络的补充和扩展，现在已经是计算机网络的一个重要组织部分</strong></li>
+</ul>
+<blockquote>
+<p><strong><font color=red>以太网协议本质上就是相邻设备之间的数据转发，是局域网中通信的一种标准</font></strong></p>
+</blockquote>
+<hr>
+<h3 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h3><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229185338661.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229185338661.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229185338661">
+
+<blockquote>
+<ul>
+<li><strong><font color=red>源地址和目的地址是指网卡的硬件地址（也叫MAC地址），长度是48位，是在网卡出厂时固化的</font></strong></li>
+<li><strong><font color=red>帧协议类型字段有三种值，分别对应IP协议、ARP协议和RARP协议</font></strong></li>
+<li><strong><font color=red>帧末尾是CRC校验码</font></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229185603769.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229185603769.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229185603769">
+</blockquote>
+<hr>
+<h3 id="认识MAC地址"><a href="#认识MAC地址" class="headerlink" title="认识MAC地址"></a>认识MAC地址</h3><p><strong><font color=red>MAC地址：每一个网卡设备在出厂的时候都会拥有一个全球独一无二的MAC地址，MAC地址也被称为硬件的地址</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>MAC地址用来识别数据链路层中相连的节点</mark></strong></li>
+<li><strong><mark>长度为48位, 及6个字节。 一般用16进制数字加上冒号的形式来表示(例如: 08:00:27:03:fb:19)</mark></strong></li>
+<li><strong><mark>在网卡出厂时就确定了, 不能修改。 mac地址通常是唯一的(虚拟机中的mac地址不是真实的mac地址, 可能会冲突; 也有些网卡支持用户配置mac地址)</mark></strong></li>
+<li><strong><mark><code>ifconfig</code> 命令可以用于显示或设置网络设备的状态</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229185820819.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229185820819.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229185820819">
+</blockquote>
+<hr>
+<h3 id="MAC地址与IP地址的区别"><a href="#MAC地址与IP地址的区别" class="headerlink" title="MAC地址与IP地址的区别"></a>MAC地址与IP地址的区别</h3><blockquote>
+<ul>
+<li><strong><font color=red>IP地址描述的是路途总体的 起点 和 终点</font></strong></li>
+<li><strong><font color=red>MAC地址描述的是路途上的每一个区间的起点和终点</font></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229190444693.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229190444693.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229190444693">
+</blockquote>
+<hr>
+<h2 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h2><h3 id="ARP协议的作用"><a href="#ARP协议的作用" class="headerlink" title="ARP协议的作用"></a>ARP协议的作用</h3><p><strong><font color=red>首先强调ARP协议并不是一个单纯的链路层的协议，而是介于数据链路层和网络层之间的协议</font></strong></p>
+<blockquote>
+<p><strong><font color=green>上面其实我们也谈到了以太网协议格式，我们可以看到格式中的目的地址和源地址指的是目的MAC地址和源MAC地址，换句话说，数据在数据链路层进行数据发送的时候，需要知道目标主机MAC地址，但是网络层的协议递交给数据链路层的数据仅仅包含目标主机的ip地址，我们无法获知其对应的MAC地址，那么，我们该如何获取目标主机的MAC地址呢？</font></strong></p>
+<ul>
+<li><strong><font color=red>在网络通讯时,源主机的应用程序知道目的主机的IP地址和端口号,却不知道目的主机的硬件地址</font></strong></li>
+<li><strong><font color=red>数据包首先是被网卡接收到再去处理上层协议的,如果接收到的数据包的硬件地址与本机不符,则直接丢弃</font></strong></li>
+<li><strong><font color=red>因此在通讯前必须获得目的主机的硬件地址</font></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229191911537.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229191911537.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229191911537">
+</blockquote>
+<p><strong><mark>ARP协议</mark>就是用来解决此类问题的，他可以<mark>通过ip地址获取对应的MAC地址</mark></strong></p>
+<p><strong>注意：这里的ip地址本质上是通过路由项计算出来的接下来该条数据该去往的ip地址，而不是自己本身该去的ip地址</strong></p>
+<p><strong>因此，可以说ARP协议是介于网络层和数据链路层之间的协议，话句话来说就是ARP协议建立了主机 IP地址 和 MAC地址 的映射关系</strong></p>
+<hr>
+<h3 id="ARP数据报格式"><a href="#ARP数据报格式" class="headerlink" title="ARP数据报格式"></a>ARP数据报格式</h3><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229192434515.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229192434515.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229192434515">
+
+<blockquote>
+<ul>
+<li><strong><font color=red>以太网首部和上面相同。但是ARP协议，类型设为0806</font></strong></li>
+<li><strong><font color=red>硬件类型：指链路层网络类型，1为以太网</font></strong></li>
+<li><strong><font color=red>协议类型：指要转换的地址类型，0800为IP地址，意思是通过IP地址找MAC地址</font></strong></li>
+<li><strong><font color=red>硬件地址长度：对于以太网地址为6字节</font></strong></li>
+<li><strong><font color=red>协议地址长度：对于IP地址为4字节</font></strong></li>
+<li><strong><font color=red>op字段：为1表示ARP请求，为2表示ARP应答</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="ARP协议工作流程"><a href="#ARP协议工作流程" class="headerlink" title="ARP协议工作流程"></a>ARP协议工作流程</h3><blockquote>
+<ul>
+<li><strong><font color=red>ARP协议先广播数据到居于网中，目的MAC地址为全1</font></strong></li>
+<li><strong><font color=red>每台主机收到数据后，解开以太网报头和IP报头，拿到目的IP地址</font></strong></li>
+<li><strong><font color=red>拿目的IP地址和字节主机的IP地址向比较，匹配就返回ARP响应</font></strong></li>
+<li><strong><font color=red>发送端收到响应就获得了对方的MAC地址</font></strong></li>
+</ul>
+</blockquote>
+<p><strong><mark>如果局域网中的主机没有目标主机，怎么知道对方的IP地址呢？(ARP字段要填写)</mark></strong></p>
+<ul>
+<li><strong>我们知道最终要接收数据主机的IP地址(应用层会数据URL中)。在IP成先查路由表，发现不在当前局域网中，会发送给路由表中默认的网段，也就是路由器。主机知道路由器的IP地址，一般是当前局域网的网络号，主机号为1。会在ARP协议的目标IP地址填入路由器的IP地址。路由器收到后会ARP响应</strong></li>
+<li><strong>如果查看路由表，最终要接收数据主机的IP地址在当前局域网中，会在ARP目的IP地址填入最终要接收数据主机的IP地址。最终要接收的主机收到会响应ARP</strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229192929055.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229192929055.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229192929055">
+
+<ul>
+<li><strong>局域网中的主机收到ARP请求，向判断op字段是否是请求，因为当前主机可能还收到了别的主机的响应。再解开报头，获得目的IP地址，是否与自己的IP地址匹配，匹配响应，不匹配丢弃。(广播的，局域网中的主机都会解开报头，匹配目的IP地址)</strong></li>
+<li><strong>局域网中发送请求的主机收到ARP响应，向判断op字段是否是响应，因为当前主机可能还收到了别的主机的请求。再解开报头，MAC地址与自己的匹配，不匹配的丢弃。发送请求的主机就获得了对方的MAC地址。(不是广播的，请求知道了发送主机的MAC地址)</strong></li>
+</ul>
+<hr>
+<h3 id="ARP缓存表"><a href="#ARP缓存表" class="headerlink" title="ARP缓存表"></a>ARP缓存表</h3><blockquote>
+<p><strong><font color=red>使用<code>arp -a 查看arp缓存表：</code></font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229193427974.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229193427974.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229193427974">
+
+<p><img src="/image-20221229193447003.png" class="lazyload placeholder" data-srcset="/image-20221229193447003.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="image-20221229193447003"></p>
+</blockquote>
+<p><strong><mark>如果每发送一个IP数据报都要进行一次ARP请求以此确定MAC地址，那将会造成不必要的网络流量，因此，通常的做法是把获取到的MAC地址缓存（是指预见到同样的信息可能会再次使用，从而在内存中开辟一块区域记忆这些信息） 一段时间。<font color=red>即把第一次通过ARP获取到的MAC地址作为IP对MAC的映射关系记忆（记录IP地址与MAC地址对应关系的数据库叫做ARP表） 到一个ARP缓存表中，下一次再向这个IP地址发送数据报时不需再重新发送ARP请求，而是直接使用这个缓存表当中的MAC地址进行数据报的发送</font>。每执行一次ARP，其对应的缓存内容都会被清除。不过在清除之前都可以不需要执行ARP就可以获取想要的MAC地址。这样，在一定程度上也防止了ARP包在网络上被大量广播的可能性</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>当然ARP是有老化时间的，老化时间为20min，会进行相应的更新</mark></strong></li>
+<li><strong><mark>ARP协议只能在子网内部使用，只能给子网内部的机器进行广播ARP请求。换句话说，只能获取子网内部机器的MAC地址</mark></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229193834224.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229193834224.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229193834224">
+</blockquote>
+<p><strong><font color=red>那么问题来了，IP地址和MAC地址缺一不可吗？</font></strong></p>
+<blockquote>
+<p><strong>① 数据链路上只要知道接收端的MAC地址不就知道数据是准备发送给主机B的吗，那还需要知道它的IP地址吗？</strong><br><strong>② 只要知道了IP地址，即使不做ARP，只要在数据链路上做一个广播不就能发给主机B了吗？”那么，为什么既需要IP地址又需要MAC地址呢?</strong></p>
+</blockquote>
+<p><strong><mark>主机A想要发送IP数据报给主机B时必须得经过路由器C。即使知道了主机B的MAC地址，由于路由器C会隔断两个网络，还是无法实现直接从主机A发送数据报给主机B。此时，主机A必须得先将数据报发送给路由器C的MAC地址C1</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229194013010.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229194013010.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229194013010">
+
+<p><strong><mark>如此看来，IP地址和MAC地址两者缺一不可。于是就有将这两个地址相关联的ARP协议（为了避免这两个阶段的通信带来过多的网络流量，ARP具有对IP地址和MAC地址的映射进行缓存的功能。有了这个缓存功能，发送IP包时就不必每次都发送ARP请求，从而防止性能下降）</mark></strong></p>
+<hr>
+<h2 id="认识MTU-最大传输单元"><a href="#认识MTU-最大传输单元" class="headerlink" title="认识MTU(最大传输单元)"></a>认识MTU(最大传输单元)</h2><blockquote>
+<ul>
+<li><strong><font color=red>MTU(Maximum Transmission Unit)：中文意思是最大传输单位</font></strong></li>
+<li><strong><font color=red>以太网帧中的数据长度规定最小46字节，最大1500字节，ARP数据报小于46字节时，要在后面补充位数</font></strong></li>
+<li><strong><font color=red>最大值1500字节称为以太网的最大传输单元(MTU)，不同网络类型有不同的MTU</font></strong></li>
+<li><strong><font color=red>如果一个数据包的长度超过了MTU，则需要对数据进行分片，分片是网络层IP做的</font></strong></li>
+<li><strong><font color=red>不同的数据链路层标准的MTU是不同的，在数据传输过程中，数据可能会被路由器继续分片</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="MTU对IP协议的影响"><a href="#MTU对IP协议的影响" class="headerlink" title="MTU对IP协议的影响"></a>MTU对IP协议的影响</h3><p><strong><mark>发送时，网络层IP协议的数据需要发送到链路层，由于MTU的影响，对于超过MTU的数据，IP要对其进行分片处理</mark></strong></p>
+<blockquote>
+<ul>
+<li><strong>同一组数据的每一个分片IP协议的16位标识id是相同的</strong></li>
+<li><strong>每一个分片IP协议报头的3位标志段，第二位为0，表示允许分片，第三位为1，表示后面还有分片，第三位为0，表示后面没有分片</strong></li>
+<li><strong>每一个分片IP协议报头的13为偏移量，表示的是当前分片距离起始位置的偏移量，用于接收端组装的</strong></li>
+<li><strong>一旦一些分片丢失，数据重组失败，但是IP层不负责重传数据</strong></li>
+<li><strong>负责数据重传的是传输层，准确来说是TCP协议，UDP协议不可靠</strong></li>
+</ul>
+</blockquote>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229191301635.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229191301635.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229191301635">
+
+<hr>
+<h3 id="MTU对UDP协议的影响"><a href="#MTU对UDP协议的影响" class="headerlink" title="MTU对UDP协议的影响"></a>MTU对UDP协议的影响</h3><p> <strong><font color=red>UDP协议的特点是：无连接，不可靠和面向数据报的</font></strong></p>
+<blockquote>
+<ul>
+<li><strong>当一个UDP携带的数据超过1472(1500 - 8(UDP报头) - 20(IP报头))时，在IP层就一定会进行分片</strong></li>
+<li><strong>分片之后，一个数据被分成了多份，说明，数据丢包的概率增加了</strong></li>
+<li><strong>并且，UDP没有可靠性保证，数据不会重传</strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="MTU对TCP协议的影响"><a href="#MTU对TCP协议的影响" class="headerlink" title="MTU对TCP协议的影响"></a>MTU对TCP协议的影响</h3><blockquote>
+<ul>
+<li><strong>TCP协议的一个数据报也不能是无限大的，不仅受之于流量控制，拥塞控制的影响，还受MTU的影响。TCP的有效载荷的最大消息长度，称为MSS</strong></li>
+<li><strong>TCP在建立连接，三次握手时，通信双方会进行MSS协商</strong></li>
+<li><strong>双方SYN时会在TCP报头写入自己能支持的MSS值</strong></li>
+<li><strong>双方知道知道对方的MSS后，选择最小值作为最终MSS</strong></li>
+<li><strong>MSS值在TCP报头填入位置在选项</strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>虽然TCP会协商MSS，但是，仍然可能会被分片。接收端就收在组装时，如果发现一个分片丢失，接收端TCP收不到数据，就认为整个数据丢失，会让发送方，重发整个数据</font></strong></p>
+<p><strong><mark>MSS和MTU的关系：</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229191606320.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221229191606320.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221229191606320">
+
+<hr>
+<h2 id="DNS协议-域名系统协议"><a href="#DNS协议-域名系统协议" class="headerlink" title="DNS协议(域名系统协议)"></a>DNS协议(域名系统协议)</h2><h3 id="DNS背景"><a href="#DNS背景" class="headerlink" title="DNS背景"></a>DNS背景</h3><p><strong><font color=red>DNS（Domain Name System，域名系统）协议，是一个用来将域名转化为IP地址的应用层协议</font></strong></p>
+<p><strong>TCP&#x2F;IP中通过IP地址和端口号的方式，来确定网络中一个主机上的一个程序。但IP地址是一长串数字，并不便于人们记忆，于是人们发明了一种叫做主机名的东西，并用hosts文件夹来描述主机名和IP地址之间的对应关系</strong></p>
+<p><strong>最初，这个hosts文件是由互联网信息中心（SRI-NIC）来管理的</strong></p>
+<ul>
+<li><strong>如果一个新计算机要接入网络，或者某个计算机IP变更，都需要到信息中心申请变更hosts文件</strong></li>
+<li><strong>其他计算机也需要定期下载更新新版本的hosts文件才能正确上网</strong></li>
+<li><strong>当用户通过域名访问互联网服务时，会先通过域名在本地的hosts文件中找到其对应的IP地址，然后再用这个IP地址去访问对应的服务</strong></li>
+</ul>
+<p><strong><font color=red>但这样太麻烦了，于是产生了DNS系统：</font></strong></p>
+<ul>
+<li><strong>由一个组织的系统管理机构，维护系统内的每个主机的IP和主机名的对应关系</strong></li>
+<li><strong>如果新计算机要接入网络，或者某个计算机IP变更，就需要将对应信息注册到数据库中</strong></li>
+<li><strong><mark>当用户通过域名访问互联网服务时，会自动查询DNS服务器，由DNS服务器检索数据库，得到对应的IP地址</mark></strong></li>
+</ul>
+<p><strong><mark>至今，我们的计算机上仍然保留了hosts文件，这个hosts文件当中一般存储的是主机名与IP地址之间的映射，用户也可以在hosts文件中自主添加域名和IP映射关系，在域名解析的过程中会优先查找hosts文件的内容</mark></strong></p>
+<p><strong><font color=red>通过<code>cat /etc/hosts</code>可以查看hosts文件当中的内容</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230110039739.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230110039739.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230110039739">
+
+<hr>
+<h3 id="域名简介"><a href="#域名简介" class="headerlink" title="域名简介"></a>域名简介</h3><p><strong><font color=red>DNS域名解析技术属于应用层技术，底层用的是UDP协议</font></strong></p>
+<p><strong><font color=red>域名是用来识别主机名称和主机所属的组织机构的一种分层结构的名称，例如<code>www.baidu.com</code></font></strong></p>
+<blockquote>
+<p><strong><mark>域名(倒着数级别)：</mark></strong></p>
+<ul>
+<li><strong><font color=red>一级域名：.com、.cn、.gov、.us</font></strong></li>
+<li><strong><font color=red>二级域名：baidu.com、jd.com、taobao.com</font></strong></li>
+<li><strong><font color=red>三级域名：baike.baidu.com</font></strong></li>
+</ul>
+<hr>
+<p><strong><mark>域名服务器：</mark></strong></p>
+<ul>
+<li><strong><font color=red>根域名服务器：给其他域名服务器做授权使用</font></strong></li>
+<li><strong><font color=red>一级域名服务器：管理一级域名</font></strong></li>
+<li><strong><font color=red>二级域名服务器：管理二级域名</font></strong></li>
+<li><strong><font color=red>三级域名服务器：管理三级域名</font></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="域名解析过程"><a href="#域名解析过程" class="headerlink" title="域名解析过程"></a>域名解析过程</h3><p><strong><mark>至今, 我们的计算机上仍然保留了hosts文件，在域名解析的过程中仍然会优先查找hosts文件的内容</mark></strong></p>
+<p><strong><mark>在浏览器中输入<code>url</code>后，如果<code>url</code>当中包含域名，则需要进行域名解析</mark></strong></p>
+<p><strong><font color=red>域名解析流程：</font></strong></p>
+<blockquote>
+<p><strong><font color=red>递归域名解析过程：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230112108959.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230112108959.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230112108959">
+
+<p><strong><font color=red>或者：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230112310785.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230112310785.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="**image-20221230112310785**">
+</blockquote>
+<hr>
+<h3 id="dig工具分析DNS过程"><a href="#dig工具分析DNS过程" class="headerlink" title="dig工具分析DNS过程"></a>dig工具分析DNS过程</h3><p><strong><font color=red>我们可以使用dig工具来查看域名解析的过程，例如查看百度域名<code>www.baidu.com</code>的解析过程</font></strong></p>
+<p><strong><mark>dig工具的分析结果如下：</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230112834456.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230112834456.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230112834456">
+
+<p><strong><font color=red>结果解释：</font></strong></p>
+<ul>
+<li><strong><mark>开头位置是dig工具的版本号</mark></strong></li>
+<li><strong><mark>第二部分是服务器返回的详情，其中status参数为NOERROR表示查询成功</mark></strong></li>
+<li><strong><mark>QUESTION SECTION表示待查询的域名</mark></strong></li>
+<li><strong><mark>ANSWER SECTION表示查询的结果，首先<a target="_blank" rel="noopener" href="http://www.baidu.com被查询成了www.a.shifen.com,而最终www.a.shifen.com被查询成了两个具体的ip地址/">www.baidu.com被查询成了www.a.shifen.com，而最终www.a.shifen.com被查询成了两个具体的IP地址</a></mark></strong></li>
+<li><strong><mark>最下面是一些结果统计，包含查询时间和DNS服务器的地址等</mark></strong></li>
+</ul>
+<hr>
+<h2 id="NAT协议"><a href="#NAT协议" class="headerlink" title="NAT协议"></a>NAT协议</h2><p><strong><font color=red>NAT（Network Address Translation，网络地址转换）技术，是解决IP地址不足的主要手段，并且能够有效地避免来自网络外部的攻击，隐藏并保护网络内部的计算机</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230113047549.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230113047549.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230113047549">
+
+<hr>
+<h3 id="NAT技术背景"><a href="#NAT技术背景" class="headerlink" title="NAT技术背景"></a>NAT技术背景</h3><p><strong>在IPv4协议中，IP地址数量不足是一个大问题，而NAT技术就是当前解决IP地址不够用的主要手段，是路由器的一个重要功能</strong></p>
+<ul>
+<li><strong>在进行对外通信时，NAT能够将私有IP经过一系列替换操作最终转为全局IP，也就是说，NAT是一种将私有IP和全局IP相互转化的技术方法</strong></li>
+<li><strong>装有NAT软件的路由器叫做NAT路由器，所有使用私有IP的主机在和外界通信时，都要在NAT路由器上将其私有IP转换成全局IP</strong></li>
+<li><strong>很多学校、家庭、公司内部每个终端设置的IP都是私有IP，而只在路由器或必要的服务器上设置全局IP</strong></li>
+<li><strong>全局IP要求唯一，但是私有IP不需要，在不同的局域网中出现相同的私有IP是完全不影响的</strong></li>
+</ul>
+<hr>
+<h3 id="NAT-IP转换过程"><a href="#NAT-IP转换过程" class="headerlink" title="NAT IP转换过程"></a>NAT IP转换过程</h3><p><strong><mark>假设某个局域网当中有A、B、C三台主机，在公网当中有一台服务器，以主机A访问公网中的这台服务器为例，我们来看看数据包在传输过程中IP地址的转换过程</mark></strong></p>
+<blockquote>
+<p><strong><font color=green>数据包从局域网到公网的过程：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230113856977.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230113856977.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230113856977">
+
+<p><strong><font color=red>主机A向服务器发起数据请求的过程中，数据包中IP地址的转换过程如下：</font></strong></p>
+<ul>
+<li><strong><font color=red>刚开始，该数据包当中的源IP地址就是主机A的私有IP地址，目的IP地址就是服务器的公网IP地址</font></strong></li>
+<li><strong><font color=red>当数据包经过NAT路由器时，路由器会将该数据包的源IP地址替换成自己的WAN口IP地址，此时该数据包的源和目的IP地址就都是公网IP了</font></strong></li>
+<li><strong><font color=red>该数据包在互联网中经过各种路由转发，最终到达服务器主机</font></strong></li>
+</ul>
+<p><strong><font color=red>服务器收到主机A的数据请求并处理后，就会对主机A发来的请求进行响应</font></strong></p>
+<hr>
+<p><strong><font color=green>数据包从公网到局域网的过程：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230114141133.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230114141133.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230114141133">
+
+<p><strong><font color=red>服务器向主机A进行响应的过程中，数据包中IP地址的转换过程如下：</font></strong></p>
+<ul>
+<li><strong><font color=red>刚开始，该数据包当中的源IP地址就是服务器的公网IP地址，目的IP地址就是路由器的WAN口IP地址</font></strong></li>
+<li><strong><font color=red>数据包在互联网中经过各种路由转发，到达主机A所在局域网的NAT路由器，此时路由器会将该数据包的目的IP地址替换成主机A的私有IP地址</font></strong></li>
+<li><strong><font color=red>最终路由器就会将该数据包转发给局域网中的主机A</font></strong></li>
+</ul>
+<p><strong><font color=red>需要注意的是，因为主机A向服务器发起数据请求时，该数据包当中的源IP地址被替换成了NAT路由器的WAN口IP地址，相当于是该路由器代替主机A向服务器发起了数据请求，因此服务器发出的响应数据包的目的IP地址应该是NAT路由器的WAN口IP地址</font></strong></p>
+</blockquote>
+<hr>
+<h3 id="NAT的作用"><a href="#NAT的作用" class="headerlink" title="NAT的作用"></a>NAT的作用</h3><blockquote>
+<ul>
+<li><strong><font color=red>私网对公网请求的时候：将网络数据当中的私网的源ip地址转化成为公网的ip地址</font></strong></li>
+<li><strong><font color=red>公网对私网的应答：将网络数据当中的公网的目的ip地址转化成为私网的ip地址</font></strong></li>
+</ul>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230114744461.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230114744461.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230114744461">
+
+<ul>
+<li><strong><mark>静态NAT：NAT协议，将一个私网和一个公网唯一进行映射管理</mark></strong></li>
+<li><strong><mark>动态NAT：NAT管理的不止是一个公网ip，当私网数据到来的时候，选择一个空闲的ip进行映射</mark></strong></li>
+<li><strong><font color=red>如上图，以10.0.0.10的源主机与163.221.120.9的目的主机进行通信为例。利用NAT，途中的NAT路由器将发送源地址从10.0.0.10转换为全局的IP地址（202.244.174.37）再发送数据。反之，当包从地址163.221.120.9发过来时，目标地址（202.244.174.37）先被转换成私有IP地址10.0.0.10以后再被转发（在TCP或UDP中，由于IP首部中的IP地址还要用于校验和的计算，因此当IP地址发生变化时，也需要相应地将TCP、UDP的首部进行转换）</font></strong></li>
+<li><strong><mark>总结一下就是：不管是静态NAT还是动态NAT，都没有缓解ipv4枯竭的问题，本质上还是一个私网IP一定要对应一个公网ip，才能访问互联网，这也是后面出现ipv6的原因之一</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="NAPT协议-动态NAT重载"><a href="#NAPT协议-动态NAT重载" class="headerlink" title="NAPT协议(动态NAT重载)"></a>NAPT协议(动态NAT重载)</h2><h3 id="NAPT-IP转换过程"><a href="#NAPT-IP转换过程" class="headerlink" title="NAPT IP转换过程"></a>NAPT IP转换过程</h3><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230115130863.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230115130863.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230115130863">
+
+<p><strong><mark>在进行私网ip转化为公网ip的时候，不仅仅将ip地址转换掉了，并且还将传输层的端口也转换掉了</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230115914385.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230115914385.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230115914385">
+
+<p><strong><mark>主机163.221.120.9的端口号是80，LAN中有两个客户端10.0.0.10和10.0.0.11同时进行通信，并且这两个客户端的本地端口都是1025。此时，仅仅转换IP地址为某个全局地址202.244.174.37，会令转换后的所有数字完全一致。为此，只要将10.0.0.11的端口号转换为1026就可以解决问题。如图所示，生成一个NAPT路由器的转换表，就可以正确地转换地址跟端口的组合，令客户端A、B能同时与服务器之间进行通信</mark></strong></p>
+<p><strong><mark>这种转换表在NAT路由器上自动生成。例如，在TCP的情况下，建立TCP连接首次握手时的SYN包一经发出，就会生成这个表。而后又随着收到关闭连接时发出FIN包的确认应答从表中被删除（UDP中两端应用进行通信时起止时间不一定保持一致，因此在这种情况下生成转换表相对较难）</mark></strong></p>
+<p><strong><mark>注：在使用TCP或UDP的通信当中，只有目标地址、源地址、目标端口、源端口以及协议类型（TCP还是UDP）五项内容都一致时才被认为是同一个通信连接。此时所使用的正是NAPT</mark></strong></p>
+<hr>
+<h3 id="NAT技术的缺陷"><a href="#NAT技术的缺陷" class="headerlink" title="NAT技术的缺陷"></a>NAT技术的缺陷</h3><p><strong><font color=red>NAT技术进行私有IP和公网之间的替换，主要就是依赖NAT路由器当中维护的网络地址转换表，但这张转换表也体现出了NAT的一些缺陷：</font></strong></p>
+<ul>
+<li><strong><mark>无法从NAT外部向内部服务器建立连接，因为外部无法知道内部的私网IP，也就无法主动与内部服务器建立连接</mark></strong></li>
+<li><strong><mark>转换表的生成和销毁都需要额外开销</mark></strong></li>
+<li><strong><mark>通信过程中一旦NAT设备异常，即使存在热备，所有的TCP连接也都会断开</mark></strong></li>
+</ul>
+<hr>
+<h3 id="NAT和代理服务器"><a href="#NAT和代理服务器" class="headerlink" title="NAT和代理服务器"></a>NAT和代理服务器</h3><p><strong><font color=red>代理服务器（Proxy Server）的功能就是代理网络用户去取得网络信息，代理服务器又分为正向代理和反向代理</font></strong></p>
+<blockquote>
+<p><strong><mark>正向代理：</mark></strong></p>
+<p><strong><font color=green>正向代理，是一个位于客户端和目标服务器之间的服务器，客户端并不直接访问目标服务器，而是先访问代理服务器，由代理服务器代替客户端去访问对应的目标服务器，并将目标服务器的响应结果返回给客户端</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230121058502.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230121058502.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230121058502">
+
+<p><strong>比如公司内部一般都会有自己的服务器，当我们使用公司内网上网时：</strong></p>
+<ul>
+<li><strong>我们对外网发起的数据请求，首先会转发到公司的这台服务器上，然后由公司的这台服务器代替你对外网进行访问</strong></li>
+<li><strong>当公司的服务器收到对应外网的响应数据后，再由公司的这台服务器将数据转发给你</strong></li>
+</ul>
+<p><strong><font color=red>正向代理的好处：</font></strong></p>
+<ul>
+<li><strong><font color=red>正向代理最大的一个好处就是可以加速资源访问</font></strong></li>
+<li><strong><font color=red>比如公司中大量员工都要访问外网的同一个资源，那么正向代理服务器就可以将对应的资源缓存到本地，此时当其他人要访问该资源时，直接在正向代理服务器就可以获取，而不需要再次进行外网访问</font></strong></li>
+</ul>
+<hr>
+<p><strong><mark>反向代理：</mark></strong></p>
+<p><strong><font color=green>反向代理，也是一个位于客户端和目标服务器之间的服务器，对于客户端而言，反向代理服务器就相当于目标服务器，用户不需要知道目标服务器的地址，用户只需要访问反向代理服务器就可以获得目标服务器提供的服务</font></strong></p>
+<p><strong><font color=green>反向代理，也是一个位于客户端和目标服务器之间的服务器，客户端直接向反向代理服务器发起数据请求，然后再由反向代理服务器将客户端的数据请求转发给真正的目标服务器进行处理，数据处理完毕后反向代理服务器再将数据结果返回给客户端</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230121328904.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230121328904.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230121328904">
+
+<p><strong>比如域名<code>www.baidu.com</code>对应的服务器实际就是一个反向代理服务器</strong></p>
+<ul>
+<li><strong>百度内部实际并不是只有一台服务器，但不同地区的人们都可以通过访问<a target="_blank" rel="noopener" href="http://www.baidu.com享受到百度提供的服务,实际我们访问的就是百度的反向代理服务器/">www.baidu.com享受到百度提供的服务，实际我们访问的就是百度的反向代理服务器</a></strong></li>
+<li><strong>当这台反向代理服务器收到客户端的数据请求后，就会将我们的数据请求转发给百度内部的某台服务器进行数据处理，然后再将数据处理的结果返回给客户端</strong></li>
+</ul>
+<p><strong><font color=red>反向代理的好处：</font></strong></p>
+<ul>
+<li><strong><font color=red>反向代理可以起到负载均衡的作用。比如不设置反向代理服务器，那么用户在访问百度时，就会随机访问到百度内部的某台服务器，此时就可能导致某些服务器压力太大，而某些服务器却处于闲置状态。而设置了反向代理服务器后，我们就能够通过某些方法让用户的数据请求较为平均的落到每台服务器上</font></strong></li>
+<li><strong><font color=red>反向代理还能起到安全防护的作用。有了方向代理服务器后，我们不需要直接将提供服务的服务器对应的信息暴露出去，此外，当由非法请求发送到反向代理服务器时，反向代理服务器就相当于一层软件屏障，可以在反向代理服务器当中部署一些防护措施，让这些非法请求在反向代理服务器这里就被过滤掉，而不会影响内部实际提供服务的服务器</font></strong></li>
+</ul>
+<p><strong><font color=red>需要注意的是，代理服务器的主要工作只是对数据进行转发，因此代理服务器处理数据的压力不会特别大，并且代理服务器也可以有多个，因此不必担心代理服务器过载的情况</font></strong></p>
+<hr>
+<p><strong><font color=red>正向代理和反向代理的异同：</font></strong></p>
+<p><strong><mark>正向代理和反向代理的相同点</mark></strong></p>
+<ul>
+<li><strong>正向代理服务器和反向代理服务器都是位于客户端和服务器之间的</strong></li>
+<li><strong>正向代理服务器和反向代理服务器的主要工作，都是把客户端的请求转发给服务器，再把服务器的响应转发给客户端</strong></li>
+</ul>
+<p><strong><mark>正向代理和反向代理的不同点</mark></strong></p>
+<ul>
+<li><strong>正向代理是客户端的代理，帮助客户端访问其无法访问的服务器资源的，而反向代理则是服务器的代理，帮助服务器做负载均衡、安全防护等工作的</strong></li>
+<li><strong>正向代理一般是客户端架设的，比如公司的正向代理服务器是公司作为客户端架设的，而反向代理一般是服务端架设的，比如百度的反向代理服务器是百度作为服务端架设的</strong></li>
+<li><strong>正向代理中，服务器不知道真正的客户端到底是谁，服务器认为正向代理服务器就是真实的客户端，而反向代理中，客户端不知道真正的服务器是谁，客户端认为反向代理服务器就是真实的服务器</strong></li>
+</ul>
+<hr>
+<p><strong><font color=red>NAT和代理服务器的区别：</font></strong></p>
+<p><strong>NAT和代理服务器都是代替我们向服务器发起数据请求的，但它们有如下区别：</strong></p>
+<ul>
+<li><strong>从应用上讲，NAT设备是网络基础设备之一，解决的是IP不足的问题，而代理服务器则是更贴近具体应用，比如通过代理服务器进行翻墙，另外像迅游这样的加速器，也是使用的代理服务器</strong></li>
+<li><strong>从底层实现上讲，NAT工作在网络层，直接对IP地址进行替换，而代理服务器往往工作在应用层</strong></li>
+<li><strong>从使用范围上讲，NAT一般在局域网的出口部署，而代理服务器可以在局域网代理，也可以在广域网代理，也可以跨网代理</strong></li>
+<li><strong>从部署位置上看，NAT一般集成在防火墙、路由器等硬件设备上，而代理服务器则是一个软件程序（比如Nginx和Apache），需要部署在服务器上</strong></li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h2><h3 id="ICMP功能"><a href="#ICMP功能" class="headerlink" title="ICMP功能"></a>ICMP功能</h3><blockquote>
+<p><strong><font color=red>ICMP的主要功能包括：</font></strong></p>
+<ul>
+<li><strong><mark>确认IP包是否成功到达目标地址</mark></strong></li>
+<li><strong><mark>通知在发送过程中IP包丢弃的原因</mark></strong></li>
+<li><strong><mark>ICMP只能搭配IPv4使用，如果是IPv6的情况下，需要使用ICMPv6</mark></strong></li>
+</ul>
+</blockquote>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122136789.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122136789.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230122136789">
+
+<p><strong><font color=green>当发送的数据包到达主机B所在局域网的入口路由器时，入口路由器为了获得主机B的MAC地址，于是会向主机B发送ARP请求包，但由于主机B已经离线了，因此路由器在多次发送ARP请求包而得不到响应后，就会返回一个ICMP Destination Unreachable的包给主机A，此时主机A就知道自己发送的数据无法到达主机B</font></strong></p>
+<hr>
+<h3 id="ICMP协议格式"><a href="#ICMP协议格式" class="headerlink" title="ICMP协议格式"></a>ICMP协议格式</h3><img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122247904.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122247904.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230122247904">
+
+<blockquote>
+<p><strong><code>ICMP大概分为两类报文：</code></strong></p>
+<ul>
+<li><strong><mark>一类是通知出错原因的</mark></strong></li>
+<li><strong><mark>一类是用于诊断查询的</mark></strong></li>
+</ul>
+</blockquote>
+<p><strong><font color=red>ICMP包常见类型如下：</font></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122336404.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122336404.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230122336404">
+
+<hr>
+<h3 id="ping命令与ICMP"><a href="#ping命令与ICMP" class="headerlink" title="ping命令与ICMP"></a>ping命令与ICMP</h3><p><strong><font color=red>ping命令是基于ICMP协议实现的，通常用于测试本地主机与另一台主机之间的通信信道是否正常</font></strong></p>
+<p><strong>例如，使用<code>ping www.baidu.com</code>命令，测试本地主机与百度服务器之间的通信信道是否正常</strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122738209.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122738209.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230122738209">
+
+<blockquote>
+<ul>
+<li><strong><mark>注意，此处ping的是百度的域名，该域名会由DNS解析成IP地址</mark></strong></li>
+<li><strong><mark>ping命令不仅能验证网络的连通性，同时也会统计响应时间和TTL（IP包中的Time To Live，生存时间）</mark></strong></li>
+<li><strong><mark>ping命令会先发送一个ICMP Echo Request给对端</mark></strong></li>
+<li><strong><mark>对端接收到之后，会返回一个ICMP Echo Reply</mark></strong></li>
+</ul>
+</blockquote>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122830516.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230122830516.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230122830516">
+
+<hr>
+<h3 id="traceroute命令与ICMP"><a href="#traceroute命令与ICMP" class="headerlink" title="traceroute命令与ICMP"></a>traceroute命令与ICMP</h3><p><strong><font color=red>traceroute命令也是基于ICMP协议实现的，traceroute命令可以遍历数据包传送到目标主机所经过的所有路由器</font></strong></p>
+<p><strong>例如，使用<code>traceroute www.baidu.com</code>命令，遍历数据包传送到百度服务器所经过的所有路由器</strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230123019891.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230123019891.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230123019891">
+
+<p><strong><font color=red>原理简述：</font></strong></p>
+<blockquote>
+<ul>
+<li><strong><mark>traceroute命令底层实际是通过增加存活时间（TTL）值来实现的</mark></strong></li>
+<li><strong><mark>因为每当数据包经过一个路由器，其TTL值就会减1，当TTL值减为0时对应路由设备就会将该数据包丢弃，并传送一个ICMP TTL数据包给发送主机</mark></strong></li>
+<li><strong><mark>因此traceroute命令底层可以发出多个数据包，并给这些数据包设置不同的TTL值，最后该主机就能够得到一连串的数据包路径</mark></strong></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="扩展：ping命令与面试官的圈套"><a href="#扩展：ping命令与面试官的圈套" class="headerlink" title="扩展：ping命令与面试官的圈套"></a>扩展：ping命令与面试官的圈套</h3><blockquote>
+<p><strong><font color=red>问题：telnet对应的端口号是23，ssh对应的端口号是22，那ping对应的端口号是多少？</font></strong></p>
+</blockquote>
+<p><strong><mark>这是面试官设的一个圈套，ping命令是基于网络层的ICMP协议，而端口号是属于传输层的内容，因此ICMP协议根本就不关心端口号这样的信息</mark></strong></p>
+<img src="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230123330603.png" class="lazyload placeholder" data-srcset="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/image-20221230123330603.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" class=" lazyload placeholder" title="image-20221230123330603">
+
+<p><strong><font color=red>因此，ping命令实际是绕过了传输层的，在Linux当中实际也有绕过传输层的一套网络编程接口，叫做原生套接字</font></strong></p>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/Linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="">
+              Linux网络编程
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>牟建波</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/" target="_blank" title="Linux网络协议之以太网协议(数据链路层)">https://Not-Go.github.io/2023/03/20/1.linux-wang-luo-xie-yi-zhi-yi-tai-wang-xie-yi-shu-ju-lian-lu-ceng/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" class="lazyload placeholder" data-srcset="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/03/20/1.linux-wang-luo-xie-yi-zhi-ip-xie-yi-wang-luo-ceng/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">Linux网络协议之IP协议(网络层)</div>
+      </div>
+      
+      <!-- <div class="content">
+        Linux网络协议之IP协议(网络层)IP协议基本概念IP协议全称为“网际互连协议（Internet Protocol）
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic2.zhimg.com/80/v2-63bbdb5b76b8d349ad35ff4281efbd37_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-63bbdb5b76b8d349ad35ff4281efbd37_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/03/12/1.sao-lei-xiang-mu/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">GUI版扫雷游戏</div>
+      </div>
+      <!-- <div class="content">
+        GUI版扫雷游戏项目观前提醒本程序为本人原创，没有参考任何其他资料或博客，图片素材基于原版扫雷图片
+
+制作带GUI的扫雷
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-show="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-show="visible">
+      <div class="donate-box_close">
+        <i class="fas fa-times" aria-hidden="true" @click="cancelDialogDrawer" pointer></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" pointer :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" pointer :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-show="tabActive === 'Alipay'">
+          <img src="/img/qq.jpg" class="lazyload placeholder" data-srcset="/img/qq.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-show="tabActive === 'WeChatpay'">
+          <img src="/img/wechat.jpg" class="lazyload placeholder" data-srcset="/img/wechat.jpg" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-container"></div>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  <aside id='l_side'>
+  
+    
+      <section class="widget side_blogger">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box rectangle' href='/about/'>
+          <img src='https://pic2.zhimg.com/80/v2-42b72d5ebee4b8d8aa70d9687effe87b_1440w.webp'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+          <h2>牟建波</h2>
+        
+        
+        
+          <p><span id="jinrishici-sentence">建波的学习妙妙屋</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@1353429820@qq.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://gitee.com/Not_Go"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name' style="color: ">本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%E4%B9%8B%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%8D%8F%E8%AE%AE-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="toc-text">Linux网络协议之以太网协议(数据链路层)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">数据链路层解决的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%8D%8F%E8%AE%AE"><span class="toc-text">以太网协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86%E4%BB%A5%E5%A4%AA%E7%BD%91"><span class="toc-text">认识以太网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E6%A0%BC%E5%BC%8F"><span class="toc-text">以太网帧格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86MAC%E5%9C%B0%E5%9D%80"><span class="toc-text">认识MAC地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC%E5%9C%B0%E5%9D%80%E4%B8%8EIP%E5%9C%B0%E5%9D%80%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">MAC地址与IP地址的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARP%E5%8D%8F%E8%AE%AE"><span class="toc-text">ARP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">ARP协议的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP%E6%95%B0%E6%8D%AE%E6%8A%A5%E6%A0%BC%E5%BC%8F"><span class="toc-text">ARP数据报格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP%E5%8D%8F%E8%AE%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">ARP协议工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP%E7%BC%93%E5%AD%98%E8%A1%A8"><span class="toc-text">ARP缓存表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86MTU-%E6%9C%80%E5%A4%A7%E4%BC%A0%E8%BE%93%E5%8D%95%E5%85%83"><span class="toc-text">认识MTU(最大传输单元)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MTU%E5%AF%B9IP%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">MTU对IP协议的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MTU%E5%AF%B9UDP%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">MTU对UDP协议的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MTU%E5%AF%B9TCP%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">MTU对TCP协议的影响</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS%E5%8D%8F%E8%AE%AE-%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F%E5%8D%8F%E8%AE%AE"><span class="toc-text">DNS协议(域名系统协议)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E8%83%8C%E6%99%AF"><span class="toc-text">DNS背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E7%AE%80%E4%BB%8B"><span class="toc-text">域名简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="toc-text">域名解析过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dig%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90DNS%E8%BF%87%E7%A8%8B"><span class="toc-text">dig工具分析DNS过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAT%E5%8D%8F%E8%AE%AE"><span class="toc-text">NAT协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NAT%E6%8A%80%E6%9C%AF%E8%83%8C%E6%99%AF"><span class="toc-text">NAT技术背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAT-IP%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="toc-text">NAT IP转换过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAT%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">NAT的作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAPT%E5%8D%8F%E8%AE%AE-%E5%8A%A8%E6%80%81NAT%E9%87%8D%E8%BD%BD"><span class="toc-text">NAPT协议(动态NAT重载)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NAPT-IP%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="toc-text">NAPT IP转换过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAT%E6%8A%80%E6%9C%AF%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">NAT技术的缺陷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAT%E5%92%8C%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">NAT和代理服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICMP%E5%8D%8F%E8%AE%AE"><span class="toc-text">ICMP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP%E5%8A%9F%E8%83%BD"><span class="toc-text">ICMP功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP%E5%8D%8F%E8%AE%AE%E6%A0%BC%E5%BC%8F"><span class="toc-text">ICMP协议格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ping%E5%91%BD%E4%BB%A4%E4%B8%8EICMP"><span class="toc-text">ping命令与ICMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#traceroute%E5%91%BD%E4%BB%A4%E4%B8%8EICMP"><span class="toc-text">traceroute命令与ICMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%EF%BC%9Aping%E5%91%BD%E4%BB%A4%E4%B8%8E%E9%9D%A2%E8%AF%95%E5%AE%98%E7%9A%84%E5%9C%88%E5%A5%97"><span class="toc-text">扩展：ping命令与面试官的圈套</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/07/05/hello-world/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">07-05</span>
+                
+              </div>
+              <a class="post-title" href="/2023/07/05/hello-world/">Hello World</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" class="lazyload placeholder" data-srcset="https://pic2.zhimg.com/80/v2-e22aaad20d20634f506f57fff0fcbc17_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-zu-cheng-yuan-li/">专业核心基础理论：计算机组成原理</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/20/zhuan-ye-he-xin-ji-chu-li-lun-ji-suan-ji-wang-luo/">专业核心基础理论：计算机网络</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/08/wo-de-linux-ri-zhi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-08</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/08/wo-de-linux-ri-zhi/">低谷期成长日志</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-20</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/20/1.linux-wang-luo-ji-chu-gai-nian/">Linux网络基础概念</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fas fa-rss" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://mail.qq.com/cgi-bin/frame_html?sid=KBSRKCNvjCdIfCxP&amp;r=1d7d9d00703f1c291266ec60a05a3ec1&amp;lang=zh" class="social">
+                  
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go" class="social">
+                  
+                    <i class="fab fa-github" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+              
+                <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=1353429820" class="social">
+                  
+                    <i class="fab fa-qq" aria-hidden="true"></i>
+                  
+                </a>
+              
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2022 - 2032 <a target="_blank" rel="noopener" href="https://gitee.com/Not_Go">牟建波</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+      <link rel="stylesheet" href="/js/aplayer/APlayer@1.10.1.min.css">
+<style>
+.aplayer .aplayer-lrc p {
+  
+  display: none;
+  
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px !important;
+}
+
+.aplayer .aplayer-lrc p.aplayer-lrc-current {
+  
+  display: none;
+  
+  font-size: 15px;
+  color: #42b983;
+}
+
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0px !important;
+}
+
+
+</style>
+<meting-js  
+  class=""
+  server="netease"
+  type="playlist"
+  id="2905900351"
+  fixed='true'
+  autoplay='false'
+  theme='#42b983'
+  loop='all'
+  order='random'
+  preload='auto'
+  volume='0.7'
+  list-folded='true'
+>
+</meting-js>
+
+<!-- <style>
+  #aplayer {
+    position: fixed;
+    left: 0;
+    bottom: 300px;
+  }
+</style> -->
+<script src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<script src="https://unpkg.com/meting@2/dist/Meting.min.js"></script>
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的图片标签(getPhotoOnline)里的内容 -->
+<script>
+  function loadPhotoOnlineJS() {
+    if ($(".post-detail").find(".getJsonPhoto-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getPhotoOnline/index.js');
+  };
+  $(function () {
+    loadPhotoOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getPhotoJson == "undefined") {
+      loadPhotoOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的talk标签(getTalkOnline)里的内容 -->
+<script>
+  function loadTalkOnlineJS() {
+    if ($(".post-detail").find(".getJsonTalk-api").length == 0) {
+      return;
+    } 
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/waterfall.js/1.0.2/waterfall.min.js'); // 瀑布流插件，https://raphamorim.io/waterfall.js/
+    loadScript('/js/getTalkOnline/index.js');
+  };
+  $(function () {
+    loadTalkOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getTalkJson == "undefined") {
+      loadTalkOnlineJS();
+    }
+  })
+</script>
+
+<!-- 渲染远程json加载的site-card标签(getSiteOnline)里的内容 -->
+<script>
+  function loadSiteOnlineJS() {
+    if ($(".post-detail").find(".getJsonSite-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/getSiteOnline/index.js');
+  };
+  $(function () {
+    loadSiteOnlineJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof getSiteJson == "undefined") {
+      loadSiteOnlineJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+
+    <script type="text/javascript">
+  loadScript("https://unpkg.com/scrollreveal@4.0.6/dist/scrollreveal.min.js")
+  function pjax_scrollrebeal() {
+    ScrollReveal().reveal('.reveal', {
+      distance: '120px',
+      duration: '400',
+      interval: '30',
+      scale: '1',
+      origin: 'bottom', // 动画开始的方向
+      easing: 'ease'
+    });
+  }
+  $(function () {
+    var checkScrollReveal = setInterval(function () {
+      if ($("#safearea").css("display") != "block") return
+      if (typeof ScrollReveal == "undefined") return
+      clearInterval(checkScrollReveal)
+      pjax_scrollrebeal();
+    }, 100)
+  });
+  document.addEventListener('pjax:complete', function () {
+    pjax_scrollrebeal();
+  })
+</script>
+   
+
+<!-- 评论所需js -->
+
+  
+    <script type="text/javascript">
+  var utteranceCommon = {};
+
+  function check_utterance() {
+    let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+    if (isDark) {
+      utteranceCommon.Theme = 'github-dark';
+    } else {
+      utteranceCommon.Theme = 'github-light';
+    }
+
+    return document.getElementById("gitment-container");
+  }
+  comment_el = '#gitment-container';
+  load_utterance = function () {
+    if ($(comment_el).length) {
+      // 匿名函数，防止污染全局变量
+      const HEAD = check_utterance();
+
+      var utterances = document.createElement('script');
+      utterances.type = 'text/javascript';
+      utterances.async = true;
+      utterances.setAttribute('issue-term', 'pathname')
+      utterances.setAttribute('theme', utteranceCommon.Theme)
+      utterances.setAttribute('repo', 'Not-Go/Not-Go.github.io')
+      utterances.crossorigin = 'anonymous';
+      utterances.src = 'https://utteranc.es/client.js';
+      // content 是要插入评论的地方
+      document.getElementById('gitment-container').appendChild(utterances);
+
+    }
+  }
+
+  function dark_utterance() {
+    const HEAD = check_utterance();
+    if (!HEAD) return;
+    const message = {
+      type: 'set-theme',
+      theme: utteranceCommon.Theme
+    };
+    const utteranceIframe = document.querySelector('iframe');
+    utteranceIframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+
+  $(document).ready(load_utterance);
+  document.addEventListener('pjax:complete', function () {
+    load_utterance();
+  });
+
+  $('.dark').click(function () {
+    setTimeout(() => {
+      dark_utterance();
+    });
+  })
+
+</script>
+
+<style>
+  .utterances {
+    max-width: inherit !important;
+  }
+</style>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>
